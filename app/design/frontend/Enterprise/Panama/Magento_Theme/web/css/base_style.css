@@ -1,0 +1,7 @@
+.products-grid .product-item {
+    margin-left: 0;
+    width: 20%;
+    border: 2px solid;
+    margin: 10px;
+    padding: 10px  !important;
+}
