@@ -19,6 +19,15 @@ use Magento\Framework\App\Action\Action;
 $_productCollection = $block->getLoadedProductCollection();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
 $customViewBlock = $block->getLayout()->createBlock('Panama\Catalog\Block\Product\CustomView');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+if($category->getId() == 6) {
+	$categoryName = 'prepaid';
+} else if($category->getId() == 7) {
+	$categoryName = 'postpaid';
+} else {
+	$categoryName = '';
+}
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
@@ -57,7 +66,7 @@ $customViewBlock = $block->getLayout()->createBlock('Panama\Catalog\Block\Produc
                     }
                     ?>
                     <?php // Product Image ?>
-                    <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
+                    <a href="<?php if($_product->getTypeId() == 'bundle'): ?>javascript:void(0)<?php else: ?><?= /* @escapeNotVerified */ $_product->getProductUrl() ?> <?php endif; ?>" class="product photo product-item-photo" tabindex="-1">
                         <?= $productImage->toHtml() ?>
                     </a>
                     <div class="product details product-item-details">
@@ -66,20 +75,19 @@ $customViewBlock = $block->getLayout()->createBlock('Panama\Catalog\Block\Produc
                         ?>
                         <strong class="product name product-item-name">
                             <a class="product-item-link"
-                               href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>">
+                               href="<?php if($_product->getTypeId() == 'bundle'): ?>javascript:void(0)<?php else: ?><?= /* @escapeNotVerified */ $_product->getProductUrl() ?> <?php endif; ?>">
                                 <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
                             </a>
                         </strong>
                         <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
                         <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
-                        <?= $block->getProductDetailsHtml($_product) ?>
-
+                        <?= $block->getProductDetailsHtml($_product) ?>						
                         <div class="product-item-inner">
                             <div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $position : '' ?>>
                                 <div class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $position : '' ?>>
                                     <?php if ($_product->isSaleable()): ?>
 										<?php if($_product->getTypeId() == 'bundle'): ?>
-											<a class="action tocart primary" href="<?php echo $customViewBlock->getCustomCartUrl($_product->getId()) ?>" ><?= $block->escapeHtml(__('Add to Cart')) ?> </a>
+											<a id="bundle_add_cart-<?php echo $_product->getId(); ?>" class="bundle_add_cart action tocart primary" href="javascript:void(0)" ><?= $block->escapeHtml(__('Add to Cart')) ?> </a>
 										<?php else: ?>
 											<?php $postParams = $block->getAddToCartPostParams($_product); ?>
 											<form data-role="tocart-form" data-product-sku="<?=  /* @NoEscape */ $_product->getSku() ?>" action="<?= /* @NoEscape */ $postParams['action'] ?>" method="post">
@@ -110,7 +118,7 @@ $customViewBlock = $block->getLayout()->createBlock('Panama\Catalog\Block\Produc
                             <?php if ($showDescription):?>
                                 <div class="product description product-item-description">
                                     <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-                                    <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" title="<?= /* @escapeNotVerified */ $_productNameStripped ?>"
+                                    <a href="<?php if($_product->getTypeId() == 'bundle'): ?>javascript:void(0)<?php else: ?><?= /* @escapeNotVerified */ $_product->getProductUrl() ?> <?php endif; ?>" title="<?= /* @escapeNotVerified */ $_productNameStripped ?>"
                                        class="action more"><?= /* @escapeNotVerified */ __('Learn More') ?></a>
                                 </div>
                             <?php endif; ?>
@@ -134,3 +142,114 @@ $customViewBlock = $block->getLayout()->createBlock('Panama\Catalog\Block\Produc
         </script>
     <?php endif; ?>
 <?php endif; ?>
+<div class="modal-content" id="modal-content" style="display:none">
+	<div class="modal-body" id="bundle_port">
+	<input type="hidden" id="product_id" />
+	<div class="row" id ="port_div">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>Are you making portability</label><br>
+			<input type="radio" name="port" value="yes">Yes<br>
+			<input type="radio" name="port" value="no">No<br>
+		</div>
+    </div>
+	<div class="row" id="current_service_div" style="display:none">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>Current service is:</label><br>
+			<input type="radio" name="current_service" value="prepaid">Prepaid<br>
+			<input type="radio" name="current_service" value="postpaid">Postpaid<br>
+		</div>
+    </div>
+	<div class="row" id ="buy_smartphone_div" style="display:none">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>Would you like to buy a smartphone</label><br>
+			<input type="radio" name="buy_smartphone" value="yes">Yes<br>
+			<input type="radio" name="buy_smartphone" value="no">No<br>
+		</div>
+    </div>
+	</div>
+</div>
+<script>
+require([
+	'jquery',
+	'Magento_Ui/js/modal/modal'
+], function ($, modal) {
+	var optionsVal = {
+		type: 'popup',
+		responsive: true,
+		innerScroll: false,
+	};
+	var popupData = modal(optionsVal, $('#modal-content'));
+	
+	$(".bundle_add_cart").on("click", function () {
+		var idArray = $(this).attr('id').split('-');
+		var id = idArray[1];
+		$("#product_id").val(id);
+		$("#modal-content").css("display", "block");
+		$('#modal-content').modal('openModal');
+	});
+	
+	$("input[type=radio][name=port]").on('click',function () {
+		var product_id = $("#product_id").val();
+		var port = $(this).val();
+		var current_service = '';
+		var buy_smartphone = '';
+		if(port == 'yes'){
+			$("#port_div").css("display", "none");
+			$("#current_service_div").css("display", "block");
+			$("#buy_smartphone_div").css("display", "none");
+		} else {
+			var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
+			$.ajax({
+					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
+					dataType: 'json',
+					showLoader: true,
+					type: 'post',
+					data: data11,
+					success: function (data) {
+						window.location.href = data;
+					}
+				});
+		}
+	});
+	$("input[type=radio][name=current_service]").on('click',function () {
+		var product_id = $("#product_id").val();
+		var port = $('input[name=port]:checked').val();
+		var current_service = $(this).val();
+		var buy_smartphone = '';
+		if(current_service == '<?php echo $categoryName; ?>'){
+			$("#port_div").css("display", "none");
+			$("#current_service_div").css("display", "none");
+			$("#buy_smartphone_div").css("display", "block");
+		} else {
+			var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
+			$.ajax({
+					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
+					dataType: 'json',
+					showLoader: true,
+					type: 'post',
+					data: data11,
+					success: function (data) {
+						window.location.href = data;
+					}
+				});
+		}
+	});
+	$("input[type=radio][name=buy_smartphone]").on('click',function () {
+		var product_id = $("#product_id").val();
+		var port = $('input[name=port]:checked').val();
+		var current_service = $('input[name=current_service]:checked').val();
+		var buy_smartphone = $(this).val();
+		var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
+		$.ajax({
+				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
+				dataType: 'json',
+				showLoader: true,
+				type: 'post',
+				data: data11,
+				success: function (data) {
+					console.log(data);
+				}
+			});
+	});
+});
+</script>
