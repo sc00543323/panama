@@ -30,11 +30,13 @@ class Add extends \Magento\Framework\App\Action\Action
      */
 	protected $_cart;
 	protected $_productRepository;
-	protected $_storeManager; 
+	protected $_storeManager;
+	protected $_checkoutSession;
 	
     public function __construct(
 		Context $context,
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
+		\Magento\Checkout\Model\Session $checkoutSession,
 		FormKey $formKey,
 		ProductFactory $productFactory,
 		Cart $cart,
@@ -48,6 +50,7 @@ class Add extends \Magento\Framework\App\Action\Action
 		$this->_cart = $cart;
 		$this->_productRepository = $productRepository;
 		$this->_storeManager = $storeManager;
+		$this->_checkoutSession = $checkoutSession;
 	}
  
     /**
@@ -64,8 +67,12 @@ class Add extends \Magento\Framework\App\Action\Action
 					throw new \Magento\Framework\Exception\LocalizedException(__('Invalid Product.'));
 				}
 			}
-			$product = $this->_productRepository->getById($productId);		
-						
+			$product = $this->_productRepository->getById($productId);
+			
+			$portSessionVal = $this->_checkoutSession->getPort();
+			$currentServiceSessionVal = $this->_checkoutSession->getCurrentService();
+			$buySmartphoneSessionVal = $this->_checkoutSession->getBuySmartphone();
+			
 			if($product->getTypeId() == 'bundle'){
 				$bundledOptions = $this->getBundleProductOptionsData($productId); // All option of the bundled product
 				$resultPage = $this->resultPageFactory->create();
@@ -91,27 +98,11 @@ class Add extends \Magento\Framework\App\Action\Action
 			if (!$this->_cart->getQuote()->getHasError()) {
                           $cart = $this->_cart->getQuote()->getAllVisibleItems();
                           $cartCount = count($cart);
-                          //if ($cartCount > 1) {  // removed from optimization
-                          
 				$message = __(
 					'You added %1 to your shopping cart.',
 					$product->getName()
 				);
-				
-				$store_tl = $this->_storeManager->getStore()->getCode();
-				//$store_tl = 'nl';
-                    if ($store_tl == 'nl') {
-                    $message = __(
-                                'Je hebt %1 toegevoegd aan je winkelmandje.', $product->getName()
-                    );
-                    } else {
-                        $message = __(
-                                "Vous avez ajouté %1 à votre panier d'achat.", $product->getName()
-                        );
-                    }
-
 				$this->messageManager->addSuccessMessage($message);
-                     //   }
 			}	
           $this->_eventManager->dispatch(
                 'checkout_cart_add_product_complete',

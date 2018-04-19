@@ -34,19 +34,9 @@ class Index extends \Magento\Framework\App\Action\Action {
 			$this->_checkoutSession->setCurrentService($data['current_service']);
 			$this->_checkoutSession->setBuySmartphone($data['buy_smartphone']);
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-			if($data['current_service'] == 'postpaid') {
-				$categoryId = 7;
-			} else if($data['current_service'] == 'prepaid') {
-				$categoryId = 6;
-			} else {
-				$categoryId = '';
-			}
 			if($data['port'] == 'no') {
 				$resultJson->setData($this->_url->getUrl('customcatalog/cart/add/', array('id' => $data['product_id'])));
 				
-			} else if($data['buy_smartphone'] == '' && ($data['current_service'] == 'postpaid' || $data['current_service'] == 'prepaid')) { 
-				$category = $this->_categoryRepository->get($categoryId, $this->_storeManager->getStore()->getId());
-				$resultJson->setData($category->getUrl());
 			} else if($data['buy_smartphone'] == 'no') {
 				$resultJson->setData($this->_url->getUrl('customcatalog/cart/add/', array('id' => $data['product_id'])));
 			} else if($data['buy_smartphone'] == 'yes') {

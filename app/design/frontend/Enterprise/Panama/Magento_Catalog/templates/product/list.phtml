@@ -18,16 +18,11 @@ use Magento\Framework\App\Action\Action;
 <?php
 $_productCollection = $block->getLoadedProductCollection();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
-$customViewBlock = $block->getLayout()->createBlock('Panama\Catalog\Block\Product\CustomView');
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
-if($category->getId() == 6) {
-	$categoryName = 'prepaid';
-} else if($category->getId() == 7) {
-	$categoryName = 'postpaid';
-} else {
-	$categoryName = '';
-}
+$checkoutSession = $objectManager->create('Magento\Checkout\Model\Session');
+echo "port->".$checkoutSession->getPort().'<br>';
+echo "current_service ->".$checkoutSession->getCurrentService().'<br>';
+echo "buy_smartphone->".$checkoutSession->getBuySmartphone();
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
@@ -216,23 +211,9 @@ require([
 		var port = $('input[name=port]:checked').val();
 		var current_service = $(this).val();
 		var buy_smartphone = '';
-		if(current_service == '<?php echo $categoryName; ?>'){
-			$("#port_div").css("display", "none");
-			$("#current_service_div").css("display", "none");
-			$("#buy_smartphone_div").css("display", "block");
-		} else {
-			var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
-			$.ajax({
-					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
-					dataType: 'json',
-					showLoader: true,
-					type: 'post',
-					data: data11,
-					success: function (data) {
-						window.location.href = data;
-					}
-				});
-		}
+		$("#port_div").css("display", "none");
+		$("#current_service_div").css("display", "none");
+		$("#buy_smartphone_div").css("display", "block");
 	});
 	$("input[type=radio][name=buy_smartphone]").on('click',function () {
 		var product_id = $("#product_id").val();
@@ -247,7 +228,7 @@ require([
 				type: 'post',
 				data: data11,
 				success: function (data) {
-					window.location.href = data; 
+					window.location.href = data;
 				}
 			});
 	});
