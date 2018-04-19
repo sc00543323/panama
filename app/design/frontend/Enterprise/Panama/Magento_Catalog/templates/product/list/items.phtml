@@ -184,9 +184,9 @@ switch ($type = $block->getType()) {
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($type == 'related' || $type == 'upsell'): ?>
-                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li id="plan_detail" class="item product product-item" style="display: none;">' : '</li><li id="plan_detail" class="item product product-item" style="display: none;">' ?>
+                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li id="plan_'.$_item->getId().'" class="item product product-item plan_detail" style="display: none;">' : '</li><li id="plan_'.$_item->getId().'" class="item product product-item plan_detail" style="display: none;">' ?>
                 <?php else: ?>
-                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li id="plan_detail" class="item product product-item">' : '</li><li id="plan_detail" class="item product product-item">' ?>
+                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li id="plan_'.$_item->getId().'" class="item product product-item plan_detail">' : '</li><li id="plan_'.$_item->getId().'" class="item product product-item plan_detail">' ?>
                 <?php endif; ?>
                 <div class="product-item-info <?= /* @escapeNotVerified */ $available ?>">
                     <?= /* @escapeNotVerified */ '<!-- ' . $image . '-->' ?>
@@ -198,7 +198,7 @@ switch ($type = $block->getType()) {
                             <?= $block->escapeHtml($_item->getName()) ?></a>
                         </strong>
 						<strong class="product name product-item-name">
-						<a class="product-item-link" title="<?= $block->escapeHtml($_item->getName()) ?>" href="javascript:void(0)">
+						<a class="product-item-link"  title="<?= $block->escapeHtml($_item->getId()) ?>" href="javascript:void(0)">
                             Smartphone Price:<?php echo $this->getProduct()->getPrice(); ?></a>
                         </strong>
 						
@@ -263,14 +263,79 @@ switch ($type = $block->getType()) {
         </div>
     </div>
 </div>
+<div class="modal-content" id="modal-content" style="display:none">
+	<div class="modal-body" id="bundle_port">
+	<input type="hidden" id="product_id" />
+	<div class="row" id ="port_div">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>When you select “With contract” your Credit References will be checked,Do you agree?</label><br>
+			<input type="radio" name="agree_condition" value="1">Yes<br>
+			<input type="radio" name="agree_condition" value="0">No<br>
+		</div>
+    </div>
+	<div class="row" id="current_service_div" style="display:none">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>Current service is:</label><br>
+			<input type="radio" name="current_service" value="prepaid">Prepaid<br>
+			<input type="radio" name="current_service" value="postpaid">Postpaid<br>
+		</div>
+    </div>
+	<div class="row" id ="buy_smartphone_div" style="display:none">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>Would you like to buy a smartphone</label><br>
+			<input type="radio" name="buy_smartphone" value="yes">Yes<br>
+			<input type="radio" name="buy_smartphone" value="no">No<br>
+		</div>
+    </div>
+	</div>
+</div>
+
 <?php endif;?>
 <script>
 	require([
-		"jquery"
-	], function ($) {
-		$('.product-item').on('click', function() {
-			
-        });
-		
+		'jquery',
+		'Magento_Ui/js/modal/modal'
+	], function ($,modal) {
+		var optionsVal = {
+		type: 'popup',
+		responsive: true,
+		innerScroll: false,
+	};
+	
+	var popupData = modal(optionsVal, $('#modal-content'));
+	
+	$(".plan_detail").on("click", function () {
+		var idArray = $(this).attr('id').split('-');
+		var id = idArray[1];
+		$("#product_id").val(id);
+		$("#modal-content").css("display", "block");
+		$('#modal-content').modal('openModal');
+	});
+	
+		$("input[type=radio][name=agree_condition]").on('click',function () {
+		var product_id = $("#product_id").val();
+		var condition = $(this).val();
+		var current_service = '';
+		var buy_smartphone = '';
+		if(port == 'yes'){
+			$("#port_div").css("display", "none");
+			$("#current_service_div").css("display", "block");
+			$("#buy_smartphone_div").css("display", "none");
+		} else {
+			var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
+			$.ajax({
+					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
+					dataType: 'json',
+					showLoader: true,
+					type: 'post',
+					data: data11,
+					success: function (data) {
+						window.location.href = data;
+					}
+				});
+		}
+	});
+	
 	});
 </script>
+
