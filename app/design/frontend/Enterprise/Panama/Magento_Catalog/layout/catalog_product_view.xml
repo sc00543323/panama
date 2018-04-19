@@ -4,6 +4,17 @@
 <!--remove original block-->
 <!--add the new block within product details tab-->
 
-<move element="product.info.upsell" destination="product.info.main" after="product_options_wrapper_bottom"/>
+<move element="product.info.upsell" destination="product.info.main" after="product.info.price"/>
+
+	 <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
 </body>
 </page>

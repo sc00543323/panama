@@ -44,7 +44,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 			if($data['port'] == 'no') {
 				$resultJson->setData($this->_url->getUrl('customcatalog/cart/add/', array('id' => $data['product_id'])));
 				
-			} else if($data['current_service'] == 'postpaid' || $data['current_service'] == 'prepaid') {
+			} else if($data['buy_smartphone'] == '' && ($data['current_service'] == 'postpaid' || $data['current_service'] == 'prepaid')) { 
 				$category = $this->_categoryRepository->get($categoryId, $this->_storeManager->getStore()->getId());
 				$resultJson->setData($category->getUrl());
 			} else if($data['buy_smartphone'] == 'no') {
