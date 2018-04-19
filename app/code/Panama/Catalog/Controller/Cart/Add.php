@@ -94,6 +94,13 @@ class Add extends \Magento\Framework\App\Action\Action
 			$this->_cart->addProduct($product, $params);
 			$this->_cart->save();
                     
+			$allItems = $this->_cart->getQuote()->getAllItems();
+			foreach ($allItems as $item) {
+				$item->setIsPortable($portSessionVal);
+				$item->setCurrentService($currentServiceSessionVal);
+				$item->setIsSmartphone($buySmartphoneSessionVal);
+				$item->save();
+			}
 			//$this->_redirect("checkout/cart");
 			if (!$this->_cart->getQuote()->getHasError()) {
                           $cart = $this->_cart->getQuote()->getAllVisibleItems();
