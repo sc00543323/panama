@@ -20,9 +20,9 @@ $_productCollection = $block->getLoadedProductCollection();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $checkoutSession = $objectManager->get('Magento\Catalog\Model\Session');
-echo "port ->".$checkoutSession->getPort().'<br>';
+/*echo "port ->".$checkoutSession->getPort().'<br>';
 echo "current_service ->".$checkoutSession->getCurrentService().'<br>';
-echo "buy_smartphone->".$checkoutSession->getBuySmartphone();
+echo "buy_smartphone->".$checkoutSession->getBuySmartphone();*/
 
 ?>
 <?php if (!$_productCollection->count()): ?>
@@ -195,17 +195,9 @@ require([
 			$("#current_service_div").css("display", "block");
 			$("#buy_smartphone_div").css("display", "none");
 		} else {
-			var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
-			$.ajax({
-					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
-					dataType: 'json',
-					showLoader: true,
-					type: 'post',
-					data: data11,
-					success: function (data) {
-						window.location.href = data;
-					}
-				});
+			$("#port_div").css("display", "none");
+			$("#current_service_div").css("display", "none");
+			$("#buy_smartphone_div").css("display", "block");
 		}
 	});
 	$("input[type=radio][name=current_service]").on('click',function () {

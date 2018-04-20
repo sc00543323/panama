@@ -34,10 +34,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 			$this->_checkoutSession->setCurrentService($data['current_service']);
 			$this->_checkoutSession->setBuySmartphone($data['buy_smartphone']);
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-			if($data['port'] == 'no') {
-				$resultJson->setData($this->_url->getUrl('customcatalog/cart/add/', array('id' => $data['product_id'])));
-				
-			} else if($data['buy_smartphone'] == 'no') {
+			if($data['buy_smartphone'] == 'no') {
 				$resultJson->setData($this->_url->getUrl('customcatalog/cart/add/', array('id' => $data['product_id'])));
 			} else if($data['buy_smartphone'] == 'yes') {
 				$categoryId = 4;
