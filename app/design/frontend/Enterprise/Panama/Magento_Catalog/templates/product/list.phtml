@@ -19,10 +19,11 @@ use Magento\Framework\App\Action\Action;
 $_productCollection = $block->getLoadedProductCollection();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$checkoutSession = $objectManager->create('Magento\Checkout\Model\Session');
-echo "port->".$checkoutSession->getPort().'<br>';
+$checkoutSession = $objectManager->get('Magento\Catalog\Model\Session');
+echo "port ->".$checkoutSession->getPort().'<br>';
 echo "current_service ->".$checkoutSession->getCurrentService().'<br>';
 echo "buy_smartphone->".$checkoutSession->getBuySmartphone();
+
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>

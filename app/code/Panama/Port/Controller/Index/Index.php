@@ -15,7 +15,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
 		\Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
 		\Magento\Framework\UrlInterface $url,
-		\Magento\Checkout\Model\Session $checkoutSession
+		\Magento\Catalog\Model\Session $checkoutSession
 	){
 		parent::__construct($context);
 		$this->_storeManager = $storeManager;
