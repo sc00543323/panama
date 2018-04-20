@@ -151,27 +151,6 @@ switch ($type = $block->getType()) {
     break;
 }
 ?>
-<div class="row" id ="port_div">
-        <div class="col-xs-12 margin-xs-b-m">   
-            <label>Are you making portability?</label><br>
-            <input type="radio" class="portable" name="portable" value="1">Yes<br>
-            <input type="radio" class="portable" name="portable" value="0">No<br>
-        </div>
-    </div>
-    <div class="row" id ="service_div" style="display: none;">
-        <div class="col-xs-12 margin-xs-b-m">   
-            <label>Current service is:</label><br>
-            <input type="radio" class="service" name="service" value="1">Prepaid<br>
-            <input type="radio" class="service" name="service" value="0">Postpaid<br>
-        </div>
-    </div>
-    <div class="row" id ="contract_div" style="display: none;">
-        <div class="col-xs-12 margin-xs-b-m">   
-            <label>How do you want it?</label><br>
-            <input type="radio" class="contract" name="agree_condition" value="1">Contract<br>
-            <input type="radio" class="contract" name="agree_condition" value="0">Prepaid<br>
-        </div>
-    </div>
 <?php if ($exist):?>
 
     <?php if ($type == 'related' || $type == 'upsell'): ?>
