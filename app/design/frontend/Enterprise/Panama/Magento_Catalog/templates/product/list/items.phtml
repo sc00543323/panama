@@ -151,7 +151,27 @@ switch ($type = $block->getType()) {
     break;
 }
 ?>
-
+<div class="row" id ="port_div">
+        <div class="col-xs-12 margin-xs-b-m">   
+            <label>Are you making portability?</label><br>
+            <input type="radio" class="portable" name="portable" value="1">Yes<br>
+            <input type="radio" class="portable" name="portable" value="0">No<br>
+        </div>
+    </div>
+    <div class="row" id ="service_div" style="display: none;">
+        <div class="col-xs-12 margin-xs-b-m">   
+            <label>Current service is:</label><br>
+            <input type="radio" class="service" name="service" value="1">Prepaid<br>
+            <input type="radio" class="service" name="service" value="0">Postpaid<br>
+        </div>
+    </div>
+    <div class="row" id ="contract_div" style="display: none;">
+        <div class="col-xs-12 margin-xs-b-m">   
+            <label>How do you want it?</label><br>
+            <input type="radio" class="contract" name="agree_condition" value="1">Contract<br>
+            <input type="radio" class="contract" name="agree_condition" value="0">Prepaid<br>
+        </div>
+    </div>
 <?php if ($exist):?>
 
     <?php if ($type == 'related' || $type == 'upsell'): ?>
@@ -184,9 +204,9 @@ switch ($type = $block->getType()) {
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($type == 'related' || $type == 'upsell'): ?>
-                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li id="plan_'.$_item->getId().'" class="item product product-item plan_detail" style="display: none;">' : '</li><li id="plan_'.$_item->getId().'" class="item product product-item plan_detail" style="display: none;">' ?>
+                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li style="width: 35%;" id="plan_'.$_item->getId().'" class="item product product-item plan_detail" style="display: none;">' : '</li><li style="width: 35%;" id="plan_'.$_item->getId().'" class="item product product-item plan_detail" style="display: none;">' ?>
                 <?php else: ?>
-                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li id="plan_'.$_item->getId().'" class="item product product-item plan_detail">' : '</li><li id="plan_'.$_item->getId().'" class="item product product-item plan_detail">' ?>
+                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li  style="width: 35%;" id="plan_'.$_item->getId().'" class="item product product-item plan_detail">' : '</li><li style="width: 35%;" id="plan_'.$_item->getId().'" class="item product product-item plan_detail">' ?>
                 <?php endif; ?>
                 <div class="product-item-info <?= /* @escapeNotVerified */ $available ?>">
                     <?= /* @escapeNotVerified */ '<!-- ' . $image . '-->' ?>
@@ -199,7 +219,7 @@ switch ($type = $block->getType()) {
                         </strong>
 						<strong class="product name product-item-name">
 						<a class="product-item-link"  title="<?= $block->escapeHtml($_item->getId()) ?>" href="javascript:void(0)">
-                            Smartphone Price:<?php echo $this->getProduct()->getPrice(); ?></a>
+                            Smartphone Price:$300.00</a>
                         </strong>
 						
                         <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
@@ -263,32 +283,9 @@ switch ($type = $block->getType()) {
         </div>
     </div>
 </div>
-<div class="modal-content" id="modal-content" style="display:none">
-	<div class="modal-body" id="bundle_port">
-	<input type="hidden" id="product_id" />
-	<div class="row" id ="port_div">
-		<div class="col-xs-12 margin-xs-b-m">   
-			<label>When you select “With contract” your Credit References will be checked,Do you agree?</label><br>
-			<input type="radio" name="agree_condition" value="1">Yes<br>
-			<input type="radio" name="agree_condition" value="0">No<br>
-		</div>
-    </div>
-	<div class="row" id="current_service_div" style="display:none">
-		<div class="col-xs-12 margin-xs-b-m">   
-			<label>Current service is:</label><br>
-			<input type="radio" name="current_service" value="prepaid">Prepaid<br>
-			<input type="radio" name="current_service" value="postpaid">Postpaid<br>
-		</div>
-    </div>
-	<div class="row" id ="buy_smartphone_div" style="display:none">
-		<div class="col-xs-12 margin-xs-b-m">   
-			<label>Would you like to buy a smartphone</label><br>
-			<input type="radio" name="buy_smartphone" value="yes">Yes<br>
-			<input type="radio" name="buy_smartphone" value="no">No<br>
-		</div>
-    </div>
-	</div>
-</div>
+
+
+
 
 <?php endif;?>
 <script>
@@ -296,45 +293,55 @@ switch ($type = $block->getType()) {
 		'jquery',
 		'Magento_Ui/js/modal/modal'
 	], function ($,modal) {
-		var optionsVal = {
-		type: 'popup',
-		responsive: true,
-		innerScroll: false,
-	};
-	
-	var popupData = modal(optionsVal, $('#modal-content'));
-	
-	$(".plan_detail").on("click", function () {
-		var idArray = $(this).attr('id').split('-');
-		var id = idArray[1];
-		$("#product_id").val(id);
-		$("#modal-content").css("display", "block");
-		$('#modal-content').modal('openModal');
-	});
-	
-		$("input[type=radio][name=agree_condition]").on('click',function () {
-		var product_id = $("#product_id").val();
-		var condition = $(this).val();
-		var current_service = '';
-		var buy_smartphone = '';
-		if(port == 'yes'){
-			$("#port_div").css("display", "none");
-			$("#current_service_div").css("display", "block");
-			$("#buy_smartphone_div").css("display", "none");
-		} else {
-			var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
-			$.ajax({
-					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
-					dataType: 'json',
-					showLoader: true,
-					type: 'post',
-					data: data11,
-					success: function (data) {
-						window.location.href = data;
-					}
-				});
-		}
-	});
+        $('#product-options-wrapper').hide();
+        $('.upsell').hide();      
+        $(".portable").on('click',function () {
+            var portable = $(this).val();
+            if(portable == 1){
+				$("#port_div").hide();
+				$("#service_div").show();
+            }else{
+			   $("#port_div").hide();
+			   $("#contract_div").show();            
+            }
+        });
+        
+        $(".service").on('click',function () {
+            if($(this).val() == 1){
+				$("#service_div").hide();
+				$("#contract_div").show();
+            }else{
+				$("#service_div").hide();
+				$('#product-options-wrapper').show();
+				$('.upsell').show();
+            }
+        });
+
+        $(".contract").on('click',function () {
+			if($(this).val() == 1){
+				$("#contract_div").hide();
+				$('#product-options-wrapper').show();
+				$('.upsell').show();
+            }else{
+				$("#contract_div").hide();
+				$('#product-options-wrapper').show();
+				$('.upsell').show();
+            }
+        });
+
+        $(".plan_detail").on('click',function () {
+            $(".plan_detail").css("border", "2px solid");
+                $(this).css("border", "5px solid #136105");
+                if($(this).attr('id') == 'plan_53'){
+                    $('.product-info-price .price').html('$346.00');
+                }else{
+                    $('.product-info-price .price').html('$327.00');
+                }
+                $('#product-addtocart-button').prop('disabled', false);
+
+        });
+
+		
 	
 	});
 </script>
