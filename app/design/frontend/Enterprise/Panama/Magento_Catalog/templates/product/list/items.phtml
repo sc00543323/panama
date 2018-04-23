@@ -317,9 +317,10 @@ switch ($type = $block->getType()) {
 			var pid = $(this).attr('id');
 			var sid = pid.split("_");
 			var sdiv = '#product-price-'+sid[1];
+            $('#upsell_id').val(sid[1]);
 			var plan_price = $(sdiv).attr('data-price-amount');
 			var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
-			var total_price = parseInt(plan_price) + parseInt(device_price);
+			var total_price = parseFloat(plan_price) + parseFloat(device_price);
 			
 			$(this).css("border", "5px solid #136105");
                   $('.product-info-price .price').html('$' + total_price +'.00');
