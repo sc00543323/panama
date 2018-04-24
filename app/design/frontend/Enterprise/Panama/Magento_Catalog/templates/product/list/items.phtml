@@ -262,10 +262,6 @@ switch ($type = $block->getType()) {
         </div>
     </div>
 </div>
-
-
-
-
 <?php endif;?>
 <script>
 	require([
@@ -313,6 +309,7 @@ switch ($type = $block->getType()) {
 
         $(".plan_detail").on('click',function () {
 			
+			
 			$(".plan_detail").css("border", "2px solid");
 			var pid = $(this).attr('id');
 			var sid = pid.split("_");
@@ -322,9 +319,19 @@ switch ($type = $block->getType()) {
 			var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
 			var total_price = parseFloat(plan_price) + parseFloat(device_price);
 			
+			if(typeof total_price === 'number'){	
+				if(total_price % 1 === 0){
+					var result = '$' + total_price +'.00';
+				} else{
+					var result = '$' + total_price;
+				}
+			} else{
+				var result = '$' + device_price;
+			}
+
+
 			$(this).css("border", "5px solid #136105");
-                  $('.product-info-price .price').html('$' + total_price +'.00');
-                
+                $('.product-info-price .price').html(result);
                 $('#product-addtocart-button').prop('disabled', false);
 
         });
