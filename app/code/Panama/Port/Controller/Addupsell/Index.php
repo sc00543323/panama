@@ -39,20 +39,31 @@ class Index extends \Magento\Framework\App\Action\Action {
 
     public function execute() {
 		$resultPage = $this->resultPageFactory->create();
-	    //check portabality 
-		$portSessionVal = $this->_checkoutSession->getPort();
-		$currentServiceSessionVal = $this->_checkoutSession->getCurrentService();
-		$buySmartphoneSessionVal = $this->_checkoutSession->getBuySmartphone();
+	    //check portabality in session data
 		
-		$portable = $this->getRequest()->getParam('portable');
-		$service = $this->getRequest()->getParam('service');
-		$agree_condition = $this->getRequest()->getParam('agree_condition');
-	  
+		$portSessionVal           = $this->_checkoutSession->getPort();
+		$currentServiceSessionVal = $this->_checkoutSession->getCurrentService();
+		$buySmartphoneSessionVal  = $this->_checkoutSession->getBuySmartphone();
+		
+		if(isset($portSessionVal) && $portSessionVal != ''){
+			$isPortable      = $portSessionVal;
+			$currentService  = $currentServiceSessionVal;
+			$isSmartphone    = $buySmartphoneSessionVal;
+			$isContract      = '';
+		}else{
+			$isPortable     = $this->_checkoutSession->setPort($this->getRequest()->getParam('portable'));
+			$currentService = $this->_checkoutSession->setCurrentService($this->getRequest()->getParam('service'));
+			$isContract     = $this->_checkoutSession->setBuySmartphone($this->getRequest()->getParam('agree_condition'));
+			$isSmartphone   = '';
+		}
+		if($this->getRequest()->getParam('port_remove') == 'no') {
+			$isPortable = $this->_checkoutSession->setPort('no');
+		}
 		//add Smartphone Device	  
 		$params = array(
 			'form_key' => $this->formKey->getFormKey(),
-			'product' =>$this->getRequest()->getParam('product'),
-			'qty'   =>1,
+			'product'  =>$this->getRequest()->getParam('product'),
+			'qty'      =>1,
 			'super_attribute' => $this->getRequest()->getParam('super_attribute'),
             );
 		$_product = $this->productRepository->getById($this->getRequest()->getParam('product'));
@@ -60,8 +71,18 @@ class Index extends \Magento\Framework\App\Action\Action {
 		$this->_cart->save();
 		
 		//add Upsell Product
-		$this->_redirect('customcatalog/cart/add/', array('id' => $this->getRequest()->getParam('upsell_id')));
-       
+		$bundleId = $this->getRequest()->getParam('upsell_id');
+		$this->_redirect('customcatalog/cart/add/', array('id' => $bundleId));
+      
+		/*$allItems = $this->_cart->getQuote()->getAllVisibleItems();
+			foreach ($allItems as $item) {
+				if($bundleId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
+					$item->setIsPortable($isPortable);
+					$item->setCurrentService($currentService);
+					$item->setIsSmartphone($isSmartphone);
+					$item->save();
+				}
+			}*/
         return $resultPage;
     }
 }

@@ -268,6 +268,32 @@ switch ($type = $block->getType()) {
 		'jquery',
 		'Magento_Ui/js/modal/modal'
 	], function ($,modal) {
+
+        var optionsVal = {
+        type: 'popup',
+        responsive: true,
+        innerScroll: false,
+    };
+
+$(document).ready(function(){
+    var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
+    var price_data = {price: device_price};
+            $.ajax({
+                url: "<?php echo $block->getBaseUrl() . 'port/Addupsell/Checkquote' ?>",
+                dataType: 'json',
+                showLoader: true,
+                type: 'post',
+                data:price_data,
+                success: function (data) {
+                    if(data.product_id){
+                        $("#port_div").html(data.upsel_data);
+                        $('#product-options-wrapper').show();
+                        $('#product-addtocart-button').prop('disabled', false);
+                    }                   
+                }
+            });
+        });
+
         $('#product-options-wrapper').hide();
         $('.upsell').hide();      
 		var upsel_device_price = $('.product-info-price .price').html();
@@ -275,17 +301,49 @@ switch ($type = $block->getType()) {
 		
         $(".portable").on('click',function () {
             var portable = $(this).val();
-            if(portable == 1){
-				$("#port_div").hide();
-				$("#service_div").show();
+			var port_remove ='';
+			var current_service = '';
+			var buy_smartphone = '';
+			var product_id = '';
+            if(portable == 'yes'){
+				var portable_data = {product_id: product_id,port: portable,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
+				$.ajax({
+				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
+				dataType: 'json',
+				showLoader: true,
+				type: 'post',
+				data: portable_data,
+				success: function (data) {
+					if(data == true) {					
+						$("#port_div").hide();
+						$("#service_div").show();
+						$("#port_div_session").hide();
+					} else {
+						$("#port_div").hide();
+						$("#service_div").hide();
+						$("#port_div_session").show();
+					}
+				}
+			});
             }else{
-			   $("#port_div").hide();
-			   $("#contract_div").show();            
+				$("#port_div_session").hide();
+				$("#port_div").hide();
+				$("#contract_div").show();            
             }
         });
+		$("input[type=radio][name=port_remove]").on('click',function () {
+			var port_remove = $(this).val();
+			if(port_remove == 'yes'){
+				window.location.href = "<?php echo $block->getBaseUrl() . 'checkout/cart' ?>";
+			} else {
+				$("#port_div_session").hide();
+				$("#port_div").hide();
+				$("#contract_div").show();
+			}
+		});
         
         $(".service").on('click',function () {
-            if($(this).val() == 1){
+            if($(this).val() == 'prepaid'){
 				$("#service_div").hide();
 				$("#contract_div").show();
             }else{
@@ -296,21 +354,31 @@ switch ($type = $block->getType()) {
         });
 
         $(".contract").on('click',function () {
-			if($(this).val() == 1){
+			if($(this).val() == 'yes'){
 				$("#contract_div").hide();
 				$('#product-options-wrapper').show();
+                $('#contract_option').show();
 				$('.upsell').show();
+                
             }else{
 				$("#contract_div").hide();
 				$('#product-options-wrapper').show();
 				$('.upsell').show();
+
             }
         });
 
+        $("#credit_yes").on('click',function () {
+            $('#bundle_port').hide();
+            $('.Cedula').show();
+        });
         $(".plan_detail").on('click',function () {
-			
-			
-			$(".plan_detail").css("border", "2px solid");
+            if ($("#contract_yes").prop("checked")) {
+                var popupData = modal(optionsVal, $('#credit_check'));
+                $("#credit_check").css("display", "block");
+                $('#credit_check').modal('openModal');
+            }
+            $(".plan_detail").css("border", "2px solid");
 			var pid = $(this).attr('id');
 			var sid = pid.split("_");
 			var sdiv = '#product-price-'+sid[1];
@@ -322,22 +390,16 @@ switch ($type = $block->getType()) {
 			if(typeof total_price === 'number'){	
 				if(total_price % 1 === 0){
 					var result = '$' + total_price +'.00';
-				} else{
+				} else {
 					var result = '$' + total_price;
-				}
-			} else{
+				    }
+			} else {
 				var result = '$' + device_price;
 			}
-
-
-			$(this).css("border", "5px solid #136105");
+                $(this).css("border", "5px solid #136105");
                 $('.product-info-price .price').html(result);
                 $('#product-addtocart-button').prop('disabled', false);
-
         });
-
-		
-	
 	});
 </script>
 
