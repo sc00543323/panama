@@ -69,6 +69,7 @@ class Add extends \Magento\Framework\App\Action\Action
 			}
 			$product = $this->_productRepository->getById($productId);
 			
+			$portPrdSessionVal =$this->_catalogSession->getPortProductId();
 			$portSessionVal = $this->_catalogSession->getPort();
 			$currentServiceSessionVal = $this->_catalogSession->getCurrentService();
 			$buySmartphoneSessionVal = $this->_catalogSession->getBuySmartphone();
@@ -103,6 +104,7 @@ class Add extends \Magento\Framework\App\Action\Action
 					$item->save();
 				}
 			}
+			$this->_catalogSession->unsPortProductId();
 			$this->_catalogSession->unsPort();
 			$this->_catalogSession->unsCurrentService();
 			$this->_catalogSession->unsBuySmartphone();
