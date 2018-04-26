@@ -38,23 +38,30 @@ class Index extends \Magento\Framework\App\Action\Action {
 	}
 
     public function execute() {
-      $resultPage = $this->resultPageFactory->create();
-      $params = array(
-                'form_key' => $this->formKey->getFormKey(),
-                'product' =>$this->getRequest()->getParam('product'),
-                'qty'   =>1,
-                'super_attribute' => $this->getRequest()->getParam('super_attribute'),
+		$resultPage = $this->resultPageFactory->create();
+	    //check portabality 
+		$portSessionVal = $this->_checkoutSession->getPort();
+		$currentServiceSessionVal = $this->_checkoutSession->getCurrentService();
+		$buySmartphoneSessionVal = $this->_checkoutSession->getBuySmartphone();
+		
+		$portable = $this->getRequest()->getParam('portable');
+		$service = $this->getRequest()->getParam('service');
+		$agree_condition = $this->getRequest()->getParam('agree_condition');
+	  
+		//add Smartphone Device	  
+		$params = array(
+			'form_key' => $this->formKey->getFormKey(),
+			'product' =>$this->getRequest()->getParam('product'),
+			'qty'   =>1,
+			'super_attribute' => $this->getRequest()->getParam('super_attribute'),
             );
-$_product = $this->productRepository->getById($this->getRequest()->getParam('product'));
-$this->_cart->addProduct($_product,$params);
-$this->_cart->save();
-//add Upsell Product
-$this->_redirect('customcatalog/cart/add/', array('id' => $this->getRequest()->getParam('upsell_id')));
-
-
-
-          
+		$_product = $this->productRepository->getById($this->getRequest()->getParam('product'));
+		$this->_cart->addProduct($_product,$params);
+		$this->_cart->save();
+		
+		//add Upsell Product
+		$this->_redirect('customcatalog/cart/add/', array('id' => $this->getRequest()->getParam('upsell_id')));
+       
         return $resultPage;
-
     }
 }
