@@ -9,8 +9,33 @@
 /** @var $block \Magento\Catalog\Block\Product\View */
 ?>
 <?php $_product = $block->getProduct(); ?>
-<?php $buttonTitle = __('Add to Cart'); ?>
+<?php $buttonTitle = __('Continue to purchase'); ?>
 <?php if ($_product->isSaleable()): ?>
+<?php if($_product->getAttributeSetId() == 10){ ?>
+
+<div class="row" id ="port_div">
+<input type="hidden" name="upsell_id" id="upsell_id">
+        <div class="col-xs-12 margin-xs-b-m">   
+            <label>Are you making portability?</label><br>
+            <input type="radio" class="portable" name="portable" value="1">Yes<br>
+            <input type="radio" class="portable" name="portable" value="0">No<br>
+        </div>
+    </div>
+    <div class="row" id ="service_div" style="display: none;">
+        <div class="col-xs-12 margin-xs-b-m">   
+            <label>Current service is:</label><br>
+            <input type="radio" class="service" name="service" value="1">Prepaid<br>
+            <input type="radio" class="service" name="service" value="0">Postpaid<br>
+        </div>
+    </div>
+    <div class="row" id ="contract_div" style="display: none;">
+        <div class="col-xs-12 margin-xs-b-m">   
+            <label>How do you want it?</label><br>
+            <input type="radio" class="contract" name="agree_condition" value="1">Contract<br>
+            <input type="radio" class="contract" name="agree_condition" value="0">Prepaid<br>
+        </div>
+    </div>
+<?php } ?>
 <div class="box-tocart">
     <div class="fieldset">
         <?php if ($block->shouldRenderQuantity()): ?>
@@ -26,17 +51,17 @@
                        data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
                        />
             </div>
-        </div>
+        </div -->
         <?php endif; ?>
         <div class="actions">
-            <button type="submit"
+            <button disabled="disabled" type="submit"
                     title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
                     class="action primary tocart"
                     id="product-addtocart-button">
                 <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
             </button>
             <?= $block->getChildHtml('', true) ?>
-        </div-->
+        </div>
     </div>
 </div>
 <?php endif; ?>

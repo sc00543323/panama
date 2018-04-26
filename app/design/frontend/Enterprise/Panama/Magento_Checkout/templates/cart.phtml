@@ -10,11 +10,7 @@
  *
  * @var $block \Magento\Checkout\Block\Cart
  */
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$checkoutSession = $objectManager->create('Magento\Checkout\Model\Session');
-echo "port->".$checkoutSession->getPort().'<br>';
-echo "current_service ->".$checkoutSession->getCurrentService().'<br>';
-echo "buy_smartphone->".$checkoutSession->getBuySmartphone();
+
 if ($block->getItemsCount()) {
     echo $block->getChildHtml('with-items');
 } else {

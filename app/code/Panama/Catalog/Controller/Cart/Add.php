@@ -31,12 +31,12 @@ class Add extends \Magento\Framework\App\Action\Action
 	protected $_cart;
 	protected $_productRepository;
 	protected $_storeManager;
-	protected $_checkoutSession;
+	protected $_catalogSession;
 	
     public function __construct(
 		Context $context,
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
-		\Magento\Checkout\Model\Session $checkoutSession,
+		\Magento\Catalog\Model\Session $catalogSession,
 		FormKey $formKey,
 		ProductFactory $productFactory,
 		Cart $cart,
@@ -50,7 +50,7 @@ class Add extends \Magento\Framework\App\Action\Action
 		$this->_cart = $cart;
 		$this->_productRepository = $productRepository;
 		$this->_storeManager = $storeManager;
-		$this->_checkoutSession = $checkoutSession;
+		$this->_catalogSession = $catalogSession;
 	}
  
     /**
@@ -69,9 +69,9 @@ class Add extends \Magento\Framework\App\Action\Action
 			}
 			$product = $this->_productRepository->getById($productId);
 			
-			$portSessionVal = $this->_checkoutSession->getPort();
-			$currentServiceSessionVal = $this->_checkoutSession->getCurrentService();
-			$buySmartphoneSessionVal = $this->_checkoutSession->getBuySmartphone();
+			$portSessionVal = $this->_catalogSession->getPort();
+			$currentServiceSessionVal = $this->_catalogSession->getCurrentService();
+			$buySmartphoneSessionVal = $this->_catalogSession->getBuySmartphone();
 			
 			if($product->getTypeId() == 'bundle'){
 				$bundledOptions = $this->getBundleProductOptionsData($productId); // All option of the bundled product
@@ -96,11 +96,16 @@ class Add extends \Magento\Framework\App\Action\Action
                     
 			$allItems = $this->_cart->getQuote()->getAllItems();
 			foreach ($allItems as $item) {
-				$item->setIsPortable($portSessionVal);
-				$item->setCurrentService($currentServiceSessionVal);
-				$item->setIsSmartphone($buySmartphoneSessionVal);
-				$item->save();
+				if($productId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
+					$item->setIsPortable($portSessionVal);
+					$item->setCurrentService($currentServiceSessionVal);
+					$item->setIsSmartphone($buySmartphoneSessionVal);
+					$item->save();
+				}
 			}
+			$this->_catalogSession->unsPort();
+			$this->_catalogSession->unsCurrentService();
+			$this->_catalogSession->unsBuySmartphone();
 			//$this->_redirect("checkout/cart");
 			if (!$this->_cart->getQuote()->getHasError()) {
                           $cart = $this->_cart->getQuote()->getAllVisibleItems();

@@ -18,11 +18,6 @@ use Magento\Framework\App\Action\Action;
 <?php
 $_productCollection = $block->getLoadedProductCollection();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$checkoutSession = $objectManager->create('Magento\Checkout\Model\Session');
-echo "port->".$checkoutSession->getPort().'<br>';
-echo "current_service ->".$checkoutSession->getCurrentService().'<br>';
-echo "buy_smartphone->".$checkoutSession->getBuySmartphone();
 ?>
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
@@ -147,6 +142,13 @@ echo "buy_smartphone->".$checkoutSession->getBuySmartphone();
 			<input type="radio" name="port" value="no">No<br>
 		</div>
     </div>
+	<div class="row" id ="port_div_session" style="display:none">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>Already portable product in cart. Do you want to remove the existing product?</label><br>
+			<input type="radio" name="port_remove" value="yes">Yes<br>
+			<input type="radio" name="port_remove" value="no">No<br>
+		</div>
+    </div>
 	<div class="row" id="current_service_div" style="display:none">
 		<div class="col-xs-12 margin-xs-b-m">   
 			<label>Current service is:</label><br>
@@ -164,6 +166,7 @@ echo "buy_smartphone->".$checkoutSession->getBuySmartphone();
 	</div>
 </div>
 <script>
+//pre-paid and postpaid addtocart popup functionality logics
 require([
 	'jquery',
 	'Magento_Ui/js/modal/modal'
@@ -173,6 +176,7 @@ require([
 		responsive: true,
 		innerScroll: false,
 	};
+	
 	var popupData = modal(optionsVal, $('#modal-content'));
 	
 	$(".bundle_add_cart").on("click", function () {
@@ -186,41 +190,74 @@ require([
 	$("input[type=radio][name=port]").on('click',function () {
 		var product_id = $("#product_id").val();
 		var port = $(this).val();
+		var port_value = $(this).val()+'_'+product_id;
+		var port_remove ='';
 		var current_service = '';
 		var buy_smartphone = '';
 		if(port == 'yes'){
-			$("#port_div").css("display", "none");
-			$("#current_service_div").css("display", "block");
-			$("#buy_smartphone_div").css("display", "none");
-		} else {
-			var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
+			var data11 = {product_id: product_id,port: port_value,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
 			$.ajax({
-					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
-					dataType: 'json',
-					showLoader: true,
-					type: 'post',
-					data: data11,
-					success: function (data) {
-						window.location.href = data;
+				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
+				dataType: 'json',
+				showLoader: true,
+				type: 'post',
+				data: data11,
+				success: function (data) {
+					if(data == true) {
+						$("#port_div").css("display", "none");
+						$("#current_service_div").css("display", "block");
+						$("#buy_smartphone_div").css("display", "none");
+						$("#port_div_session").css("display", "none");
+					} else {
+						$("#port_div").css("display", "none");
+						$("#current_service_div").css("display", "none");
+						$("#buy_smartphone_div").css("display", "none");
+						$("#port_div_session").css("display", "block");
 					}
-				});
+				}
+			});
+		} else {
+			$("#port_div").css("display", "none");
+			$("#current_service_div").css("display", "none");
+			$("#buy_smartphone_div").css("display", "block");
+			$("#port_div_session").css("display", "none");
+		}
+	});
+	$("input[type=radio][name=port_remove]").on('click',function () {
+		var product_id = $("#product_id").val();
+		var port_remove = $(this).val();
+		var port = $('input[name=port]:checked').val();
+		var port_value = $('input[name=port]:checked').val()+'_'+product_id;
+		var current_service = '';
+		var buy_smartphone = '';
+		if(port_remove == 'yes'){
+			window.location.href = "<?php echo $block->getBaseUrl() . 'checkout/cart' ?>";
+		} else {
+			$("#port_div").css("display", "none");
+			$("#current_service_div").css("display", "none");
+			$("#buy_smartphone_div").css("display", "block");
+			$("#port_div_session").css("display", "none");
 		}
 	});
 	$("input[type=radio][name=current_service]").on('click',function () {
 		var product_id = $("#product_id").val();
 		var port = $('input[name=port]:checked').val();
+		var port_value = $('input[name=port]:checked').val()+'_'+product_id;
 		var current_service = $(this).val();
 		var buy_smartphone = '';
 		$("#port_div").css("display", "none");
 		$("#current_service_div").css("display", "none");
 		$("#buy_smartphone_div").css("display", "block");
+		$("#port_div_session").css("display", "none");
 	});
 	$("input[type=radio][name=buy_smartphone]").on('click',function () {
 		var product_id = $("#product_id").val();
 		var port = $('input[name=port]:checked').val();
+		var port_value = $('input[name=port]:checked').val()+'_'+product_id;
 		var current_service = $('input[name=current_service]:checked').val();
+		var port_remove = $('input[name=port_remove]:checked').val();
 		var buy_smartphone = $(this).val();
-		var data11 = {product_id: product_id,port: port,current_service: current_service,buy_smartphone: buy_smartphone};
+		var data11 = {product_id: product_id,port: port_value,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
 		$.ajax({
 				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
 				dataType: 'json',
