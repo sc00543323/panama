@@ -12,22 +12,10 @@ use Magento\Framework\UrlInterface;
 
 class Add extends \Magento\Framework\App\Action\Action
 {
-	/**
-     * @var Magento\Catalog\Model\ProductFactory
-     */
+
     protected $_productFactory;
-	/**
-     * @var PageFactory
-     */
-    protected $resultPageFactory;
-    /**
-     * @var \Magento\Framework\Data\Form\FormKey
-     */
-    protected $formKey;
-    /**
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
-     */
+    protected $_resultPageFactory;
+    protected $_formKey;
 	protected $_cart;
 	protected $_productRepository;
 	protected $_storeManager;
@@ -44,8 +32,8 @@ class Add extends \Magento\Framework\App\Action\Action
 		PageFactory $resultPageFactory
 	){
 		parent::__construct($context);
-		$this->formKey = $formKey;
-		$this->resultPageFactory = $resultPageFactory;
+		$this->_formKey = $formKey;
+		$this->_resultPageFactory = $resultPageFactory;
 		$this->_productFactory = $productFactory;
 		$this->_cart = $cart;
 		$this->_productRepository = $productRepository;
@@ -53,10 +41,7 @@ class Add extends \Magento\Framework\App\Action\Action
 		$this->_catalogSession = $catalogSession;
 	}
  
-    /**
-     *
-     * @return \Magento\Framework\View\Result\Page
-     */
+   // add to cart action for bundle product
     public function execute()
     {
 		try {
@@ -76,9 +61,9 @@ class Add extends \Magento\Framework\App\Action\Action
 			
 			if($product->getTypeId() == 'bundle'){
 				$bundledOptions = $this->getBundleProductOptionsData($productId); // All option of the bundled product
-				$resultPage = $this->resultPageFactory->create();
+				$resultPage = $this->_resultPageFactory->create();
 				$params = array(
-					'form_key' => $this->formKey->getFormKey(),
+					'form_key' => $this->_formKey->getFormKey(),
 					'product' => $productId,//product Id
 					'related_product' => null,
 					'qty'   =>1,//quantity of product
@@ -86,7 +71,7 @@ class Add extends \Magento\Framework\App\Action\Action
 				);
 			}else{
 				$params = array(
-					'form_key' => $this->formKey->getFormKey(),
+					'form_key' => $this->_formKey->getFormKey(),
 					'product' => $productId,//product Id
 					'related_product' => null,
 					'qty'   =>1,//quantity of product
@@ -94,7 +79,8 @@ class Add extends \Magento\Framework\App\Action\Action
 			}				
 			$this->_cart->addProduct($product, $params);
 			$this->_cart->save();
-                    
+
+			//save portable option in quote item table
 			$allItems = $this->_cart->getQuote()->getAllItems();
 			foreach ($allItems as $item) {
 				if($productId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
@@ -104,11 +90,13 @@ class Add extends \Magento\Framework\App\Action\Action
 					$item->save();
 				}
 			}
+			
+			//unset all portable option session 
 			$this->_catalogSession->unsPortProductId();
 			$this->_catalogSession->unsPort();
 			$this->_catalogSession->unsCurrentService();
 			$this->_catalogSession->unsBuySmartphone();
-			//$this->_redirect("checkout/cart");
+
 			if (!$this->_cart->getQuote()->getHasError()) {
                           $cart = $this->_cart->getQuote()->getAllVisibleItems();
                           $cartCount = count($cart);
@@ -123,7 +111,7 @@ class Add extends \Magento\Framework\App\Action\Action
                 ['product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse()]
             );			
 			$resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-			//$resultRedirect->setUrl($this->_redirect->getRefererUrl()); //Redirect to current page
+			//Redirect to cart page
 			$resultRedirect->setPath('checkout/cart');           
 			return $resultRedirect;
 		}
@@ -156,7 +144,6 @@ class Add extends \Magento\Framework\App\Action\Action
             $selectionArray['selection_product_quantity'] = $proselection->getPrice();
             $selectionArray['selection_product_price'] = $proselection->getSelectionQty();
             $selectionArray['selection_product_id'] = $proselection->getProductId();
-            //$productsArray[$proselection->getOptionId()][$proselection->getSelectionId()] = $selectionArray;
 			$bundlecartArray[$proselection->getOptionId()][$proselection->getProductId()] = $proselection->getSelectionId(); //Store all options in array
         }		
 		return $bundlecartArray;
