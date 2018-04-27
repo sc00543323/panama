@@ -12,29 +12,115 @@
 <?php $buttonTitle = __('Continue to purchase'); ?>
 <?php if ($_product->isSaleable()): ?>
 <?php if($_product->getAttributeSetId() == 10){ ?>
-
+<style>
+.cedula-field{
+	width:15%;
+	float:left;
+	padding:5px;
+}
+</style>
 <div class="row" id ="port_div">
 <input type="hidden" name="upsell_id" id="upsell_id">
         <div class="col-xs-12 margin-xs-b-m">   
             <label>Are you making portability?</label><br>
-            <input type="radio" class="portable" name="portable" value="1">Yes<br>
-            <input type="radio" class="portable" name="portable" value="0">No<br>
+            <input type="radio" class="portable" name="portable" value="yes">Yes<br>
+            <input type="radio" class="portable" name="portable" value="no">No<br>
         </div>
+    </div>
+	<div class="row" id ="port_div_session" style="display:none">
+		<div class="col-xs-12 margin-xs-b-m">   
+			<label>Already portable product in cart. Do you want to remove the existing product?</label><br>
+			<input type="radio" name="port_remove" value="yes">Yes<br>
+			<input type="radio" name="port_remove" value="no">No<br>
+		</div>
     </div>
     <div class="row" id ="service_div" style="display: none;">
         <div class="col-xs-12 margin-xs-b-m">   
             <label>Current service is:</label><br>
-            <input type="radio" class="service" name="service" value="1">Prepaid<br>
-            <input type="radio" class="service" name="service" value="0">Postpaid<br>
+            <input type="radio" class="service" name="service" value="prepaid">Prepaid<br>
+            <input type="radio" class="service" name="service" value="postpaid">Postpaid<br>
         </div>
     </div>
     <div class="row" id ="contract_div" style="display: none;">
         <div class="col-xs-12 margin-xs-b-m">   
             <label>How do you want it?</label><br>
-            <input type="radio" class="contract" name="agree_condition" value="1">Contract<br>
-            <input type="radio" class="contract" name="agree_condition" value="0">Prepaid<br>
+            <input type="radio" id="contract_yes" class="contract" name="agree_condition" value="contract">Contract<br>
+            <input type="radio" id="contract_no" class="contract" name="agree_condition" value="prepaid">Prepaid<br>
         </div>
     </div>
+
+    <div class="row" id ="contract_option" style="display: none;">
+
+        <select name="contract_period" id="contract_period">
+        <option value="6">6 month</option>
+        <option value="12">12 month</option>
+        <option value="18">18 month</option>
+        </select>
+    </div>
+
+    <div class="credit_check" id="credit_check" style="display:none">
+        <div class="modal-body" id="bundle_port">
+            <label>When you select “With contract”</label><br>
+            <label>your Credit References will be checked,</label><br>
+            <label>Do you agree?</label><br>
+            <button id="credit_yes">Yes</button>
+            <button id="credit_no">No</button>
+        </div>
+
+        <div class="Cedula" style="display:none">
+		    <label>Please provide Detail</label>
+			<br>
+    		<button id="Cedula_btn">Cedula</button>
+            <div class="cedula_div" style="display:none">
+			<div class="cedula-field">
+				<label>Province</label>
+				<select name="Province">
+					<?php for($i=0;$i<15;$i++){?>
+					<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+					<?php  } ?>
+				</select>
+			</div>
+			<div class="cedula-field">
+			    <label>Letters</label>
+				<select name="Province">
+					<option value="PI">PI</option>
+					<option value="AV">AV</option>
+					<option value="E">E</option>
+					<option value="N">N</option>
+					<option value="PE">PE</option>
+					<option value="P">P</option>
+				</select>
+			</div>
+			<div class="cedula-field">
+			    <label>I take</label>
+			    <input type="text" id="" >
+			</div>
+			<div class="cedula-field">
+			    <label>Seat</label>
+			    <input type="text" id="" >
+			</div>
+				<div class="cedula-field">
+					<label>Number</label>			
+					<input type="text" id="" >
+				</div>
+            </div>
+			    <br style="clear: both;">
+				OR
+				<br>
+            <button id="Passport_btn">Passport</button>
+            <div class="passport_div" style="display:none">
+			    <div class="cedula-field">
+                    <label>Number</label>
+    		        <input type="text" id="passport">
+			    </div>
+            </div> 
+			<br style="clear: both;">
+			<div style="width: 20%;margin: auto;">
+				<button id="credit_check_btn" style="display:none">Proceed</button>
+			</div>
+        </div>
+    </div>
+
 <?php } ?>
 <div class="box-tocart">
     <div class="fieldset">

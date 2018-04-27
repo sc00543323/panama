@@ -9,7 +9,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 	protected $_categoryRepository;
 	protected $_url;
 	protected $_catalogSession;
-	protected $cart;
+	protected $_cart;
 	
     public function __construct(
 		\Magento\Framework\App\Action\Context $context,
@@ -24,36 +24,36 @@ class Index extends \Magento\Framework\App\Action\Action {
         $this->_categoryRepository = $categoryRepository;
 		$this->_url = $url;
 		$this->_catalogSession = $catalogSession;
-		$this->cart = $cart;
+		$this->_cart = $cart;
 	}
 
     public function execute() {
-			//prepaid and postpaid addtocart popup ajax calling
-        if ($this->getRequest()->isAjax()) {
+        //prepaid and postpaid addtocart popup ajax calling
+        if($this->getRequest()->isAjax()) {
 			$data['product_id'] = $this->getRequest()->getParam('product_id');
 			$data['port'] = $this->getRequest()->getParam('port');
 			$data['current_service'] = $this->getRequest()->getParam('current_service');
 			$data['buy_smartphone'] = $this->getRequest()->getParam('buy_smartphone');
 			$data['port_remove'] = $this->getRequest()->getParam('port_remove');
 			if($data['port_remove'] == 'no') {
-				$data['port'] = 'no_'.$data['product_id'];
+				$data['port'] = 'no';
 			}
-			//$this->_catalogSession->setPortProductId($data['product_id']);
+			
+			//set portable data in session for prepaid/postpaid with smartphone journey
+			$this->_catalogSession->setPortProductId($data['product_id']);
 			$this->_catalogSession->setPort($data['port']);
 			$this->_catalogSession->setCurrentService($data['current_service']);
 			$this->_catalogSession->setBuySmartphone($data['buy_smartphone']);
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-			$dataPort = explode('_',$data['port']);
-			if($dataPort[0] == 'yes' && !$data['current_service'] && !$data['buy_smartphone']) {
-				$itemCount = $this->cart->getQuote()->getItemsCount();
+			if($data['port'] == 'yes' && !$data['current_service'] && !$data['buy_smartphone']) {
+				$itemCount = $this->_cart->getQuote()->getItemsCount();
 				if ($itemCount == 0 ) {
 					$resultJson->setData(true);
 				} else if($itemCount > 0) {
-					$allItems = $this->cart->getQuote()->getAllItems();
+					$allItems = $this->_cart->getQuote()->getAllItems();
 					$portability = true;
 					foreach($allItems as $item) {
-						$portable = explode('_',$item->getIsPortable());
-						if($portable[0] == 'yes') {
+						if($item->getIsPortable() == 'yes') {
 							$portability = false;
 							break;
 						}
@@ -74,9 +74,7 @@ class Index extends \Magento\Framework\App\Action\Action {
             $model = __('This is Not An Ajax Call');
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
 			$resultJson->setData($model);
-			return $resultJson;
-            header("Location: http://".$_SERVER['SERVER_NAME']);
-            die();      
+			return $resultJson; die;
         }
     }
 }

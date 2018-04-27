@@ -19,21 +19,18 @@ use Magento\Catalog\Model\Product;
 class CustomView extends AbstractProduct {
 
     protected $_customerGroup;
-    protected $storeManager;
+    protected $_storeManager;
 	protected $_productRepository;
 	protected $_productFactory;
     public function __construct(
-	ProductFactory $productFactory,
-		\Magento\Catalog\Model\ProductRepository $productRepository,
-		  \Magento\Catalog\Block\Product\Context $context ,	
-	  
-            array $data = array()) {
-       		$this->_productRepository = $productRepository;
-		$this->_productFactory = $productFactory;
-		 $this->storeManager = $context->getStoreManager();
-		parent::__construct($context, $data);
-		
-		
+        ProductFactory $productFactory,
+        \Magento\Catalog\Model\ProductRepository $productRepository,
+        \Magento\Catalog\Block\Product\Context $context,	
+        array $data = array()) {
+            $this->_productRepository = $productRepository;
+            $this->_productFactory = $productFactory;
+            $this->_storeManager = $context->getStoreManager();
+            parent::__construct($context, $data);
     }
 
     /**
@@ -42,18 +39,9 @@ class CustomView extends AbstractProduct {
      * @return Object
      */
     public function getCustomCartUrl($productId) {
-        if($productId != ''){
-           return $this->getUrl('customcatalog/cart/add/', array('id' => $productId)); 
-        }else{
-            return "Product ID is Empty";
-        }
-    }
-	
-	public function getAddCartUrl($sku) {
-        if($sku != ''){
-           return $this->getUrl('checkout/cart/add/', array('sku' => $sku)); 
-           exit;
-        }else{
+        if($productId != '') {
+            return $this->getUrl('customcatalog/cart/add/', array('id' => $productId)); 
+        } else {
             return "Product ID is Empty";
         }
     }

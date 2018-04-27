@@ -179,6 +179,7 @@ require([
 	
 	var popupData = modal(optionsVal, $('#modal-content'));
 	
+	//open popup modal when click add to cart in list
 	$(".bundle_add_cart").on("click", function () {
 		var idArray = $(this).attr('id').split('-');
 		var id = idArray[1];
@@ -187,21 +188,21 @@ require([
 		$('#modal-content').modal('openModal');
 	});
 	
+	//portability click function
 	$("input[type=radio][name=port]").on('click',function () {
-		var product_id = $("#product_id").val();
+		var product_id = '';
 		var port = $(this).val();
-		var port_value = $(this).val()+'_'+product_id;
 		var port_remove ='';
 		var current_service = '';
 		var buy_smartphone = '';
 		if(port == 'yes'){
-			var data11 = {product_id: product_id,port: port_value,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
+			var portable_data = {product_id: product_id,port: port,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
 			$.ajax({
 				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
 				dataType: 'json',
 				showLoader: true,
 				type: 'post',
-				data: data11,
+				data: portable_data,
 				success: function (data) {
 					if(data == true) {
 						$("#port_div").css("display", "none");
@@ -223,11 +224,12 @@ require([
 			$("#port_div_session").css("display", "none");
 		}
 	});
+	
+	//portable remove click function
 	$("input[type=radio][name=port_remove]").on('click',function () {
 		var product_id = $("#product_id").val();
 		var port_remove = $(this).val();
 		var port = $('input[name=port]:checked').val();
-		var port_value = $('input[name=port]:checked').val()+'_'+product_id;
 		var current_service = '';
 		var buy_smartphone = '';
 		if(port_remove == 'yes'){
@@ -239,10 +241,11 @@ require([
 			$("#port_div_session").css("display", "none");
 		}
 	});
+	
+	//current service click function
 	$("input[type=radio][name=current_service]").on('click',function () {
 		var product_id = $("#product_id").val();
 		var port = $('input[name=port]:checked').val();
-		var port_value = $('input[name=port]:checked').val()+'_'+product_id;
 		var current_service = $(this).val();
 		var buy_smartphone = '';
 		$("#port_div").css("display", "none");
@@ -250,20 +253,21 @@ require([
 		$("#buy_smartphone_div").css("display", "block");
 		$("#port_div_session").css("display", "none");
 	});
+	
+	//buy smartphone click function
 	$("input[type=radio][name=buy_smartphone]").on('click',function () {
 		var product_id = $("#product_id").val();
 		var port = $('input[name=port]:checked').val();
-		var port_value = $('input[name=port]:checked').val()+'_'+product_id;
 		var current_service = $('input[name=current_service]:checked').val();
 		var port_remove = $('input[name=port_remove]:checked').val();
 		var buy_smartphone = $(this).val();
-		var data11 = {product_id: product_id,port: port_value,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
+		var portable_data = {product_id: product_id,port: port,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
 		$.ajax({
 				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
 				dataType: 'json',
 				showLoader: true,
 				type: 'post',
-				data: data11,
+				data: portable_data,
 				success: function (data) {
 					window.location.href = data;
 				}
