@@ -12,7 +12,13 @@
 <?php $buttonTitle = __('Continue to purchase'); ?>
 <?php if ($_product->isSaleable()): ?>
 <?php if($_product->getAttributeSetId() == 10){ ?>
-
+<style>
+.cedula-field{
+	width:15%;
+	float:left;
+	padding:5px;
+}
+</style>
 <div class="row" id ="port_div">
 <input type="hidden" name="upsell_id" id="upsell_id">
         <div class="col-xs-12 margin-xs-b-m">   
@@ -66,16 +72,52 @@
 			<br>
     		<button id="Cedula_btn">Cedula</button>
             <div class="cedula_div" style="display:none">
-            <label>Enter Cedula Number</label>
-    		   <input type="text" id="cedulafield" >
+			<div class="cedula-field">
+				<label>Province</label>
+				<select name="Province">
+					<?php for($i=0;$i<15;$i++){?>
+					<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+					<?php  } ?>
+				</select>
+			</div>
+			<div class="cedula-field">
+			    <label>Letters</label>
+				<select name="Province">
+					<option value="PI">PI</option>
+					<option value="AV">AV</option>
+					<option value="E">E</option>
+					<option value="N">N</option>
+					<option value="PE">PE</option>
+					<option value="P">P</option>
+				</select>
+			</div>
+			<div class="cedula-field">
+			    <label>I take</label>
+			    <input type="text" id="" >
+			</div>
+			<div class="cedula-field">
+			    <label>Seat</label>
+			    <input type="text" id="" >
+			</div>
+				<div class="cedula-field">
+					<label>Number</label>			
+					<input type="text" id="" >
+				</div>
             </div>
-			    <br>
+			    <br style="clear: both;">
+				OR
+				<br>
             <button id="Passport_btn">Passport</button>
             <div class="passport_div" style="display:none">
-               <label>Enter Passport Number</label>
-    		   <input type="text" id="passport"> 
+			    <div class="cedula-field">
+                    <label>Number</label>
+    		        <input type="text" id="passport">
+			    </div>
             </div> 
-            <button id="credit_check_btn" style="display:none">Check</button>
+			<br style="clear: both;">
+			<div style="width: 20%;margin: auto;">
+				<button id="credit_check_btn" style="display:none">Proceed</button>
+			</div>
         </div>
     </div>
 

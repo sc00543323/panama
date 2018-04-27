@@ -46,6 +46,20 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		$product_id = $this->getRequest()->getParam('product_id');
 		$price = $this->getRequest()->getParam('price');		
 		$resultJson = $this->resultJsonFactory->create();
+		$ran = array(1,2,3);
+		$k = array_rand($ran);
+		$v = $ran[$k];
+		$color_val = '';
+		if($v == 1) {
+			$color = '#66cc80';
+		} else if($v == 2) {
+			$color = '#e6b366';
+		} else {
+			$color = '#e66666';
+			$color_val = '<p style="color:'.$color.'font-size: 15px;font-weight: 600;">Based on your Credit check we would like to offer you prepaid phone</p>';
+		}
+		
+		$colorcode = '<div style="float: left;width: 20px;height: 20px;margin: 5px;border: 1px solid rgba(0, 0, 0, .2);background: '.$color.';" ></div>';
 	
 
 		 if(isset($product_id) && $product_id != ''){
@@ -65,11 +79,12 @@ class Credit extends \Magento\Framework\App\Action\Action {
 				                        <div class="price-box price-final_price" data-role="priceBox" data-product-id="53">
 				<span class="price-container price-final_price tax weee">
 				        <span class="price">'.$plan_price.'</span>    </span>
-				        </div></div></li></ol>
+				        </div></div></li></ol><br>
+						'.$colorcode.'- Color Code <br>'.$color_val.'<br>
 				            <input type="hidden" value="'.$product_id.'" name="upsell_id" id="upsell_id">
 							Plan + SIM:        $   '.$plan_price.' <br>
 							Handset:           $  '.$price.'<br>
-							<p style="color:green">Final price:  $'.$total.'</p><br>';
+							<p style="color:'.$color.';font-size: 25px;font-weight: 600;">Final price:  $'.$total.'</p><br>';
 				        }
 
 
