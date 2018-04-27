@@ -268,16 +268,15 @@ switch ($type = $block->getType()) {
 		'jquery',
 		'Magento_Ui/js/modal/modal'
 	], function ($,modal) {
-
         var optionsVal = {
         type: 'popup',
         responsive: true,
         innerScroll: false,
     };
-
-$(document).ready(function(){
-    var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
-    var price_data = {price: device_price};
+//Check Session for any post paid is their
+    $(document).ready(function(){
+        var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
+        var price_data = {price: device_price};
             $.ajax({
                 url: "<?php echo $block->getBaseUrl() . 'port/Addupsell/Checkquote' ?>",
                 dataType: 'json',
@@ -293,12 +292,13 @@ $(document).ready(function(){
                 }
             });
         });
-
+        //Show Hide the portability option
         $('#product-options-wrapper').hide();
+		
         $('.upsell').hide();      
 		var upsel_device_price = $('.product-info-price .price').html();
 		$('.device_price_upsel').html(upsel_device_price);
-		
+		//portability click function already product in cart
         $(".portable").on('click',function () {
             var portable = $(this).val();
 			var port_remove ='';
@@ -331,6 +331,7 @@ $(document).ready(function(){
 				$("#contract_div").show();            
             }
         });
+		//portable remove click function
 		$("input[type=radio][name=port_remove]").on('click',function () {
 			var port_remove = $(this).val();
 			if(port_remove == 'yes'){
@@ -341,7 +342,7 @@ $(document).ready(function(){
 				$("#contract_div").show();
 			}
 		});
-        
+        //Check current service 
         $(".service").on('click',function () {
             if($(this).val() == 'prepaid'){
 				$("#service_div").hide();
@@ -352,7 +353,7 @@ $(document).ready(function(){
 				$('.upsell').show();
             }
         });
-
+        //Check contract service 
         $(".contract").on('click',function () {
 			if($(this).val() == 'yes'){
 				$("#contract_div").hide();
@@ -367,26 +368,66 @@ $(document).ready(function(){
 
             }
         });
-
+        //Credit Check Details show hide popup
         $("#credit_yes").on('click',function () {
             $('#bundle_port').hide();
             $('.Cedula').show();
+		});
+
+        $("#Cedula_btn").on('click',function () {
+            $('.passport_div').hide();
+            $('.cedula_div').show();
+			$('#credit_check_btn').show();
         });
+         $("#Passport_btn").on('click',function () {
+            $('.passport_div').show();
+            $('.cedula_div').hide();
+			$('#credit_check_btn').show();
+        });
+        //Credit Check Function Get Data
+        $("#credit_check_btn").on('click',function () {
+           
+            var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
+            var pid = $(".plan_detail").attr('id');
+            var sid = pid.split("_");
+            var product_id = sid[1];
+            var credit_data = {price: device_price,product_id: product_id};
+            $.ajax({
+                url: "<?php echo $block->getBaseUrl() . 'port/Addupsell/Credit' ?>",
+                dataType: 'json',
+                showLoader: true,
+                type: 'post',
+                data: credit_data,
+                success: function (data) {
+                    if(data.upsel_data){
+						$('#credit_check').hide();
+						$('#credit_check').modal("closeModal");
+						$("#port_div").html(data.upsel_data);
+                        $('#port_div').show();
+                        $('.upsell').hide();
+                    } 
+                }
+            });
+		});
+        //Choose Plan - Upsell Product Selection Dynamic Price Change option
         $(".plan_detail").on('click',function () {
+			//Credit Check Popup Open
             if ($("#contract_yes").prop("checked")) {
                 var popupData = modal(optionsVal, $('#credit_check'));
                 $("#credit_check").css("display", "block");
                 $('#credit_check').modal('openModal');
+				$(".modal-footer").hide();
             }
+			//Select Upsell Product
             $(".plan_detail").css("border", "2px solid");
 			var pid = $(this).attr('id');
 			var sid = pid.split("_");
 			var sdiv = '#product-price-'+sid[1];
-            $('#upsell_id').val(sid[1]);
+            $('#upsell_id').val(sid[1]);       //upsell productId
 			var plan_price = $(sdiv).attr('data-price-amount');
 			var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
 			var total_price = parseFloat(plan_price) + parseFloat(device_price);
-			
+			//Price Calculation
 			if(typeof total_price === 'number'){	
 				if(total_price % 1 === 0){
 					var result = '$' + total_price +'.00';
@@ -398,7 +439,7 @@ $(document).ready(function(){
 			}
                 $(this).css("border", "5px solid #136105");
                 $('.product-info-price .price').html(result);
-                $('#product-addtocart-button').prop('disabled', false);
+                $('#product-addtocart-button').prop('disabled', false); //Enable cart btn
         });
 	});
 </script>

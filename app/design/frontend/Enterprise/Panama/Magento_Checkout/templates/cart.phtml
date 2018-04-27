@@ -11,12 +11,6 @@
  * @var $block \Magento\Checkout\Block\Cart
  */
 
- $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$catalogSession = $objectManager->create('Magento\Catalog\Model\Session');
-echo "port->".$catalogSession->getPort().'<br>';
-echo "current_service ->".$catalogSession->getCurrentService().'<br>';
-echo "buy_smartphone->".$catalogSession->getBuySmartphone(); 
-
 if ($block->getItemsCount()) {
     echo $block->getChildHtml('with-items');
 } else {
