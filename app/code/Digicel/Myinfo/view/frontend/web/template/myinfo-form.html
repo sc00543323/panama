@@ -1,0 +1,34 @@
+<!--The 'step_code' value from the .js file should be used-->
+<li id="my_info" data-bind="fadeVisible: isVisible">
+<div class="step-title" data-bind="i18n: 'My Information'" data-role="title"></div>
+    <div id="checkout-step-title"
+         class="step-content"
+         data-role="content">
+		 <p>
+		<table style="width:100%">
+		  <tr>
+			<th>Name</th>
+			<th>Cedulla</th> 
+			<th>Passport</th>
+			<th>Fradulant</th>
+		  </tr>
+		  <tr>
+			<td>Satish Choudhari</td>
+			<td>2 AV abcdef 123456</td>
+			<td>k123456789</td>
+			<td> NO </td>
+		  </tr>
+		  
+		</table>
+		</p>
+        <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button data-role="opc-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>
