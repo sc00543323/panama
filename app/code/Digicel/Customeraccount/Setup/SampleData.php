@@ -7,7 +7,6 @@ use Magento\Eav\Model\Entity\Attribute\SetFactory as AttributeSetFactory;
 use Magento\Framework\Setup\UpgradeDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use Magento\Customer\Setup\CustomerSetupFactory;
 
 class UpgradeData implements UpgradeDataInterface
 {
@@ -71,7 +70,7 @@ class UpgradeData implements UpgradeDataInterface
             ]);
 
 
-            $attributeCedulla = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, 'cedulla')
+            $attribute = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, 'cedulla')
                 ->addData([
                     'attribute_set_id' => $attributeSetId,
                     'attribute_group_id' => $attributeGroupId,
@@ -80,8 +79,7 @@ class UpgradeData implements UpgradeDataInterface
 					'used_in_forms' => ['customer_account_edit']
                 ]);
 				
-			$attributeCedulla->save();
-			
+			$attribute->save();
 			$attribute = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, 'passport')
                 ->addData([
                     'attribute_set_id' => $attributeSetId,
