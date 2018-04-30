@@ -39,7 +39,7 @@ define(
                     //step alias
                     null,
                     //step title value
-                    'My Info',
+                    'Port In',
                     //observable property with logic when display step or hide step
                     this.isVisible,
 

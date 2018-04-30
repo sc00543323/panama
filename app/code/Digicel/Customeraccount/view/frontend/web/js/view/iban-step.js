@@ -39,7 +39,7 @@ define(
                     //step alias
                     null,
                     //step title value
-                    'Panama Contract',
+                    'Terms and  Conditions',
                     //observable property with logic when display step or hide step
                     this.isVisible,
 
