@@ -4,7 +4,7 @@
     <div id="checkout-step-title"
          class="step-content"
          data-role="content">
-		<div style="overflow: scroll ;max-height: 250px; width: 100%;">
+		<!--<div style="overflow: scroll ;max-height: 250px; width: 100%;">
 		<p>
 <h2>TERMINOS Y CONDICIONES DIGICELS ECOMMERCE ALCANCE DE LOS TÉRMINOS Y CONDICIONES </h2>
 El presente documento establece los términos y condiciones de uso del sitio web Digicel.com que la empresa Digicel Panamá s.a. posee y maneja en la república de Panamá, éstos términos y condiciones rigen el acceso, y operación que realice cualquier visitante de la página, así como cualquier mensaje de datos y/o información que los visitantes envíen, reciban, por las acciones que realicen dentro de él. Al acceder y al usar nuestro sitio web, usted manifiesta aceptar nuestros términos y condiciones. Si usted no está de acuerdo con estos términos, por favor no acceda o haga uso de este Sitio Web.
@@ -144,23 +144,60 @@ CONTACTO PARA RECLAMACIONES O DUDAS
 Para contactarnos, puede llamar a la línea destinada a servicio al cliente: PBX xxxxxx, enviarnos sus inquietudes o comentarios al correo electrónico: info@Digicelgroup.com, dentro de esta página usted encontrará diversos canales de atención como un chat en línea, de igual manera nuestras redes sociales tienen un acceso y horarios de atención en línea:
 Dirección de oficinas: xxxx_--------xxxxxxx
 </p>
-</div>
+</div>-->
         <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
 			<div class="sepa-mandate fontRed pl20">				
 				<div class="field field-sepa-privacy required clearfix pl20">
 					<div class="spea-left-">
 					<label for="sepa-privacy" class="login_radio_label radiocontainer">
 					   <input type="checkbox" checked="checked" name="sepa-privacy" class="sepa-privacy" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span>
-					   <!-- ko i18n: 'I have read and accept the general conditions of sale and the privacy policy..'--><!-- /ko -->
+					   <!-- ko i18n: 'You have read and accepted the General Terms and Conditions'--><!-- /ko -->
 					   
 					</label>
 					</div>
 					<div class="spea-right">
 						<div class="bgDocument"><a class="" target="_blank" data-bind="attr: { href: privacyUrl }">
-						<u><!-- ko i18n: 'View document'--><!-- /ko --></u><span class="glyphicon glyphicon-menu-right"></span></a></div>
-						
-						</div>
+						<u>View document</u><span class="glyphicon glyphicon-menu-right"></span></a></div>
 					</div>
+					<div class="spea-right">
+						<div class="bgDocument"><a class="" target="_blank" data-bind="attr: { href: privacyUrl }">
+						<u>Download</u><span class="glyphicon glyphicon-menu-right"></span></a></div>
+					</div>
+				</div>
+				<div class="field field-sepa-privacy required clearfix pl20">
+					<div class="spea-left-">
+					<label for="sepa-privacy" class="login_radio_label radiocontainer">
+					   <input type="checkbox" checked="checked" name="sepa-privacy" class="sepa-privacy" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span>
+					   <!-- ko i18n: 'You have read and accepted the Port In Terms and Condition'--><!-- /ko -->
+					   
+					</label>
+					</div>
+					<div class="spea-right">
+						<div class="bgDocument"><a class="" target="_blank" data-bind="attr: { href: privacyUrl }">
+						<u>View document</u><span class="glyphicon glyphicon-menu-right"></span></a></div>
+					</div>
+					<div class="spea-right">
+						<div class="bgDocument"><a class="" target="_blank" data-bind="attr: { href: privacyUrl }">
+						<u>Download</u><span class="glyphicon glyphicon-menu-right"></span></a></div>
+					</div>
+				</div>
+				<div class="field field-sepa-privacy required clearfix pl20">
+					<div class="spea-left-">
+					<label for="sepa-privacy" class="login_radio_label radiocontainer">
+					   <input type="checkbox" checked="checked" name="sepa-privacy" class="sepa-privacy" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span>
+					   <!-- ko i18n: 'You have read and accepted the Installation Billing Terms and Conditions'--><!-- /ko -->
+					   
+					</label>
+					</div>
+					<div class="spea-right">
+						<div class="bgDocument"><a class="" target="_blank" data-bind="attr: { href: privacyUrl }">
+						<u>View document</u><span class="glyphicon glyphicon-menu-right"></span></a></div>
+					</div>
+					<div class="spea-right">
+						<div class="bgDocument"><a class="" target="_blank" data-bind="attr: { href: privacyUrl }">
+						<u>Download</u><span class="glyphicon glyphicon-menu-right"></span></a></div>
+					</div>
+				</div>
 			</div>
             <div class="actions-toolbar">
                 <div class="primary">
