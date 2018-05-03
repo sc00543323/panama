@@ -39,7 +39,7 @@ define(
                     //step alias
                     null,
                     //step title value
-                    'Terms and  Conditions',
+                    'Terms and Conditions',
                     //observable property with logic when display step or hide step
                     this.isVisible,
 
@@ -51,7 +51,7 @@ define(
 					* 10 < 'sort order value' < 20 : step displays between shipping and payment step
 					* 'sort order value' > 20 : step displays after payment step
 					*/
-                    16
+                    17
                 );
 
                 return this;
