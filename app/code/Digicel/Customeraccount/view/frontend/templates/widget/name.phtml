@@ -1,0 +1,206 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+USAGE:
+
+Simple:
+
+<?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')
+   ->setObject($block->getAddress())
+   ->toHtml() ?>
+
+For checkout/onepage/shipping.phtml:
+
+<?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')
+   ->setObject($block->getAddress())
+   ->setFieldIdFormat('shipping:%s')
+   ->setFieldNameFormat('shipping[%s]')
+   ->setFieldParams('onchange="shipping.setSameAsBilling(false);"')
+   ->toHtml() ?>
+*/
+/* @var $block \Magento\Customer\Block\Widget\Name */
+$prefix = $block->showPrefix();
+$middle = $block->showMiddlename();
+$suffix = $block->showSuffix();
+$x='data-validate="{\'validate-apostrophe\':true,required:true}"';
+//$x = 'data-validate="{required:true, validate-email:true}"';
+          
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$customerId = $customerSession->getCustomer()->getId();
+$order = $objectManager->create('Magento\Sales\Model\Order')->getCollection()->addAttributeToFilter('customer_id', $customerId);
+?>  
+	<?php
+	//code
+	if($customerSession->isLoggedIn())
+	{ ?>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pr45">
+		<div>
+		    <div class="col-md-3 col-sm-12 col-xs-12 pl0">
+				<label class="Login_form_Txtd pull-left"><?php echo __('Civitity')?></label>
+			</div>
+			<div class="col-md-9 col-sm-12 col-xs-12 pl0 pr0">
+				<label class="Login_form_Txt pull-left" for="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname') ?>">
+					<span><?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?></span>
+				</label>
+			</div>
+		</div>
+		<div class="cleasrfix col-lg-12 col-md-12 col-sm-12 col-xs-12 mb20 pl0 pull-left field field-name-firstname required pr35">
+		<?php if(count($order) > 0): ?>
+		<div class="col-md-3 col-sm-3 col-xs-3 pl0">
+					<?php if ($prefix): ?>
+						<select disabled="true" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>"
+								name="<?php /* @escapeNotVerified */ echo $block->getFieldName('prefix') ?>"
+								title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('prefix') ?>"
+								class="form-control <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->isPrefixRequired()) echo ' data-validate="{required:true}"' ?> >
+							<?php foreach ($block->getPrefixOptions() as $_option): ?>
+							<?php if(isset($_option) && $_option!=""):?>
+								<option value="<?php /* @escapeNotVerified */ echo $_option ?>"<?php if ($block->getObject()->getPrefix() == $_option): ?> selected="selected"<?php endif; ?>>
+									<?php /* @escapeNotVerified */ echo __($_option) ?>
+								</option>
+								<?php endif;?>
+							<?php endforeach; ?>
+						</select>
+					<?php endif; ?>
+					</div>
+		<?php else: ?>
+		<div class="col-md-3 col-sm-3 col-xs-3 pl0">
+					<?php if ($prefix): ?>
+						<select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>"
+								name="<?php /* @escapeNotVerified */ echo $block->getFieldName('prefix') ?>"
+								title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('prefix') ?>"
+								class="form-control <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->isPrefixRequired()) echo ' data-validate="{required:true}"' ?> >
+							<?php foreach ($block->getPrefixOptions() as $_option): ?>
+							<?php if(isset($_option) && $_option!=""):?>
+								<option value="<?php /* @escapeNotVerified */ echo $_option ?>"<?php if ($block->getObject()->getPrefix() == $_option): ?> selected="selected"<?php endif; ?>>
+									<?php /* @escapeNotVerified */ echo __($_option) ?>
+								</option>
+								<?php endif;?>
+							<?php endforeach; ?>
+						</select>
+					<?php endif; ?>
+					</div>
+		<?php endif;?>
+				
+					<div class="col-md-9 col-sm-9 col-xs-9 pl0 pr0">
+					<?php if(count($order) > 0) { ?>
+					<input type="text" value="<?php echo $block->escapeHtml($block->getObject()->getFirstname()) ?>" id="cust_firstname" name="cust_firstname" class="form-control" disabled="true"/>
+					<div class="control">
+						<input type="hidden" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname') ?>"
+							   name="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname') ?>"
+							   value="<?php echo $block->escapeHtml($block->getObject()->getFirstname()) ?>"
+							   title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?>"
+							   class="input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('firstname') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->getAttributeValidationClass('firstname') == 'required-entry') echo ' data-validate="{required:true}"' ?>>
+					</div>
+					<?php } else { ?>
+					<input type="text" id="cust_firstname"
+							   name="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname') ?>"
+							   value="<?php echo $block->escapeHtml($block->getObject()->getFirstname()) ?>"
+							   title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?>"
+							   class="input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('firstname') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> data-validate="{'validate-apostrophe':true,required:true}">
+					<?php } ?>
+					</div>
+				</div>
+				
+			</div>
+		
+		
+	<?php } 
+	//lastname
+	if($customerSession->isLoggedIn()){ ?>
+	
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p40">
+		<div class="field field-name-lastname required">
+            <label class="label"  for="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname') ?>">
+                <span><?php /* @escapeNotVerified */ echo $block->getStoreLabel('lastname') ?></span>
+            </label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb20 pl0 pull-left">
+			<?php if(count($order) > 0) { ?>	
+			<input type="text" value="<?php echo $block->escapeHtml($block->getObject()->getLastname()) ?>" id="cust_lastname" name="cust_lastname" class="form-control" disabled="true"/>
+			<div class="control">
+                <input type="hidden" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname') ?>"
+                       name="<?php /* @escapeNotVerified */ echo $block->getFieldName('lastname') ?>"
+                       value="<?php echo $block->escapeHtml($block->getObject()->getLastname()) ?>"
+                       title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('lastname') ?>"
+                       class="input-text form-control <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('lastname') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->getAttributeValidationClass('lastname') == 'required-entry') echo ' data-validate="{required:true}"' ?>>
+            </div>
+			<?php } else { ?>
+			<input type="text" id="cust_lastname" 
+                       name="<?php /* @escapeNotVerified */ echo $block->getFieldName('lastname') ?>"
+                       value="<?php echo $block->escapeHtml($block->getObject()->getLastname()) ?>"
+                       title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('lastname') ?>"
+                       class="form-control input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('lastname') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> data-validate="{'validate-apostrophe':true,required:true}">
+            <?php } ?>
+			</div>
+        </div>
+	</div>
+	<?php }
+	//code
+	?>
+	<?php 
+	if(!$customerSession->isLoggedIn())
+	{ ?>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pr40">
+				<div class="row">
+					<div class="col-md-3 col-sm-3 col-xs-3 ">
+						<label class="Login_form_Txt pull-left"><?php echo __('Civility'); ?></label>
+					</div>
+					<div class="col-md-9 col-sm-9 col-xs-9  pr0">
+						<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('First Name')) ?>*</label>
+					</div>
+				</div>
+				
+				<div class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0 pull-left mtop-0">					
+					<div class="col-md-3 col-sm-3 col-xs-3 pl0 mtop-0">
+						<?php if ($prefix): ?>
+					<select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>"
+                            name="<?php /* @escapeNotVerified */ echo $block->getFieldName('prefix') ?>"
+                            title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('prefix') ?>"
+                            class="<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->isPrefixRequired()) echo ' data-validate="{required:true}"' ?> >
+                        <?php foreach ($block->getPrefixOptions() as $_option): ?>
+						<?php if(isset($_option) && $_option!=""):?>
+                            <option value="<?php /* @escapeNotVerified */ echo $_option ?>"<?php if ($block->getObject()->getPrefix() == $_option): ?> selected="selected"<?php endif; ?>>
+                                <?php /* @escapeNotVerified */ echo __($_option) ?>
+                            </option>
+							<?php endif;?>
+                        <?php endforeach; ?>
+				<?php endif; ?>
+                    </select>
+						
+					</div>
+					<div class="col-md-9 col-sm-9 col-xs-9 pl0 pr0 mtop-0">
+						<input type="text" placeholder="" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname') ?>"
+                       name="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname') ?>"
+                       value="<?php echo $block->escapeHtml($block->getObject()->getFirstname()) ?>"
+                       title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?>"
+                       class="form-control Login_box input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('firstname') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->getAttributeValidationClass('firstname') == 'required-entry') echo $x; ?>>
+					</div>
+				</div>
+			</div>
+		
+		<?php } ?>
+    
+	
+<?php 
+	if(!$customerSession->isLoggedIn())
+	{ ?>
+			<div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right pl40">
+			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Last Name')); ?> *</label>
+			<div class="control">
+			
+				<input type="text" placeholder="" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname') ?>"
+                       name="<?php /* @escapeNotVerified */ echo $block->getFieldName('lastname') ?>"
+                       value="<?php echo $block->escapeHtml($block->getObject()->getLastname()) ?>"
+                       title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('lastname') ?>"
+                       class="form-control Login_box input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('lastname') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->getAttributeValidationClass('lastname') == 'required-entry') echo  $x; ?>>
+			</div>
+			</div>
+	<?php   } ?>

@@ -1,3 +1,8 @@
+##Site Authentication##
+AuthType Basic
+AuthName "admin"
+AuthUserFile /var/www/html/panama/.htpasswd
+Require valid-user 
 ############################################
 ## overrides deployment configuration mode value
 ## use command bin/magento deploy:mode:set to switch modes

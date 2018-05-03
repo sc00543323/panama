@@ -1,0 +1,69 @@
+<!--The 'step_code' value from the .js file should be used-->
+<li id="my_contract" data-bind="fadeVisible: isVisible">
+<div class="step-title" data-bind="i18n: 'Terms and conditions'" data-role="title"></div>
+    <div id="checkout-step-title"
+         class="step-content"
+         data-role="content">
+		 
+        <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+			<div class="">				
+				<div class="">
+					<div class="">
+					<label for="" class="">
+					   <input type="checkbox" checked="checked" name="terms-conditions-general" class="" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span>
+					   You have read and accepted the General Terms and Condition
+					</label>
+					</div>
+					<div class="">
+						<div class=""><a class="" target="_blank" data-bind="">
+						<u>View document</u><span class=""></span></a>
+						<u>Download</u><span class=""></span></a>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="fontRed pl201">				
+				<div class="">
+					<div class="">
+					<label for="" class="">
+					   <input type="checkbox" checked="checked" name="terms-conditions-potin" class="" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span>
+					   You have read and accepted the Port In Terms and Conditions 
+					</label>
+					</div>
+					<div class="">
+						<div class=""><a class="" target="_blank" data-bind="">
+						<u>View document</u><span class=""></span></a>
+						<u>Download</u><span class=""></span></a>
+						</div>	
+					</div>
+				</div>
+			</div>
+            <div class="">				
+				<div class="">
+					<div class="">
+					<label for="" class="">
+					   <input type="checkbox" checked="checked" name="terms-conditions-billing" class="" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span>
+					   You have read and accepted the Installation Billing Terms and Conditions
+					   
+					</label>
+					</div>
+					<div class="">
+						<div class=""><a class="" target="_blank" data-bind="">
+						<u>View document</u><span class=""></span></a>
+						<u>Download</u><span class=""></span></a>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<h6 style="color:red">You must agree to all terms and conditions before proceed to payment</h6>
+            
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button data-role="opc-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'NextStep'--><!-- /ko -->Next</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>
