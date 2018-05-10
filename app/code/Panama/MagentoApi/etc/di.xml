@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2018 Panama. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Panama\MagentoApi\Api\UpdateDeliveryInterface" type="Panama\MagentoApi\Model\UpdateDelivery" />
+	<preference for="Panama\MagentoApi\Api\Data\DeliveryInterface" type="Panama\MagentoApi\Model\Delivery" />	
+</config>
