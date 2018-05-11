@@ -7,7 +7,16 @@ class UpdateDelivery implements UpdateDeliveryInterface
 {
     public function status(\Panama\MagentoApi\Api\Data\DeliveryInterface $deliveryData) {
 	
-		$deliveryStatusArray = array("101" =>"in_enlistment", "102" => "dispatched", "113" => "in_transit", "103" => "delivered", "112" => "returned", "107" => "complete", "163" => "annulled", "250" => "ready_to_pick_up_at_the_store", "251" => "canceled", "252" => "canceled");
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$scopeConfig = $objectManager->create('Magento\Framework\App\Config\ScopeConfigInterface');
+		$deliveryStatusConfig = $scopeConfig->getValue('magento_api/delivery_status_code_configuration/delivery_status_code', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+		$deliveryStatusVal = explode(",",$deliveryStatusConfig);
+		$deliveryStatusArray = array();
+		foreach ($deliveryStatusVal as $val) {
+			$value = explode("=>",$val);
+			$key = trim($value[0]);
+			$deliveryStatusArray[$key] = $value[1];
+		}
 		$orderId = $deliveryData->getOrderId();
 		$deliveryStatusId = $deliveryData->getDeliveryStatusId();
 		$trackingDeliveryUrl = $deliveryData->getTrackingDeliveryUrl();
@@ -24,7 +33,6 @@ class UpdateDelivery implements UpdateDeliveryInterface
 		}
 		
 		if($deliveryData->getresultId() == 1) {
-			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$orderStatus = $deliveryStatusArray[$deliveryStatusId];
 			$order = $objectManager->create('\Magento\Sales\Model\Order')->load($orderId);
 			if($order->getId() && $orderStatus) {
