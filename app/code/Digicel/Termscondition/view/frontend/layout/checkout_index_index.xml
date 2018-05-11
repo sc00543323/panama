@@ -9,12 +9,16 @@
                                     <item name="steps" xsi:type="array">
                                         <item name="children" xsi:type="array">
                                             <!-- The new step you add -->
-                                            <item name="myinfo-step" xsi:type="array">
-                                                <item name="component" xsi:type="string">Digicel_Portin/js/view/portin-step</item>
-                                                <item name="sortOrder" xsi:type="string">12</item>
+                                            <item name="tandc-step" xsi:type="array">
+                                                <item name="component" xsi:type="string">Digicel_Termscondition/js/view/tanac-step</item>
+                                                <item name="sortOrder" xsi:type="string">13</item>
                                                 <item name="children" xsi:type="array">
                                                 </item>
                                             </item>
+											<item name="cms-block" xsi:type="array">
+												<item name="component" xsi:type="string">Digicel_Termscondition/js/view/cms-block</item>
+												<item name="sortOrder" xsi:type="string">13</item>
+											</item>
                                         </item>
                                     </item>
                                 </item>
@@ -23,5 +27,5 @@
                     </argument>
                 </arguments>
         </referenceBlock>
-    </body>
+      </body>
 </page>
