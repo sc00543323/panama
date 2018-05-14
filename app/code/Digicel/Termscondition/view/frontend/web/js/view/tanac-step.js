@@ -20,7 +20,7 @@ define(
         */
         return Component.extend({
             defaults: {
-                template: 'Digicel_Portin/portin-form'
+                template: 'Digicel_Termscondition/tandc-form'
             },
 
             //add here your logic to display step,
@@ -35,11 +35,11 @@ define(
                 // register your step
                 stepNavigator.registerStep(
                     //step code will be used as step content id in the component template
-                    'portin',
+                    'terms_conditions',
                     //step alias
                     null,
                     //step title value
-                    'Port In',
+                    'Terms and Conditions',
                     //observable property with logic when display step or hide step
                     this.isVisible,
 
@@ -51,7 +51,7 @@ define(
 					* 10 < 'sort order value' < 20 : step displays between shipping and payment step
 					* 'sort order value' > 20 : step displays after payment step
 					*/
-                    12
+                    13
                 );
 
                 return this;
