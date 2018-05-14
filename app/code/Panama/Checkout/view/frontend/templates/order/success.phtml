@@ -1,0 +1,223 @@
+<?php /* @var $block \Amit\Orderpage\Block\Success */?>
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+	text-align:center;
+}
+tr{
+	background: #e6e6e6;
+}
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+	line-height: 30px;
+	font-weight: 600;
+  }
+  table th {
+	font-weight: 600;
+    font-size: 17px;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+.shipping{
+	background-color: #eee;
+    width: 30%;
+    border: 1px black solid;
+    padding: 15px;
+    float: left;
+    margin: 3px;
+}
+.btn-action{
+	background: #eeeeee;
+    color: black;
+    border: 1px black solid;
+}
+</style>
+<?php 
+echo '<br/>';
+$order = $block->getOrder();
+
+$taxData = $block->getTax();
+$taxHeader = '';
+$taxValue = '';
+$taxTotal = '';
+$orderSummary = '';
+Foreach($taxData as $tax){
+	$taxHeader .= '<th style="width: 25%;">'.$tax['title'].' (Tax - '.round($tax['tax_percent']).'%)</th>';
+	$taxValue .= '<td style="width: 25%;">$ '.$tax['real_amount'].'</td>';
+	$taxTotal += $tax['real_amount'];
+	
+	$orderSummary .= '<p> '.$tax['title'].'(Tax - '.round($tax['tax_percent']).'%) : $ '.$tax['real_amount'].'</p>';
+}
+
+$totall = $order->getGrandTotal();
+
+echo "Order placed on : ".$order->getCreatedAt()."<br/>";
+
+$items = $order->getAllItems();
+
+ 
+
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+foreach($items as $i):
+   $_product = $objectManager->create('Magento\Catalog\Model\Product')->load($i->getProductId());
+$imagewidth=200;
+$imageheight=200;
+$imageHelper  = $objectManager->get('\Magento\Catalog\Helper\Image');
+$image_url = $imageHelper->init($_product, 'product_page_image_small')->setImageFile($_product->getFile())->resize($imagewidth, $imageheight)->getUrl();
+
+$desc =  $_product->getDescription();
+$thum_nail = $_product->getThumbnail();
+endforeach;
+
+
+echo '<p style="text-align: right;">Will be deliver in 1 working days</p>';
+
+echo '<table>
+  <tr>
+    <th style="width: 50%;">'.$_product->getName().'<img src="'.$image_url.'" title="'.$_product->getName().'"></th>
+    <th style="width: 50%;">
+	 <p style="font-size: 10px;">Unlimited in-zone Panama/Central America Talk.</p>
+     <p style="font-size: 10px;">Unlimited in-zone Text Panama/Central America and International.</p>
+     <p style="font-size: 10px;">2GB at 4G speed. Continue using data at a reduced speed until your next Anniversary Date.</p>
+     <p style="font-size: 10px;">Auto-pay offer. Bonus 2GB data at 4G speed/month.</p>
+	 </th>
+  </tr>
+</table>
+<table>
+  <tr>
+    <th style="width: 25%;">'.$_product->getName().'</th>
+                '.$taxHeader.'
+    <th style="width: 25%;">Total</th>
+   </tr>
+            <tr>
+                  <td>$ '.$_product->getPrice().'</td>
+                '.$taxValue.'
+				<td>$ '.$taxTotal.'</td>
+            </tr>
+            <tr>
+                <td ></td>
+				<td ></td>
+				<td >Shipping Charges</td>
+                <td>$ 0.00</td>
+           </tr>
+		   <tr>
+                <td ></td>
+				<td ></td>
+				<td >Total</td>
+                <td>$ '.$totall.'</td>
+           </tr>
+      </table>
+	  <br/>';
+	  
+	  $shippingAddress = $order->getShippingAddress();
+	  
+echo "<div class='shipping'><h3>Payment Details</h3>
+<p>Amount :".$totall."</p>
+ <p>Card Type : Visa </p>
+ <p>Card NUmber : 14xx-xxxx-xxxx-xx23 </p>
+ <p>Status : Committed </p>
+ 
+ </div>";
+ 
+ echo "<div class='shipping'><h3>Shipping Details</h3>
+<p>".$shippingAddress->getCity()."</p>
+ <p>Mob: +507:".$shippingAddress->getTelephone()."</p></div>";
+ 
+ echo "<div class='shipping'><h3>Order Summary</h3>
+ <p>Sub Total :".$_product->getPrice()."</p>
+  <p>Shipping & Handling : Free</p>
+  ".$orderSummary."
+ <p>Total :".$taxTotal."</p></div><br/>";
+ 
+  echo '<p>Contact DigiCel customer care to change shipping address. Call us at 010101010</p><br/>';
+	
+echo '<div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue btn-action" href="'.$block->getContinueUrl().'"><span>'.__('My Account').'</span></a>
+        </div>
+		<div class="primary">
+            <a class="action primary continue btn-action" href="'.$block->getContinueUrl().'"><span>'.__('Continue Shopping').'</span></a>
+        </div>
+    </div>';
+
+
+?>
+
