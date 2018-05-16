@@ -24,8 +24,7 @@ class Success  extends \Magento\Framework\View\Element\Template
 	public function getOrder()
 	{
 		$order = $this->_checkoutSession->getLastRealOrder();
-		 $orderId = $order->getEntityId(); 
-		$order->getIncrementId();
+		$orderId = $order->getEntityId(); 
 		return $this->orderRepository->get($order->getIncrementId());
 	}
 	public function getTax()

@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
-<body>
-    <referenceContainer name="order.success.additional.info">
-        <block class="Panama\Checkout\Block\Success" name="panama.order.success" template="Panama_Checkout::order/success.phtml" after="-"></block>
-    </referenceContainer>
-</body>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Panama_Checkout::css/success.css"/>
+	</head>
+	<body>
+		<referenceContainer name="order.success.additional.info">
+			<block class="Panama\Checkout\Block\Success" name="panama.order.success" template="Panama_Checkout::order/success.phtml" after="-"></block>
+		</referenceContainer>
+	</body>
+</page>
