@@ -12,7 +12,26 @@ define([
         },
 		
 		selectButton: function () {
-            $(".time_date_div").toggle();
+            var city = $("[name='city']").val();
+			var address = $("[name='street[0]']").val();
+			//alert(city);
+			//alert(address);
+			var checkout = window.checkout;
+			$.ajax({
+				url: checkout.baseUrl+'checkout/calculate/delivery',
+				dataType: 'json',
+				showLoader: true,
+				type: 'post',
+				data: city,
+				success: function (data) {
+					if(data == true) {
+						//alert("succsesss");
+					} else {
+						//alert("faiii");
+					}
+				}
+			});
+            //$(".time_date_div").toggle();
         },
 		
 		time: function () {
