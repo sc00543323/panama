@@ -1,0 +1,141 @@
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://digicelpanama.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://digicelpanama.com/">
+<wsdl:types>
+<s:schema elementFormDefault="qualified" targetNamespace="http://digicelpanama.com/">
+<s:element name="SOLICITAR_TOKEN">
+<s:complexType/>
+</s:element>
+<s:element name="SOLICITAR_TOKENResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="SOLICITAR_TOKENResult">
+<s:complexType>
+<s:sequence>
+<s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+<s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="AuthHeader" type="tns:AuthHeader"/>
+<s:complexType name="AuthHeader">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string"/>
+</s:sequence>
+<s:anyAttribute/>
+</s:complexType>
+<s:element name="DataTable" nillable="true">
+<s:complexType>
+<s:sequence>
+<s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+<s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:schema>
+</wsdl:types>
+<wsdl:message name="SOLICITAR_TOKENSoapIn">
+<wsdl:part name="parameters" element="tns:SOLICITAR_TOKEN"/>
+</wsdl:message>
+<wsdl:message name="SOLICITAR_TOKENSoapOut">
+<wsdl:part name="parameters" element="tns:SOLICITAR_TOKENResponse"/>
+</wsdl:message>
+<wsdl:message name="SOLICITAR_TOKENAuthHeader">
+<wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+</wsdl:message>
+<wsdl:message name="SOLICITAR_TOKENHttpGetIn"/>
+<wsdl:message name="SOLICITAR_TOKENHttpGetOut">
+<wsdl:part name="Body" element="tns:DataTable"/>
+</wsdl:message>
+<wsdl:message name="SOLICITAR_TOKENHttpPostIn"/>
+<wsdl:message name="SOLICITAR_TOKENHttpPostOut">
+<wsdl:part name="Body" element="tns:DataTable"/>
+</wsdl:message>
+<wsdl:portType name="TOKENSoap">
+<wsdl:operation name="SOLICITAR_TOKEN">
+<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitar TOKEN</wsdl:documentation>
+<wsdl:input message="tns:SOLICITAR_TOKENSoapIn"/>
+<wsdl:output message="tns:SOLICITAR_TOKENSoapOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:portType name="TOKENHttpGet">
+<wsdl:operation name="SOLICITAR_TOKEN">
+<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitar TOKEN</wsdl:documentation>
+<wsdl:input message="tns:SOLICITAR_TOKENHttpGetIn"/>
+<wsdl:output message="tns:SOLICITAR_TOKENHttpGetOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:portType name="TOKENHttpPost">
+<wsdl:operation name="SOLICITAR_TOKEN">
+<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitar TOKEN</wsdl:documentation>
+<wsdl:input message="tns:SOLICITAR_TOKENHttpPostIn"/>
+<wsdl:output message="tns:SOLICITAR_TOKENHttpPostOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="TOKENSoap" type="tns:TOKENSoap">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="SOLICITAR_TOKEN">
+<soap:operation soapAction="http://digicelpanama.com/SOLICITAR_TOKEN" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+<soap:header message="tns:SOLICITAR_TOKENAuthHeader" part="AuthHeader" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="TOKENSoap12" type="tns:TOKENSoap">
+<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="SOLICITAR_TOKEN">
+<soap12:operation soapAction="http://digicelpanama.com/SOLICITAR_TOKEN" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+<soap12:header message="tns:SOLICITAR_TOKENAuthHeader" part="AuthHeader" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="TOKENHttpGet" type="tns:TOKENHttpGet">
+<http:binding verb="GET"/>
+<wsdl:operation name="SOLICITAR_TOKEN">
+<http:operation location="/SOLICITAR_TOKEN"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="TOKENHttpPost" type="tns:TOKENHttpPost">
+<http:binding verb="POST"/>
+<wsdl:operation name="SOLICITAR_TOKEN">
+<http:operation location="/SOLICITAR_TOKEN"/>
+<wsdl:input>
+<mime:content type="application/x-www-form-urlencoded"/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="TOKEN">
+<wsdl:port name="TOKENSoap" binding="tns:TOKENSoap">
+<soap:address location="http://appservpa01.digicelpanama.com/WS_token/TOKEN.asmx"/>
+</wsdl:port>
+<wsdl:port name="TOKENSoap12" binding="tns:TOKENSoap12">
+<soap12:address location="http://appservpa01.digicelpanama.com/WS_token/TOKEN.asmx"/>
+</wsdl:port>
+<wsdl:port name="TOKENHttpGet" binding="tns:TOKENHttpGet">
+<http:address location="http://appservpa01.digicelpanama.com/WS_token/TOKEN.asmx"/>
+</wsdl:port>
+<wsdl:port name="TOKENHttpPost" binding="tns:TOKENHttpPost">
+<http:address location="http://appservpa01.digicelpanama.com/WS_token/TOKEN.asmx"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

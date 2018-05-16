@@ -91,6 +91,7 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
      * @var \Magento\Framework\Stdlib\Cookie\PhpCookieManager
      */
     private $cookieMetadataManager;
+	
 
     /**
      * @param Context $context
@@ -252,28 +253,8 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
      */
     public function execute()
     {
-	 $postData = $this->getRequest()->getParams();
-	 print_r($postData);exit;
-     $mob = $this->getRequest()->getParam('mobile_number');
-	 $passport = $this->getRequest()->getParam('passport');
-	 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-	 $resultRedirect = $this->resultRedirectFactory->create();
-	 $province = $this->getRequest()->getParam('province');
-	 $letters = $this->getRequest()->getParam('letters');
-	 $itake = $this->getRequest()->getParam('itake');
-	 $seat = $this->getRequest()->getParam('seat');
-	 $number = $this->getRequest()->getParam('number');
-	 
-	 $array = array($province,$letters,$itake,$seat,$number);
-	 $cedulla = implode($array);
-	 //print_r($cedulla);exit;
-	 $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
-	 $model = $objectManager->create('Digicel\Customeraccount\Model\Cedulla');
-     $model->setData('cedulla',$cedulla);
-	 $model->setData('passport',$passport);
-     $model->save();
-	
-        if ($this->session->isLoggedIn() || !$this->registration->isAllowed()) {
+       
+		if ($this->session->isLoggedIn() || !$this->registration->isAllowed()) {
             $resultRedirect->setPath('*/*/');
             return $resultRedirect;
         }
@@ -294,12 +275,12 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             $customer = $this->customerExtractor->extract('customer_account_create', $this->_request);
             //$customer->setDob($dobval);
 			$password = $this->getRequest()->getParam('password');
+			$cedulla = $this->getRequest()->getParam('cedulla');
 			$passport = $this->getRequest()->getParam('passport');
             $redirectUrl = $this->session->getBeforeAuthUrl();
-
+			
             $customer = $this->accountManagement
                 ->createAccount($customer, $password, $cedulla, $passport, $redirectUrl);
-
             /*if ($this->getRequest()->getParam('is_subscribed', false)) {
                 $this->subscriberFactory->create()->subscribeCustomerById($customer->getId());
             }
@@ -371,7 +352,8 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             );
             // @codingStandardsIgnoreEnd
             $this->messageManager->addError($message);
-        } catch (InputException $e) {
+        } 
+		/*catch (InputException $e) {
             $this->messageManager->addError($this->escaper->escapeHtml($e->getMessage()));
             foreach ($e->getErrors() as $error) {
                 $this->messageManager->addError($this->escaper->escapeHtml($error->getMessage()));
@@ -382,21 +364,22 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             $this->messageManager->addException($e, __('We can\'t save the customer.'));
         }
 
-		$cust = $this->getRequest()->getPostValue();		
+		/*$cust = $this->getRequest()->getPostValue();		
 			
 				$cust['lastname'] = $cust['lastname'];
                 $cust['firstname'] = $cust['firstname'];
-				$cust['passport'] = $passport;
-				$cust['cedulla'] = $cedulla;
+				//$cust['passport'] = $passport;
+				//$cust['cedulla'] = $cedulla;
 				//$time = strtotime($cust['dob']);
 
 				//$newformat = date('d/m/Y',$time);
 				//$cust['dob'] = $newformat;
 				$this->session->setCustomerFormData($cust); 
 		
-        $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);
-        $resultRedirect->setUrl($this->_redirect->error($defaultUrl));
-        return $resultRedirect;
+        $defaultUrl = $this->urlModel->getUrl('*create', ['_secure' => true]);
+		$resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect->setUrl($this->_redirect->error($defaultUrl));*
+        return $resultRedirect;*/
     }
 
     /**
