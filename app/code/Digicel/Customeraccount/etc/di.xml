@@ -1,6 +1,3 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-<preference for="Magento\Customer\Block\Widget\Dob" type="Digicel\Customeraccount\Block\Customer\Dob" />
 <preference for="Magento\Customer\Controller\Account\CreatePost" type="Digicel\Customeraccount\Controller\Account\CreatePost" />
-<preference for="Magento\Customer\Controller\Account\EditPost" type="Digicel\Customeraccount\Controller\Account\EditPost" />
-<preference for="Magento\Checkout\Controller\Index\Index" type="Digicel\Customeraccount\Controller\Index\Index" />
 </config>

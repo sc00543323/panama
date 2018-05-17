@@ -1,0 +1,81 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Address $block */
+?>
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+
+
+if($customerSession->isLoggedIn()) {
+	
+     $customerid = $customerSession->getCustomer()->getId(); 
+     $customer = $objectManager->create('Magento\Customer\Model\Customer')->load($customerid);
+	 $billingadrs= $customer->getData('default_billing');
+	 $shippingadrs= $customer->getData('default_shipping');	
+     $eavConfig = $objectManager->get('\Magento\Eav\Model\Config');
+     $attribute = $eavConfig->getAttribute('customer_address', 'address_preference');
+}
+?>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('Address Book') ?></strong>
+        <a class="action edit" href="<?php /* @escapeNotVerified */ echo $block->getAddressBookUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Manage Addresses') ?></span></a>
+		</div>
+    <div class="block-content">
+        <div class="box box-billing-address">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Default Billing Address') ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                 <?php  
+                        $defaultBil = $objectManager->create('Magento\Customer\Model\Address')->load($billingadrs);
+                        $addressPreference = $defaultBil->getCustomAttribute('address_preference');
+                        if(isset($addressPreference) && is_object($addressPreference)) {
+                            $optionId = $defaultBil->getCustomAttribute('address_preference')->getValue();
+                            $optionText = $attribute->getSource()->getOptionText($optionId); ?>
+                            <span style="font-size:15px;!important;"><b><?php echo $optionText; ?> Address</b></span>
+                        <?php }?>
+                    <?php /*}*/ ?><br />  
+                    <?php echo $block->getPrimaryBillingAddressHtml();echo '<br/>'; ?>
+                </address>
+            </div>
+			<?php if(!$block->getCustomer()->getDefaultBilling()) : ?>
+            <div class="box-actions">
+                <a class="action edit" href="<?php /* @escapeNotVerified */ echo $block->getPrimaryBillingAddressEditUrl() ?>" data-ui-id="default-billing-edit-link"><span><?php /* @escapeNotVerified */ echo __('Edit Address') ?></span></a>
+            </div>
+			<?php endif; ?>
+        </div>
+        <div class="box box-shipping-address">
+            <strong class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Default Shipping Address') ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                 <?php
+                     $defaultShip = $objectManager->create('Magento\Customer\Model\Address')->load($shippingadrs);
+                        $addressPreference = $defaultShip->getCustomAttribute('address_preference');
+                        if(isset($addressPreference) && is_object($addressPreference)) {
+                            $optionId = $defaultShip->getCustomAttribute('address_preference')->getValue();
+                            $optionText = $attribute->getSource()->getOptionText($optionId); ?>
+                            <span style="font-size:15px;!important;"><b><?php echo $optionText; ?> Address</b></span>
+                        <?php }?> 
+                        <br/>
+                    <?php echo $block->getPrimaryShippingAddressHtml();echo '<br/>'; ?>
+					<?php //echo 'Address Preference:&nbsp;'.$optionText ;?>
+                </address>
+            </div>			
+            <div class="box-actions">
+                <a class="action edit" href="<?php /* @escapeNotVerified */ echo $block->getPrimaryShippingAddressEditUrl() ?>" data-ui-id="default-shipping-edit-link"><span><?php /* @escapeNotVerified */ echo __('Edit Address') ?></span></a>
+            </div>			
+        </div>
+    </div>
+</div>
