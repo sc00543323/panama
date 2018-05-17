@@ -20,22 +20,10 @@ if($block->getCustomer()->getCustomAttribute('mobile_prefix')){
     $mprefix = '';
 }
 
-if($block->getCustomer()->getCustomAttribute('cedulla')){
-    $cedulla=$block->getCustomer()->getCustomAttribute('cedulla')->getValue();
-}else{
-    $cedulla='';
-}
-
-if($block->getCustomer()->getCustomAttribute('passport')){
-    $passport=$block->getCustomer()->getCustomAttribute('passport')->getValue();
-}else{
-    $passport='';
-}
-
 ?>
 <h3 class="page-title mt10 pl15 pr15"><?php echo $block->escapeHtml(__('Account Information')) ?></h3>
 <div class="col-md-12">
-<form class="form form-edit-account" action="<?php echo $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?php echo __('* Required Fields') ?>" autocomplete="off">
+<form class="form form-edit-account" action="<?php echo $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeHtmlAttr(__('* Required Fields')) ?>" autocomplete="off">
     <div class="account-info">
         <?php echo $block->getBlockHtml('formkey')?>
 		<div class="item">
@@ -45,7 +33,7 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 		<div class="item">
 			<div class="form-left">
 				<?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
-				<?php //$newsletterblock = $block->getLayout()->createBlock('Digicel\Customeraccount\Block\Customer\Newsletter') ?>
+				<?php $newsletterblock = $block->getLayout()->createBlock('Digicel\Customeraccount\Block\Customer\Newsletter') ?>
 				<?php if ($_dob->isEnabled()): ?>
 					<?php echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
 				<?php endif ?>
@@ -57,64 +45,40 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 				$attribute = $eavConfig->getAttribute('customer', 'mobile_prefix');
 				$options = $attribute->getSource()->getAllOptions();
 				?>
-				<!--<div class="field field-name-mobile required">
+				<div class="field field-name-mobile required">
 				<?php //echo 'prefix--'. $block->getCustomer()->getData('mobile_prefix');?>
 					<label class="label" for="mobile">
-						<span><?php //echo $block->escapeHtml(__('Mobile Number')) ?></span>
+						<span><?php echo $block->escapeHtml(__('Mobile Number')) ?></span>
 					</label>
 					<div class="clearfix">
 					<div class="form-left">
-					<select id="<?php /* @escapeNotVerified */ //echo $block->getFieldId('prefix') ?>"
-						name="mobile_prefix"
-						title="mobile_prefix"
-						class="mobiledrop required-entry<?php /* @escapeNotVerified */ //echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ //echo $block->getFieldParams() ?> >
-						<?php //foreach ($options as $_option): ?>
-						<?php //if($_option['value'] != ''){
+					<select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>"
+            name="mobile_prefix"
+            title="mobile_prefix"
+            class="mobiledrop required-entry<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> >
+            <?php foreach ($options as $_option): ?>
+			<?php if($_option['value'] != ''){
 
-						?>
-						<!--<option value="<?php /* @escapeNotVerified */ //echo $_option['label']; ?> <?php //if($mprefix == $_option['label'] ) { ?>  selected='selected' <?php //} ?>">
-							<?php /* @escapeNotVerified */// echo __($_option['label']) ?>
-						</option>
-						<option value="<?php /* @escapeNotVerified */ //echo $_option['label'] ?>" <?php //if ($mprefix == $_option['label']): ?> selected="selected"<?php //endif; ?>>
-						 <?php /* @escapeNotVerified */ //echo __($_option['label']) ?>
-						  </option>
-						<?php //} ?>
-						<?php //endforeach; ?>
-					</select>
+			?>
+            <!--<option value="<?php /* @escapeNotVerified */ //echo $_option['label']; ?> <?php //if($mprefix == $_option['label'] ) { ?>  selected='selected' <?php //} ?>">
+                <?php /* @escapeNotVerified */// echo __($_option['label']) ?>
+            </option>-->
+			<option value="<?php /* @escapeNotVerified */ echo $_option['label'] ?>" <?php if ($mprefix == $_option['label']): ?> selected="selected"<?php endif; ?>>
+			 <?php /* @escapeNotVerified */ echo __($_option['label']) ?>
+			  </option>
+			<?php } ?>
+            <?php endforeach; ?>
+        </select>
 					</div>
 					<div class="form-right">
 					<div class="control">
-					<input type='text' minlength="10"  maxlength="10" id='mobile_number' name='mobile_number' value="<?php //echo $mobile;?>" title="<?php /* @escapeNotVerified */ //echo __('Mobile Number') ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10','validate-mobile-number':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
+					<input type='text' minlength="10"  maxlength="10" id='mobile_number' name='mobile_number' value="<?php echo $mobile;?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10','validate-mobile-number':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
 					</div>
 					</div>
 				</div>
-				</div>-->
+				</div>
 			</div>
 			<div class="clearfix"></div>
-		</div>
-		<div class="item">
-			<div class="form-left">
-				<div class="field field-name-cedulla required">
-					<label class="label" for="cedulla">
-						<span><?php echo $block->escapeHtml(__('Cedulla')) ?></span>
-					</label>
-					<div class="control">
-						<input value="<?php echo $cedulla ;?>" id="cedulla"  disabled="true" type="text">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="item">
-			<div class="form-left">
-				<div class="field field-name-cedulla required">
-					<label class="label" for="cedulla">
-						<span><?php echo $block->escapeHtml(__('Passport')) ?></span>
-					</label>
-					<div class="control">
-						<input value="<?php echo $passport;?>" id="passport"  disabled="true" type="text">
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="item">
 			<div class="form-left">
@@ -131,7 +95,7 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 		<div class="clearfix"></div>
 		<div class="item check-pass-change">
 			<div class="field choice">
-			   <label class="label pull-left" for="change-password" style="line-height:20px;"><span> <input type="checkbox" name="change_password" id="change-password" data-role="change-password" value="1" title="<?php echo __('Change Password') ?>"<?php if ($block->getChangePassword()): ?> checked="checked"<?php endif; ?> class="pull-left checkbox" style="margin-right:3px;"/>
+			   <label class="label pull-left" for="change-password" style="line-height:20px;"><span> <input type="checkbox" name="change_password" id="change-password" data-role="change-password" value="1" title="<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeHtmlAttr(__('Change Password')) ?>"<?php if ($block->getChangePassword()): ?> checked="checked"<?php endif; ?> class="pull-left checkbox" style="margin-right:3px;"/>
 				<?php echo $block->escapeHtml(__('Change Password')) ?></span></label>
 			</div>
 			<div class="clearfix"></div>
@@ -143,7 +107,7 @@ if($block->getCustomer()->getCustomAttribute('passport')){
         <div class="field email required" data-container="change-email">
             <label class="label" for="email"><span><?php echo $block->escapeHtml(__('Email')) ?></span></label>
             <div class="control">
-                <input type="email" name="email" id="email" autocomplete="email" data-input="change-email" value="<?php echo $block->getCustomer()->getEmail(); ?>" title="<?php echo __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}" />
+                <input type="email" name="email" id="email" autocomplete="email" data-input="change-email" value="<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>" title="<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeHtmlAttr(__('Email')) ?>" class="input-text" data-validate="{required:true, 'validate-email':true}" />
             </div>
         </div>
         <div class="field password current required">
@@ -181,29 +145,29 @@ if($block->getCustomer()->getCustomAttribute('passport')){
         </div>
         <?php echo $block->getChildHtml('form_additional_info'); ?>
     </div>
-	<?php //if ($newsletterblock->isNewsletterEnabled()): ?>
-		    <!--<div class="field choice newsletter">
+	<?php if ($newsletterblock->isNewsletterEnabled()): ?>
+		    <div class="field choice newsletter">
                 <h5 class="Login_form_Txt pull-left"><label for="is_subscribed" class="label subscribe"> 
-				<input type="checkbox" name="is_subscribed" title="<?php //echo __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed" <?php //if ($newsletterblock->getIsSubscribed()): ?> checked="checked" <?php //endif; ?> class="pull-left checkbox">
-               <span><?php //echo $newsletterblock->escapeHtml(__('Send information from SailFish')) ?></span></label></h5>
+				<input type="checkbox" name="is_subscribed" title="<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed" <?php if ($newsletterblock->getIsSubscribed()): ?> checked="checked" <?php endif; ?> class="pull-left checkbox">
+               <span><?php echo $newsletterblock->escapeHtml(__('Send information from SailFish')) ?></span></label></h5>
 			 
             </div>
 			 <div class="field choice clearfix">
                 <h5 class="Login_form_Txt pull-left" style="margin:1px 0;"><label for="is_partner_subscribed" class="label subscribe"> 
-				<input type="checkbox" name="is_partner_subscribed" title="" value="1" id="is_partner_subscribed"<?php //if ($newsletterblock->getIsPartnerSubscribed()): ?> checked="checked"<?php //endif; ?> class="pull-left checkbox">
+				<input type="checkbox" name="is_partner_subscribed" title="" value="1" id="is_partner_subscribed"<?php if ($newsletterblock->getIsPartnerSubscribed()): ?> checked="checked"<?php endif; ?> class="pull-left checkbox">
               
-			   <span><?php //echo $newsletterblock->escapeHtml(__('Send information from other partners')) ?></span></label></h5>
-            </div>-->
+			   <span><?php echo $newsletterblock->escapeHtml(__('Send information from other partners')) ?></span></label></h5>
+            </div>
             <?php /* Extensions placeholder */ ?>
-            <?php //echo $newsletterblock->getChildHtml('customer.form.register.newsletter')?>
+            <?php echo $newsletterblock->getChildHtml('customer.form.register.newsletter')?>
 		
-    <?php// endif ?>
+    <?php endif ?>
     <div class="actions-toolbar">
 		<div class="primary">
-			<button type="submit" class="action save primary" title="<?php echo __('Save'); ?>"><span><?php echo __('Save') ?></span></button>
+			<button type="submit" class="action save primary" title="<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeHtmlAttr(__('Save')) ?>"><span><?php echo $block->escapeHtml(__('Save')) ?></span></button>
 		</div>
 		<div class="secondary">
-			<a class="action back" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><span><?php echo __('Go back') ?></span></a>
+			<a class="action back" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><span><?php echo $block->escapeHtml(__('Go back')) ?></span></a>
 		</div>
 	</div>
 </form>
@@ -261,9 +225,9 @@ function isNumberKey(evt)
     {
         "[data-role=change-email], [data-role=change-password]": {
             "changeEmailPassword": {
-                "titleChangeEmail": "<?php echo __('Change Email') ?>",
-                "titleChangePassword": "<?php echo __('Change Password') ?>",
-                "titleChangeEmailAndPassword": "<?php echo __('Change Email and Password') ?>"
+                "titleChangeEmail": "<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeJs($block->escapeHtml(__('Change Email'))) ?>",
+                "titleChangePassword": "<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeJs($block->escapeHtml(__('Change Password'))) ?>",
+                "titleChangeEmailAndPassword": "<?php echo $this->helper(\Magento\Framework\EscapeHelper::class)->escapeJs($block->escapeHtml(__('Change Email and Password'))) ?>"
             }
         }
     }
