@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Orange. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+	    <add id="Digicel_Portin::portin_index_main" title="Terms Condition" module="Digicel_Portin"  sortOrder="20"   resource="Digicel_Portin::portin_index_main"/>
+        <add id="Digicel_Portin::portin_index" title="Condition" module="Digicel_Portin"  sortOrder="20" parent="Digicel_Portin::portin_index_main"  action="condition/Condition/Index" resource="Digicel_Portin::Condition"/>
+<!--AddMenu-->
+    </menu>
+</config>

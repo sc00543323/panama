@@ -1,0 +1,1656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="0f6c5dc9-da12-43e0-95f1-fc8321357e54" activeEnvironment="Default" name="paba" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="6eadb013-90ab-40ac-b53b-56d2c00f4008" wsaVersion="NONE" name="eCommerceSoap12" type="wsdl" bindingName="{http://digicelpanama.com/}eCommerceSoap12" soapVersion="1_2" anonymous="optional" definition="http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint></con:endpoints><con:operation id="9a1a5b56-b77c-4960-97be-3a222f390b26" isOneWay="false" action="http://digicelpanama.com/Cambio_SIMCard_POSTPAGO" name="Cambio_SIMCard_POSTPAGO" bindingOperationName="Cambio_SIMCard_POSTPAGO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2e5a03d9-9572-4dc4-9a0d-9c22b2aba3bc" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:Cambio_SIMCard_POSTPAGO>\r
+         <!--Optional:-->\r
+         <dig:MSISDN>?</dig:MSISDN>\r
+         <!--Optional:-->\r
+         <dig:PACK_ID>?</dig:PACK_ID>\r
+         <!--Optional:-->\r
+         <dig:MOTIVO>?</dig:MOTIVO>\r
+         <!--Optional:-->\r
+         <dig:NOTA>?</dig:NOTA>\r
+      </dig:Cambio_SIMCard_POSTPAGO>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/Cambio_SIMCard_POSTPAGORequest"/></con:call></con:operation><con:operation id="6a50d86a-e282-416f-ae59-23717b808e1b" isOneWay="false" action="http://digicelpanama.com/Cambio_SIMCard_PREPAGO" name="Cambio_SIMCard_PREPAGO" bindingOperationName="Cambio_SIMCard_PREPAGO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="efc99fa6-f6ea-4a91-831b-7843c53ea7b5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:Cambio_SIMCard_PREPAGO>\r
+         <!--Optional:-->\r
+         <dig:MSISDN>?</dig:MSISDN>\r
+         <!--Optional:-->\r
+         <dig:PACK_ID>?</dig:PACK_ID>\r
+         <!--Optional:-->\r
+         <dig:MOTIVO>?</dig:MOTIVO>\r
+         <!--Optional:-->\r
+         <dig:NOTA>?</dig:NOTA>\r
+      </dig:Cambio_SIMCard_PREPAGO>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/Cambio_SIMCard_PREPAGORequest"/></con:call></con:operation><con:operation id="29886187-3254-42bc-b920-9e971f2138a4" isOneWay="false" action="http://digicelpanama.com/CHECK_NUMBER" name="CHECK_NUMBER" bindingOperationName="CHECK_NUMBER" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="560aa931-b4d1-4dec-9727-4fb1eaac78ef" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:CHECK_NUMBER>\r
+         <!--Optional:-->\r
+         <dig:TRANSACTION>\r
+            <!--You may enter ANY elements at this point-->\r
+            <!--You may enter ANY elements at this point-->\r
+         </dig:TRANSACTION>\r
+      </dig:CHECK_NUMBER>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/CHECK_NUMBERRequest"/></con:call></con:operation><con:operation id="725150d1-9749-44c2-ad46-3f7be57b0b79" isOneWay="false" action="http://digicelpanama.com/CREDIT_SCORING" name="CREDIT_SCORING" bindingOperationName="CREDIT_SCORING" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c07aac65-d44c-48c1-b16b-d29cc67bf01f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:CREDIT_SCORING>\r
+         <!--Optional:-->\r
+         <dig:Customer_ID>?</dig:Customer_ID>\r
+         <!--Optional:-->\r
+         <dig:DocumentType>?</dig:DocumentType>\r
+         <!--Optional:-->\r
+         <dig:Handset_Cost>?</dig:Handset_Cost>\r
+         <!--Optional:-->\r
+         <dig:Handset_Model>?</dig:Handset_Model>\r
+      </dig:CREDIT_SCORING>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/CREDIT_SCORINGRequest"/></con:call></con:operation><con:operation id="1ca17795-a2ba-4b1c-8c03-95017a547b5f" isOneWay="false" action="http://digicelpanama.com/HANDSET_PRICE" name="HANDSET_PRICE" bindingOperationName="HANDSET_PRICE" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d8498e84-3a4d-41c8-9bb5-e51b9ec2e3ce" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:HANDSET_PRICE>\r
+         <!--Optional:-->\r
+         <dig:PlanID>?</dig:PlanID>\r
+         <dig:Trans_Type>?</dig:Trans_Type>\r
+         <!--Optional:-->\r
+         <dig:SKU_ID>?</dig:SKU_ID>\r
+      </dig:HANDSET_PRICE>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/HANDSET_PRICERequest"/></con:call></con:operation><con:operation id="f7ff05b4-a112-4d42-b2ab-b2b4e7dfb5d5" isOneWay="false" action="http://digicelpanama.com/LNP_ASEP_NIP_ABORT" name="LNP_ASEP_NIP_ABORT" bindingOperationName="LNP_ASEP_NIP_ABORT" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3f9de9ab-945c-44ec-9417-5f4954084cc6" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:LNP_ASEP_NIP_ABORT>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_ASEP_NIP_ABORT>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/LNP_ASEP_NIP_ABORTRequest"/></con:call></con:operation><con:operation id="de78b1cb-8fa7-4667-9f22-0e92fbbcbb8b" isOneWay="false" action="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST" name="LNP_ASEP_NIP_REQUEST" bindingOperationName="LNP_ASEP_NIP_REQUEST" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4a4ccffb-6b30-4899-8434-8d6640a6bd03" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:LNP_ASEP_NIP_REQUEST>\r
+         <!--Optional:-->\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_ASEP_NIP_REQUEST>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/LNP_ASEP_NIP_REQUESTRequest"/></con:call></con:operation><con:operation id="6ba4dafe-ebf8-4e6f-8dca-bd339db29f95" isOneWay="false" action="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST_AGAIN" name="LNP_ASEP_NIP_REQUEST_AGAIN" bindingOperationName="LNP_ASEP_NIP_REQUEST_AGAIN" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c67fca78-b398-4548-b271-518e6bfc40a0" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:LNP_ASEP_NIP_REQUEST_AGAIN>\r
+         <!--Optional:-->\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_ASEP_NIP_REQUEST_AGAIN>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/LNP_ASEP_NIP_REQUEST_AGAINRequest"/></con:call></con:operation><con:operation id="86b4d906-7ea3-4bb0-8ff8-64b2dc4f5e0e" isOneWay="false" action="http://digicelpanama.com/LNP_DETALLE_PORTABILIDAD_NUMERICA" name="LNP_DETALLE_PORTABILIDAD_NUMERICA" bindingOperationName="LNP_DETALLE_PORTABILIDAD_NUMERICA" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="20b21b6e-d47f-4f14-9030-e532a1b9ba31" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:LNP_DETALLE_PORTABILIDAD_NUMERICA>\r
+         <!--Optional:-->\r
+         <dig:MsgIdentifier>?</dig:MsgIdentifier>\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <dig:TipoDonador>?</dig:TipoDonador>\r
+         <!--Optional:-->\r
+         <dig:NombreCliente>?</dig:NombreCliente>\r
+         <!--Optional:-->\r
+         <dig:ApellidoCliente>?</dig:ApellidoCliente>\r
+         <dig:TipoDocumento>?</dig:TipoDocumento>\r
+         <!--Optional:-->\r
+         <dig:NumeroDocumento>?</dig:NumeroDocumento>\r
+         <dig:FechaNacimiento>?</dig:FechaNacimiento>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+         <!--Optional:-->\r
+         <dig:EMail>?</dig:EMail>\r
+         <!--Optional:-->\r
+         <dig:PaisResidencia>?</dig:PaisResidencia>\r
+         <!--Optional:-->\r
+         <dig:Direccion_1>?</dig:Direccion_1>\r
+         <!--Optional:-->\r
+         <dig:Direccion_2>?</dig:Direccion_2>\r
+         <!--Optional:-->\r
+         <dig:Direccion_3>?</dig:Direccion_3>\r
+         <!--Optional:-->\r
+         <dig:NIP>?</dig:NIP>\r
+         <!--Optional:-->\r
+         <dig:Msisdn_Avatar>?</dig:Msisdn_Avatar>\r
+      </dig:LNP_DETALLE_PORTABILIDAD_NUMERICA>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/LNP_DETALLE_PORTABILIDAD_NUMERICARequest"/></con:call></con:operation><con:operation id="5066438e-f9e1-43e4-877d-4cfc2b54de39" isOneWay="false" action="http://digicelpanama.com/LNP_LISTADO_OPERADORES" name="LNP_LISTADO_OPERADORES" bindingOperationName="LNP_LISTADO_OPERADORES" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b4250780-38db-49de-bf6e-dc8fe4d4220c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:LNP_LISTADO_OPERADORES/>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/LNP_LISTADO_OPERADORESRequest"/></con:call></con:operation><con:operation id="97134289-7105-43da-b36a-dea5bd92b9e7" isOneWay="false" action="http://digicelpanama.com/LNP_PORTABILIDAD_POSTPAGO" name="LNP_PORTABILIDAD_POSTPAGO" bindingOperationName="LNP_PORTABILIDAD_POSTPAGO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2d5341b3-a81c-4d85-8e53-e60e69f639e4" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:LNP_PORTABILIDAD_POSTPAGO>\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_PORTABILIDAD_POSTPAGO>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/LNP_PORTABILIDAD_POSTPAGORequest"/></con:call></con:operation><con:operation id="ed9707dd-d9a6-42a8-8f51-c4ebb2772329" isOneWay="false" action="http://digicelpanama.com/STATUS_MSISDN" name="STATUS_MSISDN" bindingOperationName="STATUS_MSISDN" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2c7ea15b-07b8-420a-abbc-27eb5a9969af" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dig="http://digicelpanama.com/">\r
+   <soap:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <dig:STATUS_MSISDN>\r
+         <!--Optional:-->\r
+         <dig:MSISDN>?</dig:MSISDN>\r
+      </dig:STATUS_MSISDN>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/eCommerceSoap/STATUS_MSISDNRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="8b8a1cd3-c886-419f-a3c4-c7494e4ec41f" wsaVersion="NONE" name="eCommerceSoap" type="wsdl" bindingName="{http://digicelpanama.com/}eCommerceSoap" soapVersion="1_1" anonymous="optional" definition="http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx?wsdl"><con:part><con:url>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://digicelpanama.com/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://digicelpanama.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://digicelpanama.com/">
+      <s:element name="CREDIT_SCORING">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Customer_ID" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentType" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Handset_Cost" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Handset_Model" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CREDIT_SCORINGResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CREDIT_SCORINGResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthHeader" type="tns:AuthHeader"/>
+      <s:complexType name="AuthHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+      <s:element name="LNP_ASEP_NIP_REQUEST">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OperadorDonador" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Numero_a_Portar" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_ASEP_NIP_REQUESTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LNP_ASEP_NIP_REQUESTResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_ASEP_NIP_REQUEST_AGAIN">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OperadorDonador" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Numero_a_Portar" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_ASEP_NIP_REQUEST_AGAINResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LNP_ASEP_NIP_REQUEST_AGAINResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_ASEP_NIP_ABORT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Numero_a_Portar" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_ASEP_NIP_ABORTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LNP_ASEP_NIP_ABORTResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_PORTABILIDAD_POSTPAGO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="OperadorDonador" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Numero_a_Portar" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_PORTABILIDAD_POSTPAGOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LNP_PORTABILIDAD_POSTPAGOResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MsgIdentifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="OperadorDonador" type="s:int"/>
+            <s:element minOccurs="1" maxOccurs="1" name="TipoDonador" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="NombreCliente" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="ApellidoCliente" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="TipoDocumento" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="NumeroDocumento" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="FechaNacimiento" type="s:dateTime"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Numero_a_Portar" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="PaisResidencia" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Direccion_1" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Direccion_2" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Direccion_3" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="NIP" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Msisdn_Avatar" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_DETALLE_PORTABILIDAD_NUMERICAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LNP_DETALLE_PORTABILIDAD_NUMERICAResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LNP_LISTADO_OPERADORES">
+        <s:complexType/>
+      </s:element>
+      <s:element name="LNP_LISTADO_OPERADORESResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LNP_LISTADO_OPERADORESResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CHECK_NUMBER">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TRANSACTION">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CHECK_NUMBERResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CHECK_NUMBERResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HANDSET_PRICE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlanID" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="Trans_Type" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="SKU_ID" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HANDSET_PRICEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HANDSET_PRICEResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Cambio_SIMCard_PREPAGO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MSISDN" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="PACK_ID" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="MOTIVO" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="NOTA" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Cambio_SIMCard_PREPAGOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Cambio_SIMCard_PREPAGOResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Cambio_SIMCard_POSTPAGO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MSISDN" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="PACK_ID" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="MOTIVO" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="NOTA" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Cambio_SIMCard_POSTPAGOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Cambio_SIMCard_POSTPAGOResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="STATUS_MSISDN">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MSISDN" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="STATUS_MSISDNResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="STATUS_MSISDNResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DataTable" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+            <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CREDIT_SCORINGSoapIn">
+    <wsdl:part name="parameters" element="tns:CREDIT_SCORING"/>
+  </wsdl:message>
+  <wsdl:message name="CREDIT_SCORINGSoapOut">
+    <wsdl:part name="parameters" element="tns:CREDIT_SCORINGResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CREDIT_SCORINGAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUESTSoapIn">
+    <wsdl:part name="parameters" element="tns:LNP_ASEP_NIP_REQUEST"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUESTSoapOut">
+    <wsdl:part name="parameters" element="tns:LNP_ASEP_NIP_REQUESTResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUESTAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUEST_AGAINSoapIn">
+    <wsdl:part name="parameters" element="tns:LNP_ASEP_NIP_REQUEST_AGAIN"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUEST_AGAINSoapOut">
+    <wsdl:part name="parameters" element="tns:LNP_ASEP_NIP_REQUEST_AGAINResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUEST_AGAINAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_ABORTSoapIn">
+    <wsdl:part name="parameters" element="tns:LNP_ASEP_NIP_ABORT"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_ABORTSoapOut">
+    <wsdl:part name="parameters" element="tns:LNP_ASEP_NIP_ABORTResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_ABORTAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_PORTABILIDAD_POSTPAGOSoapIn">
+    <wsdl:part name="parameters" element="tns:LNP_PORTABILIDAD_POSTPAGO"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_PORTABILIDAD_POSTPAGOSoapOut">
+    <wsdl:part name="parameters" element="tns:LNP_PORTABILIDAD_POSTPAGOResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_PORTABILIDAD_POSTPAGOAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_DETALLE_PORTABILIDAD_NUMERICASoapIn">
+    <wsdl:part name="parameters" element="tns:LNP_DETALLE_PORTABILIDAD_NUMERICA"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_DETALLE_PORTABILIDAD_NUMERICASoapOut">
+    <wsdl:part name="parameters" element="tns:LNP_DETALLE_PORTABILIDAD_NUMERICAResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_DETALLE_PORTABILIDAD_NUMERICAAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_LISTADO_OPERADORESSoapIn">
+    <wsdl:part name="parameters" element="tns:LNP_LISTADO_OPERADORES"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_LISTADO_OPERADORESSoapOut">
+    <wsdl:part name="parameters" element="tns:LNP_LISTADO_OPERADORESResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_LISTADO_OPERADORESAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="CHECK_NUMBERSoapIn">
+    <wsdl:part name="parameters" element="tns:CHECK_NUMBER"/>
+  </wsdl:message>
+  <wsdl:message name="CHECK_NUMBERSoapOut">
+    <wsdl:part name="parameters" element="tns:CHECK_NUMBERResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CHECK_NUMBERAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="HANDSET_PRICESoapIn">
+    <wsdl:part name="parameters" element="tns:HANDSET_PRICE"/>
+  </wsdl:message>
+  <wsdl:message name="HANDSET_PRICESoapOut">
+    <wsdl:part name="parameters" element="tns:HANDSET_PRICEResponse"/>
+  </wsdl:message>
+  <wsdl:message name="HANDSET_PRICEAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_PREPAGOSoapIn">
+    <wsdl:part name="parameters" element="tns:Cambio_SIMCard_PREPAGO"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_PREPAGOSoapOut">
+    <wsdl:part name="parameters" element="tns:Cambio_SIMCard_PREPAGOResponse"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_PREPAGOAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_POSTPAGOSoapIn">
+    <wsdl:part name="parameters" element="tns:Cambio_SIMCard_POSTPAGO"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_POSTPAGOSoapOut">
+    <wsdl:part name="parameters" element="tns:Cambio_SIMCard_POSTPAGOResponse"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_POSTPAGOAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="STATUS_MSISDNSoapIn">
+    <wsdl:part name="parameters" element="tns:STATUS_MSISDN"/>
+  </wsdl:message>
+  <wsdl:message name="STATUS_MSISDNSoapOut">
+    <wsdl:part name="parameters" element="tns:STATUS_MSISDNResponse"/>
+  </wsdl:message>
+  <wsdl:message name="STATUS_MSISDNAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader"/>
+  </wsdl:message>
+  <wsdl:message name="CREDIT_SCORINGHttpGetIn">
+    <wsdl:part name="Customer_ID" type="s:string"/>
+    <wsdl:part name="DocumentType" type="s:string"/>
+    <wsdl:part name="Handset_Cost" type="s:string"/>
+    <wsdl:part name="Handset_Model" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="CREDIT_SCORINGHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUESTHttpGetIn">
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUESTHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUEST_AGAINHttpGetIn">
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUEST_AGAINHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_ABORTHttpGetIn">
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_ABORTHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_PORTABILIDAD_POSTPAGOHttpGetIn">
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_PORTABILIDAD_POSTPAGOHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_DETALLE_PORTABILIDAD_NUMERICAHttpGetIn">
+    <wsdl:part name="MsgIdentifier" type="s:string"/>
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="TipoDonador" type="s:string"/>
+    <wsdl:part name="NombreCliente" type="s:string"/>
+    <wsdl:part name="ApellidoCliente" type="s:string"/>
+    <wsdl:part name="TipoDocumento" type="s:string"/>
+    <wsdl:part name="NumeroDocumento" type="s:string"/>
+    <wsdl:part name="FechaNacimiento" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+    <wsdl:part name="EMail" type="s:string"/>
+    <wsdl:part name="PaisResidencia" type="s:string"/>
+    <wsdl:part name="Direccion_1" type="s:string"/>
+    <wsdl:part name="Direccion_2" type="s:string"/>
+    <wsdl:part name="Direccion_3" type="s:string"/>
+    <wsdl:part name="NIP" type="s:string"/>
+    <wsdl:part name="Msisdn_Avatar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_DETALLE_PORTABILIDAD_NUMERICAHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_LISTADO_OPERADORESHttpGetIn"/>
+  <wsdl:message name="LNP_LISTADO_OPERADORESHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="HANDSET_PRICEHttpGetIn">
+    <wsdl:part name="PlanID" type="s:string"/>
+    <wsdl:part name="Trans_Type" type="s:string"/>
+    <wsdl:part name="SKU_ID" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="HANDSET_PRICEHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_PREPAGOHttpGetIn">
+    <wsdl:part name="MSISDN" type="s:string"/>
+    <wsdl:part name="PACK_ID" type="s:string"/>
+    <wsdl:part name="MOTIVO" type="s:string"/>
+    <wsdl:part name="NOTA" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_PREPAGOHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_POSTPAGOHttpGetIn">
+    <wsdl:part name="MSISDN" type="s:string"/>
+    <wsdl:part name="PACK_ID" type="s:string"/>
+    <wsdl:part name="MOTIVO" type="s:string"/>
+    <wsdl:part name="NOTA" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_POSTPAGOHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="STATUS_MSISDNHttpGetIn">
+    <wsdl:part name="MSISDN" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="STATUS_MSISDNHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="CREDIT_SCORINGHttpPostIn">
+    <wsdl:part name="Customer_ID" type="s:string"/>
+    <wsdl:part name="DocumentType" type="s:string"/>
+    <wsdl:part name="Handset_Cost" type="s:string"/>
+    <wsdl:part name="Handset_Model" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="CREDIT_SCORINGHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUESTHttpPostIn">
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUESTHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUEST_AGAINHttpPostIn">
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_REQUEST_AGAINHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_ABORTHttpPostIn">
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_ASEP_NIP_ABORTHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_PORTABILIDAD_POSTPAGOHttpPostIn">
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_PORTABILIDAD_POSTPAGOHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_DETALLE_PORTABILIDAD_NUMERICAHttpPostIn">
+    <wsdl:part name="MsgIdentifier" type="s:string"/>
+    <wsdl:part name="OperadorDonador" type="s:string"/>
+    <wsdl:part name="TipoDonador" type="s:string"/>
+    <wsdl:part name="NombreCliente" type="s:string"/>
+    <wsdl:part name="ApellidoCliente" type="s:string"/>
+    <wsdl:part name="TipoDocumento" type="s:string"/>
+    <wsdl:part name="NumeroDocumento" type="s:string"/>
+    <wsdl:part name="FechaNacimiento" type="s:string"/>
+    <wsdl:part name="Numero_a_Portar" type="s:string"/>
+    <wsdl:part name="EMail" type="s:string"/>
+    <wsdl:part name="PaisResidencia" type="s:string"/>
+    <wsdl:part name="Direccion_1" type="s:string"/>
+    <wsdl:part name="Direccion_2" type="s:string"/>
+    <wsdl:part name="Direccion_3" type="s:string"/>
+    <wsdl:part name="NIP" type="s:string"/>
+    <wsdl:part name="Msisdn_Avatar" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_DETALLE_PORTABILIDAD_NUMERICAHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="LNP_LISTADO_OPERADORESHttpPostIn"/>
+  <wsdl:message name="LNP_LISTADO_OPERADORESHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="HANDSET_PRICEHttpPostIn">
+    <wsdl:part name="PlanID" type="s:string"/>
+    <wsdl:part name="Trans_Type" type="s:string"/>
+    <wsdl:part name="SKU_ID" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="HANDSET_PRICEHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_PREPAGOHttpPostIn">
+    <wsdl:part name="MSISDN" type="s:string"/>
+    <wsdl:part name="PACK_ID" type="s:string"/>
+    <wsdl:part name="MOTIVO" type="s:string"/>
+    <wsdl:part name="NOTA" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_PREPAGOHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_POSTPAGOHttpPostIn">
+    <wsdl:part name="MSISDN" type="s:string"/>
+    <wsdl:part name="PACK_ID" type="s:string"/>
+    <wsdl:part name="MOTIVO" type="s:string"/>
+    <wsdl:part name="NOTA" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="Cambio_SIMCard_POSTPAGOHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:message name="STATUS_MSISDNHttpPostIn">
+    <wsdl:part name="MSISDN" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="STATUS_MSISDNHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable"/>
+  </wsdl:message>
+  <wsdl:portType name="eCommerceSoap">
+    <wsdl:operation name="CREDIT_SCORING">
+      <wsdl:documentation>Buscar la evaluación del cliente. - Strings: CustomerID (cédula / pasaporte), DocumentType (1 - cédula; 3 - Pasaporte), HandsetCost, HandsetModel</wsdl:documentation>
+      <wsdl:input message="tns:CREDIT_SCORINGSoapIn"/>
+      <wsdl:output message="tns:CREDIT_SCORINGSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST">
+      <wsdl:documentation>Enviar solicitud del NIP a la ASEP - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_REQUESTSoapIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_REQUESTSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST_AGAIN">
+      <wsdl:documentation>Re-envio de la solicitud del NIP a la ASEP - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_REQUEST_AGAINSoapIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_REQUEST_AGAINSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_ABORT">
+      <wsdl:documentation>Cancelación del NIP a la ASEP - String: Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_ABORTSoapIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_ABORTSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_PORTABILIDAD_POSTPAGO">
+      <wsdl:documentation>Inicio de la portabilidad postpago. - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_PORTABILIDAD_POSTPAGOSoapIn"/>
+      <wsdl:output message="tns:LNP_PORTABILIDAD_POSTPAGOSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+      <wsdl:documentation>Ingresar detalle de la portabilidad. - Integer TipoDonador(1- Prepago 0- Postpago); TipoDocumento(1- Cédula 0- Pasaporte); FechaNacimiento(mm/dd/yyyy)</wsdl:documentation>
+      <wsdl:input message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICASoapIn"/>
+      <wsdl:output message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICASoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_LISTADO_OPERADORES">
+      <wsdl:documentation>Listado de los operadores.</wsdl:documentation>
+      <wsdl:input message="tns:LNP_LISTADO_OPERADORESSoapIn"/>
+      <wsdl:output message="tns:LNP_LISTADO_OPERADORESSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_NUMBER">
+      <wsdl:documentation>Verificar si hay algún tipo de transacción de fraude..</wsdl:documentation>
+      <wsdl:input message="tns:CHECK_NUMBERSoapIn"/>
+      <wsdl:output message="tns:CHECK_NUMBERSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="HANDSET_PRICE">
+      <wsdl:documentation>Obtener el precio del dispositivo.</wsdl:documentation>
+      <wsdl:input message="tns:HANDSET_PRICESoapIn"/>
+      <wsdl:output message="tns:HANDSET_PRICESoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_PREPAGO">
+      <wsdl:documentation>Cambio de Sim Card Prepago - Strings: Msisdn, Pack_id, Motivo, Nota</wsdl:documentation>
+      <wsdl:input message="tns:Cambio_SIMCard_PREPAGOSoapIn"/>
+      <wsdl:output message="tns:Cambio_SIMCard_PREPAGOSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_POSTPAGO">
+      <wsdl:documentation>Cambio de Sim Card Postpago - Strings: Msisdn, Pack_id, Motivo, Nota</wsdl:documentation>
+      <wsdl:input message="tns:Cambio_SIMCard_POSTPAGOSoapIn"/>
+      <wsdl:output message="tns:Cambio_SIMCard_POSTPAGOSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="STATUS_MSISDN">
+      <wsdl:documentation>Buscar el estatus del Msisdn y si se puede hacer recargas - Strings: Msisdn</wsdl:documentation>
+      <wsdl:input message="tns:STATUS_MSISDNSoapIn"/>
+      <wsdl:output message="tns:STATUS_MSISDNSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="eCommerceHttpGet">
+    <wsdl:operation name="CREDIT_SCORING">
+      <wsdl:documentation>Buscar la evaluación del cliente. - Strings: CustomerID (cédula / pasaporte), DocumentType (1 - cédula; 3 - Pasaporte), HandsetCost, HandsetModel</wsdl:documentation>
+      <wsdl:input message="tns:CREDIT_SCORINGHttpGetIn"/>
+      <wsdl:output message="tns:CREDIT_SCORINGHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST">
+      <wsdl:documentation>Enviar solicitud del NIP a la ASEP - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_REQUESTHttpGetIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_REQUESTHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST_AGAIN">
+      <wsdl:documentation>Re-envio de la solicitud del NIP a la ASEP - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_REQUEST_AGAINHttpGetIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_REQUEST_AGAINHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_ABORT">
+      <wsdl:documentation>Cancelación del NIP a la ASEP - String: Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_ABORTHttpGetIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_ABORTHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_PORTABILIDAD_POSTPAGO">
+      <wsdl:documentation>Inicio de la portabilidad postpago. - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_PORTABILIDAD_POSTPAGOHttpGetIn"/>
+      <wsdl:output message="tns:LNP_PORTABILIDAD_POSTPAGOHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+      <wsdl:documentation>Ingresar detalle de la portabilidad. - Integer TipoDonador(1- Prepago 0- Postpago); TipoDocumento(1- Cédula 0- Pasaporte); FechaNacimiento(mm/dd/yyyy)</wsdl:documentation>
+      <wsdl:input message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICAHttpGetIn"/>
+      <wsdl:output message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICAHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_LISTADO_OPERADORES">
+      <wsdl:documentation>Listado de los operadores.</wsdl:documentation>
+      <wsdl:input message="tns:LNP_LISTADO_OPERADORESHttpGetIn"/>
+      <wsdl:output message="tns:LNP_LISTADO_OPERADORESHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="HANDSET_PRICE">
+      <wsdl:documentation>Obtener el precio del dispositivo.</wsdl:documentation>
+      <wsdl:input message="tns:HANDSET_PRICEHttpGetIn"/>
+      <wsdl:output message="tns:HANDSET_PRICEHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_PREPAGO">
+      <wsdl:documentation>Cambio de Sim Card Prepago - Strings: Msisdn, Pack_id, Motivo, Nota</wsdl:documentation>
+      <wsdl:input message="tns:Cambio_SIMCard_PREPAGOHttpGetIn"/>
+      <wsdl:output message="tns:Cambio_SIMCard_PREPAGOHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_POSTPAGO">
+      <wsdl:documentation>Cambio de Sim Card Postpago - Strings: Msisdn, Pack_id, Motivo, Nota</wsdl:documentation>
+      <wsdl:input message="tns:Cambio_SIMCard_POSTPAGOHttpGetIn"/>
+      <wsdl:output message="tns:Cambio_SIMCard_POSTPAGOHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="STATUS_MSISDN">
+      <wsdl:documentation>Buscar el estatus del Msisdn y si se puede hacer recargas - Strings: Msisdn</wsdl:documentation>
+      <wsdl:input message="tns:STATUS_MSISDNHttpGetIn"/>
+      <wsdl:output message="tns:STATUS_MSISDNHttpGetOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="eCommerceHttpPost">
+    <wsdl:operation name="CREDIT_SCORING">
+      <wsdl:documentation>Buscar la evaluación del cliente. - Strings: CustomerID (cédula / pasaporte), DocumentType (1 - cédula; 3 - Pasaporte), HandsetCost, HandsetModel</wsdl:documentation>
+      <wsdl:input message="tns:CREDIT_SCORINGHttpPostIn"/>
+      <wsdl:output message="tns:CREDIT_SCORINGHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST">
+      <wsdl:documentation>Enviar solicitud del NIP a la ASEP - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_REQUESTHttpPostIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_REQUESTHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST_AGAIN">
+      <wsdl:documentation>Re-envio de la solicitud del NIP a la ASEP - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_REQUEST_AGAINHttpPostIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_REQUEST_AGAINHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_ABORT">
+      <wsdl:documentation>Cancelación del NIP a la ASEP - String: Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_ASEP_NIP_ABORTHttpPostIn"/>
+      <wsdl:output message="tns:LNP_ASEP_NIP_ABORTHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_PORTABILIDAD_POSTPAGO">
+      <wsdl:documentation>Inicio de la portabilidad postpago. - String: OperadorDonador, Numero_a_Portar</wsdl:documentation>
+      <wsdl:input message="tns:LNP_PORTABILIDAD_POSTPAGOHttpPostIn"/>
+      <wsdl:output message="tns:LNP_PORTABILIDAD_POSTPAGOHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+      <wsdl:documentation>Ingresar detalle de la portabilidad. - Integer TipoDonador(1- Prepago 0- Postpago); TipoDocumento(1- Cédula 0- Pasaporte); FechaNacimiento(mm/dd/yyyy)</wsdl:documentation>
+      <wsdl:input message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICAHttpPostIn"/>
+      <wsdl:output message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICAHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_LISTADO_OPERADORES">
+      <wsdl:documentation>Listado de los operadores.</wsdl:documentation>
+      <wsdl:input message="tns:LNP_LISTADO_OPERADORESHttpPostIn"/>
+      <wsdl:output message="tns:LNP_LISTADO_OPERADORESHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="HANDSET_PRICE">
+      <wsdl:documentation>Obtener el precio del dispositivo.</wsdl:documentation>
+      <wsdl:input message="tns:HANDSET_PRICEHttpPostIn"/>
+      <wsdl:output message="tns:HANDSET_PRICEHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_PREPAGO">
+      <wsdl:documentation>Cambio de Sim Card Prepago - Strings: Msisdn, Pack_id, Motivo, Nota</wsdl:documentation>
+      <wsdl:input message="tns:Cambio_SIMCard_PREPAGOHttpPostIn"/>
+      <wsdl:output message="tns:Cambio_SIMCard_PREPAGOHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_POSTPAGO">
+      <wsdl:documentation>Cambio de Sim Card Postpago - Strings: Msisdn, Pack_id, Motivo, Nota</wsdl:documentation>
+      <wsdl:input message="tns:Cambio_SIMCard_POSTPAGOHttpPostIn"/>
+      <wsdl:output message="tns:Cambio_SIMCard_POSTPAGOHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="STATUS_MSISDN">
+      <wsdl:documentation>Buscar el estatus del Msisdn y si se puede hacer recargas - Strings: Msisdn</wsdl:documentation>
+      <wsdl:input message="tns:STATUS_MSISDNHttpPostIn"/>
+      <wsdl:output message="tns:STATUS_MSISDNHttpPostOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="eCommerceSoap" type="tns:eCommerceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CREDIT_SCORING">
+      <soap:operation soapAction="http://digicelpanama.com/CREDIT_SCORING" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:CREDIT_SCORINGAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST">
+      <soap:operation soapAction="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:LNP_ASEP_NIP_REQUESTAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST_AGAIN">
+      <soap:operation soapAction="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST_AGAIN" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:LNP_ASEP_NIP_REQUEST_AGAINAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_ABORT">
+      <soap:operation soapAction="http://digicelpanama.com/LNP_ASEP_NIP_ABORT" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:LNP_ASEP_NIP_ABORTAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_PORTABILIDAD_POSTPAGO">
+      <soap:operation soapAction="http://digicelpanama.com/LNP_PORTABILIDAD_POSTPAGO" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:LNP_PORTABILIDAD_POSTPAGOAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+      <soap:operation soapAction="http://digicelpanama.com/LNP_DETALLE_PORTABILIDAD_NUMERICA" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICAAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_LISTADO_OPERADORES">
+      <soap:operation soapAction="http://digicelpanama.com/LNP_LISTADO_OPERADORES" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:LNP_LISTADO_OPERADORESAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_NUMBER">
+      <soap:operation soapAction="http://digicelpanama.com/CHECK_NUMBER" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:CHECK_NUMBERAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HANDSET_PRICE">
+      <soap:operation soapAction="http://digicelpanama.com/HANDSET_PRICE" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:HANDSET_PRICEAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_PREPAGO">
+      <soap:operation soapAction="http://digicelpanama.com/Cambio_SIMCard_PREPAGO" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:Cambio_SIMCard_PREPAGOAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_POSTPAGO">
+      <soap:operation soapAction="http://digicelpanama.com/Cambio_SIMCard_POSTPAGO" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:Cambio_SIMCard_POSTPAGOAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="STATUS_MSISDN">
+      <soap:operation soapAction="http://digicelpanama.com/STATUS_MSISDN" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:STATUS_MSISDNAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="eCommerceSoap12" type="tns:eCommerceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CREDIT_SCORING">
+      <soap12:operation soapAction="http://digicelpanama.com/CREDIT_SCORING" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CREDIT_SCORINGAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST">
+      <soap12:operation soapAction="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LNP_ASEP_NIP_REQUESTAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST_AGAIN">
+      <soap12:operation soapAction="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST_AGAIN" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LNP_ASEP_NIP_REQUEST_AGAINAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_ABORT">
+      <soap12:operation soapAction="http://digicelpanama.com/LNP_ASEP_NIP_ABORT" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LNP_ASEP_NIP_ABORTAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_PORTABILIDAD_POSTPAGO">
+      <soap12:operation soapAction="http://digicelpanama.com/LNP_PORTABILIDAD_POSTPAGO" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LNP_PORTABILIDAD_POSTPAGOAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+      <soap12:operation soapAction="http://digicelpanama.com/LNP_DETALLE_PORTABILIDAD_NUMERICA" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LNP_DETALLE_PORTABILIDAD_NUMERICAAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_LISTADO_OPERADORES">
+      <soap12:operation soapAction="http://digicelpanama.com/LNP_LISTADO_OPERADORES" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LNP_LISTADO_OPERADORESAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_NUMBER">
+      <soap12:operation soapAction="http://digicelpanama.com/CHECK_NUMBER" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CHECK_NUMBERAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HANDSET_PRICE">
+      <soap12:operation soapAction="http://digicelpanama.com/HANDSET_PRICE" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:HANDSET_PRICEAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_PREPAGO">
+      <soap12:operation soapAction="http://digicelpanama.com/Cambio_SIMCard_PREPAGO" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:Cambio_SIMCard_PREPAGOAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_POSTPAGO">
+      <soap12:operation soapAction="http://digicelpanama.com/Cambio_SIMCard_POSTPAGO" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:Cambio_SIMCard_POSTPAGOAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="STATUS_MSISDN">
+      <soap12:operation soapAction="http://digicelpanama.com/STATUS_MSISDN" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:STATUS_MSISDNAuthHeader" part="AuthHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="eCommerceHttpGet" type="tns:eCommerceHttpGet">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="CREDIT_SCORING">
+      <http:operation location="/CREDIT_SCORING"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST">
+      <http:operation location="/LNP_ASEP_NIP_REQUEST"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST_AGAIN">
+      <http:operation location="/LNP_ASEP_NIP_REQUEST_AGAIN"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_ABORT">
+      <http:operation location="/LNP_ASEP_NIP_ABORT"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_PORTABILIDAD_POSTPAGO">
+      <http:operation location="/LNP_PORTABILIDAD_POSTPAGO"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+      <http:operation location="/LNP_DETALLE_PORTABILIDAD_NUMERICA"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_LISTADO_OPERADORES">
+      <http:operation location="/LNP_LISTADO_OPERADORES"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HANDSET_PRICE">
+      <http:operation location="/HANDSET_PRICE"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_PREPAGO">
+      <http:operation location="/Cambio_SIMCard_PREPAGO"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_POSTPAGO">
+      <http:operation location="/Cambio_SIMCard_POSTPAGO"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="STATUS_MSISDN">
+      <http:operation location="/STATUS_MSISDN"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="eCommerceHttpPost" type="tns:eCommerceHttpPost">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="CREDIT_SCORING">
+      <http:operation location="/CREDIT_SCORING"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST">
+      <http:operation location="/LNP_ASEP_NIP_REQUEST"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_REQUEST_AGAIN">
+      <http:operation location="/LNP_ASEP_NIP_REQUEST_AGAIN"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_ASEP_NIP_ABORT">
+      <http:operation location="/LNP_ASEP_NIP_ABORT"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_PORTABILIDAD_POSTPAGO">
+      <http:operation location="/LNP_PORTABILIDAD_POSTPAGO"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_DETALLE_PORTABILIDAD_NUMERICA">
+      <http:operation location="/LNP_DETALLE_PORTABILIDAD_NUMERICA"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LNP_LISTADO_OPERADORES">
+      <http:operation location="/LNP_LISTADO_OPERADORES"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HANDSET_PRICE">
+      <http:operation location="/HANDSET_PRICE"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_PREPAGO">
+      <http:operation location="/Cambio_SIMCard_PREPAGO"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cambio_SIMCard_POSTPAGO">
+      <http:operation location="/Cambio_SIMCard_POSTPAGO"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="STATUS_MSISDN">
+      <http:operation location="/STATUS_MSISDN"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="eCommerce">
+    <wsdl:port name="eCommerceSoap" binding="tns:eCommerceSoap">
+      <soap:address location="http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="eCommerceSoap12" binding="tns:eCommerceSoap12">
+      <soap12:address location="http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="eCommerceHttpGet" binding="tns:eCommerceHttpGet">
+      <http:address location="http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="eCommerceHttpPost" binding="tns:eCommerceHttpPost">
+      <http:address location="http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint></con:endpoints><con:operation id="6996b0b9-c692-4a13-ad2b-5218a6725a35" isOneWay="false" action="http://digicelpanama.com/Cambio_SIMCard_POSTPAGO" name="Cambio_SIMCard_POSTPAGO" bindingOperationName="Cambio_SIMCard_POSTPAGO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cc523e62-c456-44a7-8bf8-ae009f7935c0" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:Cambio_SIMCard_POSTPAGO>\r
+         <!--Optional:-->\r
+         <dig:MSISDN>?</dig:MSISDN>\r
+         <!--Optional:-->\r
+         <dig:PACK_ID>?</dig:PACK_ID>\r
+         <!--Optional:-->\r
+         <dig:MOTIVO>?</dig:MOTIVO>\r
+         <!--Optional:-->\r
+         <dig:NOTA>?</dig:NOTA>\r
+      </dig:Cambio_SIMCard_POSTPAGO>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/Cambio_SIMCard_POSTPAGO"/></con:call></con:operation><con:operation id="479ffa5b-475c-411d-b9c3-e5de09a0d871" isOneWay="false" action="http://digicelpanama.com/Cambio_SIMCard_PREPAGO" name="Cambio_SIMCard_PREPAGO" bindingOperationName="Cambio_SIMCard_PREPAGO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="01dfc532-28b4-4717-b437-1d1dcb914f46" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:Cambio_SIMCard_PREPAGO>\r
+         <!--Optional:-->\r
+         <dig:MSISDN>?</dig:MSISDN>\r
+         <!--Optional:-->\r
+         <dig:PACK_ID>?</dig:PACK_ID>\r
+         <!--Optional:-->\r
+         <dig:MOTIVO>?</dig:MOTIVO>\r
+         <!--Optional:-->\r
+         <dig:NOTA>?</dig:NOTA>\r
+      </dig:Cambio_SIMCard_PREPAGO>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/Cambio_SIMCard_PREPAGO"/></con:call></con:operation><con:operation id="9dc54323-b30c-4560-9c00-6494a7cbe72c" isOneWay="false" action="http://digicelpanama.com/CHECK_NUMBER" name="CHECK_NUMBER" bindingOperationName="CHECK_NUMBER" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="472851d6-f5fa-48dd-9257-59b78d498c16" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:CHECK_NUMBER>\r
+         <!--Optional:-->\r
+         <dig:TRANSACTION>\r
+            <!--You may enter ANY elements at this point-->\r
+            <!--You may enter ANY elements at this point-->\r
+         </dig:TRANSACTION>\r
+      </dig:CHECK_NUMBER>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/CHECK_NUMBER"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="78bee112-c791-4183-9cbd-e3279d085688" isOneWay="false" action="http://digicelpanama.com/CREDIT_SCORING" name="CREDIT_SCORING" bindingOperationName="CREDIT_SCORING" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c500c7a3-390c-490d-8f22-9bb57107c95f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:CREDIT_SCORING>\r
+         <!--Optional:-->\r
+         <dig:Customer_ID>?</dig:Customer_ID>\r
+         <!--Optional:-->\r
+         <dig:DocumentType>?</dig:DocumentType>\r
+         <!--Optional:-->\r
+         <dig:Handset_Cost>?</dig:Handset_Cost>\r
+         <!--Optional:-->\r
+         <dig:Handset_Model>?</dig:Handset_Model>\r
+      </dig:CREDIT_SCORING>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/CREDIT_SCORING"/></con:call></con:operation><con:operation id="09dfd35e-9285-46c2-8171-a70700c9152a" isOneWay="false" action="http://digicelpanama.com/HANDSET_PRICE" name="HANDSET_PRICE" bindingOperationName="HANDSET_PRICE" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="54536ae9-3e32-4c5d-a8db-06565480eb70" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:HANDSET_PRICE>\r
+         <!--Optional:-->\r
+         <dig:PlanID>?</dig:PlanID>\r
+         <dig:Trans_Type>?</dig:Trans_Type>\r
+         <!--Optional:-->\r
+         <dig:SKU_ID>?</dig:SKU_ID>\r
+      </dig:HANDSET_PRICE>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/HANDSET_PRICE"/></con:call></con:operation><con:operation id="31d53657-9d81-47e5-8997-5563eef8e691" isOneWay="false" action="http://digicelpanama.com/LNP_ASEP_NIP_ABORT" name="LNP_ASEP_NIP_ABORT" bindingOperationName="LNP_ASEP_NIP_ABORT" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="37f987d8-a6df-4eea-bbcf-2af3cd42289f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:LNP_ASEP_NIP_ABORT>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_ASEP_NIP_ABORT>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/LNP_ASEP_NIP_ABORT"/></con:call></con:operation><con:operation id="d789b9e9-e4e9-4c7e-afd6-8d95a74cb9c1" isOneWay="false" action="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST" name="LNP_ASEP_NIP_REQUEST" bindingOperationName="LNP_ASEP_NIP_REQUEST" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2553bb04-d686-4042-9279-b58d19d9062a" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:LNP_ASEP_NIP_REQUEST>\r
+         <!--Optional:-->\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_ASEP_NIP_REQUEST>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST"/></con:call></con:operation><con:operation id="0fe26624-4202-4cb8-b860-06f016af3fe7" isOneWay="false" action="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST_AGAIN" name="LNP_ASEP_NIP_REQUEST_AGAIN" bindingOperationName="LNP_ASEP_NIP_REQUEST_AGAIN" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b77772db-4269-47a9-b57c-ddf7fcf24b3d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:LNP_ASEP_NIP_REQUEST_AGAIN>\r
+         <!--Optional:-->\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_ASEP_NIP_REQUEST_AGAIN>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/LNP_ASEP_NIP_REQUEST_AGAIN"/></con:call></con:operation><con:operation id="b9afb743-4f0c-4968-833d-75dd4a8d6c6d" isOneWay="false" action="http://digicelpanama.com/LNP_DETALLE_PORTABILIDAD_NUMERICA" name="LNP_DETALLE_PORTABILIDAD_NUMERICA" bindingOperationName="LNP_DETALLE_PORTABILIDAD_NUMERICA" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a786966c-58f9-454d-b442-3c8416331101" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:LNP_DETALLE_PORTABILIDAD_NUMERICA>\r
+         <!--Optional:-->\r
+         <dig:MsgIdentifier>?</dig:MsgIdentifier>\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <dig:TipoDonador>?</dig:TipoDonador>\r
+         <!--Optional:-->\r
+         <dig:NombreCliente>?</dig:NombreCliente>\r
+         <!--Optional:-->\r
+         <dig:ApellidoCliente>?</dig:ApellidoCliente>\r
+         <dig:TipoDocumento>?</dig:TipoDocumento>\r
+         <!--Optional:-->\r
+         <dig:NumeroDocumento>?</dig:NumeroDocumento>\r
+         <dig:FechaNacimiento>?</dig:FechaNacimiento>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+         <!--Optional:-->\r
+         <dig:EMail>?</dig:EMail>\r
+         <!--Optional:-->\r
+         <dig:PaisResidencia>?</dig:PaisResidencia>\r
+         <!--Optional:-->\r
+         <dig:Direccion_1>?</dig:Direccion_1>\r
+         <!--Optional:-->\r
+         <dig:Direccion_2>?</dig:Direccion_2>\r
+         <!--Optional:-->\r
+         <dig:Direccion_3>?</dig:Direccion_3>\r
+         <!--Optional:-->\r
+         <dig:NIP>?</dig:NIP>\r
+         <!--Optional:-->\r
+         <dig:Msisdn_Avatar>?</dig:Msisdn_Avatar>\r
+      </dig:LNP_DETALLE_PORTABILIDAD_NUMERICA>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/LNP_DETALLE_PORTABILIDAD_NUMERICA"/></con:call></con:operation><con:operation id="455466bf-92fe-4051-a7b7-f7508cee3e42" isOneWay="false" action="http://digicelpanama.com/LNP_LISTADO_OPERADORES" name="LNP_LISTADO_OPERADORES" bindingOperationName="LNP_LISTADO_OPERADORES" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="455d5cea-2ac8-4c6f-a574-2b3d6538586d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:LNP_LISTADO_OPERADORES/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/LNP_LISTADO_OPERADORES"/></con:call></con:operation><con:operation id="c651fcd3-f6fc-46bc-9cb3-6eed4510d42e" isOneWay="false" action="http://digicelpanama.com/LNP_PORTABILIDAD_POSTPAGO" name="LNP_PORTABILIDAD_POSTPAGO" bindingOperationName="LNP_PORTABILIDAD_POSTPAGO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="11f990a4-d216-4d9d-82b0-8e79ed25376e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:LNP_PORTABILIDAD_POSTPAGO>\r
+         <dig:OperadorDonador>?</dig:OperadorDonador>\r
+         <!--Optional:-->\r
+         <dig:Numero_a_Portar>?</dig:Numero_a_Portar>\r
+      </dig:LNP_PORTABILIDAD_POSTPAGO>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/LNP_PORTABILIDAD_POSTPAGO"/></con:call></con:operation><con:operation id="80be42e7-41fe-4769-96ef-6ba6d4e4e2c4" isOneWay="false" action="http://digicelpanama.com/STATUS_MSISDN" name="STATUS_MSISDN" bindingOperationName="STATUS_MSISDN" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="807d8aa5-d4ad-4e25-8539-ffb9f0552cdf" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://appservpa01.digicelpanama.com/WS_eCommerce/eCommerce.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">\r
+   <soapenv:Header>\r
+      <dig:AuthHeader>\r
+         <!--Optional:-->\r
+         <dig:Token>?</dig:Token>\r
+      </dig:AuthHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <dig:STATUS_MSISDN>\r
+         <!--Optional:-->\r
+         <dig:MSISDN>?</dig:MSISDN>\r
+      </dig:STATUS_MSISDN>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://digicelpanama.com/STATUS_MSISDN"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

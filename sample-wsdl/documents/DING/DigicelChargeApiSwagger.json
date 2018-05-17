@@ -1,0 +1,1359 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "Ding Digicel Charge API V1",
+    "description": "Table of Contents\r\n-----------------\r\n* [Introduction](#introduction)\r\n* [Authentication](#authentication)\r\n* [Idempotency](#idempotency)\r\n* [Validation](#Validation)\r\n* [Unsuccessful Card Charges](#Unsuccessful)\r\n* [Validation](#Validation)\r\n\r\nIntroduction\r\n------------\r\nThe Ding Digicel Charge API is a Level 0 REST web service.  We have used the [swagger](http://swagger.io/) standard to describe this service. \r\n\r\nThe swagger definition can also be used to automatically generate client SDK libraries in many different languages.  Many free and commercial code generators are available\r\nthat can consume this swagger definition and generate client code for you, allowing you to rapidly develop your application.  For example, you can import our swagger definition \r\ninto the online service provided at [http://editor.swagger.io] and from that interface you can generate client code in over 20 different programming languages.  \r\n\r\n\r\nAuthentication\r\n--------------\r\nAll requests to the API must be authenticated.\r\n\r\nThe API uses HTTP Basic Access Authentication over SSL. The client must construct an HTTP `Authorization` header using the AuthenticationId \r\nand AuthenticationPassword that were issued to you.  Most REST client libraries support this security scheme directly.  \r\n\r\nThe following document describes the exact rules on how to manually construct an Authorization Header: [https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side].\r\n\r\nIf authentication fails, you will receive a HTTP `401 Unauthorized` response.\r\n\r\nYou can test your credentials in this Swagger UI client by entering them in the AuthId & AuthPassword fields above and clicking the **Explore** button. You can\r\nthen use the **Try it out** button in each API method that requires authentication. \r\n\r\nIdempotency\r\n-----------\r\nEvery request to the API must include a `request_Id`, which is a unique GUID in standard string format. Subsequent requests with identical `request_Id` parameters will be \r\ntreated as duplicate/retried requests. Responses to duplicate requests will be identical to the response from the first message sent (except for `correlation_Id`).  Duplicate requests \r\nwill not cause business change.\r\n\r\nIf a duplicate request does not have the same input parameters as the first request, this is an error and will prompt a `409 Conflict` error.\r\n\r\nValidation\r\n----------\r\nAll API methods have some required fields, many of which have required formats.  In the descriptive text, fields are considered required unless explicitly marked as optional.\r\n\r\nNote that several fields marked as optional become required for certain clients.  These have been clearly called out in the documentation.\r\n\r\nIf any required fields are omitted, or incorrectly formatted, the API will respond with an HTTP `422 Unprocessable Entity` response. \r\n\r\nInvalid requests will not lead to any behavioural change.  \r\n\r\nHowever, the `request_Id` will be recorded and cannot not be used again for subsequent requests.\r\n\r\nOnly the `application/json` media type is supported.  Any other media type may cause an HTTP `415 Unsupported Media Type` response.\r\n\r\nAll methods in this API are HTTP POST requests - no other method is allowed.  Any other method may cause an HTTP `404 Not Found` or `405 Method Not Allowed` response.\r\n\r\nUnsuccessful Card Charges\r\n-------------------------\r\nValid but unsuccessful attempts to charge a card are not treated as an error condition.  They will generate to a `200 OK` error response.  They can lead to changes in system behaviour.\r\n\r\nOther Error Conditions\r\n----------------------\r\nSeveral other business error conditions may occur - for example, an attempt to use a token which has already been deleted, an attempt\r\nto complete an add session which is invalid or expired, or an attempt to issue a refund for a transaction beyond the transaction value.\r\n\r\nIn all of those cases a 4xx error will be returned, most often this will be `400 Bad Request` or `403 Forbidden`.  \r\n\r\nThe JSON body will return more information which clients can use to attempt to resolve the problem in a subsequent request.\r\n\r\nSome of these error conditions may lead to changes in subsequent system behaviour, such as disabling saved cards or raising subsequent fraud scores.\r\n\r\n\r\n"
+  },
+  "host": "digicelchargeapi-ding-com.ezetop-staging.com:9740",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/Capture": {
+      "post": {
+        "tags": [
+          "2 - Charge Card"
+        ],
+        "summary": "Capture the funds authorized for a particular charge",
+        "operationId": "Capture_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The details of the original charge made.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CaptureRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/ChargeCard": {
+      "post": {
+        "tags": [
+          "2 - Charge Card"
+        ],
+        "summary": "This is used to charge a card.",
+        "operationId": "ChargeCard_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "Details of the user and device starting the flow",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChargeCardRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ChargeCardReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "403": {
+            "description": "Token expired, invalid, revoked, or belongs to other user.",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/StartModifyCardFlow": {
+      "post": {
+        "tags": [
+          "3 - Modify Card Flow"
+        ],
+        "summary": "This is used to start the \"Modify card\" flow.",
+        "operationId": "StartModifyCardFlow_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "Details of the user and device starting the flow",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StartModifyCardFlowRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StartModifyCardFlowReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "403": {
+            "description": "Token expired, invalid, revoked,  or belongs to other user.",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/StartAddCardFlow": {
+      "post": {
+        "tags": [
+          "1 - Add Card Flow"
+        ],
+        "summary": "This is used to start the \"Add card\" flow.",
+        "operationId": "StartAddCardFlow_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "Details of the user and device starting the flow",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StartAddCardFlowRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StartAddCardFlowReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/EndAddCardFlow": {
+      "post": {
+        "tags": [
+          "1 - Add Card Flow"
+        ],
+        "summary": "This is used to end the \"Add card\" flow.",
+        "operationId": "EndAddCardFlow_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "Details of the flow, and the provided token.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EndAddCardFlowRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/EndModifyCardFlow": {
+      "post": {
+        "tags": [
+          "3 - Modify Card Flow"
+        ],
+        "summary": "This is used to end the \"Modify card\" flow.",
+        "operationId": "EndModifyCardFlow_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "Details of the flow, and the provided token.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EndModifyCardFlowRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/GetNonPciCardData": {
+      "post": {
+        "tags": [
+          "1 - Add Card Flow",
+          "3 - Modify Card Flow"
+        ],
+        "summary": "Get the details associated with a particular token",
+        "operationId": "GetNonPciCardData_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The token of interest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetNonPciCardDataRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetNonPciCardDataReply"
+            }
+          },
+          "400": {
+            "description": "Token expired, invalid or revoked",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/Refund": {
+      "post": {
+        "tags": [
+          "2 - Charge Card"
+        ],
+        "summary": "Request a partial or full refund on a specific charge",
+        "operationId": "Refund_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The details of the original charge.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RefundRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/ErrorReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    },
+    "/api/RemoveCard": {
+      "post": {
+        "tags": [
+          "4 - Remove Card"
+        ],
+        "summary": "This is used to remove an existing card token.  \r\nDing gaurantees that the token can no longer be used",
+        "operationId": "RemoveCard_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The token to remove",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RemoveCardRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "401": {
+            "description": "Basic auth headers not received",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "403": {
+            "description": "Token expired, invalid, revoked, or belongs to other user.",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "409": {
+            "description": "Duplicate request id with different parameter values",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          },
+          "501": {
+            "description": "Method not yet implemented",
+            "schema": {
+              "$ref": "#/definitions/ItsonReply"
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CaptureRequest": {
+      "description": "A request to capture a previously authorized charge.",
+      "required": [
+        "charge_Id",
+        "amount",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "charge_Id": {
+          "description": "Unique charge identifier, provided at authorization time.",
+          "type": "string"
+        },
+        "amount": {
+          "format": "decimal",
+          "description": "Amount to be captured. Attempting to charge more than the amount\r\n            originally authorized will be considered an error",
+          "type": "number"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "ItsonReply": {
+      "description": "A reply with just the request_id parameter\r\n            When no additional reply informationm is required",
+      "required": [
+        "correlationId",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "correlationId": {
+          "description": "Unique identifier associated with every call to the Ding systems.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This is the request Id that was provided by the API consumer\r\n            Guids will be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "ErrorReply": {
+      "description": "A reply indicating something went wrong.",
+      "required": [
+        "correlationId",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "errors": {
+          "description": "A list of things that went wrong while processing a request.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        },
+        "correlationId": {
+          "description": "Unique identifier associated with every call to the Ding systems.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This is the request Id that was provided by the API consumer\r\n            Guids will be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "description": "An error",
+      "required": [
+        "code"
+      ],
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "A classifier for what went wrong.",
+          "type": "string"
+        },
+        "subCode": {
+          "description": "A sub-classifier for what went wrong.",
+          "type": "string"
+        },
+        "words": {
+          "description": "Some words in English describing what went wrong.\r\n            Note that coding to the \"words\" is a bad idea - they can and will change without notice.",
+          "type": "string"
+        }
+      }
+    },
+    "ChargeCardRequest": {
+      "description": "Details of the charge to be applied to the card\r\n            And the user requesting the charge",
+      "required": [
+        "token",
+        "amount",
+        "charge_Type",
+        "ip_Address",
+        "iovation_Sig",
+        "market",
+        "myDigicel_Id",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "token": {
+          "description": "The unique card token",
+          "type": "string"
+        },
+        "amount": {
+          "format": "decimal",
+          "description": "Amount to charge, in market currency",
+          "type": "number"
+        },
+        "charge_Type": {
+          "description": "Charge type: \"normal\", \"autopay\", or \"physical goods\"\r\n            Normal: Iovation ID will be provided, auto capture\r\n            Autopay: This allows payment without Iovation ID, auto capture\r\n            Physical Goods: This requires an extra capture step\r\n            Not all merchants can use all charge types.",
+          "enum": [
+            "normal",
+            "autopay",
+            "physicalGoods"
+          ],
+          "type": "string"
+        },
+        "items": {
+          "description": "Items being purchased. \r\n            \r\n            REQUIRED FOR BLACKSIP",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderItem"
+          }
+        },
+        "review_Callback_Uri": {
+          "description": "For orders that end up in manual review, we will POST \r\n            a reply to this endpoint once the review has completed.\r\n            The response posted will be exactly the same as the reply to the \"Charge\" message.\r\n            \r\n            REQUIRED FOR BLACKSIP",
+          "type": "string"
+        },
+        "physical_Details": {
+          "$ref": "#/definitions/PhysicalProductDetails",
+          "description": "Details on a physical product.\r\n            \r\n            REQUIRED FOR BLACKSIP"
+        },
+        "ip_Address": {
+          "description": "An IPv4 IP address associated with the network that the device is running on.\r\n            This will be the \"closest WAN\" IP address (typically an outgoing IP Address for\r\n            a digicel network or WIFI network)\r\n            Format is standard 4 decimal bytes, delimited with dots (ie 8.8.8.8)\r\n            If no device is present, the IP of the Itson service controller.",
+          "type": "string"
+        },
+        "iovation_Sig": {
+          "description": "The device identifier from the Iovation IP\r\n            If no user device is present, please use the constant string \"None\".\r\n            The value \"None\" will _only_ be accepted for charge requests that have the charge_Type \"autopay\".",
+          "type": "string"
+        },
+        "itson_Id": {
+          "description": "The unique identifier of the account holder in the itson system\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "market": {
+          "description": "An identifier for the Digicel market the account holder is in",
+          "type": "string"
+        },
+        "msidsn": {
+          "description": "The phone number associated with this flow.  \r\n            Typically the oldest active number associated with the account.\r\n            This will be required for most merchants.\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "myDigicel_Id": {
+          "description": "The unique identifier in \"my digicel\" for the user.\r\n            This isn't actually a GUID - it's a long string provided by the my digicel servers.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "OrderItem": {
+      "description": "Item being purchased",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The type of item (phone, sim, etc)",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the item",
+          "type": "string"
+        },
+        "fullValue": {
+          "format": "decimal",
+          "description": "The full value of the product purchased\r\n            (Bearing in mind this charge might just be a down payment)",
+          "type": "number"
+        }
+      }
+    },
+    "PhysicalProductDetails": {
+      "description": "Additional product details that are available at charge time \r\n            Details provided here can assist with fraud prevention and reconciliation",
+      "required": [
+        "shipping_Address"
+      ],
+      "type": "object",
+      "properties": {
+        "shipping_Address": {
+          "$ref": "#/definitions/ShippingAddress",
+          "description": "Destination where product will be shipped"
+        },
+        "alternative_Address": {
+          "$ref": "#/definitions/ShippingAddress",
+          "description": "Alternative address where shipping not possible"
+        },
+        "additional_Info": {
+          "description": "Additional information (subject to extension by agreement)",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ShippingAddress": {
+      "description": "An shipping address that physical goods will be sent to",
+      "required": [
+        "name",
+        "street_Address",
+        "city",
+        "state",
+        "zip_Code",
+        "email",
+        "phone_Number",
+        "country_Iso"
+      ],
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Person who will accept delivery",
+          "type": "string"
+        },
+        "street_Number": {
+          "description": "Street number",
+          "type": "string"
+        },
+        "street_Address": {
+          "description": "Street address",
+          "type": "string"
+        },
+        "city": {
+          "description": "City name",
+          "type": "string"
+        },
+        "state": {
+          "description": "State",
+          "type": "string"
+        },
+        "zip_Code": {
+          "description": "ZIP code",
+          "type": "string"
+        },
+        "email": {
+          "description": "E-mail address, where provided.",
+          "type": "string"
+        },
+        "phone_Number": {
+          "description": "Contact Phone number, where required.",
+          "type": "string"
+        },
+        "country_Iso": {
+          "description": "ISO code (ISO3166-1, alpha-2) for the chosen country",
+          "type": "string"
+        }
+      }
+    },
+    "ChargeCardReply": {
+      "description": "Reply for a charge.",
+      "required": [
+        "orderStatus",
+        "charge_Id",
+        "charged_Currency",
+        "charged_Amount",
+        "correlationId",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "authorizationCode": {
+          "description": "Card provider's auth code, where charge is accepted.",
+          "type": "string"
+        },
+        "rejectionReason": {
+          "description": "For rejected charges, why it was rejected.",
+          "type": "string"
+        },
+        "orderStatus": {
+          "description": "Order status = \"Accepted\"|\"Rejected\"",
+          "enum": [
+            "accepted",
+            "rejected",
+            "requiresManualReview"
+          ],
+          "type": "string"
+        },
+        "charge_Id": {
+          "description": "Unique charge identifier, to be used in refunds and support queries.\r\n            Will be populated even if the charge is rejected.",
+          "type": "string"
+        },
+        "charged_Currency": {
+          "description": "The ISO currency code for the charge.  For all markets other than\r\n            Suriname, this will be the market currency.  For Suriname, this\r\n            will be USD.\r\n            This will be an empty string where the charge is rejected.",
+          "type": "string"
+        },
+        "charged_Amount": {
+          "format": "decimal",
+          "description": "The amount charged.  For all markets other than\r\n            Suriname, this will be the amount charged.  For Suriname, this\r\n            will the the amount as converted to USD using the current\r\n            prevailing rate.\r\n            This will be zero where the charge is rejected.",
+          "type": "number"
+        },
+        "correlationId": {
+          "description": "Unique identifier associated with every call to the Ding systems.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This is the request Id that was provided by the API consumer\r\n            Guids will be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "EndAddCardFlowRequest": {
+      "description": "The reply received after successfully ending the \"Add card flow\"",
+      "required": [
+        "addSession_Id",
+        "token",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "addSession_Id": {
+          "description": "A unique identifier for this \"add card\" flow instance.",
+          "type": "string"
+        },
+        "token": {
+          "description": "The token gathered from the device",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "EndModifyCardFlowRequest": {
+      "description": "The reply received after successfully ending the \"Modify card flow\"",
+      "required": [
+        "modifySession_Id",
+        "token",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "modifySession_Id": {
+          "description": "A unique identifier for this \"modify card\" flow instance.",
+          "type": "string"
+        },
+        "token": {
+          "description": "The token gathered from the device",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "GetNonPciCardDataRequest": {
+      "description": "Get card details associated with a token",
+      "required": [
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "token": {
+          "description": "The token for which we need details.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "GetNonPciCardDataReply": {
+      "description": "Reply containing non-PCI card data",
+      "required": [
+        "lastFourDigits",
+        "expiryMonth",
+        "expiryYear",
+        "cardType",
+        "debitOrCredit",
+        "correlationId",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "lastFourDigits": {
+          "description": "The final four digits of the credit card number",
+          "type": "string"
+        },
+        "expiryMonth": {
+          "format": "int32",
+          "description": "The expiry month on the credit card",
+          "type": "integer"
+        },
+        "expiryYear": {
+          "format": "int32",
+          "description": "The expiry year on the credit card",
+          "type": "integer"
+        },
+        "cardType": {
+          "description": "Card Type",
+          "enum": [
+            "visa",
+            "masterCard"
+          ],
+          "type": "string"
+        },
+        "debitOrCredit": {
+          "description": "Whether this is a debit card or a credit card",
+          "enum": [
+            "debit",
+            "credit"
+          ],
+          "type": "string"
+        },
+        "billingAddress": {
+          "$ref": "#/definitions/BillingAddress",
+          "description": "Billing address for the card.\r\n            Note that this will not always be provided.\r\n            It's only provided to merchants that ship physical goods"
+        },
+        "correlationId": {
+          "description": "Unique identifier associated with every call to the Ding systems.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This is the request Id that was provided by the API consumer\r\n            Guids will be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "BillingAddress": {
+      "description": "A billing address associated with a card number",
+      "required": [
+        "country_Iso"
+      ],
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Note that this name may not be shared for PCI compliance reasons (cardholder name is protected data)",
+          "type": "string"
+        },
+        "street_Address": {
+          "description": "Street address",
+          "type": "string"
+        },
+        "city": {
+          "description": "City name",
+          "type": "string"
+        },
+        "street_Number": {
+          "description": "Street number",
+          "type": "string"
+        },
+        "state": {
+          "description": "State",
+          "type": "string"
+        },
+        "zip_Code": {
+          "description": "ZIP code",
+          "type": "string"
+        },
+        "email": {
+          "description": "E-mail address, where provided.",
+          "type": "string"
+        },
+        "phone_Number": {
+          "description": "Contact Phone number, where required.",
+          "type": "string"
+        },
+        "country_Iso": {
+          "description": "ISO code (ISO3166-1, alpha-2) for the chosen country",
+          "type": "string"
+        }
+      }
+    },
+    "RefundRequest": {
+      "description": "A request to refund a card",
+      "required": [
+        "charge_Id",
+        "amount",
+        "reason",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "charge_Id": {
+          "description": "Unique charge identifier, provided at authorization time",
+          "type": "string"
+        },
+        "amount": {
+          "format": "decimal",
+          "description": "Amount to be refunded. Refunding more than the amount\r\n            (in part or across multiple parts) \r\n            will be considered an error",
+          "type": "number"
+        },
+        "reason": {
+          "description": "A reason comment for the refund. Used for audit purposes.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "RemoveCardRequest": {
+      "description": "A request to remove a card",
+      "required": [
+        "token",
+        "market",
+        "myDigicel_Id",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "token": {
+          "description": "The token associated with the card to remove.",
+          "type": "string"
+        },
+        "itson_Id": {
+          "description": "The unique identifier of the account holder in the itson system\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "market": {
+          "description": "An identifier for the Digicel market the account holder is in",
+          "type": "string"
+        },
+        "msidsn": {
+          "description": "The phone number associated with this flow.  \r\n            Typically the oldest active number associated with the account.\r\n            This will be required for most merchants.\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "myDigicel_Id": {
+          "description": "The unique identifier in \"my digicel\" for the user.\r\n            This isn't actually a GUID - it's a long string provided by the my digicel servers.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "StartAddCardFlowRequest": {
+      "description": "Details of the device and user that wants to add a card.",
+      "required": [
+        "return_Url",
+        "charge",
+        "ip_Address",
+        "iovation_Sig",
+        "market",
+        "myDigicel_Id",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "language": {
+          "description": "The language that the device is running in, where available.\r\n            Can be submitted as an empty string where no device language has been chosen or is known.\r\n            Format is {culture}-{COUNTRY}.\r\n            The payment form will use the closest supported language",
+          "type": "string"
+        },
+        "return_Url": {
+          "description": "The Itson URL to return to when the flow completes",
+          "type": "string"
+        },
+        "charge": {
+          "format": "decimal",
+          "description": "The amount to charge to the card",
+          "type": "number"
+        },
+        "ip_Address": {
+          "description": "An IPv4 IP address associated with the network that the device is running on.\r\n            This will be the \"closest WAN\" IP address (typically an outgoing IP Address for\r\n            a digicel network or WIFI network)\r\n            Format is standard 4 decimal bytes, delimited with dots (ie 8.8.8.8)\r\n            If no device is present, the IP of the Itson service controller.",
+          "type": "string"
+        },
+        "iovation_Sig": {
+          "description": "The device identifier from the Iovation IP\r\n            If no user device is present, please use the constant string \"None\".\r\n            The value \"None\" will _only_ be accepted for charge requests that have the charge_Type \"autopay\".",
+          "type": "string"
+        },
+        "itson_Id": {
+          "description": "The unique identifier of the account holder in the itson system\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "market": {
+          "description": "An identifier for the Digicel market the account holder is in",
+          "type": "string"
+        },
+        "msidsn": {
+          "description": "The phone number associated with this flow.  \r\n            Typically the oldest active number associated with the account.\r\n            This will be required for most merchants.\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "myDigicel_Id": {
+          "description": "The unique identifier in \"my digicel\" for the user.\r\n            This isn't actually a GUID - it's a long string provided by the my digicel servers.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "StartAddCardFlowReply": {
+      "description": "The reply received after successfully starting the \"Add card flow\"",
+      "required": [
+        "addSession_Id",
+        "add_Url",
+        "correlationId",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "addSession_Id": {
+          "description": "A unique identifier for this \"add card\" flow instance.",
+          "type": "string"
+        },
+        "add_Url": {
+          "description": "The location which should be opened up in the device webview\r\n            to start the add card flow.\r\n            This URI is signed and must be presented exactly as returned.",
+          "type": "string"
+        },
+        "correlationId": {
+          "description": "Unique identifier associated with every call to the Ding systems.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This is the request Id that was provided by the API consumer\r\n            Guids will be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "StartModifyCardFlowRequest": {
+      "description": "Details of the device, user, and token for the card user wants to modify",
+      "required": [
+        "token",
+        "return_Url",
+        "charge",
+        "ip_Address",
+        "iovation_Sig",
+        "market",
+        "myDigicel_Id",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "token": {
+          "description": "The token of the card to be modified.",
+          "type": "string"
+        },
+        "language": {
+          "description": "The language that the device is running in, where available.\r\n            Can be submitted as an empty string where no device language has been chosen or is known.\r\n            Format is {culture}-{COUNTRY}.\r\n            The payment form will use the closest supported language",
+          "type": "string"
+        },
+        "return_Url": {
+          "description": "The Itson URL to return to when the flow completes",
+          "type": "string"
+        },
+        "charge": {
+          "format": "decimal",
+          "description": "The amount to charge to the card",
+          "type": "number"
+        },
+        "ip_Address": {
+          "description": "An IPv4 IP address associated with the network that the device is running on.\r\n            This will be the \"closest WAN\" IP address (typically an outgoing IP Address for\r\n            a digicel network or WIFI network)\r\n            Format is standard 4 decimal bytes, delimited with dots (ie 8.8.8.8)\r\n            If no device is present, the IP of the Itson service controller.",
+          "type": "string"
+        },
+        "iovation_Sig": {
+          "description": "The device identifier from the Iovation IP\r\n            If no user device is present, please use the constant string \"None\".\r\n            The value \"None\" will _only_ be accepted for charge requests that have the charge_Type \"autopay\".",
+          "type": "string"
+        },
+        "itson_Id": {
+          "description": "The unique identifier of the account holder in the itson system\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "market": {
+          "description": "An identifier for the Digicel market the account holder is in",
+          "type": "string"
+        },
+        "msidsn": {
+          "description": "The phone number associated with this flow.  \r\n            Typically the oldest active number associated with the account.\r\n            This will be required for most merchants.\r\n            \r\n            REQUIRED FOR ITSON",
+          "type": "string"
+        },
+        "myDigicel_Id": {
+          "description": "The unique identifier in \"my digicel\" for the user.\r\n            This isn't actually a GUID - it's a long string provided by the my digicel servers.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This must be a string containing a Globally Unique Identifier (GUID), used to track\r\n            idempotent requests.\r\n            Guids should be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    },
+    "StartModifyCardFlowReply": {
+      "description": "The reply received after successfully starting the \"Modify card flow\"",
+      "required": [
+        "modifySession_Id",
+        "add_Url",
+        "correlationId",
+        "request_Id"
+      ],
+      "type": "object",
+      "properties": {
+        "modifySession_Id": {
+          "description": "A unique identifier for this \"modify card\" flow instance.",
+          "type": "string"
+        },
+        "add_Url": {
+          "description": "The location which should be opened up in the device webview\r\n            to start the modify card flow.\r\n            This URI is signed and must be presented exactly as returned.",
+          "type": "string"
+        },
+        "correlationId": {
+          "description": "Unique identifier associated with every call to the Ding systems.",
+          "type": "string"
+        },
+        "request_Id": {
+          "description": "This is the request Id that was provided by the API consumer\r\n            Guids will be formatted in hexidecimal per <a href=\"https://www.ietf.org/rfc/rfc4122.txt\">RFC 4122</a>.",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "AuthorizationHeader": {
+      "type": "basic",
+      "description": "\r\nConstruct a BasicAuth header as per standard described here: https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side \r\n\r\nUse the AuthenticationId and AuthenticationPassword that were issued to you in the header"
+    }
+  }
+}

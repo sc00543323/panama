@@ -15,3 +15,9 @@
 .login-block .mt-15 {
     margin: 15px 0px;
 }
+#checkout-shipping-method-load{
+	display:none;
+}
+.checkout-shipping-method .step-title{
+	display:none; 
+}
