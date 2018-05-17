@@ -26,7 +26,7 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 
     public function execute() {
         //calculate deivery time and date
-		//if($this->getRequest()->isAjax()) {
+		if($this->getRequest()->isAjax()) {
 			$city = $this->getRequest()->getParam('city');
 			$address = $this->getRequest()->getParam('address');
 			$deliveryNeighborhood = 'Venue';
@@ -76,7 +76,7 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 			# Send request.
 			$result = curl_exec($ch);
 			curl_close($ch);
-			$response = json_decode($result);
+			//$response = json_decode($result);
 			//echo "<pre>";print_r($response);echo "</pre>";die;
 			//echo "dddd--".$result['ResultId'];
 			$array[0]['ResultId'] = 1;
@@ -89,11 +89,11 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
 			$resultJson->setData($array);
 			return $resultJson; die;
-		/*} else {
+		} else {
             $model = __('This is Not An Ajax Call');
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
 			$resultJson->setData($model);
 			return $resultJson; die;
-        }*/
+        }
     }
 }

@@ -1,9 +1,5 @@
 <div>
 	<input type="hidden" id="delivery_date_time" name="delivery_date_time" />
-
-	<button type="button" id="test_butotn" class="action">
-		<span data-bind="i18n: 'test'"></span>
-	</button>
 	<button type="button" data-bind="click: selectButton" class="action select_button">
 		<span data-bind="i18n: 'Select Time and Date'"></span>
 	</button>
@@ -12,9 +8,8 @@
 		<div class="date_div">
 			<p>08 May 2018</p>
 		</div>
-		<div class="time_div">
-			<input type="radio" data-bind="click: time" name="time" value="10 AM - 12 PM">10 AM - 12 PM<br>
+		<div class="time_div" data-bind="foreach: getDateTimeObservableArray()" >
+			<input type="radio" data-bind="click: $parent.time, value: delivery_time" name="time" /> <span data-bind="text: delivery_time"></span><br/>
 		</div>
-		
 	</div>
 </div>
