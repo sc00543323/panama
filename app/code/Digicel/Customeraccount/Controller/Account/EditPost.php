@@ -152,9 +152,7 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
         $validFormKey = $this->formKeyValidator->validate($this->getRequest());
 		/** added optIn/optOut functionality started */
 		$countorders  = $this->getCustomerOrders();
-		
-		
-		
+	
         if ($validFormKey && $this->getRequest()->isPost()) {
             $currentCustomerDataObject = $this->getCustomerDataObject($this->session->getCustomerId());
             $customerCandidateDataObject = $this->populateNewCustomerDataObject(

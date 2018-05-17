@@ -378,18 +378,6 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             $customer = $this->accountManagement
                 ->createAccount($customer, $password, $cedulla, $passport, $mob, $dobValue, $redirectUrl);
 				
-				//print_r($customer);exit;
-
-           /*  if ($this->getRequest()->getParam('is_subscribed', false)) {
-                $this->subscriberFactory->create()->subscribeCustomerById($customer->getId());
-            }
-			if ($this->getRequest()->getParam('is_partner_subscribed', false)) {
-                $this->partnersubscriberFactory->create()->subscribeCustomerById($customer->getId());
-            }
-			if ($this->getRequest()->getParam('is_contracts_subscribed', false)) {
-                $this->contractssubscriberFactory->create()->subscribeCustomerById($customer->getId());
-            } */
-
             $this->_eventManager->dispatch(
                 'customer_register_success',
                 ['account_controller' => $this, 'customer' => $customer]
