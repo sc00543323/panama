@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 -->
@@ -13,49 +13,13 @@
         </referenceBlock>
         <referenceBlock name="page.main.title">
             <action method="setPageTitle">
-                <argument translate="true" name="title" xsi:type="string">Account Information</argument>
+                <argument translate="true" name="title" xsi:type="string">Edit Account Information</argument>
             </action>
         </referenceBlock>
         <referenceContainer name="content">
-            <block class="Magento\Customer\Block\Form\Edit" name="customer_edit" template="form/edit.phtml" cacheable="false">
+            <block class="Magento\Customer\Block\Form\Edit" name="customer_edit" template="Magento_Customer::form/edit.phtml" cacheable="false">
                 <container name="form.additional.info" as="form_additional_info"/>
             </block>
-			
         </referenceContainer>
-		<!-- Store credit -->
-        <referenceBlock name="customer-account-navigation-customer-balance-link" remove="true"/>
-
-        <!-- Downloadable product link -->
-        <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true"/>
-
-        <!-- Subscription link -->
-        <referenceBlock name="customer-account-navigation-newsletter-subscriptions-link" remove="true"/>
-
-        <!-- Billing agreement link -->
-        <referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
-
-        <!-- Product review link -->
-        <referenceBlock name="customer-account-navigation-product-reviews-link" remove="true"/>
-
-        <!-- My credit card link -->
-        <referenceBlock name="customer-account-navigation-my-credit-cards-link" remove="true"/>
-        <!-- Orders link -->
-        <!--<referenceBlock name="customer-account-navigation-orders-link" remove="false"/>-->
-
-        <!-- Wish list link -->
-        <referenceBlock name="customer-account-navigation-wish-list-link" remove="true"/>
-
-        <!-- Gift card link -->
-        <referenceBlock name="customer-account-navigation-gift-card-link" remove="true"/>
-
-        <!-- Order by SKU -->
-        <referenceBlock name="customer-account-navigation-checkout-sku-link" remove="true"/>
-
-        <!-- Gift registry -->
-        <referenceBlock name="customer-account-navigation-giftregistry-link" remove="true"/>
-
-        <!-- Reward points -->
-        <referenceBlock name="customer-account-navigation-reward-link" remove="true"/>
-		 <referenceBlock name="catalog.compare.sidebar" remove="true" />
     </body>
 </page>
