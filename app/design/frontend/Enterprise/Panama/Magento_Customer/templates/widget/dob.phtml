@@ -1,39 +1,102 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
 // @codingStandardsIgnoreFile
 
-/** @var \Magento\Customer\Block\Widget\Dob $block */
+/**
+USAGE:
 
-/*
-<?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
+Simple:
+
+<?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
    ->setDate($block->getCustomer()->getDob())
    ->toHtml() ?>
 
 For checkout/onepage/billing.phtml:
 
-<?= $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
+<?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob')
    ->setDate($block->getCustomer()->getDob())
    ->setFieldIdFormat('billing:%s')
    ->setFieldNameFormat('billing[%s]')
    ->toHtml() ?>
 
-NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css. Alternatively we could calculate widths
-automatically using block input parameters.
+NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
+      Alternatively we could calculate widths automatically using block input parameters.
 */
+
+/**
+ * @see \Magento\Customer\Block\Widget\Dob
+ */
+?>
+<style>
+#change-email
+{
+	display:none;
+	pointer-events: none;
+   color:white;
+   background-color:white;
+}
+label[for="change-email"]
+{
+    color:white;
+    display:none;
+	pointer-events: none;
+	background-color:white;
+   
+}
+#testdob
+{
+	display:none !important;
+}
+</style>
+<?php
 
 $fieldCssClass = 'field date field-' . $block->getHtmlId();
 $fieldCssClass .= $block->isRequired() ? ' required' : '';
 ?>
-<div class="<?= $block->escapeHtmlAttr($fieldCssClass) ?>">
-    <label class="label" for="<?= $block->escapeHtmlAttr($block->getHtmlId()) ?>"><span><?= $block->escapeHtml($block->getLabel()) ?></span></label>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+
+
+if($customerSession->isLoggedIn()) {
+	
+    $customerid = $customerSession->getCustomer()->getId(); 
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customer = $objectManager->create('Magento\Customer\Model\Customer')->load($customerid);
+	 $custdob = $customer->getData('dob');
+?>
+
+<div class="<?php /* @escapeNotVerified */ echo $fieldCssClass; ?>">
+    <label class="label" for="<?php //echo $block->getHtmlId()?>"><span><?php /* @escapeNotVerified */ //echo $block->getLabel() ?></span></label>
     <div class="control customer-dob">
-        <?= $block->getFieldHtml() ?>
-        <?php if ($_message = $block->getAdditionalDescription()) : ?>
-            <div class="note"><?= $block->escapeHtml($_message) ?></div>
-        <?php endif; ?>
+        <input type="text" value="<?php //echo $custdob; ?>" id="cust_dob" name="cust_dob" />
     </div>
 </div>
+<div id="testdob" class="<?php /* @escapeNotVerified */ //echo $fieldCssClass; ?>">
+<h5 class="Login_form_Txt pull-left"><?php /* @escapeNotVerified */ //echo $block->getLabel() ?>*</h5>
+   	<?php //echo $block->getFieldHtml(); ?>
+        <?php //if ($_message = $block->getAdditionalDescription()) : ?>
+            <div class="note"><?php /* @escapeNotVerified */ //echo $_message; ?></div>
+        <?php //endif; ?>
+    
+</div>
+	 
+<?php //}else{ ?>
+<div class="<?php /* @escapeNotVerified */ //echo $fieldCssClass; ?>">
+<h5 class="Login_form_Txt pull-left"><?php /* @escapeNotVerified */ //echo $block->getLabel() ?>*</h5>
+  
+    <div class="control customer-dob">
+        <?php //echo $block->getFieldHtml(); ?>
+        <?php //if ($_message = $block->getAdditionalDescription()) : ?>
+            <div class="note"><?php /* @escapeNotVerified */ //echo $_message; ?></div>
+        <?php //endif; ?>
+    </div>
+</div>
+<?php  } ?>
+
+  
+
