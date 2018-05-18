@@ -14,6 +14,8 @@ define([
     'Magento_Checkout/js/model/payment/method-converter',
     'Magento_Checkout/js/action/get-payment-information',
     'Magento_Checkout/js/model/checkout-data-resolver',
+	'mage/url',
+    'Magento_Checkout/js/model/full-screen-loader',
     'mage/translate'
 ], function (
     $,
@@ -26,6 +28,8 @@ define([
     methodConverter,
     getPaymentInformation,
     checkoutDataResolver,
+	urlBuilder,
+    fullScreenLoader,
     $t
 ) {
     'use strict';
@@ -59,6 +63,51 @@ define([
 
             return this;
         },
+		
+		downloadbilling:function(){               
+                fullScreenLoader.startLoader();
+                var urlPost = urlBuilder.build('portin/Terms/Downloadbilling');                
+                window.location.href = urlPost;
+                fullScreenLoader.stopLoader();
+            },
+			
+		downloadgeneral:function(){               
+                fullScreenLoader.startLoader();
+                var urlPost = urlBuilder.build('portin/Terms/Downloadgeneral');                
+                window.location.href = urlPost;
+                fullScreenLoader.stopLoader();
+            },
+			
+		generalFile:function(){
+			var urlPost = urlBuilder.build('portin/Terms/ViewFile');
+			var fname = null;
+			$.ajax({
+				url: urlPost,
+				async: false,
+				type: 'post',
+				data: {"type": "general"},
+				success: function(result)
+				{	
+					fname = urlBuilder.build(result);
+				}
+			}); 
+			return fname;
+		},
+		billingFile:function(){
+			var urlPost = urlBuilder.build('portin/Terms/ViewFile');
+			var fname = null;
+			$.ajax({
+				url: urlPost,
+				async: false,
+				type: 'post',
+				data: {"type": "billing"},
+				success: function(result)
+				{	
+					fname = urlBuilder.build(result);
+				}
+			}); 
+			return fname;
+		},
 
         /**
          * Navigate method.
@@ -70,6 +119,7 @@ define([
                 self.isVisible(true);
             });
         },
+		
 
         /**
          * @return {*}

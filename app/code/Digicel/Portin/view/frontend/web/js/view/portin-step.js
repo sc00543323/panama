@@ -3,15 +3,22 @@ define(
         'ko',
         'uiComponent',
         'underscore',
+        'mage/url',
+        'Magento_Checkout/js/model/full-screen-loader',
+        'jquery',
         'Magento_Checkout/js/model/step-navigator'
     ],
     function (
         ko,
         Component,
         _,
+        urlBuilder,
+        fullScreenLoader,
+        $,
         stepNavigator
     ) {
         'use strict';
+        var checkoutConfig = window.checkoutConfig;
         /**
         *
         * mystep - is the name of the component's .html template,
@@ -20,12 +27,11 @@ define(
         */
         return Component.extend({
             defaults: {
-                template: 'Digicel_Portin/portin-form'
-            },
-
+                template: 'Digicel_Portin/portin-form',
+            },            
             //add here your logic to display step,
             isVisible: ko.observable(false),
-
+			
             /**
 			*
 			* @returns {*}
@@ -57,6 +63,28 @@ define(
                 return this;
             },
 
+            downloadPortin:function(){               
+                fullScreenLoader.startLoader();
+                var urlPost = urlBuilder.build('portin/Terms/Downloadportin');                
+                window.location.href = urlPost;
+                fullScreenLoader.stopLoader();
+            },
+			PortinFile:function(){
+				var urlPost = urlBuilder.build('portin/Terms/ViewFile');
+				var fname = null;
+				$.ajax({
+					url: urlPost,
+					async: false,
+					type: 'post',
+					data: {"type": "portin"},
+					success: function(result)
+					{	
+						fname = urlBuilder.build(result);
+					}
+				}); 
+				return fname;
+            },
+
             /**
 			* The navigate() method is responsible for navigation between checkout step
 			* during checkout. You can add custom logic, for example some conditions
@@ -73,5 +101,11 @@ define(
                 stepNavigator.next();
             }
         });
+		
+		
+    
+	
+		
+		
     }
 );
