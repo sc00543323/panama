@@ -9,4 +9,6 @@
 	<preference for="Panama\MagentoApi\Api\Data\DeliveryInterface" type="Panama\MagentoApi\Model\Delivery" />
 	<preference for="Panama\MagentoApi\Api\UpdateInvoicesInterface" type="Panama\MagentoApi\Model\UpdateInvoices" />
 	<preference for="Panama\MagentoApi\Api\Data\InvoicesInterface" type="Panama\MagentoApi\Model\Invoices" />
+	<preference for="Panama\MagentoApi\Api\UpdateInventoryInterface" type="Panama\MagentoApi\Model\UpdateInventory" />
+	<preference for="Panama\MagentoApi\Api\Data\InventoryInterface" type="Panama\MagentoApi\Model\Inventory" />
 </config>
