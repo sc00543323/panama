@@ -39,11 +39,16 @@
 			<div id="checkout-step-title" class="step-content" data-role="content">
 			    <div>
 					<label for=""> <input checked="checked" name="terms-conditions-general" type="checkbox" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span> You have read and accepted the General Terms and Condition </label>
-					<a target="_blank" data-bind=""> <span style="text-decoration: underline;">View document</span><span></span></a> <span style="text-decoration: underline;">Download</span>
+					<a target="_blank" data-bind="attr: { href: generalFile() }" > 
+					<span style="text-decoration: underline;">View document</span>
+					</a> 
+					<span style="text-decoration: underline;" data-bind="click: function(){ downloadgeneral() }" >Download</span>
 				</div>
 				<div>
 					<label for=""> <input checked="checked" name="terms-conditions-billing" type="checkbox" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span> You have read and accepted the Installation Billing Terms and Conditions </label>
-					<a target="_blank" data-bind=""> <span style="text-decoration: underline;">View document</span><span></span></a> <span style="text-decoration: underline;">Download</span>
+					<a target="_blank" data-bind="attr: { href: billingFile() }"> <span style="text-decoration: underline;">View document</span>
+					</a> 
+					<span style="text-decoration: underline;" data-bind="click: function(){ downloadbilling() }">Download</span>
 				</div>
 				  <h6 style="color: red;">You must agree to all terms and conditions before proceed to payment</h6>
 			</div>

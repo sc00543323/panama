@@ -33,8 +33,12 @@
 					You have read and accepted the Port In Terms and Conditions 
 				</label>
 				<div>
-					<a target="_blank" data-bind=""> <span style="text-decoration: underline;">View document</span></a> 
-					<span style="text-decoration: underline;">Download</span>
+					<a target="_blank" id="portin" data-bind="attr: { href: PortinFile() }"  > 
+					<span style="text-decoration: underline;">View document</span></a>
+					
+					<button id="showSignUp" class="btn btnOnAccordion btnBlue"  data-bind="click: function(){ downloadPortin() }">
+							<span data-bind="i18n: 'Download'"></span>
+						</button>
 				</div>
 			</div>
 		</div>
