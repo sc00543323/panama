@@ -4,7 +4,7 @@
         <tab id="panama" translate="label" sortOrder="1000">
             <label>PANAMA</label>
         </tab>
-        <section id="mageplaza_helloworld_section" translate="label" type="text" sortOrder="301" showInDefault="1" showInWebsite="1" showInStore="0">
+        <section id="terms_and_condition" translate="label" type="text" sortOrder="301" showInDefault="1" showInWebsite="1" showInStore="0">
     <label>File Upload</label>
     <tab>panama</tab>
     <resource>Magento_Sales::config_sales</resource>
@@ -13,17 +13,17 @@
 		<field id="portin" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="1" >
 			<label>Port In </label>
 			<backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
-			<upload_dir config="system" scope_info="1">test</upload_dir>
+			<upload_dir config="system" scope_info="1">terms_and_condition</upload_dir>
 		</field>
 		<field id="general" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="1" >
             <label>General</label>
             <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
-            <upload_dir config="system" scope_info="1">test</upload_dir>
+            <upload_dir config="system" scope_info="1">terms_and_condition</upload_dir>
         </field>
 		<field id="installation_billing" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="1" >
             <label>Installation Billing</label>
             <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
-            <upload_dir config="system" scope_info="1">test</upload_dir>
+            <upload_dir config="system" scope_info="1">terms_and_condition</upload_dir>
         </field>
 	</group>
 	

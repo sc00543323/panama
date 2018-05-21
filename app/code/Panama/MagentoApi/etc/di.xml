@@ -12,4 +12,6 @@
 	<preference for="Panama\MagentoApi\Api\UpdateConfirmserialidsInterface" type="Panama\MagentoApi\Model\UpdateConfirmserialids" />
 	<preference for="Panama\MagentoApi\Api\Data\ConfirmserialidsInterface" type="Panama\MagentoApi\Model\Confirmserialids" />
 	<preference for="Panama\MagentoApi\Api\Data\OrderDetailsInterface" type="Panama\MagentoApi\Model\OrderDetails" />
+	<preference for="Panama\MagentoApi\Api\UpdateInventoryInterface" type="Panama\MagentoApi\Model\UpdateInventory" />
+	<preference for="Panama\MagentoApi\Api\Data\InventoryInterface" type="Panama\MagentoApi\Model\Inventory" />
 </config>

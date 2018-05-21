@@ -11,14 +11,23 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+	
 	<route url="/V1/Updateinvoices/invoices/update" method="POST">
         <service class="Panama\MagentoApi\Api\UpdateInvoicesInterface" method="updateInvoices"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
+
 	<route url="/V1/Confirmserialids/serialids/update" method="POST">
         <service class="Panama\MagentoApi\Api\UpdateConfirmserialidsInterface" method="updateConfirmserialids"/>
+		<resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+	
+	<route url="/V1/Updateinventory/product/stock" method="POST">
+        <service class="Panama\MagentoApi\Api\UpdateInventoryInterface" method="updateInventory"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
