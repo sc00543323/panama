@@ -21,9 +21,22 @@ class Getname extends \Magento\Framework\App\Action\Action {
 
     public function execute() {
 		
-    return 'Hi';
+    $filename = 'pub/media/test/default/default/invoice2018-05-10_14-36-00.pdf'; // of course find the exact filename....  
 
+          
+header('Pragma: public');
+header('Expires: 0');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Cache-Control: private', false); // required for certain browsers 
+header('Content-Type: application/force-download');
 
+header('Content-Disposition: attachment; filename="'. basename($filename) . '";');
+header('Content-Transfer-Encoding: binary');
+header('Content-Length: ' . filesize($filename));
+
+readfile($filename);
+
+echo 'success'; die;
 
 		
 		

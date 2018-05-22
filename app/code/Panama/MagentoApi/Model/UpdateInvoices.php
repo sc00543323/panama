@@ -23,7 +23,7 @@ class UpdateInvoices implements UpdateInvoicesInterface
 		}
 		
 		if($invoicesData->getresultId() == 1) {
-			$order = $objectManager->create('\Magento\Sales\Model\Order')->load($orderId);
+			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
 			if($order->getId()) {
 				$order->setInvoiceUrl($invoiceUri);
 				$order->save();

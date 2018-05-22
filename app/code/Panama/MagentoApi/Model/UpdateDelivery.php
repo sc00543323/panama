@@ -34,7 +34,7 @@ class UpdateDelivery implements UpdateDeliveryInterface
 		
 		if($deliveryData->getresultId() == 1) {
 			$orderStatus = $deliveryStatusArray[$deliveryStatusId];
-			$order = $objectManager->create('\Magento\Sales\Model\Order')->load($orderId);
+			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
 			if($order->getId() && $orderStatus) {
 				$order->setStatus($orderStatus);
 				$order->setTrackingDeliveryUrl($trackingDeliveryUrl);

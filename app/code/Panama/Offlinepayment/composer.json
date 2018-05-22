@@ -1,0 +1,22 @@
+{
+    "name": "panama/module-offlinepayment",
+    "description": "This is API module for Confirm Offline Payment",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "email": "sc00543323@techmahindra.com",
+            "name": "PanamaOffpay"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Panama\\Offlinepayment\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
