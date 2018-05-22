@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="panama" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <label>Digicel Api Details</label>
+            <tab>panama</tab>
+            <resource>Digicel_HandsetPrice::config_digicel_handsetprice</resource>
+            <group id="digicel_token_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Token Api Details</label>
+                <field id="token_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Token API Url</label>
+                    <comment/>
+                </field>
+                <field id="token_username" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Username</label>
+                    <comment/>
+                </field>
+                <field id="token_password" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Password</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="digicel_handset_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Handset Api Details</label>
+                <field id="handset_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Handset API Url</label>
+                    <comment/>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

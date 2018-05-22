@@ -1,0 +1,114 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace Digicel\DigicelToken\Helper;
+
+use \Magento\Framework\App\Helper\Context;
+
+class Data extends \Magento\Framework\App\Helper\AbstractHelper {
+
+    const Token_Url = 'panama/digicel_token_api_details/token_url';
+    const Token_Username = 'panama/digicel_token_api_details/token_username';
+    const Token_Password = 'panama/digicel_token_api_details/token_password';
+    const Hansset_Url = 'panama/digicel_handset_api_details/handset_url';
+
+    public function __construct(
+    Context $context
+    ) {
+        parent::__construct($context);
+    }
+
+    public function getTokens() {
+        $tokenApiUrl = $this->scopeConfig->getValue(self::Token_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $username = $this->scopeConfig->getValue(self::Token_Username, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $password = $this->scopeConfig->getValue(self::Token_Password, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $auth = array("username" => $username, "password" => $password);
+        $tokenRequest = $this->getTokenRequest($auth);
+        $tokenHeader = $this->getHeader($tokenRequest);
+        $tokenResponse = $this->getResponse($tokenApiUrl, $tokenRequest, $tokenHeader);
+        $token = $this->getTokenResponse($tokenResponse);
+
+        return $token['Resultado'];
+    }
+
+    public function getTokenRequest($input) {
+        $tokenRequest = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">
+   <soapenv:Header>
+      <dig:AuthHeader>
+         <!--Optional:-->
+         <dig:Username>' . $input["username"] . '</dig:Username>
+         <!--Optional:-->
+         <dig:Password>' . $input["password"] . '</dig:Password>
+      </dig:AuthHeader>
+   </soapenv:Header>
+   <soapenv:Body>
+      <dig:SOLICITAR_TOKEN/>
+   </soapenv:Body>
+</soapenv:Envelope>';
+        return $tokenRequest;
+    }
+
+    public function getHeader($request) {
+        $header = array(
+            "Content-type: text/xml;charset=\"utf-8\"",
+            "Accept: text/xml",
+            "Cache-Control: no-cache",
+            "Pragma: no-cache",
+            "Content-length: " . strlen($request),
+        );
+        return $header;
+    }
+
+    public function getTokenResponse($string) {
+
+        $domDocument = new DOMDocument();
+        $domDocument->loadXML($string);
+        $result = array();
+
+        foreach ($domDocument->getElementsByTagName("codigo") as $codigoElement) {
+            $result["codigo"] = $codigoElement->textContent;
+        }
+        foreach ($domDocument->getElementsByTagName("Resultado") as $resultElement) {
+            $result["Resultado"] = $resultElement->textContent;
+        }
+
+
+        return $result;
+    }
+
+    public function getResponse($soapUrl, $request, $header) {
+
+        $soap_do = curl_init();
+        curl_setopt($soap_do, CURLOPT_URL, $soapUrl);
+        curl_setopt($soap_do, CURLOPT_CONNECTTIMEOUT, 0);
+        curl_setopt($soap_do, CURLOPT_TIMEOUT, 0);
+        curl_setopt($soap_do, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($soap_do, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($soap_do, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($soap_do, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($soap_do, CURLOPT_POST, true);
+        curl_setopt($soap_do, CURLOPT_POSTFIELDS, $request);
+        curl_setopt($soap_do, CURLOPT_HTTPHEADER, $header);
+        $content = curl_exec($soap_do);
+        if ($content === false) {
+            $err = 'Curl error: ' . curl_error($soap_do);
+
+            return $err;
+            curl_close($soap_do);
+        } else {
+
+            return $content;
+            curl_close($soap_do);
+        }
+    }
+    
+    public function getHandsetUrl()
+    {
+        return $this->scopeConfig->getValue(self::Hansset_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+    }
+}
