@@ -58,6 +58,7 @@ class Add extends \Magento\Framework\App\Action\Action
 			$portSessionVal = $this->_catalogSession->getPort();
 			$currentServiceSessionVal = $this->_catalogSession->getCurrentService();
 			$buySmartphoneSessionVal = $this->_catalogSession->getBuySmartphone();
+			$isContract = $this->_catalogSession->getContract();
 			
 			if($product->getTypeId() == 'bundle'){
 				$bundledOptions = $this->getBundleProductOptionsData($productId); // All option of the bundled product
@@ -83,10 +84,11 @@ class Add extends \Magento\Framework\App\Action\Action
 			//save portable option in quote item table
 			$allItems = $this->_cart->getQuote()->getAllItems();
 			foreach ($allItems as $item) {
-				if($productId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
+				if($productId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getIsContract() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
 					$item->setIsPortable($portSessionVal);
 					$item->setCurrentService($currentServiceSessionVal);
 					$item->setIsSmartphone($buySmartphoneSessionVal);
+					$item->setIsContract($isContract);
 					$item->save();
 				}
 			}
@@ -96,6 +98,7 @@ class Add extends \Magento\Framework\App\Action\Action
 			$this->_catalogSession->unsPort();
 			$this->_catalogSession->unsCurrentService();
 			$this->_catalogSession->unsBuySmartphone();
+			$this->_catalogSession->unsContract();
 
 			if (!$this->_cart->getQuote()->getHasError()) {
                           $cart = $this->_cart->getQuote()->getAllVisibleItems();

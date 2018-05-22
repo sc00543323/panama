@@ -35,17 +35,23 @@ class Index extends \Magento\Framework\App\Action\Action {
 			$data['current_service'] = $this->getRequest()->getParam('current_service');
 			$data['buy_smartphone'] = $this->getRequest()->getParam('buy_smartphone');
 			$data['port_remove'] = $this->getRequest()->getParam('port_remove');
+			$data['contract'] = $this->getRequest()->getParam('contract');
+			$data['contract_remove'] = $this->getRequest()->getParam('contract_remove');
 			if($data['port_remove'] == 'no') {
 				$data['port'] = 'no';
+			}
+			if($data['contract_remove'] == 'no') {
+				$data['contract'] = 'no';
 			}
 			
 			//set portable data in session for prepaid/postpaid with smartphone journey
 			$this->_catalogSession->setPortProductId($data['product_id']);
 			$this->_catalogSession->setPort($data['port']);
+			$this->_catalogSession->setContract($data['contract']);
 			$this->_catalogSession->setCurrentService($data['current_service']);
 			$this->_catalogSession->setBuySmartphone($data['buy_smartphone']);
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-			if($data['port'] == 'yes' && !$data['current_service'] && !$data['buy_smartphone']) {
+			if($data['port'] == 'yes' && !$data['current_service'] && !$data['buy_smartphone'] && !$data['contract']) {
 				$itemCount = $this->_cart->getQuote()->getItemsCount();
 				if ($itemCount == 0 ) {
 					$resultJson->setData(true);
@@ -59,6 +65,21 @@ class Index extends \Magento\Framework\App\Action\Action {
 						}
 					}
 					$resultJson->setData($portability);
+				}
+			} else if($data['contract'] == 'yes') {
+				$itemCount = $this->_cart->getQuote()->getItemsCount();
+				if ($itemCount == 0 ) {
+					$resultJson->setData(true);
+				} else if($itemCount > 0) {
+					$allItems = $this->_cart->getQuote()->getAllItems();
+					$contract = true;
+					foreach($allItems as $item) {
+						if($item->getIsContract() == 'yes') {
+							$contract = false;
+							break;
+						}
+					}
+					$resultJson->setData($contract);
 				}
 			} else if($data['buy_smartphone'] == 'no') {
 				$resultJson->setData($this->_url->getUrl('customcatalog/cart/add/', array('id' => $data['product_id'])));

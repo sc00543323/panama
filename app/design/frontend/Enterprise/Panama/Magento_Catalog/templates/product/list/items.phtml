@@ -302,11 +302,12 @@ switch ($type = $block->getType()) {
         $(".portable").on('click',function () {
             var portable = $(this).val();
 			var port_remove ='';
+			var contract_remove ='';
 			var current_service = '';
 			var buy_smartphone = '';
 			var product_id = '';
             if(portable == 'yes'){
-				var portable_data = {product_id: product_id,port: portable,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
+				var portable_data = {product_id: product_id,port: portable,contract_remove: contract_remove,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
 				$.ajax({
 				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
 				dataType: 'json',
@@ -314,7 +315,7 @@ switch ($type = $block->getType()) {
 				type: 'post',
 				data: portable_data,
 				success: function (data) {
-					if(data == true) {					
+					if(data == true) {
 						$("#port_div").hide();
 						$("#service_div").show();
 						$("#port_div_session").hide();
@@ -355,19 +356,56 @@ switch ($type = $block->getType()) {
         });
         //Check contract service 
         $(".contract").on('click',function () {
-			if($(this).val() == 'yes'){
-				$("#contract_div").hide();
-				$('#product-options-wrapper').show();
-                $('#contract_option').show();
-				$('.upsell').show();
-                
-            }else{
+			if($(this).val() == 'contract'){
+				var contract = 'yes';
+				var contract_remove ='';
+				var buy_smartphone = '';
+				var product_id = '';
+				var portable = $('input[name=portable]:checked').val();
+				var current_service = $('input[name=service]:checked').val();
+				var port_remove = $('input[name=port_remove]:checked').val();		
+		
+				var portable_data = {product_id: product_id,contract: contract,port: portable,contract_remove: contract_remove,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
+				$.ajax({
+				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
+				dataType: 'json',
+				showLoader: true,
+				type: 'post',
+				data: portable_data,
+				success: function (data) {
+					if(data == true) {
+						$("#contract_div_session").hide();
+						$("#contract_div").hide();
+						$('#product-options-wrapper').show();
+						$('#contract_option').show();
+						$('.upsell').show();
+					} else {
+						$("#contract_div_session").show();
+						$("#contract_div").hide();
+					}
+				}
+				});
+            } else {
 				$("#contract_div").hide();
 				$('#product-options-wrapper').show();
 				$('.upsell').show();
 
             }
         });
+		
+		//Contract remove click function
+		$("input[type=radio][name=contract_remove]").on('click',function () {
+			var contract_remove = $(this).val();
+			if(contract_remove == 'yes'){
+				window.location.href = "<?php echo $block->getBaseUrl() . 'checkout/cart' ?>";
+			} else {
+				$("#contract_div").hide();
+				$("#contract_div_session").hide();
+				$('#product-options-wrapper').show();
+				$('.upsell').show();
+			}
+		});
+	
         //Credit Check Details show hide popup
         $("#credit_yes").on('click',function () {
             $('#bundle_port').hide();
@@ -412,7 +450,7 @@ switch ($type = $block->getType()) {
         //Choose Plan - Upsell Product Selection Dynamic Price Change option
         $(".plan_detail").on('click',function () {
 			//Credit Check Popup Open
-            if ($("#contract_yes").prop("checked")) {
+            if ($("#contract_yes").prop("checked") && $('input[name=contract_remove]:checked').val() != 'no') {
                 var popupData = modal(optionsVal, $('#credit_check'));
                 $("#credit_check").css("display", "block");
                 $('#credit_check').modal('openModal');
