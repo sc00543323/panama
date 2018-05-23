@@ -9,6 +9,7 @@
 namespace Digicel\DigicelToken\Helper;
 
 use \Magento\Framework\App\Helper\Context;
+use \Digicel\DigicelToken\Model\DigicelTokenFactory;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper {
 
@@ -17,9 +18,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     const Token_Password = 'panama/digicel_token_api_details/token_password';
     const Hansset_Url = 'panama/digicel_handset_api_details/handset_url';
 
+    protected $_digicelModel;
+
     public function __construct(
-    Context $context
+    Context $context, DigicelTokenFactory $digicelfactory
     ) {
+        $this->_digicelModel = $digicelfactory;
         parent::__construct($context);
     }
 
@@ -27,13 +31,25 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         $tokenApiUrl = $this->scopeConfig->getValue(self::Token_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $username = $this->scopeConfig->getValue(self::Token_Username, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $password = $this->scopeConfig->getValue(self::Token_Password, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        $auth = array("username" => $username, "password" => $password);
-        $tokenRequest = $this->getTokenRequest($auth);
-        $tokenHeader = $this->getHeader($tokenRequest);
-        $tokenResponse = $this->getResponse($tokenApiUrl, $tokenRequest, $tokenHeader);
-        $token = $this->getTokenResponse($tokenResponse);
 
-        return $token['Resultado'];
+        $tokenCollection = $this->_digicelModel->create()->getCollection()->setOrder('created_at', 'DESC')->getFirstItem();
+
+        if ($tokenCollection) {
+            $previousDate = date_create($tokenCollection['created_at']);
+            $currentDate = date_create(date('y-m-d h:i:s'));
+            $diff = date_diff($previousDate, $currentDate);
+            if ($diff->format("%h%a:%i%a:%s") > '23:59:59') {
+                $auth = array("username" => $username, "password" => $password);
+                $tokenRequest = $this->getTokenRequest($auth);
+                $tokenHeader = $this->getHeader($tokenRequest);
+                $tokenResponse = $this->getResponse($tokenApiUrl, $tokenRequest, $tokenHeader);
+                $token = $this->getTokenResponse($tokenResponse);
+                $this->_digicelModel->create()->setTokenResponse($token['Resultado'])->setCreatedAt(date('y-m-d H:i:s'))->save();
+                return $token['Resultado'];
+            } else {
+                return $tokenCollection['token_response'];
+            }
+        }
     }
 
     public function getTokenRequest($input) {
@@ -106,9 +122,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
             curl_close($soap_do);
         }
     }
-    
-    public function getHandsetUrl()
-    {
+
+    public function getHandsetUrl() {
         return $this->scopeConfig->getValue(self::Hansset_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
+
 }
