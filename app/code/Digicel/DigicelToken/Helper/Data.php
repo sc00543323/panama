@@ -17,8 +17,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     const Token_Username = 'panama/digicel_token_api_details/token_username';
     const Token_Password = 'panama/digicel_token_api_details/token_password';
     const Hansset_Url = 'panama/digicel_handset_api_details/handset_url';
+    
 
     protected $_digicelModel;
+    
+    protected $_storeManager;
 
    /**
     * 
@@ -26,9 +29,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     * @param DigicelTokenFactory $digicelfactory
     */
     public function __construct(
-    Context $context, DigicelTokenFactory $digicelfactory
+    Context $context, 
+            DigicelTokenFactory $digicelfactory,
+            \Magento\Store\Model\StoreManagerInterface $storeManager
+            
     ) {
         $this->_digicelModel = $digicelfactory;
+        $this->_storeManager = $storeManager;
         parent::__construct($context);
     }
 
@@ -149,4 +156,24 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         return $this->scopeConfig->getValue(self::Hansset_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
+    public function getConfig($configPath)
+    {
+        return $this->scopeConfig->getValue(
+            $configPath,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+    
+    public function getPdfUrl($configPath)
+    {
+        return $this->getMediaUrl().'terms_and_condition/'.$this->getConfig($configPath); 
+    }
+    
+    public function getMediaUrl()
+{
+    $mediaUrl = $this->_storeManager
+                     ->getStore()
+                     ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+    return $mediaUrl;
+}
 }

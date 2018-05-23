@@ -120,6 +120,16 @@
     		        <input type="text" id="passport">
 			    </div>
             </div> 
+            <div class="terms_div" >
+                <div class="terms-checkobox">
+                    <input type="checkbox" value="" name="terms-checkbox" ><label>You have read and accepted the Credit References Terms and Conditions</label>
+                </div>
+                <div class="download-documents">
+                    <?php $url =  $this->helper('Digicel\DigicelToken\Helper\Data')->getPdfUrl('terms_and_condition/file_upload/contract_condition'); ?>
+                    <a href="<?php echo $url; ?>" class="view-document" target="_blank" >View document </a>
+                    <a href="<?php echo $url; ?>"  class="download-document" download>Download</a>
+                </div>
+            </div> 
 			<br style="clear: both;">
 			<div style="width: 20%;margin: auto;">
 				<button id="credit_check_btn" style="display:none">Proceed</button>
