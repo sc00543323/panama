@@ -20,6 +20,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
 
     protected $_digicelModel;
 
+   /**
+    * 
+    * @param Context $context
+    * @param DigicelTokenFactory $digicelfactory
+    */
     public function __construct(
     Context $context, DigicelTokenFactory $digicelfactory
     ) {
@@ -27,31 +32,43 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         parent::__construct($context);
     }
 
+    /**
+     * Call this function to get Token Response
+     * @return string
+     */
     public function getTokens() {
+        $tokenCollection = $this->_digicelModel->create()->getCollection()->getFirstitem();
+        if ($tokenCollection) {
+            return $tokenCollection['token_response'];
+        } else {
+            return $this->getTokensFromApi();
+        }
+    }
+    
+    /*
+     * Call this function if API response invalid tokens
+     */
+    public function getTokensFromApi() {
         $tokenApiUrl = $this->scopeConfig->getValue(self::Token_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $username = $this->scopeConfig->getValue(self::Token_Username, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $password = $this->scopeConfig->getValue(self::Token_Password, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-
-        $tokenCollection = $this->_digicelModel->create()->getCollection()->setOrder('created_at', 'DESC')->getFirstItem();
-
-        if ($tokenCollection) {
-            $previousDate = date_create($tokenCollection['created_at']);
-            $currentDate = date_create(date('y-m-d h:i:s'));
-            $diff = date_diff($previousDate, $currentDate);
-            if ($diff->format("%h%a:%i%a:%s") > '23:59:59') {
-                $auth = array("username" => $username, "password" => $password);
-                $tokenRequest = $this->getTokenRequest($auth);
-                $tokenHeader = $this->getHeader($tokenRequest);
-                $tokenResponse = $this->getResponse($tokenApiUrl, $tokenRequest, $tokenHeader);
-                $token = $this->getTokenResponse($tokenResponse);
-                $this->_digicelModel->create()->setTokenResponse($token['Resultado'])->setCreatedAt(date('y-m-d H:i:s'))->save();
-                return $token['Resultado'];
-            } else {
-                return $tokenCollection['token_response'];
-            }
-        }
+        $auth = array("username" => $username, "password" => $password);
+        $tokenRequest = $this->getTokenRequest($auth);
+        $tokenHeader = $this->getHeader($tokenRequest);
+        $tokenResponse = $this->getResponse($tokenApiUrl, $tokenRequest, $tokenHeader);
+        $token = $this->getTokenResponse($tokenResponse);
+        
+        $tokenCollection = $this->_digicelModel->create()->getCollection()->getFirstItem();
+        $this->_digicelModel->create()->load($tokenCollection['digiceltoken_id'])->setTokenResponse($token['Resultado'])->save();
+        
+        return $token['Resultado'];
     }
 
+    /**
+     * 
+     * @param type $input
+     * @return string
+     */
     public function getTokenRequest($input) {
         $tokenRequest = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">
    <soapenv:Header>
@@ -80,6 +97,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         return $header;
     }
 
+    /**
+     * 
+     * @param type $string
+     * @return array
+     */
     public function getTokenResponse($string) {
 
         $domDocument = new DOMDocument();

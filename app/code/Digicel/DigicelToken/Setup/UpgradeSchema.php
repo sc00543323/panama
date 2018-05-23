@@ -30,13 +30,6 @@ class UpgradeSchema implements UpgradeSchemaInterface {
             'token_response'
         );
         
-        $table_digiceltoken->addColumn(
-            'created_at',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-            null,
-            [],
-            'created_at'
-        );
         $setup->getConnection()->createTable($table_digiceltoken);
         
         $setup->endSetup();
