@@ -21,25 +21,45 @@
 
 namespace Panama\Offlinepayment\Model;
 
-class OfflinepaymentManagement
+use Panama\Offlinepayment\Api\OfflinepaymentManagementInterface;
+use Panama\Offlinepayment\Api\Data\ConfirmOffilnePaymentInterface;
+use Magento\Sales\Model\Order;
+ 
+class OfflinepaymentManagement implements OfflinepaymentManagementInterface
 {
 
     /**
      * {@inheritdoc}
      * POST for Offlinepayment api
      * @param int $orderId
-	 * @param boolean $orderPaymentConfirm
+	 * @param int $orderPaymentConfirm
 	 * @param string $ConfirmationNumber
 	 * @param string $PaymentType
 	 * @param string $paidOn
-     * @return int $ResultId
-	 * @return int $ResultMessage
+	 * @return int $orderPaymentConfirm
      */
 
     public function ConfirmOfflinePayment($orderId,$orderPaymentConfirm,$ConfirmationNumber,$PaymentType,$paidOn)
     {
-        $ResultId = '565';
-		$ResultMessage = "Offline Payment recorded in the system";
-		return $ResultMessage . 'Your Result Id is - ' . $ResultId;
+       
+		if($orderPaymentConfirm == 1) {
+			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
+			if($order->getId()) {
+				$order->setOrderId($orderId);
+				$order->setOrderPaymentConfirm($orderPaymentConfirm);
+				$order->setConfirmationNumber($ConfirmationNumber);
+				$order->setPaymentType($PaymentType);
+				$order->setPaidOn($paidOn);
+				$order->setResultId('1');
+				$order->setResultMessage('Order Offine Payment is confirmed.');
+				$order->save();
+			} else {
+				$order->setResultId('0');
+				$order->setResultMessage('Invalid order id or invalid ConfirmationId');
+			}
+		}
+		
+		return $orderPaymentConfirm;
     }
 }
