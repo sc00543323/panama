@@ -1,0 +1,111 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+
+<?php $_order = $block->getOrder();
+$createdDate = $_order->getCreatedAt();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$st=$objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+//$laposte = $objectManager->get('\Digicel\Lapostetracker\Model\Laposte');
+
+//$laposteData = $laposte->getTrackingInfo($_order->getIncrementId());
+$laposteStatus = '';
+	if (!empty($laposteData)) {
+		foreach($laposteData as $data) {
+			if (isset($data['message'])) {
+				$laposteStatus = $data['message'];
+			}
+		}					 
+	}
+	$checkclass1 = ''; $checkclass2 = ''; $checkclass3 = '';
+	$statusclass1 = ''; $statusclass2 = ''; $statusclass3 = '';
+	$deliveryfailed = ''; $display = '';
+	
+	if ($laposteStatus != '') {
+		if ($laposteStatus == "No product matches for your search.") { // this is like status not found
+			$display = 'No';
+		} else {
+			if ($laposteStatus =="Distribué") {
+				$statusclass3='active';
+				$statusclass1 = $statusclass2 = 'passed';
+				$checkclass1 = $checkclass2 = $checkclass3 = "orderChk";					   
+				$display = 'yes';
+				$deliveryfailed ='No';
+			} elseif ($laposteStatus =="Non distribuable" || $laposteStatus == "Returned to the sender") {
+				$statusclass3 = 'active';
+				$statusclass1 = $statusclass2 = 'passed';
+				$checkclass1 = $checkclass2 = $checkclass3 = "orderChk";				  
+				$display = 'yes';
+				$deliveryfailed = 'yes';		  
+			} elseif ($laposteStatus == "Being processed" || $laposteStatus== "Distributed" ||
+				$laposteStatus == "Supported" || $laposteStatus == "Returned to the correct destination"){
+				$statusclass2 ='active';
+				$statusclass1 = 'passed';
+				$checkclass1 = $checkclass2 = "orderChk";
+				$display = 'yes';
+				$deliveryfailed = 'No';
+			} else {
+				if ($_order->getStatus() == 'complete') {
+					$statusclass1 = 'active';
+					$checkclass1 = "orderChk";
+					$display = 'yes';
+					$deliveryfailed ='No';
+				}
+			}
+		}
+	} else {
+		if ($_order->getStatus() == 'complete') {
+			$statusclass1='active';
+			$checkclass1= "orderChk";
+			$display = 'yes';
+			$deliveryfailed ='No';
+	   }
+	}
+?>
+				
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section_bg">
+	<h4 class="tab_content_hdr"><?php echo __('Order id#') ?><span><?php echo ' '.$_order->getIncrementId() ; ?></span></h4>
+	<h6 class="tab_content_hdr_detail"><?php echo __('Order passed on ').date('d ', strtotime($createdDate)).__(date('F', strtotime($createdDate))).date(' Y', strtotime($createdDate));?></h6>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tracking_section">
+	<div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pad10">
+		<div class="mb30 mt20">
+			<div id="status-buttons" class="text-center">
+			<?php if($_order->getStatus()!='canceled') { 
+					if($display == 'yes') { ?>
+						<a href="#" class="<?php echo $statusclass1;?> order_tracker_title"><span class="<?php echo $checkclass1;?>"></span><?php /* @escapeNotVerified */ echo __('Shipped')?> </a>
+						<a href="#" class="<?php echo $statusclass2;?> order_tracker_title"><span class="<?php echo $checkclass2;?>"></span><?php /* @escapeNotVerified */ echo __('In transit ')?> </a>	
+					
+						<?php if($deliveryfailed == 'yes'){?>
+								 <a href="#" class="<?php echo $statusclass3;?> order_tracker_title"><span class="<?php echo $checkclass3;?>"></span>  <?php /* @escapeNotVerified */ echo __('Delivery failure')?> </a> 
+						<?php }else { ?>
+								<a href="#" class="<?php echo $statusclass3;?> order_tracker_title"><span class="<?php echo $checkclass3;?>"></span> <?php /* @escapeNotVerified */ echo __('Distributed')?> </a>
+						<?php }
+					} 
+				} else { ?>
+					<p style="font-size:14px;"><b><?php echo __('Order is Ordered');?></span></b></p>
+			<?php }	  ?>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+	<?php  if( $_order->getStatus() != 'canceled') : ?>
+		<a href="#" class="delete_cart cancel" data-toggle="modal" data-target="#cancelOrder"><img src="<?php echo $this->getViewFileUrl('images/cart_red.png'); ?>" />Annuler la commande <span class="glyphicon glyphicon-menu-right"></span></a>
+	<?php endif; ?>
+	</div>
+</div>
+<?php echo $this->getLayout()->createBlock('Magento\Sales\Block\Order\Items')->setTemplate('Panama_Order::order/items.phtml')->toHtml(); ?> 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 address_section">
+	<?php echo $this->getLayout()->createBlock('Magento\Sales\Block\Order\Info')->setTemplate('order/order_info.phtml')->toHtml(); ?> 
+</div>
+
+
+
+
