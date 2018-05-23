@@ -32,7 +32,7 @@ class Index extends \Magento\Framework\App\Action\Action {
         try {
 
             $tokens = $this->_tokenHelper->getTokens();
-
+           
             $post = $this->getRequest()->getParams();
             $params = array('token' => $tokens, 'PlanID' => $post['PlanID'], 'Trans_Type' => $post['Trans_Type'], 'SKU_ID' => $post['SKU_ID']);
             $digicelApiUrl = $this->_tokenHelper->getHandsetUrl();

@@ -467,15 +467,15 @@ switch ($type = $block->getType()) {
                         type: 'post',
                         data: handset_data,
                         success: function (data) {
-
+                            var result = "";
                             if (typeof data === 'number') {
                                 if (data % 1 === 0) {
-                                    var result = '$' + data + '.00';
+                                    result = '$' + data + '.00';
                                 } else {
-                                    var result = '$' + data;
+                                    result = '$' + data;
                                 }
                             } else {
-                                var result = '$' + data;
+                                result = '$' + data;
                             }
                             $('.product-info-price .price').html(result);
                             $('#handset_api_price').val(data);
