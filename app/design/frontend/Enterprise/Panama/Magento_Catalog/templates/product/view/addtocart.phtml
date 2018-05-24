@@ -125,7 +125,7 @@
                     <input type="checkbox" value="" name="terms-checkbox" ><label>You have read and accepted the Credit References Terms and Conditions</label>
                 </div>
                 <div class="download-documents">
-                    <?php $url =  $this->helper('Digicel\DigicelToken\Helper\Data')->getPdfUrl('terms_and_condition/file_upload/contract_condition'); ?>
+                    <?php $url =  $this->helper('Digicel\Portin\Helper\Data')->getPdfUrl('terms_and_condition/file_upload/contract_condition'); ?>
                     <a href="<?php echo $url; ?>" class="view-document" target="_blank" >View document </a>
                     <a href="<?php echo $url; ?>"  class="download-document" download>Download</a>
                 </div>
