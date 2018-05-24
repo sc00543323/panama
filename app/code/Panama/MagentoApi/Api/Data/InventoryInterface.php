@@ -12,55 +12,20 @@ namespace Panama\MagentoApi\Api\Data;
  */
 interface InventoryInterface
 {
-	
-	const sku = 'sku';
-	const qty = 'qty';
-	const store_id = 'store_id';
+	const skuDetails = 'sku_details';
 	
 	/**
-     * Set sku
+     * Set skuDetails
      *
-     * @param string $sku
+     * @param Panama\MagentoApi\Api\Data\SkuDetailsInterface[] $skuDetails
      * @return $this
      */
-    public function setSku($sku);
+	 public function setSkuDetails($skuDetails);
 	
-	/**
-     * Returns sku
+	 /**
+     * Get the skuDetails
      *
-     * @return string
+     * @return Panama\MagentoApi\Api\Data\SkuDetailsInterface[]|null
      */
-    public function getSku();
-	/**
-     * Set qty
-     *
-     * @param int $qty
-     * @return $this
-     */
-    public function setQty($qty);
-	
-	/**
-     * Returns  qty
-     *
-     * @return int
-     */
-    public function getQty();
-	
-	/**
-     * Set storeId
-     *
-     * @param string $storeId
-     * @return $this
-     */
-    public function setStoreId($storeId);
-	
-	/**
-     * Returns storeId
-     *
-     * @return string
-     */
-    public function getStoreId();
-	
-
-	
+    public function getSkuDetails();
 }

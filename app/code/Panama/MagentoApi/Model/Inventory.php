@@ -10,52 +10,21 @@ use Magento\Framework\Model\AbstractExtensibleModel;
  */
 class Inventory extends AbstractExtensibleModel implements InventoryInterface
 {
-     /**
-     * {@inheritdoc}
+     /**     
+	 * @return array
      */
-    public function getSku()
+    public function getSkuDetails()
     {
-        return $this->getData(self::sku);
+        return $this->getData(self::skuDetails);		
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $skuDetails
+     * @return $this
      */
-    public function setSku($sku)
+    public function setSkuDetails($skuDetails)
     {
-        return $this->setData(self::sku, $sku);
-    }
-	
-	 /**
-     * {@inheritdoc}
-     */
-    public function getQty()
-    {
-        return $this->getData(self::qty);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setQty($qty)
-    {
-        return $this->setData(self::qty, $qty);
-    }
-	
-	 /**
-     * {@inheritdoc}
-     */
-    public function getStoreId()
-    {
-        return $this->getData(self::store_id);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStoreId($storeId)
-    {
-        return $this->setData(self::store_id, $storeId);
+        return $this->setData(self::skuDetails, $skuDetails);
     }
 
 }
