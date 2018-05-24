@@ -17,22 +17,17 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     const Token_Username = 'panama/digicel_token_api_details/token_username';
     const Token_Password = 'panama/digicel_token_api_details/token_password';
     const Hansset_Url = 'panama/digicel_handset_api_details/handset_url';
-    
 
     protected $_digicelModel;
-    
     protected $_storeManager;
 
-   /**
-    * 
-    * @param Context $context
-    * @param DigicelTokenFactory $digicelfactory
-    */
+    /**
+     * 
+     * @param Context $context
+     * @param DigicelTokenFactory $digicelfactory
+     */
     public function __construct(
-    Context $context, 
-            DigicelTokenFactory $digicelfactory,
-            \Magento\Store\Model\StoreManagerInterface $storeManager
-            
+    Context $context, DigicelTokenFactory $digicelfactory, \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->_digicelModel = $digicelfactory;
         $this->_storeManager = $storeManager;
@@ -51,10 +46,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
             return $this->getTokensFromApi();
         }
     }
-    
+
     /*
      * Call this function if API response invalid tokens
      */
+
     public function getTokensFromApi() {
         $tokenApiUrl = $this->scopeConfig->getValue(self::Token_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $username = $this->scopeConfig->getValue(self::Token_Username, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -64,10 +60,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         $tokenHeader = $this->getHeader($tokenRequest);
         $tokenResponse = $this->getResponse($tokenApiUrl, $tokenRequest, $tokenHeader);
         $token = $this->getTokenResponse($tokenResponse);
-        
+
         $tokenCollection = $this->_digicelModel->create()->getCollection()->getFirstItem();
         $this->_digicelModel->create()->load($tokenCollection['digiceltoken_id'])->setTokenResponse($token['Resultado'])->save();
-        
+
         return $token['Resultado'];
     }
 
@@ -156,24 +152,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         return $this->scopeConfig->getValue(self::Hansset_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
-    public function getConfig($configPath)
-    {
+    public function getConfig($configPath) {
         return $this->scopeConfig->getValue(
-            $configPath,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                        $configPath, \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
-    
-    public function getPdfUrl($configPath)
-    {
-        return $this->getMediaUrl().'terms_and_condition/'.$this->getConfig($configPath); 
-    }
-    
-    public function getMediaUrl()
-{
-    $mediaUrl = $this->_storeManager
-                     ->getStore()
-                     ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-    return $mediaUrl;
-}
+
 }
