@@ -76,8 +76,16 @@ class Index extends \Magento\Framework\App\Action\Action {
 		$this->_cart->addProduct($_product,$params);
 		$this->_cart->save();
 		
-		//add Upsell Product
+		//save Associate Sim for Smart phone
 		$bundleId = $this->getRequest()->getParam('upsell_id');
+		$allItems = $this->_cart->getQuote()->getAllItems();
+		foreach ($allItems as $item) {
+			if($this->getRequest()->getParam('product') ==  $item->getProductId()) {
+				$item->setAssociateProductId($bundleId);
+				$item->save();
+			}
+		}
+		//add Upsell Product
 		$this->_redirect('customcatalog/cart/add/', array('id' => $bundleId));
         return $resultPage;
     }

@@ -25,6 +25,7 @@ class QuoteToOrderItem
         $orderItem->setCurrentService($item->getCurrentService());
         $orderItem->setIsSmartphone($item->getIsSmartphone());
         $orderItem->setIsContract($item->getIsContract());
+        $orderItem->setAssociateProductId($item->getAssociateProductId());
         return $orderItem;// return an object '$orderItem' which will replace result of function 'convert' in class 'Magento\Quote\Model\Quote\Item\ToOrderItem'
     }
 }
