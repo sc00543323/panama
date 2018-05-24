@@ -70,7 +70,7 @@ class Add extends \Magento\Framework\App\Action\Action
 						$itemQty += $item->getQty()*1;
 					}
 				}
-				if($maxQty < $itemQty) {
+				if($maxQty <= $itemQty) {
 					$message = __("You Can add Max three products to cart");
 					$this->messageManager->addErrorMessage($message);
 					$resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
