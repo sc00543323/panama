@@ -9,6 +9,7 @@
 namespace Digicel\DigicelToken\Helper;
 
 use \Magento\Framework\App\Helper\Context;
+use \Digicel\DigicelToken\Model\DigicelTokenFactory;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper {
 
@@ -17,13 +18,40 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     const Token_Password = 'panama/digicel_token_api_details/token_password';
     const Hansset_Url = 'panama/digicel_handset_api_details/handset_url';
 
+    protected $_digicelModel;
+    protected $_storeManager;
+
+    /**
+     * 
+     * @param Context $context
+     * @param DigicelTokenFactory $digicelfactory
+     */
     public function __construct(
-    Context $context
+    Context $context, DigicelTokenFactory $digicelfactory, \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
+        $this->_digicelModel = $digicelfactory;
+        $this->_storeManager = $storeManager;
         parent::__construct($context);
     }
 
+    /**
+     * Call this function to get Token Response
+     * @return string
+     */
     public function getTokens() {
+        $tokenCollection = $this->_digicelModel->create()->getCollection()->getFirstitem();
+        if ($tokenCollection) {
+            return $tokenCollection['token_response'];
+        } else {
+            return $this->getTokensFromApi();
+        }
+    }
+
+    /*
+     * Call this function if API response invalid tokens
+     */
+
+    public function getTokensFromApi() {
         $tokenApiUrl = $this->scopeConfig->getValue(self::Token_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $username = $this->scopeConfig->getValue(self::Token_Username, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $password = $this->scopeConfig->getValue(self::Token_Password, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -33,9 +61,17 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         $tokenResponse = $this->getResponse($tokenApiUrl, $tokenRequest, $tokenHeader);
         $token = $this->getTokenResponse($tokenResponse);
 
+        $tokenCollection = $this->_digicelModel->create()->getCollection()->getFirstItem();
+        $this->_digicelModel->create()->load($tokenCollection['digiceltoken_id'])->setTokenResponse($token['Resultado'])->save();
+
         return $token['Resultado'];
     }
 
+    /**
+     * 
+     * @param type $input
+     * @return string
+     */
     public function getTokenRequest($input) {
         $tokenRequest = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dig="http://digicelpanama.com/">
    <soapenv:Header>
@@ -64,6 +100,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         return $header;
     }
 
+    /**
+     * 
+     * @param type $string
+     * @return array
+     */
     public function getTokenResponse($string) {
 
         $domDocument = new DOMDocument();
@@ -106,9 +147,26 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
             curl_close($soap_do);
         }
     }
-    
-    public function getHandsetUrl()
-    {
+
+    public function getHandsetUrl() {
         return $this->scopeConfig->getValue(self::Hansset_Url, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
+
+    public function getConfig($configPath) {
+        return $this->scopeConfig->getValue(
+                        $configPath, \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    public function logResponse($request, $filename) {
+        $isEnabled = $this->getConfig('panama/log_api/save_response');
+        if ($isEnabled) {
+            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/' . $filename);
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
+            $logger->info($request);
+            return true;
+        }
+    }
+
 }

@@ -19,6 +19,12 @@
                     <label>Delivery Status Code</label>
                 </field>
             </group>
+			<group id="porting_status_id_configuration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Porting Status Id Configuration</label>
+                <field id="porting_status_id" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Porting Status Id</label>
+                </field>
+            </group>
         </section>
     </system>
 </config>

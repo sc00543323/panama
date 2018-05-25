@@ -23,11 +23,11 @@ class Handsetprice implements ObserverInterface {
         if ($price = @$reqeustParams['handset_api_price']) {
 
             $item = $observer->getEvent()->getData('quote_item');
-            if ($item->getProductId() == $reqeustParams['product']) {
-                $item->setCustomPrice($price);
-                $item->setOriginalCustomPrice($price);
-                $item->getProduct()->setIsSuperMode(true);
-            }
+//            if ($item->getProductId() == $reqeustParams['product']) {
+//                $item->setCustomPrice($price);
+//                $item->setOriginalCustomPrice($price);
+//                $item->getProduct()->setIsSuperMode(true);
+//            }
         }
     }
 

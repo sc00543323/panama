@@ -1,0 +1,89 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Sales\Block\Order\Items $block */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+$order = $block->getOrder();
+
+$tax = $order->getTaxAmount();
+$formattedTax = $priceHelper->currency($tax, true, false);
+$shipamt = $order->getShippingAmount();
+$formattedShiPrice = $priceHelper->currency($shipamt, true, false);
+$grandtotal = $order->getGrandTotal();
+$formattedGrandtotal = $priceHelper->currency($grandtotal, true, false);
+$planprice = $priceHelper->currency(0, true, false);
+$simprice = $priceHelper->currency(0, true, false);
+
+$items = $block->getItems();
+foreach ($items as $item) {
+	if ($item->getParentItem()) {
+		continue;
+	}
+	$productId = $item->getProductId();
+	$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+	
+	if ($product->getTypeId() == 'bundle') {
+		$thumbnail = $product->getThumbnail();
+		$mediaurl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+		$imageurl ='';
+		if($thumbnail){
+			$imageurl .= "<img src=".$mediaurl."catalog/product".$thumbnail."/>";
+		}
+		
+		$typeInstance = $product->getTypeInstance();
+		$requiredChildrenIds = $typeInstance->getChildrenIds($productId, true);
+		foreach($requiredChildrenIds as $data) {
+			foreach($data as $id) {
+				$childProducts = $objectManager->create('Magento\Catalog\Model\Product')->load($id);
+				$attributeSet = $objectManager->create('Magento\Eav\Api\AttributeSetRepositoryInterface');
+				$attributeSetRepository = $attributeSet->get($childProducts->getAttributeSetId());
+				$attribute_set_name = $attributeSetRepository->getAttributeSetName();
+				if($attribute_set_name == 'Plans'){
+					$planprice =  $priceHelper->currency($childProducts->getPrice(), true, false);
+				}elseif($attribute_set_name == 'Sim'){
+					$simprice = $priceHelper->currency($childProducts->getPrice(), true, false);
+				}
+			}
+		}
+	}
+}
+?>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 details_section">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="row">
+			<label class="col-lg-3 col-md-6 col-sm-12 col-xs-12 order_detail_label"><?php /* @escapeNotVerified */ echo __('Product:') ?></label>
+			<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 order_detail_content"><?php echo $block->escapeHtml($item->getName()) ?></p>
+		</div>
+		<div class="row">
+			<label class="col-lg-3 col-md-6 col-sm-12 col-xs-12 marT0 order_detail_label"><?php /* @escapeNotVerified */ echo __('Quantity:') ?></label>
+			<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 order_detail_content"><?php /* @escapeNotVerified */ echo $item->getQtyOrdered()*1 ?></p>
+		</div>
+		<div class="row">
+			<label class="col-lg-3 col-md-6 col-sm-12 col-xs-12 marT0 order_detail_label"><?php /* @escapeNotVerified */ echo __('SIM Card:') ?></label>
+			<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 order_detail_content"><?php echo $simprice; ?></p>
+		</div>
+		<div class="row">
+			<label class="col-lg-3 col-md-6 col-sm-12 col-xs-12 marT0 order_detail_label"><?php /* @escapeNotVerified */ echo __('Package/month:') ?></label>
+			<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 order_detail_content"><?php echo $planprice; ?></p>
+		</div>
+		<div class="row">
+			<label class="col-lg-3 col-md-6 col-sm-12 col-xs-12 marT0 order_detail_label"><?php /* @escapeNotVerified */ echo __('Tax:') ?></label>
+			<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 order_detail_content"><?php echo $formattedTax; ?></p>
+		</div>
+		<div class="row">
+			<label class="col-lg-3 col-md-6 col-sm-12 col-xs-12 marT0 order_detail_label"><?php /* @escapeNotVerified */ echo __('Delivery:') ?></label>
+			<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 order_detail_content"><?php echo $formattedShiPrice; ?></p>
+		</div>
+		<div class="row">
+			<label class="col-lg-3 col-md-6 col-sm-12 col-xs-12 marT0 order_detail_label final_total font_red"><?php /* @escapeNotVerified */ echo __('TOTAL:') ?></label>
+			<p class="col-lg-6 col-md-6 col-sm-12 col-xs-12 final_total order_detail_content font_red"><?php echo $formattedGrandtotal; ?></p>
+		</div>
+	</div>
+</div>

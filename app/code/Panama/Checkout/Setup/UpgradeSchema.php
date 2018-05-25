@@ -107,6 +107,45 @@ class UpgradeSchema implements UpgradeSchemaInterface {
             );
             $installer->endSetup();
         }
+		if (version_compare($context->getVersion(), '1.0.4') < 0) {
+            $installer = $setup;
+
+            $installer->startSetup();
+            $tableName = $installer->getTable('sales_order_item');
+
+            $connection = $installer->getConnection();
+            $connection->addColumn(
+                    $tableName, 'associate_product_id', ['type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+					'nullable' => false,
+					'comment' => 'Associate Product Id']
+            );
+            $installer->endSetup();
+			
+			$installer->startSetup();
+            $tableName = $installer->getTable('quote_item');
+
+            $connection = $installer->getConnection();
+            $connection->addColumn(
+                    $tableName, 'associate_product_id', ['type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+					'nullable' => false,
+					'comment' => 'Associate Product Id']
+            );
+            $installer->endSetup();
+        }
+		if (version_compare($context->getVersion(), '1.0.5') < 0) {
+            $installer = $setup;
+
+            $installer->startSetup();
+            $tableName = $installer->getTable('sales_order');
+
+            $connection = $installer->getConnection();
+            $connection->addColumn(
+                    $tableName, 'porting_status', ['type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+					'nullable' => false,
+					'comment' => 'Porting Status']
+            );
+            $installer->endSetup();
+        }
         
 }
 }
