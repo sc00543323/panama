@@ -132,6 +132,20 @@ class UpgradeSchema implements UpgradeSchemaInterface {
             );
             $installer->endSetup();
         }
+		if (version_compare($context->getVersion(), '1.0.5') < 0) {
+            $installer = $setup;
+
+            $installer->startSetup();
+            $tableName = $installer->getTable('sales_order');
+
+            $connection = $installer->getConnection();
+            $connection->addColumn(
+                    $tableName, 'porting_status', ['type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+					'nullable' => false,
+					'comment' => 'Porting Status']
+            );
+            $installer->endSetup();
+        }
         
 }
 }
