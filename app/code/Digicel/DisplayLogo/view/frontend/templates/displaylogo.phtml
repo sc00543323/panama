@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var $block \Digicel\DisplayLogo\Block\Digicel
+ */
+?>
+
+<?php $catCollection = $block->getCatCollection(); 
+      $mediaUrl = $block->getMediaUrl();
+?>
+<?php if ($catCollection): ?>    
+    <div class="brand-logo">
+        <ul>
+            <?php foreach ($catCollection as $category): ?>
+            <li>
+                <a href="<?php echo $category->getUrl()?>"><img src = "<?php echo $mediaUrl.'catalog/category/'.$category->getData('image')?>"></a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
