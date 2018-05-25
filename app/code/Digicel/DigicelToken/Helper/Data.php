@@ -158,4 +158,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         );
     }
 
+    public function logResponse($request, $filename) {
+        $isEnabled = $this->getConfig('panama/log_api/save_response');
+        if ($isEnabled) {
+            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/' . $filename);
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
+            $logger->info($request);
+            return true;
+        }
+    }
+
 }

@@ -1,0 +1,64 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @var $block \Magento\Theme\Block\Html\Topmenu
+ */
+?>
+<?php $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
+<?php
+$_menu = $block->getHtml('level-top', 'submenu', $columnsLimit);
+
+$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+$urlArray = array('contact-us', 'faqs.html', 'locate');
+$isActive = false;
+foreach ($urlArray as $url) {
+    if (strpos($urlInterface->getCurrentUrl(), $url) !== false) {
+        $isActive = true;
+    }
+}
+?>
+
+<nav class="navigation" data-action="navigation">
+    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?= /* @escapeNotVerified */ $_menu ?>
+<?= /* @escapeNotVerified */ $block->getChildHtml() ?>
+        <li class="level0 level-top ui-menu-item nav-4 <?php if($isActive):?> has-active <?php endif;?>" role="presentation">
+            <a href="#" class="level-top ui-corner-all "  role="menuitem">
+                <span><?php echo __("Support") ?></span>
+            </a>
+            <ul class="level0 submenu ui-menu ui-widget ui-widget-content ui-corner-all" role="menu">
+                <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                    <a href="<?php echo $this->getBaseUrl(); ?>" class="level-top ui-corner-all"  role="menuitem">
+                        <span><?php echo __("Blog") ?></span>
+                    </a>
+                </li>
+
+                <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                    <a href="<?php echo $this->getBaseUrl() . "contact-us"; ?>" class="level-top ui-corner-all"  role="menuitem">
+                        <span><?php echo __("Contact Us") ?></span>
+                    </a>
+                </li>
+
+                <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                    <a href="<?php echo $this->getBaseUrl() . "faqs.html"; ?>" class="level-top ui-corner-all"  role="menuitem">
+                        <span><?php echo __("FAQ") ?></span>
+                    </a>
+                </li>
+
+                <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                    <a href="<?php echo $this->getBaseUrl() . "locate"; ?>" class="level-top ui-corner-all"  role="menuitem">
+                        <span><?php echo __("Locate Us") ?></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

@@ -27,6 +27,14 @@
                     <comment/>
                 </field>
             </group>
+            <group id="log_api" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Log API</label>
+                <field id="save_response" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Save response in log</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment/>
+                </field>
+            </group>
         </section>
     </system>
 </config>
