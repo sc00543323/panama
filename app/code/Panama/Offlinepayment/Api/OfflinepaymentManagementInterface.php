@@ -20,8 +20,7 @@
  */
 
 namespace Panama\Offlinepayment\Api;
-
-use Panama\Offlinepayment\Api\Data\ConfirmOffilnePaymentInterface;
+use Panama\Offlinepayment\Api\Data\ConfirmOfflinePaymentInterface;
 
 interface OfflinepaymentManagementInterface
 {
@@ -34,7 +33,7 @@ interface OfflinepaymentManagementInterface
 	 * @param string $ConfirmationNumber
 	 * @param string $PaymentType
 	 * @param string $paidOn
-     * @return $orderPaymentConfirm
+     * @return int $resultId
      */
     public function ConfirmOfflinePayment($orderId,$orderPaymentConfirm,$ConfirmationNumber,$PaymentType,$paidOn);
 }

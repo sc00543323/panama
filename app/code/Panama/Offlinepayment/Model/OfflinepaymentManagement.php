@@ -22,21 +22,20 @@
 namespace Panama\Offlinepayment\Model;
 
 use Panama\Offlinepayment\Api\OfflinepaymentManagementInterface;
-use Panama\Offlinepayment\Api\Data\ConfirmOffilnePaymentInterface;
 use Magento\Sales\Model\Order;
  
 class OfflinepaymentManagement implements OfflinepaymentManagementInterface
 {
 
     /**
-     * {@inheritdoc}
+     * 
      * POST for Offlinepayment api
      * @param int $orderId
 	 * @param int $orderPaymentConfirm
 	 * @param string $ConfirmationNumber
 	 * @param string $PaymentType
 	 * @param string $paidOn
-	 * @return int $orderPaymentConfirm
+	 * @return int $resultId
      */
 
     public function ConfirmOfflinePayment($orderId,$orderPaymentConfirm,$ConfirmationNumber,$PaymentType,$paidOn)
@@ -60,6 +59,6 @@ class OfflinepaymentManagement implements OfflinepaymentManagementInterface
 			}
 		}
 		
-		return $orderPaymentConfirm;
+		return $resultId = $order->getResultId();
     }
 }

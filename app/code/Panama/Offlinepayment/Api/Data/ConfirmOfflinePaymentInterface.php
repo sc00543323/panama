@@ -4,11 +4,8 @@
  * See COPYING.txt for license details.
  */
 namespace Panama\Offlinepayment\Api\Data;
-/**
- * Defines a data structure representing a point, to demonstrating passing
- * more complex types in and out of a function call.
- */
-interface ConfirmOffilnePaymentInterface
+
+interface ConfirmOfflinePaymentInterface
 {
 	
 	const order_id = 'order_id';
@@ -18,6 +15,7 @@ interface ConfirmOffilnePaymentInterface
 	const paid_on = 'paid_on';
 	const result_id = 'result_id';
 	const result_message = 'result_message';
+	
 	/**
      * Set orderId
      *
