@@ -5,7 +5,7 @@ class Index {
 
 	public function execute() {
 		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-		$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/orderfullfillment.log', 'Started');
+		//$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/orderfullfillment.log', 'Started');
 		
 		$scopeConfig = $objectManager->create('Magento\Framework\App\Config\ScopeConfigInterface');
 		$orderfullfillmentUrl = $scopeConfig->getValue('panama/orderfullfillment_api/orderfullfillment_url', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
