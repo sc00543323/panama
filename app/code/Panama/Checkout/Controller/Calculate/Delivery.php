@@ -64,9 +64,10 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 						),
 				),
 			);
-			
-			$url = 'https://webapps02.logytechmobile.com/NotusCEM.RestService/api/CalculateDeliveryDate';
-			$ch = curl_init($url);
+			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+			$scopeConfig = $objectManager->create('Magento\Framework\App\Config\ScopeConfigInterface');
+			$calculateDeliveryUrl = $scopeConfig->getValue('panama/calculatedelivery_api/calculatedelivery_url', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+			$ch = curl_init($calculateDeliveryUrl);
 			# Setup request to send json via POST.
 			$postData = json_encode($curl_post_data);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
