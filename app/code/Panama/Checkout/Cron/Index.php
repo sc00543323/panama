@@ -27,13 +27,17 @@ class Index {
 			$shippingAddressId = $customer->getDefaultShipping();
 			$ShippingAddress = $objectManager->create('Magento\Customer\Model\Address')->load($shippingAddressId);
 			$customerPhone1 = $ShippingAddress->getTelephone();
-			$customerPhone2 = 1111111;
+			$customerPhone2 = $ShippingAddress->getTelephone();
 			$date = date("Y-m-d");
 			$city = $ShippingAddress->getCity();
-			$city = 'Aguadulce';
+			//$city = 'Aguadulce';
 			$connection = $objectManager->get('Magento\Framework\App\ResourceConnection')->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION'); 
 			$result = $connection->fetchAll("SELECT district_id FROM panama_address where district_name= '".$city."' limit 1");
-			$cityId = $result[0]['district_id'];		
+			if(isset($result[0]['district_id']) && $result[0]['district_id']) {
+				$cityId = $result[0]['district_id'];
+			} else {
+				$cityId = 0;
+			}
 			$street = $ShippingAddress->getStreet();		
 			$deliveryProvince = $ShippingAddress->getRegion();
 			$deliveryTownship = $ShippingAddress->getPostcode();
