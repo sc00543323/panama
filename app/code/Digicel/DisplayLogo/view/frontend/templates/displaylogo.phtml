@@ -9,7 +9,7 @@
 ?>
 <?php if ($catCollection): ?>    
     <div class="brand-logo">
-        <ul>
+        <ul class="display-logo">
             <?php foreach ($catCollection as $category): ?>
             <li>
                 <a href="<?php echo $category->getUrl()?>"><img src = "<?php echo $mediaUrl.'catalog/category/'.$category->getData('image')?>"></a>
@@ -17,4 +17,17 @@
             <?php endforeach; ?>
         </ul>
     </div>
+<style>
+    .display-logo li {
+    float:left;
+    list-style-type: none;
+    margin-left: 279px;
+    padding: 0;
+    overflow: hidden;
+    display: block;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+</style>
 <?php endif; ?>
