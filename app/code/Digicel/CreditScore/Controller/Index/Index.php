@@ -21,8 +21,7 @@ class Index extends \Magento\Framework\App\Action\Action {
      * @param \Digicel\DigicelToken\Helper\Data $tokenHelper
      */
     public function __construct(
-    \Magento\Framework\App\Action\Context $context, \Magento\Framework\View\Result\PageFactory $resultPageFactory, \Magento\Framework\Json\Helper\Data $jsonHelper, \Digicel\DigicelToken\Helper\Data $tokenHelper, \Digicel\CreditScore\Helper\Data $credithelper,\Magento\Checkout\Model\Session $checkoutSession,LoggerInterface $logger
-            
+    \Magento\Framework\App\Action\Context $context, \Magento\Framework\View\Result\PageFactory $resultPageFactory, \Magento\Framework\Json\Helper\Data $jsonHelper, \Digicel\DigicelToken\Helper\Data $tokenHelper, \Digicel\CreditScore\Helper\Data $credithelper, \Magento\Checkout\Model\Session $checkoutSession, LoggerInterface $logger
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->jsonHelper = $jsonHelper;
@@ -53,30 +52,31 @@ class Index extends \Magento\Framework\App\Action\Action {
             $creditScoreHeader = $this->_tokenHelper->getHeader($creditScoreRequest);
 
             $creditScore = $this->_tokenHelper->getResponse($digicelApiUrl, $creditScoreRequest, $creditScoreHeader);
+            if ($creditScore) {
+                $creditScore = $this->_creditScoreHelper->parseResponse($creditScore);
 
-            $creditScore = $this->_creditScoreHelper->parseResponse($creditScore);
+                $this->_tokenHelper->logResponse($creditScore, 'creditscore.log');
 
-            $this->_tokenHelper->logResponse($creditScore, 'creditscore.log');
-            
-            $response = json_decode($this->jsonResponse($creditScore));
-            
-            $codigoValue = $response->soapBody->CREDIT_SCORINGResponse->CREDIT_SCORINGResult->diffgrdiffgram->DocumentElement->RESPUESTA->Codigo;
-            if ($codigoValue == 00) {
-                $color = "#66cc80";
-            } else if ($codigoValue == 01) {
-                $color = "#e6b366";
-            } else {
-                $color = '#e66666';
+                $response = json_decode($this->jsonResponse($creditScore));
+
+                $codigoValue = $response->soapBody->CREDIT_SCORINGResponse->CREDIT_SCORINGResult->diffgrdiffgram->DocumentElement->RESPUESTA->Codigo;
+                if ($codigoValue == 00) {
+                    $color = "#66cc80";
+                } else if ($codigoValue == 01) {
+                    $color = "#e6b366";
+                } else {
+                    $color = '#e66666';
+                }
+                $this->_checkoutSession->setCreditColorCode($color);
+                return $this->jsonResponse(array(
+                            'color_code' => '<div style="float: left;width: 20px;height: 20px;margin: 5px;border: 1px solid rgba(0, 0, 0, .2);background: ' . $color . ';" ></div>'
+                ));
             }
-            $this->_checkoutSession->setCreditColorCode($color);
-            return $this->jsonResponse(array(
-                        'color_code' => '<div style="float: left;width: 20px;height: 20px;margin: 5px;border: 1px solid rgba(0, 0, 0, .2);background: '.$color.';" ></div>'
-            ));
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
             return $this->jsonResponse($e->getMessage());
             $this->logger->critical($e);
         } catch (\Exception $e) {
-             $this->logger->critical($e);
+            $this->logger->critical($e);
             return $this->jsonResponse($e->getMessage());
         }
     }
