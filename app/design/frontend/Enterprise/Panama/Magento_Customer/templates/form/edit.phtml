@@ -43,13 +43,13 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 		<div class="clearfix"></div>
 		</div>
 		<div class="item">
-			<div class="form-left">
-				<?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+			<!--<div class="form-left">
+				<?php //$_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
 				<?php //$newsletterblock = $block->getLayout()->createBlock('Digicel\Customeraccount\Block\Customer\Newsletter') ?>
-				<?php if ($_dob->isEnabled()): ?>
-					<?php echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
-				<?php endif ?>
-			</div>
+				<?php //if ($_dob->isEnabled()): ?>
+					<?php //echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+				<?php //endif ?>
+			</div>-->
 			<div class="form-right">
 				<?php
 				$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -62,8 +62,9 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 					<div class="control">
 						<input class="input-text" type="text" name="dob" style="width: 120px"
 						data-validate="{required:true}"
-						data-bind="attr: {'id': getCode() + '-dob'}, value: dob, datepicker: { storage: dob, options: {'dateFormat': 'dd/mm/yy'} }"/>
+						data-bind="attr: {'id': getCode() + '-dob'}, value: dob, datepicker: { storage: dob, options: {'dateFormat': 'dd/mm/yy'} }" value="DD-MM-YYYY"/>
 					</div>
+					<!--<button onclick="dateFunction()"><img src="<?php echo $this->getViewFileUrl('images/dob.png'); ?>"></button>-->
 				</div>
 				
 				<div class="field field-name-mobile required">
@@ -357,15 +358,23 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 label.subscribe span{margin-left: 4px;}
 </style>
 <script>
+function dateFunction() {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "date");
+    x.setAttribute("value", "2014-02-09");
+    document.body.appendChild(x);
+}
+</script>
+<script>
     require([
         "jquery",
         "mage/mage"
     ], function($){
         var dataForm = $('#form-validate');
-		var ignore = <?php /* @escapeNotVerified */ echo $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
+		var ignore = <?php /* @escapeNotVerified */ //echo $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
         
         dataForm.mage('validation', {
-        <?php if ($_dob->isEnabled()): ?>
+        <?php //if ($_dob->isEnabled()): ?>
             errorPlacement: function(error, element) {
                 if (element.prop('id').search('full') !== -1) {
                     var dobElement = $(element).parents('.customer-dob'),
@@ -379,9 +388,9 @@ label.subscribe span{margin-left: 4px;}
                 }
             },
             ignore: ':hidden:not(' + ignore + ')'
-        <?php else: ?>
+        <?php //else: ?>
             ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-        <?php endif ?>
+        <?php //endif ?>
         });
         $('#dob').blur( function() {
 		
