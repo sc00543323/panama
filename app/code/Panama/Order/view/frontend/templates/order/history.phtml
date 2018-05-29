@@ -16,10 +16,14 @@ $trackingUrl = $block->getDeliveryTrackingUrl();
 <div id="orderPanel">
     <table style="border-color: #000000; float: left; width: 308px; height: 29px;" border="1" cellspacing="1" cellpadding="1">
     <tbody>
+	 <?php foreach ($_orders as $_order): ?>
         <tr>
-            <td style="width: 146px;background-color: #808080;"><a href="#">CURRENT ORDERS</a></td>
-            <td style="width: 161px;background-color: #DCDCDC; ">&nbsp; &nbsp;<a href="#">PREVIOUS ORDERS</a></td>
+            <td style="width: 146px;background-color: #808080;"><a href="<?= /* @escapeNotVerified */ $block->getViewUrl($_order) ?>" class="action view">
+                                <span><?= /* @escapeNotVerified */ __('CURRENT ORDER') ?></span>
+                            </a></td>
+            <td style="width: 161px;background-color: #DCDCDC; "><a href="<?php echo $block->getUrl('sales/order/history');?>">PREVIOUS ORDERS</a></td>
         </tr>
+		<?php endforeach; ?>
     </tbody>
 </table>
 </div>
@@ -54,8 +58,8 @@ $trackingUrl = $block->getDeliveryTrackingUrl();
                         <td data-th="<?= $block->escapeHtml(__('Ship To')) ?>" class="col shipping"><?= $_order->getShippingAddress() ? $block->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
                         <td data-th="<?= $block->escapeHtml(__('Order Total')) ?>" class="col total"><?= /* @escapeNotVerified */ $_order->formatPrice($_order->getGrandTotal()) ?></td>
                         <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status"><?= /* @escapeNotVerified */ $_order->getStatusLabel() ?></td>
-                        <th scope="col" class="col status"><a href="<?php echo $invoiceUrl;?>"><?= /* @escapeNotVerified */ __('Invoice Url') ?></a></th>
-                        <th scope="col" class="col status"><a href="<?php echo $trackingUrl;?>"><?= /* @escapeNotVerified */ __('Tracking Delivery Url') ?></a></th> 
+                        <th scope="col" class="col status"><a href="<?php echo $this->getUrl($invoiceUrl);?>" target="_blank"><?= /* @escapeNotVerified */ __('Invoice Url') ?></th>
+                        <th scope="col" class="col status"><a href="<?php echo $this->getUrl($trackingUrl);?>" target="_blank"><?= /* @escapeNotVerified */ __('Tracking Delivery Url') ?></a></th> 
                         <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
                             <a href="<?= /* @escapeNotVerified */ $block->getViewUrl($_order) ?>" class="action view">
                                 <span><?= /* @escapeNotVerified */ __('View Order') ?></span>
