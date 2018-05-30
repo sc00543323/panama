@@ -18,7 +18,7 @@ use Digicel\Login\Model\Data;
  * @method \Magento\Framework\App\Response\Http getResponse()
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Login extends \Magento\Framework\App\Action\Action
+class Checkoutaddress extends \Magento\Framework\App\Action\Action
 {
  
     /**
@@ -66,7 +66,7 @@ class Login extends \Magento\Framework\App\Action\Action
     {
 		$layout = $this->_view->getLayout();
 		
-        $html = $layout->createBlock(\Magento\Customer\Block\Form\Register::class)->setTemplate('Magento_Customer::form/checkoutregister.phtml')->toHtml();
+        $html = $layout->createBlock(\Magento\Customer\Block\Form\Register::class)->setTemplate('Magento_Customer::form/checkoutaddress.phtml')->toHtml();
 		$resultJson = $this->resultJsonFactory->create();
 		//return $resultJson->setData($data);
 		return $resultJson->setData(['html' => $html]);

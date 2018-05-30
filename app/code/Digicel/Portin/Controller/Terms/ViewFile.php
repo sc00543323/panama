@@ -35,7 +35,7 @@ class ViewFile extends \Magento\Framework\App\Action\Action {
 			}
 			
 		}
-		echo $filename = 'pub/media/terms_and_condition/'.$portin;
+		echo $filename = 'pub/media/test/'.$portin;
 			die;
     }
 }
