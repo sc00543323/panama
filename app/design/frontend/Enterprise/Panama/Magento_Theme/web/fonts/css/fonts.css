@@ -1,0 +1,47 @@
+/* 
+ *  Font definitions
+ */
+
+
+
+/*  Poppins Regular     */
+@font-face{
+    font-family: "poppins-regular";
+    src: url('../poppins/Poppins-Regular.otf');
+}
+
+/*  Poppins Light     */
+@font-face{
+    font-family: "poppins-light";
+    src: url('../poppins/Poppins-Light.otf');
+}
+
+/*  Poppins Medium  */
+@font-face{
+    font-family: "poppins-medium";
+    src: url('../poppins/Poppins-Medium.otf');
+}
+
+/*  Poppins Semi-Bold     */
+@font-face{
+    font-family: "poppins-semi-bold";
+    src: url('../poppins/Poppins-SemiBold.otf');
+}
+
+/*  Poppins Bold     */
+@font-face{
+    font-family: "poppins-bold";
+    src: url('../poppins/Poppins-Bold.otf');
+}
+
+/*  Poppins Light     */
+@font-face{
+    font-family: "poppins-light";
+    src: url('../poppins/Poppins-Light.otf');
+}
+
+/*  Century Gothic Italic   */
+@font-face{
+    font-family: "cg-italic";
+    src: url('../centurygothic/gothici.ttf');
+}

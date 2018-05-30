@@ -33,7 +33,7 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 }
 
 ?>
-<h3 class="page-title mt10 pl15 pr15"><?php echo $block->escapeHtml(__('Account Information')) ?></h3>
+
 <div class="col-md-12">
 <form class="form form-edit-account" action="<?php echo $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?php echo __('* Required Fields') ?>" autocomplete="off">
     <div class="account-info">
@@ -43,13 +43,13 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 		<div class="clearfix"></div>
 		</div>
 		<div class="item">
-			<div class="form-left">
-				<?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+			<!--<div class="form-left">
+				<?php //$_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
 				<?php //$newsletterblock = $block->getLayout()->createBlock('Digicel\Customeraccount\Block\Customer\Newsletter') ?>
-				<?php if ($_dob->isEnabled()): ?>
-					<?php echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
-				<?php endif ?>
-			</div>
+				<?php //if ($_dob->isEnabled()): ?>
+					<?php //echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+				<?php //endif ?>
+			</div>-->
 			<div class="form-right">
 				<?php
 				$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -57,44 +57,66 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 				$attribute = $eavConfig->getAttribute('customer', 'mobile_prefix');
 				$options = $attribute->getSource()->getAllOptions();
 				?>
+				<div class="field required">
+					<label for="dob" class="label"><span><?php /* @escapeNotVerified */ echo __('Date of Birth') ?></span></label>
+					<div class="control">
+						<input class="input-text" type="text" name="dob" style="width: 120px"
+						data-validate="{required:true}"
+						data-bind="attr: {'id': getCode() + '-dob'}, value: dob, datepicker: { storage: dob, options: {'dateFormat': 'dd/mm/yy'} }" value="DD-MM-YYYY"/>
+					</div>
+					<!--<button onclick="dateFunction()"><img src="<?php echo $this->getViewFileUrl('images/dob.png'); ?>"></button>-->
+				</div>
 				
-				
-				<!--<div class="field field-name-mobile required">
+				<div class="field field-name-mobile required">
 				<?php //echo 'prefix--'. $block->getCustomer()->getData('mobile_prefix');?>
 					<label class="label" for="mobile">
-						<span><?php //echo $block->escapeHtml(__('Mobile Number')) ?></span>
+						<span><?php echo $block->escapeHtml(__('Mobile Number')) ?></span>
 					</label>
 					<div class="clearfix">
 					<div class="form-left">
-					<select id="<?php /* @escapeNotVerified */ //echo $block->getFieldId('prefix') ?>"
+					<select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>"
 						name="mobile_prefix"
 						title="mobile_prefix"
-						class="mobiledrop required-entry<?php /* @escapeNotVerified */ //echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ //echo $block->getFieldParams() ?> >
-						<?php //foreach ($options as $_option): ?>
-						<?php //if($_option['value'] != ''){
+						class="mobiledrop required-entry<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> >
+						<?php foreach ($options as $_option): ?>
+						<?php if($_option['value'] != ''){
 
 						?>
 						<!--<option value="<?php /* @escapeNotVerified */ //echo $_option['label']; ?> <?php //if($mprefix == $_option['label'] ) { ?>  selected='selected' <?php //} ?>">
-							<?php /* @escapeNotVerified */// echo __($_option['label']) ?>
-						</option>
-						<option value="<?php /* @escapeNotVerified */ //echo $_option['label'] ?>" <?php //if ($mprefix == $_option['label']): ?> selected="selected"<?php //endif; ?>>
-						 <?php /* @escapeNotVerified */ //echo __($_option['label']) ?>
+							<?php /* @escapeNotVerified */ //echo __($_option['label']) ?>
+						</option>-->
+						<option value="<?php /* @escapeNotVerified */ echo $_option['label'] ?>" <?php if ($mprefix == $_option['label']): ?> selected="selected"<?php endif; ?>>
+						 <?php /* @escapeNotVerified */ echo __($_option['label']) ?>
 						  </option>
-						<?php //} ?>
-						<?php //endforeach; ?>
+						<?php } ?>
+						<?php endforeach; ?>
 					</select>
 					</div>
 					<div class="form-right">
 					<div class="control">
-					<input type='text' minlength="10"  maxlength="10" id='mobile_number' name='mobile_number' value="<?php //echo $mobile;?>" title="<?php /* @escapeNotVerified */ //echo __('Mobile Number') ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10','validate-mobile-number':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
+					<input type='text' minlength="10"  maxlength="10" id='mobile_number' name='mobile_number' value="<?php echo $mobile;?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10','validate-mobile-number':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
 					</div>
 					</div>
 				</div>
-				</div>-->
+				</div>
 				
 			</div>
 			<div class="clearfix"></div>
 		</div>
+		
+		<div class="item">
+			<div class="form-left">
+				<div class="field field-name-email required">
+					<label class="label" for="email">
+						<span><?php echo $block->escapeHtml(__('Email')) ?></span>
+					</label>
+					<div class="control">
+						<input value="<?php echo $block->getCustomer()->getEmail();?>" id="m2"  disabled="true" type="text">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
 		<div class="item">
 			<div class="form-left">
 				<div class="field field-name-cedulla required">
@@ -119,19 +141,6 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 				</div>
 			</div>
 		</div>
-		<div class="item">
-			<div class="form-left">
-				<div class="field field-name-email required">
-					<label class="label" for="email">
-						<span><?php echo $block->escapeHtml(__('Email')) ?></span>
-					</label>
-					<div class="control">
-						<input value="<?php echo $block->getCustomer()->getEmail();?>" id="m2"  disabled="true" type="text">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="clearfix"></div>
 		<div class="item check-pass-change">
 			<div class="field choice">
 			   <label class="label pull-left" for="change-password" style="line-height:20px;"><span> <input type="checkbox" name="change_password" id="change-password" data-role="change-password" value="1" title="<?php echo __('Change Password') ?>"<?php if ($block->getChangePassword()): ?> checked="checked"<?php endif; ?> class="pull-left checkbox" style="margin-right:3px;"/>
@@ -201,6 +210,140 @@ if($block->getCustomer()->getCustomAttribute('passport')){
             <?php //echo $newsletterblock->getChildHtml('customer.form.register.newsletter')?>
 		
     <?php// endif ?>
+	
+	<div class="shipping-div">
+		<table style="height: 134px;" width="700" border="0">
+			<tbody>
+				<tr>
+					<th class="Shipping-Address"><label class="label"><?php echo __('Shipping Address') ?> </label></th>
+				</tr>
+				<tr style="height: 53px;">
+				<td style="width: 372px; height: 53px;">
+				<p>Province</p>
+				<div class="formitem">
+					<select id="state" class="input-text" style="width: 200px;" name="province" data-validate="{required:true, 'validate-customer-province':true}">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					</select>
+				</div>
+				</td>
+				<td style="width: 377px; height: 53px;">
+				<p>Disctrict</p>
+				<div class="formitem">
+					<select id="city" class="input-text" style="width: 200px;" name="letters" data-validate="{required:true, 'validate-customer-letters':true}">
+					<option value="PI">PI</option>
+					<option value="AV">AV</option>
+					<option value="E">E</option>
+					<option value="N">N</option>
+					<option value="PE">PE</option>
+					<option value="P">P</option>
+					</select>
+				</div>
+				</td>
+				</tr>
+				<tr style="height: 69px;">
+				<td style="width: 372px; height: 69px;">
+				<p>Zone/Bario</p>
+				<div class="formitem">
+					<select id="city" class="input-text" style="width: 200px;" name="letters" data-validate="{required:true, 'validate-customer-letters':true}">
+					<option value="PI">PI</option>
+					<option value="AV">AV</option>
+					<option value="E">E</option>
+					<option value="N">N</option>
+					<option value="PE">PE</option>
+					<option value="P">P</option>
+					</select>
+				</div>
+				</td>
+				<td style="width: 377px; height: 69px;">
+				<p>Address</p>
+				<p><input type="text" /></p>
+				</td>
+				</tr>
+				<tr style="height: 69px;">
+				<td style="width: 372px; height: 69px;">
+				<p>Direction Indications</p>
+				<p><input type="text" /></p>
+				</td>
+				<td style="width: 377px; height: 69px;">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="subscription">
+		 <table class="data table " id="my-table">
+			<tbody>
+                <tr>
+                    <td scope="col" class="col one">
+						<div class="clearfix mt52 row">
+							<h3><?php echo __('Newsletter Subscription') ?></h3>
+							<div class="fontRed GothamMedium11 col-md-offset-3">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl30 ">
+									<label class="mb0 chkboxcontainer">
+									<input type="checkbox" name="is_subscribed" title="<?php echo __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed" class="pull-left checkbox" checked="checked"><?php echo __('Send Information from DigiCel') ?>
+									<span class="checkmark"></span>
+									</label>
+								</div>	
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left pl30 ">
+									<label class="mb0 chkboxcontainer GothamMedium11">
+									<input type="checkbox" name="is_partner_subscribed" title="" value="1" id="is_partner_subscribed"  checked="checked" class="pull-left checkbox"><?php echo __('Send Information from other partners') ?>
+									 <span class="checkmark"></span>
+									</label>
+								</div>
+								
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left pl30">
+									<label class="mb0 chkboxcontainer">
+									<input type="checkbox" name="is_contracts_subscribed" title="" value="1" id="is_contracts_subscribed" checked="checked" class="pull-left checkbox" onclick="return false;">
+									<?php echo __('Send me Contract and Invoices') ?>
+									<span class="checkmark"></span></label>
+								</div>
+								
+							</div>  
+						</div>
+					</td>
+                    <td scope="col" class="col two">
+						<div class="clearfix mt52 row">
+							<div class="fontRed GothamMedium11 col-md-offset-3">
+								<h3><?php echo __('Newsletter Subscription for Holder') ?></h3>
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl30 ">
+									<label class="mb0 chkboxcontainer">
+									<input type="checkbox" name="is_subscribed" title="<?php echo __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed" checked="checked" class="pull-left checkbox" checked="checked"><?php echo __('Send Information from DigiCel') ?>
+									<span class="checkmark"></span>
+									</label>
+								</div>	
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left pl30 ">
+									<label class="mb0 chkboxcontainer GothamMedium11">
+									<input type="checkbox" name="is_partner_subscribed" title="" value="1" id="is_partner_subscribed"  checked="checked" class="pull-left checkbox"><?php echo __('Send Information from other partners') ?>
+									 <span class="checkmark"></span>
+									</label>
+								</div>
+								
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left pl30">
+									<label class="mb0 chkboxcontainer">
+									<input type="checkbox" name="is_contracts_subscribed" title="" value="1" id="is_contracts_subscribed" checked="checked" class="pull-left checkbox" onclick="return false;">
+									<?php echo __('Send me Contract and Invoices') ?>
+									<span class="checkmark"></span></label>
+								</div>
+								
+							</div>  
+						</div>
+					</td>
+                </tr>
+            </tbody>
+		</table>
+	</div>
+	
     <div class="actions-toolbar">
 		<div class="primary">
 			<button type="submit" class="action save primary" title="<?php echo __('Save'); ?>"><span><?php echo __('Save') ?></span></button>
@@ -215,15 +358,23 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 label.subscribe span{margin-left: 4px;}
 </style>
 <script>
+function dateFunction() {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "date");
+    x.setAttribute("value", "2014-02-09");
+    document.body.appendChild(x);
+}
+</script>
+<script>
     require([
         "jquery",
         "mage/mage"
     ], function($){
         var dataForm = $('#form-validate');
-		var ignore = <?php /* @escapeNotVerified */ echo $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
+		var ignore = <?php /* @escapeNotVerified */ //echo $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null'; ?>;
         
         dataForm.mage('validation', {
-        <?php if ($_dob->isEnabled()): ?>
+        <?php //if ($_dob->isEnabled()): ?>
             errorPlacement: function(error, element) {
                 if (element.prop('id').search('full') !== -1) {
                     var dobElement = $(element).parents('.customer-dob'),
@@ -237,9 +388,9 @@ label.subscribe span{margin-left: 4px;}
                 }
             },
             ignore: ':hidden:not(' + ignore + ')'
-        <?php else: ?>
+        <?php //else: ?>
             ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
-        <?php endif ?>
+        <?php //endif ?>
         });
         $('#dob').blur( function() {
 		

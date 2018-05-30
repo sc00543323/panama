@@ -186,7 +186,7 @@ switch ($type = $block->getType()) {
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if ($type == 'related' || $type == 'upsell'): ?>
-                                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li style="width: 35%;" id="plan_' . $_item->getId() . '" class="item product product-item plan_detail" plan_id = "'.$_item->getPlanId().'" style="display: none;">' : '</li><li style="width: 35%;" id="plan_' . $_item->getId() . '" class="item product product-item plan_detail" plan_id = "'.$_item->getPlanId().'" style="display: none;">' ?>
+                                    <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li style="width: 35%;" id="plan_' . $_item->getId() . '" class="item product product-item plan_detail" plan_id = "' . $_item->getPlanId() . '" style="display: none;">' : '</li><li style="width: 35%;" id="plan_' . $_item->getId() . '" class="item product product-item plan_detail" plan_id = "' . $_item->getPlanId() . '" style="display: none;">' ?>
 
                                 <?php else: ?>
                                     <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li  style="width: 35%;" id="plan_' . $_item->getId() . '" class="item product product-item plan_detail">' : '</li><li style="width: 35%;" id="plan_' . $_item->getId() . '" class="item product product-item plan_detail">' ?>

@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="panama" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <label>Digicel Api Details</label>
+            <tab>panama</tab>
+            <resource>Digicel_HandsetPrice::config_digicel_handsetprice</resource>
+            <group id="digicel_token_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Token Api Details</label>
+                <field id="token_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Token API Url</label>
+                    <comment/>
+                </field>
+                <field id="token_username" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Username</label>
+                    <comment/>
+                </field>
+                <field id="token_password" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Password</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="digicel_handset_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Handset Api Details</label>
+                <field id="handset_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Handset API Url</label>
+                    <comment/>
+                </field>
+            </group>
+            <group id="log_api" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Log API</label>
+                <field id="save_response" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Save response in log</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment/>
+                </field>
+            </group>
+			<group id="calculatedelivery_api" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Calculate Delivery Date and Time API</label>
+                <field id="calculatedelivery_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Calculate Delivery API Url</label>
+                    <comment/>
+                </field>
+            </group>
+			<group id="orderfullfillment_api" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Orderfullfillment API</label>
+                <field id="orderfullfillment_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Orderfullfillment API Url</label>
+                    <comment/>
+                </field>
+				<field id="orderfullfillment_username" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>DataAccess Username</label>
+                    <comment/>
+                </field>
+				<field id="orderfullfillment_password" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>DataAccess Password</label>
+                    <comment/>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

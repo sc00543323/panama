@@ -146,7 +146,7 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
      */
     public function execute()
     {
-	    
+	    //$dob = $this->getRequest()->getParam('dob');
         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         $validFormKey = $this->formKeyValidator->validate($this->getRequest());
@@ -362,10 +362,10 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 				}else{
 					$prefixchanged = 'no';
 				}
-		//$model->setIdFilter($prefixoptval)
-           // ->setStoreFilter();
-		//$valuearray = $model->toOptionArray();
-		/*$prefixchanged = 'no';
+		$model->setIdFilter($prefixoptval)
+            ->setStoreFilter();
+		$valuearray = $model->toOptionArray();
+		$prefixchanged = 'no';
 		if(!empty($valuearray)){
 			$customermobileprefix = $valuearray[0]['label'];
 				if( $customermobileprefix != $this->getRequest()->getParam('mobile_prefix')){
@@ -380,7 +380,7 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 			}else{
 			$prefixchanged = 'no';
 			}
-		}	*/
+		}	
 		$diff =0;		
 		if($this->getRequest()->getParam('dob')){
 			$diff = abs(strtotime($this->getRequest()->getParam('dob')) - strtotime($customer->getDob()));
@@ -394,7 +394,7 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 		($this->getRequest()->getParam('email') && ($customer->getEmail() != $this->getRequest()->getParam('email')))
 		)
 		{ 			
-			 $this->getEmailNotification()->customerParamsChanged($customer);       
+			 //$this->getEmailNotification()->customerParamsChanged($customer);       
 		   }
 	   return;
 	  

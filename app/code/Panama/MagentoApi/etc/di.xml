@@ -15,4 +15,6 @@
 	<preference for="Panama\MagentoApi\Api\UpdateInventoryInterface" type="Panama\MagentoApi\Model\UpdateInventory" />
 	<preference for="Panama\MagentoApi\Api\Data\InventoryInterface" type="Panama\MagentoApi\Model\Inventory" />
 	<preference for="Panama\MagentoApi\Api\Data\SkuDetailsInterface" type="Panama\MagentoApi\Model\SkuDetails" />
+	<preference for="Panama\MagentoApi\Api\UpdatePortingstatusInterface" type="Panama\MagentoApi\Model\UpdatePortingstatus" />
+	<preference for="Panama\MagentoApi\Api\Data\PortingstatusInterface" type="Panama\MagentoApi\Model\Portingstatus" />
 </config>
