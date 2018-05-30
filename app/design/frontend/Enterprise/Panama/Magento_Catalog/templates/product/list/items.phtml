@@ -268,6 +268,19 @@ switch ($type = $block->getType()) {
                 </div>
             </div>
         <?php endif; ?>
+        <?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $product = $block->getProduct();
+        $sku = array();
+        if($product) {
+            $productTypeInstance = $product->getTypeInstance();
+            $children = $productTypeInstance->getUsedProducts($product);            
+            foreach ($children as $child) {  
+                $sku[] = $child->getSku();
+            } 
+            $currency = $objectManager->get('\Magento\Directory\Model\Currency');
+            $currency_symbol = $currency->getCurrencySymbol();
+        }
+        ?>
 	<script>
 	require([
 		'jquery',
@@ -310,8 +323,13 @@ switch ($type = $block->getType()) {
 			var current_service = '';
 			var buy_smartphone = '';
 			var product_id = '';
+            var productsku = '';
+            <?php if(isset($sku[0])): ?>
+                var productsku = '<?php echo $sku[0] ?>';
+                var currency = '<?php echo $currency_symbol ?>';
+            <?php endif; ?>            
 			if (portable == 'yes') {
-				var portable_data = {product_id: product_id, port: portable, port_remove: port_remove, current_service: current_service, buy_smartphone: buy_smartphone};
+				var portable_data = {product_id: product_id, port: portable, port_remove: port_remove, current_service: current_service, buy_smartphone: buy_smartphone,productsku:productsku};
 				$.ajax({
 					url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
 					dataType: 'json',
@@ -319,7 +337,10 @@ switch ($type = $block->getType()) {
 					type: 'post',
 					data: portable_data,
 					success: function (data) {
-						if (data == true) {
+						if (data.result == true) {
+                            if(data.price != '') {
+                                $('.product-info-price .price').text(currency+data.price);
+                            }
 							$("#port_div").hide();
 							$("#service_div").show();
 							$("#port_div_session").hide();
@@ -368,8 +389,12 @@ switch ($type = $block->getType()) {
 				var portable = $('input[name=portable]:checked').val();
 				var current_service = $('input[name=service]:checked').val();
 				var port_remove = $('input[name=port_remove]:checked').val();		
-		
-				var portable_data = {product_id: product_id,contract: contract,port: portable,contract_remove: contract_remove,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone};
+		        var productsku = '';
+                <?php if(isset($sku[0])): ?>
+                    var productsku = '<?php echo $sku[0] ?>';
+                    var currency = '<?php echo $currency_symbol ?>';
+                <?php endif; ?>
+				var portable_data = {product_id: product_id,contract: contract,port: portable,contract_remove: contract_remove,port_remove: port_remove,current_service: current_service,buy_smartphone: buy_smartphone,productsku:productsku};
 				$.ajax({
 				url: "<?php echo $block->getBaseUrl() . 'port/index/index' ?>",
 				dataType: 'json',
@@ -377,7 +402,10 @@ switch ($type = $block->getType()) {
 				type: 'post',
 				data: portable_data,
 				success: function (data) {
-					if(data == true) {
+					if(data.result == true) {
+                        if(data.price != '') {
+                            $('.product-info-price .price').text(currency+data.price);
+                        }
 						$("#contract_div_session").hide();
 						$("#contract_div").hide();
 						$('#product-options-wrapper').show();
@@ -390,6 +418,11 @@ switch ($type = $block->getType()) {
 				}
 				});
 			} else {
+                var productsku = '';
+                <?php if(isset($sku[0])): ?>
+                    var productsku = '<?php echo $sku[0] ?>';
+                    var currency = '<?php echo $currency_symbol ?>';
+                <?php endif; ?>
 				$("#contract_div").hide();
 				$('#product-options-wrapper').show();
 				$('.upsell').show();
