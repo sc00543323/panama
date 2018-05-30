@@ -21,3 +21,13 @@
 .checkout-shipping-method .step-title{
 	display:none; 
 }
+.greet.welcome, .authorization-link,.skip.contentarea,.header.content,.modal-popup.popup-authentication,.copyright,.nav-sections-item-title,.nav-sections-item-switch{
+    display: none !important;
+}
+.owl-dots {
+    counter-reset: dots;
+}
+.owl-dot:before {
+    counter-increment:dots;
+    content: counter(dots);
+}
