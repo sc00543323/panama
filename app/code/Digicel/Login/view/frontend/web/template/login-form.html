@@ -31,20 +31,20 @@
 		<div class="clearfix col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
 			<form data-bind="submit: onSubmit" data-mage-init='{"validation":{}}' autocomplete="off">
 				<div class="field field-email required">
-					<label for="email"><span data-bind="i18n: 'Username / Email ID'"></span></label>
-					<input type="email" class="addEmail input-text form-control" id="login-email" name="username" data-validate="{required:true, 'validate-email':true}" />
+					<label for="ck_login-email"><span data-bind="i18n: 'Username / Email ID'"></span></label>
+					<input type="email" class="addEmail input-text form-control" id="ck_login-email" name="username" data-validate="{required:true, 'validate-email':true}" />
 				</div>
 				<div class="field field-password required">
-					<label for="login-password"><span data-bind="i18n: 'Password'"></span></label>
-					<input type="password"  class="input-text form-control" id="login-password" name="password" data-validate="{required:true}" />
+					<label for="ck_login-password"><span data-bind="i18n: 'Password'"></span></label>
+					<input type="password"  class="input-text form-control" id="ck_login-password" name="password" data-validate="{required:true}" />
 				</div>
 				
 				<p class="mt-15">
-						<a class="fontRed blueHover" data-bind="attr: { href: forgotPasswordUrl }">
-							<u data-bind="i18n: 'Forgot Your Password?'"></u>
-							<span class="glyphicon glyphicon-menu-right"></span>
-						</a>
-					</p>
+					<a class="fontRed blueHover" data-bind="attr: { href: forgotPasswordUrl }">
+						<u data-bind="i18n: 'Forgot Your Password?'"></u>
+						<span class="glyphicon glyphicon-menu-right"></span>
+					</a>
+				</p>
 					<div class="actions-toolbar-information mt20 mb40">
 					<div class="primary">
 						<button data-role="opc-continue" type="submit" class="btn btnVibee width100 showHolder">
@@ -60,15 +60,23 @@
 			</form>
 		</div>
 	</div>	
-	  
+	
 	<div class="checkout-register" style="display:none">
-		<section id="checkout-createAccount" class="clearfix  checkout-createAccount">	
-			<div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
-				<div class="register-error message message-error error" style="display:none;clear:both;"></div>
-				<div id="signUp" class="register-block"></div>
-			</div>
-		</section>
-    </div>
+      <section id="checkout-createAccount" class="clearfix  checkout-createAccount">	
+      <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+	  <div class="register-error message message-error error" style="display:none;clear:both;"></div>
+        <form class="form create account form-create-account" action="#" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+		<div id="signUp" class="register-block"></div>			
+		<div class="clearfix mt20 mb10">
+					<button type="submit" class="btn submit" title="" id="ct-account" data-bind="click: function(){ createpost() }">
+					<span data-bind="i18n: 'Create Account'"></span>
+					</button>
+				</div>
+       </form>
+     </div>
+   </section>
+ </div>
+
 <!-- /ko -->
 </div>
 <!-- /ko -->

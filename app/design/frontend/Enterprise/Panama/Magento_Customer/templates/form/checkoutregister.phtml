@@ -1,0 +1,218 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+/**
+ * Create account form template
+ *
+ * @var \Magento\Customer\Block\Form\Register $block
+ */
+?>
+
+<h5 class="pageTitle"><?php echo __('User Registration');?></h5>
+    <?php /* @noEscape */ echo $block->getBlockHtml('formkey'); ?>
+        <input type="hidden" name="success_url" value="<?php echo $block->escapeUrl($block->getSuccessUrl()) ?>">
+        <input type="hidden" name="error_url" value="<?php echo $block->escapeUrl($block->getErrorUrl()) ?>">
+		
+		<div class="clearfix"> 
+			<?php echo $block->getLayout()->createBlock(\Digicel\Login\Block\Customer\Checkoutname::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+        </div>
+		
+		<div>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Date of Birth') ?>*</label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+					<input type='text' id='dob' name='dob' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Date of Birth') ?>" data-validate="{required:true}" class=" form-control " autocomplete="off" />
+				</div>
+			</div>
+		</div>
+		<div>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Mobile Number') ?>*</label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+				<?php 	
+								$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+								$eavConfig = $objectManager->get('\Magento\Eav\Model\Config');
+								$attribute = $eavConfig->getAttribute('customer', 'mobile_prefix');
+								$options = $attribute->getSource()->getAllOptions();?>
+								<select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>" name="mobile_prefix" title="mobile_prefix" class="form-control appfontnew13 required-entry<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> >
+								<?php foreach ($options as $_option): ?>
+								<?php if($_option['value'] != ''){?>
+									<option <?php echo ($block->getFormData()->getMobilePrefix() == $_option['value'] ) ?"selected":''?> value="<?php /* @escapeNotVerified */ echo $_option['value'] ?>">
+										<?php /* @escapeNotVerified */ echo __($_option['label']) ?>
+									</option>
+								<?php } ?>
+								<?php endforeach; ?>
+								</select>
+								<i class="select_arrow glyphicon glyphicon-triangle-bottom"></i>
+								
+					<input type='text' id='mobile_number' name='mobile_number' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true}" class="form-control" autocomplete="off" />
+				</div>
+			</div>
+		</div>
+		<div class="field alt_mobile">
+			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Alternate mobile number')) ?>*</label>
+                <input type="text" maxlength="20"   name="alt_mobile" title="" id="alt_mobile" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
+    </div>
+	<div>
+	  	<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Email Address')) ?>*</label>
+        <input type="email" name="email" autocomplete="email" placeholder="" id="email_address" value="" title="" class="form-control Login_box input-text required-entry" data-validate="{required:true, 'validate-email':true}">
+    
+		<div class="field password required" data-mage-init='{"passwordStrengthIndicator": {}}'>
+				<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Password')) ?>*
+				<div class="control-">
+					<input type="password" autocomplete="u1"  maxlength="20" name="password" id="password" placeholder=""
+						   title=""
+						   class="form-control Login_box input-text required-entry"
+						   data-password-min-length="<?php echo $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+						   data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+						   data-validate="{required:true, 'validate-customer-password':true}"
+						   autocomplete="off">
+				</div>
+
+		</div>
+		<div class="field confirmation required">
+			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Confirm Password')) ?>*</label>
+			<input type="password" maxlength="20" onpaste="return false;" autocomplete="u1"  name="password_confirmation" title="" id="password-confirmation" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true,equalTo:'#password'}" autocomplete="off">
+		</div>
+	
+	</div>
+		
+    <fieldset class="fieldset Cedula">
+            <legend class="legend"><span><?php echo $block->escapeHtml(__('Personal ID')) ?></span></legend><br>
+            <div class="field Cedula">            
+    		<input class="btn btnOnAccordion btnBlue" style="width: 10%;float: left;margin: 19px 15px;padding: 5px;" type="button" id="isCedula" value="Cedula" name="isCedula">
+			
+            <div class="cedula_fields" style="display:none;">
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>Province</label>
+					<select name="cedulaProvince" id="cedulaProvince">
+						<?php for($i=0;$i<15;$i++){?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php  } ?>
+					</select>
+				</div>
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>Letters</label>
+					<select name="cedulaLetters" id="cedulaLetters">
+						<option value="PI">PI</option>
+						<option value="AV">AV</option>
+						<option value="E">E</option>
+						<option value="N">N</option>
+						<option value="PE">PE</option>
+						<option value="P">P</option>
+					</select>
+				</div>
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>I take</label>
+					<input type="text" id="cedulaItake" name="cedulaItake">
+				</div>
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>Seat</label>
+					<input type="text" id="cedulaSeat" name="cedulaSeat">
+				</div>
+					<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+						<label>Number</label>			
+						<input type="text"  id="cedulaNumber" name="cedulaNumber">
+					</div>
+				</div>
+					<br style="clear: both;" style="width: 10%;float: left;margin: 0px 15px;">
+					OR
+					<br>
+				<input class="btn btnOnAccordion btnBlue" style="margin: 19px 15px;padding: 5px;" type="button" id="isPassport" value="Passport" name="isPassport">
+				<div class="passport_field" style="display:none;">
+					<div class="cedula-field" style="width: 30%;float: left;margin: 0px 15px;">
+						<label>Number</label>
+						<input type="text" id="cedulaPassport" name="cedulaPassport">
+					</div>
+				</div> 
+        </div>
+    </fieldset>
+		
+<?php $this->setShowAddressFields(true); ?>
+<?php if ($block->getShowAddressFields()): ?>
+        <fieldset class="fieldset address">
+            <legend class="legend"><span><?php echo $block->escapeHtml(__('Shipping Address')) ?></span></legend><br>
+            <input type="hidden" name="create_address" value="1" />
+            
+
+            <?php $_streetValidationClass = $this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('street'); ?>
+
+            <?php echo $block->getLayout()->createBlock(\Digicel\Login\Block\Customer\Getaddress::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+        
+			<div class="field Address">
+			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Address')) ?>*</label>
+                <input type="text" maxlength="20"   name="Address" title="" id="Address" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
+			</div>
+			<div class="field Direction_indications">
+					<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Direction indications')) ?>*</label>
+						<input type="text" maxlength="20"   name="Direction_indications" title="" id="Direction_indications" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
+			</div>
+
+            <input type="hidden" name="default_billing" value="1">
+            <input type="hidden" name="default_shipping" value="1">
+        </fieldset>
+
+    <?php endif; ?>
+	<?php echo $block->getChildHtml('form_additional_info'); ?>
+	<?php if ($block->isNewsletterEnabled()): ?>
+            <div class="field choice newsletter">
+                <input checked type="checkbox" name="is_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send Information from DigiCel') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <label for="is_subscribed" class="label"><span><?php /* @escapeNotVerified */ echo __('Send Information from DigiCel') ?></span></label>
+            </div>
+			<div class="field choice newsletter">
+                <input checked type="checkbox" name="is_partner_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send Information from other partners') ?>" value="1" id="is_partner_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <label for="is_partner_subscribed" class="label"><span><?php /* @escapeNotVerified */ echo __('Send Information from other partners') ?></span></label>
+            </div>
+			<div class="field choice newsletter">
+                <input checked type="checkbox" name="is_contracts_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send me Contract and Invoices') ?>" value="1" id="is_contracts_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <label for="is_contracts_subscribed" class="label"><span><?php /* @escapeNotVerified */ echo __('Send me Contract and Invoices') ?></span></label>
+            </div>
+            <?php /* Extensions placeholder */ ?>
+            <?php echo $block->getChildHtml('customer.form.register.newsletter')?>
+        <?php endif ?>
+   	
+
+
+<script type="text/javascript">
+require([
+'jquery', // jquery Library
+'jquery/ui', // Jquery UI Library
+'jquery/validate', // Jquery Validation Library
+'mage/calendar', // Calender
+'mage/translate' // Magento text translate (Validation message translte as per language)
+], function($){
+	$("#dob").calendar({
+			changeYear: true,
+			changeMonth: true,
+			yearRange: "1970:2050",
+			buttonText: "Select Date",
+		});
+		$("#isCedula").click(function(){
+			$(".cedula_fields").show();
+			$(".passport_field").hide();
+		});
+		$("#isPassport").click(function(){
+			$(".passport_field").show();
+			$(".cedula_fields").hide();
+		});
+		
+		$('#cedulaLetters,#cedulaProvince').change(function(){
+			var Province = $('#cedulaProvince').val();
+			var Letters = $('#cedulaLetters').val();			
+			$('#cedulaNumber').val(Province+Letters);	
+		
+		});	
+		$('#cedulaItake,#cedulaSeat').keyup(function(e){
+			var Province = $('#cedulaProvince').val();
+			var Letters = $('#cedulaLetters').val();
+			var Itake = $('#cedulaItake').val();
+			var Seat = $('#cedulaSeat').val();			
+			$('#cedulaNumber').val(Province+Letters+Itake+Seat);		
+		});	
+		
+		
+});
+</script>

@@ -1,0 +1,159 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Customer\Block\Widget\Name */
+$x='data-validate="{required:true}"';
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$customerId = $customerSession->getCustomer()->getId();
+
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$tableName = $resource->getTableName('Panama_address'); 
+$sql = $connection->select()->from(["tn" => $tableName])->group('province_id')->order('province_name ASC');
+$result = $connection->fetchAll($sql);
+
+if($customerId){
+$customerObj = $objectManager->create('Magento\Customer\Model\Customer')->load($customerId);
+		$address_data = $customerObj->getAddresses();
+		foreach ($address_data as $address)
+		{
+			$addressData = $address->toArray();
+		}
+		
+		$sql = $connection->select()->from(["tn" => $tableName])->where('province_name = ?',$addressData['region'])->group('district_id')->order('district_name ASC');
+		$resultDistrict = $connection->fetchAll($sql);
+
+		$sql = $connection->select()->from(["tn" => $tableName])->where('district_name = ?',$addressData['city'])->group('townShip_id')->order('townShip_name ASC');
+		$resultTownShip = $connection->fetchAll($sql);
+
+}
+
+?>  		
+	<?php
+	if($customerSession->isLoggedIn())
+	{ ?>
+
+			 <input type="hidden" name="Province_val" value="<?php echo $addressData['region'];?>" id="Province_val">
+			<input type="hidden" name="District_val" value="<?php echo $addressData['city'];?>" id="District_val">
+			<input type="hidden" name="Zone_Barrio_val" value="<?php echo $addressData['postcode'];?>" id="Zone_Barrio_val">
+			
+		<div class="field Province required">
+			<label for="Province" class="label"><span><?php echo $block->escapeHtml(__('Province')) ?></span></label>
+			<div class="control">
+				<select id="Province" name="Province" <?php echo $x; ?>>
+					<?php foreach($result as  $option_val){
+						if($addressData['region'] == $option_val['province_name']){$sel = 'selected';}else{$sel = '';}
+							echo "<option ".$sel." value='".$option_val['province_id']."'>".$option_val['province_name']."</option>";
+                        } ?>
+				</select>
+			</div>
+		</div>			
+		<div class="field required">
+                <label for="District" class="label"><span><?php echo $block->escapeHtml(__('District')) ?></span></label>
+                <div class="control">
+                     <select id="District" name="District" <?php echo $x; ?>>
+						<option value="">Select District</option>
+						<?php foreach($resultDistrict as  $District_val){
+						if($addressData['city'] == $District_val['district_name']){$selDist = 'selected';}else{$selDist = '';}
+							echo "<option ".$selDist." value='".$District_val['district_id']."'>".$District_val['district_name']."</option>";
+                        } ?>
+					</select>
+                </div>
+        </div>
+		<div class="field Zone_Barrio required">
+			<label for="Zone_Barrio" class="label"><span><?php echo $block->escapeHtml(__('Zone / Barrio')) ?></span></label>
+			<div class="control">
+				<select id="Zone_Barrio" name="Zone_Barrio" <?php echo $x; ?>>
+					<option value="">Zone / Barrio</option>
+					<?php foreach($resultTownShip as  $TownShip_val){
+						if($addressData['postcode'] == $TownShip_val['townShip_name']){$selZone = 'selected';}else{$selZone = '';}
+							echo "<option ".$selZone." value='".$TownShip_val['townShip_id']."'>".$TownShip_val['townShip_name']."</option>";
+                        } ?>
+				</select>
+			</div>
+		</div>
+		
+	<?php } ?>								
+	<?php
+	if(!$customerSession->isLoggedIn())	{ ?>
+	
+			<input type="hidden" name="Province_val" id="Province_val">
+			<input type="hidden" name="District_val" id="District_val">
+			<input type="hidden" name="Zone_Barrio_val" id="Zone_Barrio_val">
+		<div class="field Province required">
+                <label for="Province" class="label"><span><?php echo $block->escapeHtml(__('Province')) ?></span></label>
+                <div class="control">
+                    <select id="Province" name="Province" <?php echo $x; ?>>
+						<?php foreach($result as  $option_val){
+							echo "<option value='".$option_val['province_id']."'>".$option_val['province_name']."</option>";
+                        } ?>
+					</select>
+                </div>
+            </div>
+			<div class="field required">
+                <label for="District" class="label"><span><?php echo $block->escapeHtml(__('District')) ?></span></label>
+                <div class="control">
+                     <select id="District" name="District" <?php echo $x; ?>>
+						<option value="">Select District</option>
+					</select>
+                </div>
+            </div>
+            <div class="field Zone_Barrio required">
+                <label for="Zone_Barrio" class="label"><span><?php echo $block->escapeHtml(__('Zone / Barrio')) ?></span></label>
+                <div class="control">
+                    <select id="Zone_Barrio" name="Zone_Barrio" <?php echo $x; ?>>
+						<option value="">Zone / Barrio</option>
+					</select>
+                </div>
+            </div>
+<?php } ?>
+	<script type="text/javascript">
+require([
+'jquery', // jquery Library
+'jquery/ui', // Jquery UI Library
+'jquery/validate', // Jquery Validation Library
+'mage/calendar', // Calender
+'mage/translate' // Magento text translate (Validation message translte as per language)
+], function($){
+	$('#District').change(function(){
+		var dist = $('#District').val();
+		var optionText = $("#District option:selected").text();
+		$('#District_val').val(optionText);		
+		$.ajax({
+      type: "POST",
+      url: "<?php echo $block->getBaseUrl() . 'logincheckout/Login/Address' ?>",
+      data: { district: dist },
+      success: function (result) {
+           $('#Zone_Barrio').html(result);
+          }
+      });
+    });
+    $('#Province').change(function(){
+		var Prov = $('#Province').val();
+		var optionText = $("#Province option:selected").text();
+		$('#Province_val').val(optionText);	
+		$.ajax({
+      type: "POST",
+      url: "<?php echo $block->getBaseUrl() . 'logincheckout/Login/Address' ?>",
+      data: { Province: Prov},
+      success: function (result) {
+           $('#District').html(result);
+          }
+      });
+    });
+	$('#Zone_Barrio').change(function(){
+		var optionText = $("#Zone_Barrio option:selected").text();
+		$('#Zone_Barrio_val').val(optionText);	
+	});
+	
+});
+</script>
+

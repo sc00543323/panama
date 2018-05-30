@@ -18,7 +18,7 @@ use Digicel\Login\Model\Data;
  * @method \Magento\Framework\App\Response\Http getResponse()
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Login extends \Magento\Framework\App\Action\Action
+class Address extends \Magento\Framework\App\Action\Action
 {
  
     /**
@@ -64,14 +64,33 @@ class Login extends \Magento\Framework\App\Action\Action
     }
     public function execute()
     {
-		$layout = $this->_view->getLayout();
 		
-        $html = $layout->createBlock(\Magento\Customer\Block\Form\Register::class)->setTemplate('Magento_Customer::form/checkoutregister.phtml')->toHtml();
-		$resultJson = $this->resultJsonFactory->create();
-		//return $resultJson->setData($data);
-		return $resultJson->setData(['html' => $html]);
+        $loginData = $this->getRequest()->getPostValue();
+        $final_data = '';
+            
+        if(isset($loginData['district'])){
+            $Datas = $this->modelFactory->getCollection()->addFieldToFilter('district_id',$loginData['district']);
+            foreach($Datas->getData() as $Data) {
+                $final_data .= "<option value='".$Data['townShip_id']."'>".$Data['townShip_name']."</option>";
+            }
+        }
+        if(isset($loginData['Province'])){
+			
+			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+			$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+			$connection = $resource->getConnection();
+			$tableName = $resource->getTableName('Panama_address'); 
+
+			$sql = $connection->select()->from(["tn" => $tableName])->group('district_id')->order('district_name ASC')->where('province_id = ?',$loginData['Province']);
+			$Datas = $connection->fetchAll($sql);
+            
+            foreach($Datas as $Data) {
+                $final_data .= "<option value='".$Data['district_id']."'>".$Data['district_name']."</option>";
+            }
+        }
+
+
+         echo $final_data;
     }
-	public function getDistric(){
-		return $sampleCollection = $this->modelFactory->getCollection();
-	}
+	
 }

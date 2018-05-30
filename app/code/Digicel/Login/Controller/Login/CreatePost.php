@@ -14,7 +14,9 @@ use Magento\Newsletter\Model\SubscriberFactory;
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
     protected $resultJsonFactory;
-	
+
+
+    protected $customer;	
 	
     /**
      * @param \Magento\Framework\App\Action\Context      $context
@@ -50,71 +52,51 @@ use Magento\Newsletter\Model\SubscriberFactory;
     }
     public function execute()
     {
-		$loginData = $this->getRequest()->getPostValue();
-		
-        // Get Website ID
+		$loginData = $this->getRequest()->getPostValue(); //print_r($loginData); die;
+		// Get Website ID        
         $websiteId  = $this->storeManager->getWebsite()->getWebsiteId();
-		$customerexist = $this->customer->loadByEmail($loginData['email']);
-		$customerexist->setWebsiteId($websiteId);
-		
-		//Fn+Ln+Dob internal blacklist check
-        $formId = 'guest_checkout';
-        $captchaModel = $this->_helper->getCaptcha($formId);
-        $data = $this->captchaStringResolver->resolve($this->getRequest(), $formId);        
-         if (!$captchaModel->isCorrect($this->captchaStringResolver->resolve($this->getRequest(), $formId))){
-            $message = array('valid' => 0,'message'=> 'Incorrect CAPTCHA');
-        }else{
-            $todayDate = date('Y-m-d');
-            $nameExplode = explode('/',$loginData['dob']);		
-            $nameDob = '%'.$nameExplode[2].'-'.$nameExplode[1].'-'.$nameExplode[0].'%';
-            
-          /*endLogic for internal blacklist check*/
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $customerexist = $objectManager->create('Magento\Customer\Model\Customer');
+        $customerexist->setWebsiteId($websiteId); 
+        $customerexist->loadByEmail($loginData['email']);
+        /*Check Customer Already Exisst*/
             if ($customerexist->getId()) {
-                $message = array('valid' => 0,'message'=> 'Le compte existe déjà!!');
-            /*}elseif(count($emailCollection) > 0){
-                $message = array('valid' => 0,'message'=> 'You\'re email address in blacklist');*/
-            }elseif(count($nameCollection) > 0){
-                $message = array('valid' => 0,'message'=> 'You\'re firstname ,lastname and dob in blacklist');
-            }elseif(count($IpCollection) > 0){
-                $message = array('valid' => 0,'message'=> 'You\'re ip address in blacklist');
+                $message = array('valid' => 0,'message'=> 'The account already exists !!');
             } else {
-                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-                $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-                $this->_scopeConfig = $objectManager->create('\Magento\Framework\App\Config\ScopeConfigInterface');
-                $dobconfigvalue = $this->_scopeConfig->getValue('digicel_account/dobsettings/dobvalue', $storeScope);
-                $birthday = $nameExplode[2].'-'.$nameExplode[1].'-'.$nameExplode[0];
-                // $then will first be a string-date
-                $then = strtotime($birthday);
-                //The age to be over, over +18
-                $min = strtotime('+'.$dobconfigvalue.' years', $then);                   
-                if(time() < $min){
-                    $message = array('valid' => 0,'message'=> 'Your DateOfBirth must be greater than %1 years');
-                }else{            
-                    // Instantiate object (this is the most important part)
-                    $customer = $this->customerFactory->create();
-                    $attribute = $this->eavConfig->getAttribute('customer', 'mobile_prefix');
-                        $options = $attribute->getSource()->getAllOptions();
-                        $label = '';
-                        foreach ($options as $_option){
-                            //print_r($_option);
-                            if($_option['label'] == $loginData['mobile_prefix']){
-                                $mobVal = $_option['value'];
-                                break;
-                            }
-                        }
+				// Instantiate object (this is the most important part)
+				$customer = $this->customerFactory->create();
+				
+					$attribute = $this->eavConfig->getAttribute('customer', 'mobile_prefix');
+					$options = $attribute->getSource()->getAllOptions();
+					$label = '';
+					foreach ($options as $_option){
+						//print_r($_option);
+						if($_option['value'] == $loginData['mobile_prefix']){
+							$mobVal = $_option['value'];
+							break;
+						}
+					}
+					
+			/*  Cedula Number Combine */		
+			$cedula_value = $loginData['cedulaProvince']."-".$loginData['cedulaLetters']."-".$loginData['cedulaItake']."-".$loginData['cedulaSeat'];
+			
                         
                     $customer->setWebsiteId($websiteId);
                     $customer->setEmail($loginData['email']);
                     $customer->setFirstname($loginData['firstname']);
                     $customer->setLastname($loginData['lastname']);
                     $customer->setPassword($loginData['password']);
-                    $customer->setPrefix($loginData['prefix']);
                     $customer->setDob(date("Y-m-d", strtotime($loginData['dob'])));
-                    //$customer->setMobilePrefix($loginData['mobile_prefix']);
-                    $customer->setMobilePrefix($mobVal);
+					$customer->setMobilePrefix($mobVal);
                     $customer->setMobileNumber($loginData['mobile_number']);
-
-                    $customer->setAddresses(null);
+					$customer->setAltMobileNumber($loginData['alt_mobile']);
+					$customer->setCedulla($cedula_value);
+					$customer->setPassport($loginData['cedulaPassport']);
+					$customer->setMobileNumber($loginData['is_subscribed']);
+					$customer->setMobileNumber($loginData['is_partner_subscribed']);
+					$customer->setMobileNumber($loginData['is_contracts_subscribed']);
+					
+					$customer->setAddresses(null);
 
                     $storeId = $this->storeManager->getWebsite($websiteId)->getDefaultStore()->getId();
                     $customer->setStoreId($storeId);
@@ -127,24 +109,49 @@ use Magento\Newsletter\Model\SubscriberFactory;
                         $customer->sendNewAccountEmail();
                     }catch (\Exception $e) {
                         $message = array('valid' => 0,'message'=> $e->getMessage());
-                    }
-                    if($customer->getId() != ''){				
+					}
+					if($customer->getId() != ''){				
                         // Load customer
-                        $customercreate = $this->customer->load($customer->getId()); //2 is Customer ID
+                        $customercreate = $this->customer->load($customer->getId()); 
                         $customercreate->setWebsiteId($websiteId);				
                         // Load customer session				
                         $this->customersession->setCustomerAsLoggedIn($customercreate);
                         if ($this->getRequest()->getParam('is_subscribed', false)) {
                         $this->subscriberFactory->create()->subscribeCustomerById($customer->getId());
-                        }
+						
+						
+			$addresss = $objectManager->get('\Magento\Customer\Model\AddressFactory');
+            $address = $addresss->create();
+
+            $address->setCustomerId($customer->getId())
+                ->setFirstname($loginData['firstname'])
+                ->setLastname($loginData['lastname'])
+                ->setCountryId('PA')
+				->setRegion($loginData['Province_val'])
+                ->setPostcode($loginData['Zone_Barrio_val'])
+                ->setCity($loginData['District_val'])
+                ->setTelephone($loginData['mobile_number'])
+				->setDirectionIndications($loginData['Direction_indications'])
+				->setAlternateMobileNumber($loginData['alt_mobile'])
+                ->setStreet(array($loginData['Address']))
+				->setIsDefaultBilling('1')
+                ->setIsDefaultShipping('1')
+                ->setSaveInAddressBook('1');
+
+            try{
+                $address->save();		
+                }catch (\Exception $e) {
+                        $message = array('valid' => 0,'message'=> $e->getMessage());
+						
+					}	
+                }
                        
                         $message = array('valid' => 1,'message'=> 'Account created successfully');
                     }else{
                         $message = array('valid' => 0,'message'=> 'Something went wrong');
                     }
                 } 
-            }
-        }
+           
         $resultJson = $this->resultJsonFactory->create();
 	    return $resultJson->setData($message);
     }

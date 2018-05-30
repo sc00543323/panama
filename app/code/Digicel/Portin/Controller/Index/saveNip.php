@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
  
-namespace Digicel\Login\Controller\Login;
+namespace Digicel\Portin\Controller\Index;
  
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Framework\App\ObjectManager;
@@ -18,7 +18,7 @@ use Digicel\Login\Model\Data;
  * @method \Magento\Framework\App\Response\Http getResponse()
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Login extends \Magento\Framework\App\Action\Action
+class saveNip extends \Magento\Framework\App\Action\Action
 {
  
     /**
@@ -36,7 +36,9 @@ class Login extends \Magento\Framework\App\Action\Action
      */
     protected $resultRawFactory;
 	protected $modelFactory;
-	
+	protected $customer;
+	protected $customerSession;
+	protected $_customerRepositoryInterface;
  
  
     /**
@@ -53,23 +55,45 @@ class Login extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Json\Helper\Data $helper,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+		\Magento\Customer\Model\Customer $customer,
         \Magento\Framework\Controller\Result\RawFactory $resultRawFactory,
+		\Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+		\Magento\Customer\Model\Session $customerSession,
 		 Data $modelFactory
     ) {
         parent::__construct($context);
         $this->helper = $helper;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->resultRawFactory = $resultRawFactory;
+		$this->customer	= $customer;
+		$this->_customerRepositoryInterface = $customerRepositoryInterface;
+		$this->customerSession = $customerSession;
 		$this->modelFactory = $modelFactory;
     }
     public function execute()
     {
-		$layout = $this->_view->getLayout();
 		
-        $html = $layout->createBlock(\Magento\Customer\Block\Form\Register::class)->setTemplate('Magento_Customer::form/checkoutregister.phtml')->toHtml();
+		$loginData = $this->getRequest()->getPostValue();
+		
+		$customerId = $this->customerSession->getId();
+		if($customerId) {
+		
+		$customer = $this->_customerRepositoryInterface->getById($customerId);
+					$customer->setCustomAttribute('nip_number',$loginData['nipNumber']);
+					
+		try{
+			$this->_customerRepositoryInterface->save($customer);
+		}catch (\Exception $e) {
+			$message = array('valid' => 0,'message'=> $e->getMessage());
+		}
+		
+		$message = array('valid' => 1,'message'=> 'Account created successfully');
+		} else {
+			$message = array('valid' => 0,'message'=> 'Something went wrong');
+		}
+		
 		$resultJson = $this->resultJsonFactory->create();
-		//return $resultJson->setData($data);
-		return $resultJson->setData(['html' => $html]);
+	    return $resultJson->setData($message);
     }
 	public function getDistric(){
 		return $sampleCollection = $this->modelFactory->getCollection();
