@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Panama_Handset::parent" title="Handset" module="Panama_Handset" sortOrder="10" resource="Panama_Handset::parent"/>
+        <add id="Panama_Handset::handset" title="Handset" module="Panama_Handset" sortOrder="20" parent="Panama_Handset::parent" action="handset/handset" resource="Panama_Handset::handset"/>
+    </menu>
+</config>
