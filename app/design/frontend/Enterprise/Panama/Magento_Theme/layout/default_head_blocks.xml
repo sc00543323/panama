@@ -13,10 +13,10 @@
 
         <css src="Magento_Theme::css/jquery.bxslider.css"/>
                  
-         <remove src="css/styles-m.css" />
+<!--         <remove src="css/styles-m.css" />
         <remove src="css/styles-l.css" />
        <remove src="css/styles.css" />
-        <remove src="css/print.css" />
+        <remove src="css/print.css" />-->
                 
 
     </head>
