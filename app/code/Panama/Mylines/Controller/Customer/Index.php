@@ -11,7 +11,7 @@ protected $customerSession;
  array $data = []) 
  {       
 		$this->_customerSession =$customerSession;
-		parent::__construct($context, $data);
+		parent::__construct($context);
     } 
    
  public function execute() { 

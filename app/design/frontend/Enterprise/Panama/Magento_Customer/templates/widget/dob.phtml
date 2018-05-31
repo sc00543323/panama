@@ -32,7 +32,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
  */
 ?>
 
-<style>
+<!--<style>
 #change-email
 {
 	display:none;
@@ -52,7 +52,7 @@ label[for="change-email"]
 {
 	display:none !important;
 }
-</style>
+</style>-->
 <?php
 
 $fieldCssClass = 'field date field-' . $block->getHtmlId();
@@ -68,33 +68,33 @@ if($customerSession->isLoggedIn()) {
     $customerid = $customerSession->getCustomer()->getId(); 
 	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customer = $objectManager->create('Magento\Customer\Model\Customer')->load($customerid);
-	 $custdob = $customer->getData('dob');
+	$custdob = $customer->getData('dob');
 ?>
 
 <div class="<?php /* @escapeNotVerified */ echo $fieldCssClass; ?>">
-    <label class="label" for="<?php //echo $block->getHtmlId()?>"><span><?php /* @escapeNotVerified */ //echo $block->getLabel() ?></span></label>
+    <label class="label" for="<?php echo $block->getHtmlId()?>"><span><?php /* @escapeNotVerified */ echo $block->getLabel() ?></span></label>
     <div class="control customer-dob">
-        <input type="text" value="<?php //echo $custdob; ?>" id="cust_dob" name="cust_dob" />
+        <input type="text" value="<?php echo $custdob; ?>" id="cust_dob" name="cust_dob" />
     </div>
 </div>
-<div id="testdob" class="<?php /* @escapeNotVerified */ //echo $fieldCssClass; ?>">
-<h5 class="Login_form_Txt pull-left"><?php /* @escapeNotVerified */ //echo $block->getLabel() ?>*</h5>
-   	<?php //echo $block->getFieldHtml(); ?>
-        <?php //if ($_message = $block->getAdditionalDescription()) : ?>
-            <div class="note"><?php /* @escapeNotVerified */ //echo $_message; ?></div>
-        <?php //endif; ?>
+<div id="testdob" class="<?php /* @escapeNotVerified */ echo $fieldCssClass; ?>">
+<h5 class="Login_form_Txt pull-left"><?php /* @escapeNotVerified */ echo $block->getLabel() ?>*</h5>
+   	<?php echo $block->getFieldHtml(); ?>
+        <?php if ($_message = $block->getAdditionalDescription()) : ?>
+            <div class="note"><?php /* @escapeNotVerified */ echo $_message; ?></div>
+        <?php endif; ?>
     
 </div>
 	 
-<?php //}else{ ?>
-<div class="<?php /* @escapeNotVerified */ //echo $fieldCssClass; ?>">
-<h5 class="Login_form_Txt pull-left"><?php /* @escapeNotVerified */ //echo $block->getLabel() ?>*</h5>
+<?php }else{ ?>
+<div class="<?php /* @escapeNotVerified */ echo $fieldCssClass; ?>">
+<h5 class="Login_form_Txt pull-left"><?php /* @escapeNotVerified */ echo $block->getLabel() ?>*</h5>
   
     <div class="control customer-dob">
-        <?php //echo $block->getFieldHtml(); ?>
-        <?php //if ($_message = $block->getAdditionalDescription()) : ?>
-            <div class="note"><?php /* @escapeNotVerified */ //echo $_message; ?></div>
-        <?php //endif; ?>
+        <?php echo $block->getFieldHtml(); ?>
+        <?php if ($_message = $block->getAdditionalDescription()) : ?>
+            <div class="note"><?php /* @escapeNotVerified */ echo $_message; ?></div>
+        <?php endif; ?>
     </div>
 </div>
 <?php  } ?>

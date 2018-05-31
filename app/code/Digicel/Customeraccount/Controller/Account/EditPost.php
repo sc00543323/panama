@@ -146,13 +146,15 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
      */
     public function execute()
     {
-	    //$dob = $this->getRequest()->getParam('dob');
+		
         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+		$data = $this->getRequest()->getParams();
         $resultRedirect = $this->resultRedirectFactory->create();
         $validFormKey = $this->formKeyValidator->validate($this->getRequest());
 		/** added optIn/optOut functionality started */
 		$countorders  = $this->getCustomerOrders();
-	
+		$mobile_number = $this->getMobileNumber();
+		
         if ($validFormKey && $this->getRequest()->isPost()) {
             $currentCustomerDataObject = $this->getCustomerDataObject($this->session->getCustomerId());
             $customerCandidateDataObject = $this->populateNewCustomerDataObject(
@@ -166,7 +168,6 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 				if( $this->getRequest()->getParam('dob') == '')
 				{
 				
-					//$date=
 					$this->session->setCustomerFormData($this->getRequest()->getPostValue());
 					$this->messageManager->addError('Date of Birth is Required');  
 					$this->_redirect('*/*/edit',['_secure' => true]);
@@ -174,7 +175,7 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 				}
 				$dobval = $this->getRequest()->getParam('dob');
 				$dobval = str_replace('/', '-', $dobval);
-				$dobval=date('Y-m-d',strtotime($dobval));
+				$dobval = date('m-d-Y',strtotime($dobval));
 				$diff = (date('Y') - date('Y',strtotime($dobval)));		
 				$storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;		
 				$dobconfigvalue = $this->scopeConfig->getValue('digicel_account/dobsettings/dobvalue', $storeScope);
@@ -199,9 +200,21 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
             try {
                 // whether a customer enabled change email option
                 $this->processChangeEmailRequest($currentCustomerDataObject);
-				//echo $dobval;die;
+				
+				$cedulla = $this->getRequest()->getParam('cedulla');
+				$passport = $this->getRequest()->getParam('passport');
+				$mobile = $this->getRequest()->getParam('mobile_number');
 				if($dobval !=''){
                 $customerCandidateDataObject->setDob($dobval);
+				}
+				if($cedulla !=''){
+                $customerCandidateDataObject->setData('cedulla',$cedulla);
+				}
+				if($passport !=''){
+                $customerCandidateDataObject->setData('passport',$passport);
+				}
+				if($mobile !=''){
+                $customerCandidateDataObject->setData('mobile_number',$mobile);
 				}
                 // whether a customer enabled change password option
                 $isPasswordChanged = $this->changeCustomerPassword($currentCustomerDataObject->getEmail());
@@ -248,6 +261,16 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 		$customer_id = $this->session->getCustomerId();
 		$orders = $this->_orderModel->getCollection()->addAttributeToFilter('customer_id', $customer_id);
 		return count($orders);
+	}
+	
+	public function getMobileNumber()
+	{
+		$customer_id = $this->session->getCustomerId();
+		$dataCollection = $this->_orderModel->getCollection()->addAttributeToFilter('customer_id', $customer_id);
+		foreach($dataCollection as $data){
+			$mobile = $data['mobile_number'];
+		}
+		return $mobile;
 	}
 
     /**
@@ -389,7 +412,7 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 		($this->getRequest()->getParam('firstname') && ($customer->getFirstname() != $this->getRequest()->getParam('firstname'))) || 
 		($this->getRequest()->getParam('lastname') && ($customer->getLastname() != $this->getRequest()->getParam('lastname')))	||
 		($diff != 0) || $prefixchanged == 'yes' || 
-		( $customer->getCustomAttribute('mobile_number')->getValue() != $this->getRequest()->getParam('mobile_number')) || 
+		($customer->getCustomAttribute('mobile_number')->getValue() != $this->getRequest()->getParam('mobile_number')) || 
 		($isPasswordChanged == 1) || 
 		($this->getRequest()->getParam('email') && ($customer->getEmail() != $this->getRequest()->getParam('email')))
 		)

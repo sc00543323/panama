@@ -46,15 +46,7 @@
         <?php if ($_gender->isEnabled()): ?>
             <?php echo $_gender->setGender($block->getFormData()->getGender())->toHtml() ?>
         <?php endif ?>
-			<div class="field required">
-                <label for="dob" class="label"><span><?php /* @escapeNotVerified */ echo __('Date of Birth') ?></span></label>
-                <div class="control">
-                    <input class="input-text" type="text" name="dob" style="width: 120px"
-					data-validate="{required:true}"
-					data-bind="attr: {'id': getCode() + '-dob'}, value: dob, datepicker: { storage: dob, options: {'dateFormat': 'dd/mm/yy'} }"/>
-                </div>
-            </div>
-		<div class="mage-error" generated="true" style="display: none;" data-bind="attr: {'id': getCode() + '-dob-error'}"></div>
+
     </fieldset>
     <?php if ($block->getShowAddressFields()): ?>
         <fieldset class="fieldset address">

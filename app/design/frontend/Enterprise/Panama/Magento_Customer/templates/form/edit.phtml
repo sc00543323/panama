@@ -9,11 +9,14 @@
 /** @var \Magento\Customer\Block\Form\Edit $block */
 ?>
 <?php
+ 
 if($block->getCustomer()->getCustomAttribute('mobile_number')){
-    $mobile=$block->getCustomer()->getCustomAttribute('mobile_number')->getValue();
+    $mobile = $block->getCustomer()->getCustomAttribute('mobile_number')->getValue();
 }else{
     $mobile='';
 }
+
+
 if($block->getCustomer()->getCustomAttribute('mobile_prefix')){
     $mprefix = $block->getCustomer()->getCustomAttribute('mobile_prefix')->getValue();
 }else{
@@ -21,7 +24,8 @@ if($block->getCustomer()->getCustomAttribute('mobile_prefix')){
 }
 
 if($block->getCustomer()->getCustomAttribute('cedulla')){
-    $cedulla=$block->getCustomer()->getCustomAttribute('cedulla')->getValue();
+    $cedulla = $block->getCustomer()->getCustomAttribute('cedulla')->getValue();
+	
 }else{
     $cedulla='';
 }
@@ -30,6 +34,12 @@ if($block->getCustomer()->getCustomAttribute('passport')){
     $passport=$block->getCustomer()->getCustomAttribute('passport')->getValue();
 }else{
     $passport='';
+}
+
+if($block->getCustomer()->getCustomAttribute('dob')){
+    $dob=$block->getCustomer()->getCustomAttribute('dob')->getValue();
+}else{
+    $dob='';
 }
 
 ?>
@@ -43,13 +53,13 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 		<div class="clearfix"></div>
 		</div>
 		<div class="item">
-			<!--<div class="form-left">
-				<?php //$_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+			<div class="form-left">
+				<?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
 				<?php //$newsletterblock = $block->getLayout()->createBlock('Digicel\Customeraccount\Block\Customer\Newsletter') ?>
-				<?php //if ($_dob->isEnabled()): ?>
-					<?php //echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
-				<?php //endif ?>
-			</div>-->
+				<?php if ($_dob->isEnabled()): ?>
+					<?php echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+				<?php endif ?>
+			</div>
 			<div class="form-right">
 				<?php
 				$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -57,18 +67,9 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 				$attribute = $eavConfig->getAttribute('customer', 'mobile_prefix');
 				$options = $attribute->getSource()->getAllOptions();
 				?>
-				<div class="field required">
-					<label for="dob" class="label"><span><?php /* @escapeNotVerified */ echo __('Date of Birth') ?></span></label>
-					<div class="control">
-						<input class="input-text" type="text" name="dob" style="width: 120px"
-						data-validate="{required:true}"
-						data-bind="attr: {'id': getCode() + '-dob'}, value: dob, datepicker: { storage: dob, options: {'dateFormat': 'dd/mm/yy'} }" value="DD-MM-YYYY"/>
-					</div>
-					<!--<button onclick="dateFunction()"><img src="<?php echo $this->getViewFileUrl('images/dob.png'); ?>"></button>-->
-				</div>
 				
 				<div class="field field-name-mobile required">
-				<?php //echo 'prefix--'. $block->getCustomer()->getData('mobile_prefix');?>
+				
 					<label class="label" for="mobile">
 						<span><?php echo $block->escapeHtml(__('Mobile Number')) ?></span>
 					</label>
@@ -82,9 +83,7 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 						<?php if($_option['value'] != ''){
 
 						?>
-						<!--<option value="<?php /* @escapeNotVerified */ //echo $_option['label']; ?> <?php //if($mprefix == $_option['label'] ) { ?>  selected='selected' <?php //} ?>">
-							<?php /* @escapeNotVerified */ //echo __($_option['label']) ?>
-						</option>-->
+						
 						<option value="<?php /* @escapeNotVerified */ echo $_option['label'] ?>" <?php if ($mprefix == $_option['label']): ?> selected="selected"<?php endif; ?>>
 						 <?php /* @escapeNotVerified */ echo __($_option['label']) ?>
 						  </option>
@@ -124,7 +123,7 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 						<span><?php echo $block->escapeHtml(__('Cedulla')) ?></span>
 					</label>
 					<div class="control">
-						<input value="<?php echo $cedulla ;?>" id="cedulla"  disabled="true" type="text">
+						<input value="<?php echo $cedulla ;?>" id="cedulla" type="text" maxlength="20">
 					</div>
 				</div>
 			</div>
@@ -136,11 +135,81 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 						<span><?php echo $block->escapeHtml(__('Passport')) ?></span>
 					</label>
 					<div class="control">
-						<input value="<?php echo $passport;?>" id="passport"  disabled="true" type="text">
+						<input value="<?php echo $passport;?>" id="passport" type="text" maxlength="20">
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<div class="control">
+						<label><?php echo $block->escapeHtml(__('Personal ID')) ?></label>
+					</div>
+							<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+								$eavConfig = $objectManager->get('\Magento\Eav\Model\Config');
+								$cedulla = $eavConfig->getAttribute('customer', 'cedulla');
+								?>
+					<div class="field required">
+						<div class="control-">
+							<input type="button" value="Cedulla" onclick="myFunction()">
+						</div>
+					</div>
+					<div class="field required" id="sidecontainer" style="display:none">
+					<table style="width:100%">
+					  <tr>
+						<th class="field Province required"><label class="label"><?php echo __('Province') ?> </label></th>
+						<th class="field Letterss required"><label class="label"><?php echo __('Letterss') ?> </label></th> 
+						<th class="field I take required"><label class="label"><?php echo __('I take') ?> </label></th>
+						<th class="field Seat required"><label class="label"><?php echo __('Seat') ?> </label></th>
+						<th class="field Number required"><label class="label"><label class="label"><?php echo __('Number') ?> </label></th>
+					  </tr>
+					  <tr>
+					  		<td><div class="formitem">
+							<select name="province" id="state" class="input-text" data-validate="{required:true, 'validate-customer-province':true}">
+							  <option value="1">1</option>
+							  <option value="2">2</option>
+							  <option value="3">3</option>
+							  <option value="4">4</option>
+							  <option value="5">5</option>
+							  <option value="6">6</option>
+							  <option value="7">7</option>
+							  <option value="8">8</option>
+							  <option value="9">9</option>
+							  <option value="10">10</option>
+							  <option value="11">11</option>
+							  <option value="12">12</option>
+							  <option value="13">13</option>
+							</select>
+						</div></td>
+						<td><div class="formitem">
+							<select name="letters" id="city" class="input-text" data-validate="{required:true, 'validate-customer-letters':true}">
+							  <option value="PI">PI</option>
+							  <option value="AV">AV</option>
+							  <option value="E">E</option>
+							  <option value="N">N</option>
+							  <option value="PE">PE</option>
+							  <option value="P">P</option>
+							</select>
+						</div></td> 
+						<td><div class="formitem">
+							<input type="text" maxlength="6" autocomplete="u1"  name="itake" title="<?php echo __('I Take') ?>" id="street" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+						</div></td>
+						<td><div class="formitem">
+							<input type="text" maxlength="6" autocomplete="u1"  name="seat" title="<?php echo __('Seat') ?>" id="zip" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+						</div></td>
+						<td><div class="formitem">
+							<input type="text" maxlength="6" autocomplete="u1"  name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+						</div></td>
+					  </tr>
+					</table>
+					</div>
+					<label class="Login_form_Txt pull-left"><?php echo __('OR') ?></label></br>
+					<div class="field required">
+						<label class="Login_form_Txt pull-left"><?php echo __('Passport') ?> </label>
+						<div class="control-">
+							<input type="text" maxlength="10" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, equalTo:'#passport'}" autocomplete="off">
+						</div>
+					</div>
+		
 		<div class="item check-pass-change">
 			<div class="field choice">
 			   <label class="label pull-left" for="change-password" style="line-height:20px;"><span> <input type="checkbox" name="change_password" id="change-password" data-role="change-password" value="1" title="<?php echo __('Change Password') ?>"<?php if ($block->getChangePassword()): ?> checked="checked"<?php endif; ?> class="pull-left checkbox" style="margin-right:3px;"/>
@@ -193,24 +262,7 @@ if($block->getCustomer()->getCustomAttribute('passport')){
         </div>
         <?php echo $block->getChildHtml('form_additional_info'); ?>
     </div>
-	<?php //if ($newsletterblock->isNewsletterEnabled()): ?>
-		    <!--<div class="field choice newsletter">
-                <h5 class="Login_form_Txt pull-left"><label for="is_subscribed" class="label subscribe"> 
-				<input type="checkbox" name="is_subscribed" title="<?php //echo __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed" <?php //if ($newsletterblock->getIsSubscribed()): ?> checked="checked" <?php //endif; ?> class="pull-left checkbox">
-               <span><?php //echo $newsletterblock->escapeHtml(__('Send information from SailFish')) ?></span></label></h5>
-			 
-            </div>
-			 <div class="field choice clearfix">
-                <h5 class="Login_form_Txt pull-left" style="margin:1px 0;"><label for="is_partner_subscribed" class="label subscribe"> 
-				<input type="checkbox" name="is_partner_subscribed" title="" value="1" id="is_partner_subscribed"<?php //if ($newsletterblock->getIsPartnerSubscribed()): ?> checked="checked"<?php //endif; ?> class="pull-left checkbox">
-              
-			   <span><?php //echo $newsletterblock->escapeHtml(__('Send information from other partners')) ?></span></label></h5>
-            </div>-->
-            <?php /* Extensions placeholder */ ?>
-            <?php //echo $newsletterblock->getChildHtml('customer.form.register.newsletter')?>
-		
-    <?php// endif ?>
-	
+
 	<div class="shipping-div">
 		<table style="height: 134px;" width="700" border="0">
 			<tbody>
@@ -357,14 +409,51 @@ if($block->getCustomer()->getCustomAttribute('passport')){
 <style type="text/css">
 label.subscribe span{margin-left: 4px;}
 </style>
+
+<style>
+ #sidecontainer div {
+  display: inline;
+  margin: 0 1em 0 1em;
+  width: 10%;
+}
+</style>
+
 <script>
-function dateFunction() {
-    var x = document.createElement("INPUT");
-    x.setAttribute("type", "date");
-    x.setAttribute("value", "2014-02-09");
-    document.body.appendChild(x);
+ function myFunction() {
+    var x = document.getElementById("sidecontainer");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
 }
 </script>
+
+<script type="text/javascript">
+    function generateFullName()
+    {
+			document.getElementById('cedulla').innerText = generateFullName;
+            document.getElementById('state').value + ' ' + 
+			document.getElementById('city').value + ' ' + 
+			document.getElementById('street').value + ' ' + 
+			document.getElementById('zip').value + ' ' + 
+            //document.getElementById("number").value = generateFullName;
+			
+    }
+</script>
+<script>
+require([ 'jquery', 'jquery/ui'], function($){ 
+      $('#state,#city,#street,#zip').bind('keypress blur', function() {    
+		$('#latlongaddress').val($('#state').val() + '' +
+                             $('#city').val() + '' +
+                             $('#street').val() + '' +
+                             $('#zip').val() );
+
+      });
+ });
+</script>
+
+
 <script>
     require([
         "jquery",
@@ -398,6 +487,7 @@ function dateFunction() {
     });
     });
 </script>
+
 <script type="text/javascript">
 function isNumberKey(evt)
       {
@@ -422,6 +512,7 @@ function isNumberKey(evt)
         }
     }
 </script>
+
 <script type="text/javascript">
 require([
 'jquery', // jquery Library
