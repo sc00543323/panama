@@ -71,6 +71,16 @@ class InstallData implements InstallDataInterface
             'position' =>988,
             'system' => 0,
         ]);
+		$customerSetup->addAttribute(Customer::ENTITY, 'mobile_number', [
+            'type' => 'varchar',
+            'label' => 'Mobile Number',
+            'input' => 'text',
+            'required' => true,
+            'visible' => true,
+            'user_defined' => true,
+            'position' =>998,
+            'system' => 0,
+        ]);
 
         $attribute = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, 'cedulla')
         ->addData([
@@ -82,6 +92,13 @@ class InstallData implements InstallDataInterface
 		$attribute->save();
 		
 		$attribute = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, 'passport')
+        ->addData([
+            'attribute_set_id' => $attributeSetId,
+            'attribute_group_id' => $attributeGroupId,
+            'used_in_forms' => ['adminhtml_customer', 'customer_account_create', 'customer_account_edit']
+        ]);
+		
+		$attribute = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, 'mobile_number')
         ->addData([
             'attribute_set_id' => $attributeSetId,
             'attribute_group_id' => $attributeGroupId,
