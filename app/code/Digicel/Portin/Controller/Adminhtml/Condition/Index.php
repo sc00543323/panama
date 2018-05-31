@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright © 2015 Orangecommerce. All rights reserved.
+ * Copyright © 2015 panama commerce. All rights reserved.
  */
 namespace Digicel\Portin\Controller\Adminhtml\Condition;
 
