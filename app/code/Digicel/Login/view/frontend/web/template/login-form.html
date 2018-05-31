@@ -24,11 +24,10 @@
 		
 		
 		<div id="checkout-step-title"  class="step-content"   data-role="content">	   
-	  <h3>Login</h3>
-    <div id="loginPage" class="login login-block">
+	<div id="loginPage" class="login login-block">
 	    <div class="login-error message message-error error" style="display:none";><span data-bind="i18n: 'Invalid login or password.'"></span></div>
 	    <br />
-		<div class="clearfix col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+		<div class="">
 			<form data-bind="submit: onSubmit" data-mage-init='{"validation":{}}' autocomplete="off">
 				<div class="field field-email required">
 					<label for="ck_login-email"><span data-bind="i18n: 'Username / Email ID'"></span></label>
@@ -63,7 +62,7 @@
 	
 	<div class="checkout-register" style="display:none">
       <section id="checkout-createAccount" class="clearfix  checkout-createAccount">	
-      <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+      <div class="">
 	  <div class="register-error message message-error error" style="display:none;clear:both;"></div>
         <form class="form create account form-create-account" action="#" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
 		<div id="signUp" class="register-block"></div>			

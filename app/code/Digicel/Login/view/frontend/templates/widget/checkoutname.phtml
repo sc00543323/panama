@@ -51,12 +51,12 @@ $customer = $objectManager->create('Magento\Customer\Model\Customer')->load($cus
 	{ ?>
 		<div>
 			<div>
-				<div class="col-md-10 col-sm-10 col-xs-9 pr0">
+				<div class="">
 					<label class="Login_form_Txt pull-left"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $block->escapeHtml(__('First Name *')) ?></font></font></label>
 				</div>
 			</div>
-			<div class="cleasrfix col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
-				<div class="col-md-10 col-sm-10 col-xs-9 pr0">
+			<div class="">
+				<div class="">
 				  <input type="text" placeholder="" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname') ?>"
                        name="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname') ?>"
                        value="<?php echo $block->escapeHtml($block->getObject()->getFirstname()) ?>"
@@ -66,7 +66,7 @@ $customer = $objectManager->create('Magento\Customer\Model\Customer')->load($cus
 				</div>
 			</div>
 		</div>	
-		<div class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+		<div class="">
 				<label for="lastName"><?php echo $block->escapeHtml(__('Last Name *')) ?></label>
 				<div class="control">
 					<input type="text" placeholder="" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname') ?>"
