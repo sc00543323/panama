@@ -153,7 +153,6 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
         $validFormKey = $this->formKeyValidator->validate($this->getRequest());
 		/** added optIn/optOut functionality started */
 		$countorders  = $this->getCustomerOrders();
-		$mobile_number = $this->getMobileNumber();
 		
         if ($validFormKey && $this->getRequest()->isPost()) {
             $currentCustomerDataObject = $this->getCustomerDataObject($this->session->getCustomerId());
@@ -263,15 +262,6 @@ class EditPost extends \Magento\Customer\Controller\AbstractAccount
 		return count($orders);
 	}
 	
-	public function getMobileNumber()
-	{
-		$customer_id = $this->session->getCustomerId();
-		$dataCollection = $this->_orderModel->getCollection()->addAttributeToFilter('customer_id', $customer_id);
-		foreach($dataCollection as $data){
-			$mobile = $data['mobile_number'];
-		}
-		return $mobile;
-	}
 
     /**
      * Account editing action completed successfully event
