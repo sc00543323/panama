@@ -26,7 +26,10 @@ define([
     'Magento_Checkout/js/checkout-data',
     'uiRegistry',
     'mage/translate',
-    'Magento_Checkout/js/model/shipping-rate-service'
+	'mage/url',
+	'Magento_Checkout/js/model/full-screen-loader',
+    'Magento_Checkout/js/model/shipping-rate-service',
+	
 ], function (
     $,
     _,
@@ -49,11 +52,15 @@ define([
     checkoutDataResolver,
     checkoutData,
     registry,
-    $t
+    $t,
+	urlBuilder,
+	fullScreenLoader,
+	
 ) {
     'use strict';
 
     var popUp = null;
+	var dateTimeObservableArray = ko.observableArray();
 
     return Component.extend({
         defaults: {
@@ -79,7 +86,8 @@ define([
                 hasNewAddress,
                 fieldsetName = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
 
-            this._super();
+            this.isVisible = ko.observable(false);
+			this._super();
 
             if (!quote.isVirtual()) {
                 stepNavigator.registerStep(
@@ -135,6 +143,94 @@ define([
         navigate: function () {
             //load data from server for shipping step
         },
+		
+		getAddress: function () {
+			var urlPost = urlBuilder.build('logincheckout/login/Checkoutaddress');
+			var data = null;
+			$.ajax({
+						dataType: 'json',
+						url: urlPost,
+						async: false,
+						type: 'post',
+						success: function(result)
+						{	
+							data = result.html;
+						}
+					}); 
+				return data;
+		},
+		saveAddress:function(registerForm){
+				//alert('data');
+				var registerData = {},
+                formDataArray = $('#form-validate').serializeArray();
+                formDataArray.forEach(function (entry) {
+                    registerData[entry.name] = entry.value;
+                });
+	
+                if ($('#form-validate').validation() &&
+                    $('#form-validate').validation('isValid')
+                ) {
+					fullScreenLoader.startLoader();
+					var urlPost = urlBuilder.build('logincheckout/login/Saveaddress');
+					$.ajax({
+                            dataType: 'json',
+                            url: urlPost,
+							async: false,
+                            type: 'post',
+							data:registerData,
+                            success: function(result){
+								fullScreenLoader.stopLoader();
+								setShippingInformationAction().done(
+								function () {
+									stepNavigator.next();
+								});												
+							    return true;
+                            },
+                            error: function(){
+								fullScreenLoader.stopLoader();
+                                return false;
+                            }
+                        }); 
+				
+				  }
+			},
+			
+		selectButton: function () {
+            var city = $("[name='city']").val();
+			var address = $("[name='street[0]']").val();
+			var dateTime_data = {city: city, address: address};
+			var checkout = window.checkout;
+			$.ajax({
+				url: checkout.baseUrl+'checkout/calculate/delivery',
+				dataType: 'json',
+				showLoader: true,
+				type: 'post',
+				data: dateTime_data,
+				success: function (data) {
+					var result_id = data[0].ResultId;
+					var result_message = data[0].ResultMessage;
+					var delivery_array = data[0].DeliveryDateRangeList;
+					if(result_id == 1) {
+						for (var i=0;i<delivery_array.length;++i) {
+							dateTimeObservableArray.push.apply(dateTimeObservableArray, [{ delivery_time: delivery_array[i]._jornada, start_time: delivery_array[i]._horaInicioEntrega }]);
+						}
+					} else {
+						$(".time_div").html("something went wrong!");
+					}
+				}
+			});
+            $(".time_date_div").toggle();
+        },
+		
+		time: function () {
+			var time = $('input[name=time]:checked').val();			
+			var date = $(".date_div p").html();
+			$("#delivery_date_time").val(date+' '+time);			
+			$("[name='custom_attributes[delivery_date_time]']").val(date+' '+time);
+        },
+		getDateTimeObservableArray: function () {
+                return dateTimeObservableArray;
+            },
 
         /**
          * @return {*}

@@ -10,7 +10,6 @@ class GetPortin extends \Magento\Framework\App\Action\Action {
 	protected $resultPageFactory;
 	protected $_scopeConfig;
 	
-	
     public function __construct(
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
@@ -25,7 +24,7 @@ class GetPortin extends \Magento\Framework\App\Action\Action {
 
     public function execute() { 
     
-		$portin =  $this->_scopeConfig->getValue('terms_and_condition/file_upload/portin', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);	
+		$portin =  $this->_scopeConfig->getValue('mageplaza_helloworld_section/file_upload/portin', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);	
 		echo $filename = 'pub/media/test/'.$portin;
 		die;
 		
