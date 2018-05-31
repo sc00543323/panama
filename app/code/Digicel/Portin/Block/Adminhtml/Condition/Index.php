@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2015 Orange . All rights reserved.
+ * Copyright © 2015 Panama . All rights reserved.
  */
 namespace Digicel\Portin\Block\Adminhtml\Condition;
 class Index extends \Magento\Framework\View\Element\Template
@@ -8,8 +8,7 @@ class Index extends \Magento\Framework\View\Element\Template
     protected $_storeManager;  
     
     public function __construct(
-    \Magento\Framework\View\Element\Template\Context $context,
-    \Orange\Upload\Helper\Data $helper
+    \Magento\Framework\View\Element\Template\Context $context
     ) {
           $this->_storeManager = $context->getStoreManager();      
         parent::__construct($context);
