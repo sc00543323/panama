@@ -251,92 +251,9 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
      */
     public function execute()
     {
-		
-	 //$data = $this->getRequest()->getParams();
-	// print_r($data);exit;
-	 $mob = $this->getRequest()->getParam('mobile_number');
+	
 	 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 	 $resultRedirect = $this->resultRedirectFactory->create();
-	 
-	  /*Logic for internal blacklist check*/
-	  //Email internal blacklist check
-		/*$emailCollection = $objectManager->create('\Techm\Blacklist\Model\ResourceModel\Customer\Collection');
-		$emailCollection->addFieldToFilter('Email', ['eq' => $this->getRequest()->getParam('email')]);
-		if(count($emailCollection) > 0){
-			$this->messageManager->addError(__('You\'re email address in blacklist'));  
-			//$url = $this->urlModel->getUrl('create', ['_secure' => true]);
-            $resultRedirect->setUrl($this->_redirect->error($url));
-			return $resultRedirect;
-			
-		}*/
-		//Fn+Ln+Dob internal blacklist check
-		//$data = $this->getRequest()->getParams();
-		//print_r($data);exit;
-		/*
-		$todayDate = date("Y-m-d");
-		$nameExplode = explode('/',$this->getRequest()->getParam('dob'));		
-		$nameDob = '%'.$nameExplode[2].'-'.$nameExplode[1].'-'.$nameExplode[0].'%';
-		$nameCollection = $objectManager->create('\Techm\Blacklist\Model\ResourceModel\Customer\Collection');
-		$nameCollection->addFieldToFilter('firstname', ['eq' => $this->getRequest()->getParam('firstname')])
-									 ->addFieldToFilter('lastname', ['eq' => $this->getRequest()->getParam('lastname')])
-									 ->addFieldToFilter('dob', array('like' => $nameDob))
-									 ->addFieldToFilter('removed_from_blacklist', ['gteq' => $todayDate]);
-		if(count($nameCollection) > 0){
-			$this->messageManager->addError(__('You\'re firstname ,lastname and dob in blacklist'));  
-			$url = $this->urlModel->getUrl(**create', ['_secure' => true]);
-            $resultRedirect->setUrl($this->_redirect->error($url));
-			return $resultRedirect;
-			
-		}
-		$IpCollection = $objectManager->create('\Techm\Blacklist\Model\ResourceModel\Customer\Collection');
-		$IpCollection->addFieldToFilter('ipaddress', ['eq' => $this->getIp()])
-					 ->addFieldToFilter('removed_from_blacklist', ['gteq' => $todayDate]);
-		if(count($IpCollection) > 0){
-			$this->messageManager->addError(__('You\'re ip address in blacklist'));  
-			$url = $this->urlModel->getUrl('*create', ['_secure' => true]);
-            $resultRedirect->setUrl($this->_redirect->error($url));
-			return $resultRedirect;
-		}   		
-	  /*endLogic for internal blacklist check*/
-	 
-	 //partner Subscription*/
-	  
-	  
-        /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect *
-		if($this->getRequest()->getParam('dob') == '')
-			 {
-				$sand = $this->getRequest()->getPostValue();				
-				$this->session->setCustomerFormData($this->getRequest()->getPostValue());		
-				$this->messageManager->addError(__('The Date of Birth is required.'));  
-				$this->_redirect('customer/account/create',['_secure' => true]);
-                return;
-			 }
-			 
-			 //code
-			 $dobval = $this->getRequest()->getParam('dob');
-			 $dobval = str_replace('/', '-', $dobval);
-		     $dobval=date('Y-m-d',strtotime($dobval));
-			 $diff = (date('Y') - date('Y',strtotime($dobval)));
-			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-			$storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-			$this->_scopeConfig = $objectManager->create('\Magento\Framework\App\Config\ScopeConfigInterface');
-            $dobconfigvalue = $this->_scopeConfig->getValue('digicel_account/dobsettings/dobvalue', $storeScope);		
-			
-			if($diff <= $dobconfigvalue)
-			 {
-				 
-				   $cust = $this->getRequest()->getPostValue();		 
-				   $this->session->setCustomerFormData($this->getRequest()->getPostValue());
-				 
-				  $message = __('Your DateOfBirth must be greater than %1 years.',$dobconfigvalue); 
-				
-				$this->messageManager->addError($message);  
-				$this->_redirect('customer/account/create',['_secure' => true]);
-                return;				
-			 }
-			
-			//code*/
-			 
 			 
         if ($this->session->isLoggedIn() || !$this->registration->isAllowed()) {
             $resultRedirect->setPath('*/*/');
@@ -359,13 +276,14 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             $customer = $this->customerExtractor->extract('customer_account_create', $this->_request);
 			$cedulla = $this->getRequest()->getParam('cedulla');
 			$passport = $this->getRequest()->getParam('passport');
+			$mobprefix = $this->getRequest()->getParam('mobile_prefix');
 			$mob = $this->getRequest()->getParam('mobile_number');
 			$todayDate = date("Y-m-d");
 			$dobValue = $this->getRequest()->getParam('dob');
-			//print_r($dobExplode);exit;
-            //$customer->setDob($dobval);
+	
 			$customer->setData('cedulla',$cedulla);
 			$customer->setData('passport',$passport);
+			$customer->setData('mobile_prefix',$mobprefix);
 			$customer->setData('mobile_number',$mob);
 			$customer->setData('dob',$dobValue);
 			$password = $this->getRequest()->getParam('password');
@@ -377,12 +295,11 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
 
             $customer = $this->accountManagement
                 ->createAccount($customer, $password, $cedulla, $passport, $mob, $dobValue, $redirectUrl);
-				
             $this->_eventManager->dispatch(
                 'customer_register_success',
                 ['account_controller' => $this, 'customer' => $customer]
             );
-
+			
             $confirmationStatus = $this->accountManagement->getConfirmationStatus($customer->getId());
             if ($confirmationStatus === AccountManagementInterface::ACCOUNT_CONFIRMATION_REQUIRED) {
                 $email = $this->customerUrl->getEmailConfirmationUrl($customer->getEmail());
@@ -450,18 +367,14 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             $this->messageManager->addException($e, __('We can\'t save the customer.'));
         }
 
-		$cust = $this->getRequest()->getPostValue();		
+			$cust = $this->getRequest()->getPostValue();		
 			
 				$cust['lastname'] = $cust['lastname'];
                 $cust['firstname'] = $cust['firstname'];
-				$cust['cedulla'] = $cust['cedulla'];
-				$cust['passport'] = $cust['passport'];
-				$cust['mobile_number'] = $cust['mobile_number'];
-				//$cust['dob'] = $cust['dob'];
+				//$cust['cedulla'] = $cust['cedulla'];
+				//$cust['passport'] = $cust['passport'];
+				//$cust['mobile_number'] = $cust['mobile_number'];
 				
-				//$time = strtotime($cust['dob']);
-				//$newformat = date('d/m/Y',$time);
-				//$cust['dob'] = $newformat;
 				$this->session->setCustomerFormData($cust); 
 		
         $defaultUrl = $this->urlModel->getUrl('*/*/create', ['_secure' => true]);

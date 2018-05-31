@@ -1,0 +1,32 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd"> 
+<update handle="customer_account"/> 
+<body> 
+	
+    <referenceBlock name="page.main.title"> 
+            <action method="setPageTitle"> 
+                <argument translate="true" name="title" xsi:type="string">My Lines</argument> 
+            </action> 
+     </referenceBlock>
+	 <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Accueil</item>
+                    <item name="label" xsi:type="string">Accueil</item>
+                    <item name="link" xsi:type="string">/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">mylines-active</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">My Lines</item>
+                    <item name="label" xsi:type="string">My Lines</item>
+                </argument>
+            </action>
+        </referenceBlock>
+     <referenceContainer name="content"> 
+        <block class="Panama\Mylines\Block\Index\Index" name="my_lines" template="Panama_Mylines::mylines.phtml"> 
+        </block> 
+    </referenceContainer> 
+</body> 
+</page>

@@ -9,6 +9,7 @@ namespace Digicel\Login\Controller\Login;
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\LocalizedException;
+use Digicel\Login\Model\Data;
  
 /**
  * Login controller
@@ -34,6 +35,7 @@ class Login extends \Magento\Framework\App\Action\Action
      * @var \Magento\Framework\Controller\Result\RawFactory
      */
     protected $resultRawFactory;
+	protected $modelFactory;
 	
  
  
@@ -51,19 +53,25 @@ class Login extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Json\Helper\Data $helper,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
-        \Magento\Framework\Controller\Result\RawFactory $resultRawFactory
+        \Magento\Framework\Controller\Result\RawFactory $resultRawFactory,
+		 Data $modelFactory
     ) {
         parent::__construct($context);
         $this->helper = $helper;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->resultRawFactory = $resultRawFactory;
+		$this->modelFactory = $modelFactory;
     }
     public function execute()
     {
 		$layout = $this->_view->getLayout();
-		$html = $layout->createBlock(\Magento\Customer\Block\Form\Register::class)->setTemplate('Magento_Customer::form/register.phtml')->toHtml();
+		
+        $html = $layout->createBlock(\Magento\Customer\Block\Form\Register::class)->setTemplate('Magento_Customer::form/checkoutregister.phtml')->toHtml();
 		$resultJson = $this->resultJsonFactory->create();
 		//return $resultJson->setData($data);
 		return $resultJson->setData(['html' => $html]);
     }
+	public function getDistric(){
+		return $sampleCollection = $this->modelFactory->getCollection();
+	}
 }

@@ -1,0 +1,641 @@
+DistrictID,DistrictName,TownShipID,TownShipName,ProvinceID,ProvinceName
+18,Aguadulce,1,Aguadulce,2,Cocle
+18,Aguadulce,2,Barrios Unidos,2,Cocle
+18,Aguadulce,3,El Cristo,2,Cocle
+18,Aguadulce,4,El Roble,2,Cocle
+18,Aguadulce,5,Pocri,2,Cocle
+5,Alanje,6,Alanje,4,Chiriqui
+5,Alanje,7,Divala,4,Chiriqui
+5,Alanje,8,Canta Gallo,4,Chiriqui
+5,Alanje,9,El Tejar,4,Chiriqui
+5,Alanje,10,Guarumal,4,Chiriqui
+5,Alanje,11,Nuevo Mexico,4,Chiriqui
+5,Alanje,12,Querevalo,4,Chiriqui
+5,Alanje,13,Palo Grande,4,Chiriqui
+5,Alanje,14,Santo Tomas,4,Chiriqui
+19,Anton,15,Anton,2,Cocle
+19,Anton,16,Caballero,2,Cocle
+19,Anton,17,Cabuya,2,Cocle
+19,Anton,18,El Chiru,2,Cocle
+19,Anton,19,El Retiro,2,Cocle
+19,Anton,20,El Valle,2,Cocle
+19,Anton,21,Juan Diaz,2,Cocle
+19,Anton,22,Rio Hato,2,Cocle
+19,Anton,23,San Juan De Dios,2,Cocle
+19,Anton,24,Santa Rita,2,Cocle
+50,Arraijan,25,Arraijan,10,Panama Oeste
+50,Arraijan,26,Burunga,10,Panama Oeste
+50,Arraijan,27,Cerro Silvestre,10,Panama Oeste
+50,Arraijan,28,Juan Demostenes Arosemena,10,Panama Oeste
+50,Arraijan,29,Nuevo Emperador,10,Panama Oeste
+50,Arraijan,30,Santa Clara,10,Panama Oeste
+50,Arraijan,31,Veracruz,10,Panama Oeste
+50,Arraijan,32,Vista Alegre,10,Panama Oeste
+56,Atalaya,33,Atalaya,9,Veraguas
+56,Atalaya,34,El Barrito,9,Veraguas
+56,Atalaya,35,La Carrillo,9,Veraguas
+56,Atalaya,36,La Montanuela,9,Veraguas
+56,Atalaya,37,San Antonio,9,Veraguas
+45,Balboa,38,San Miguel,8,Panama
+45,Balboa,39,La Ensenada,8,Panama
+45,Balboa,40,La Esmeralda,8,Panama
+45,Balboa,41,La Guinea,8,Panama
+45,Balboa,42,Pedro Gonzalez,8,Panama
+45,Balboa,43,Saboga,8,Panama
+6,Baru,44,Puerto Armuelles,4,Chiriqui
+6,Baru,45,Baco,4,Chiriqui
+6,Baru,46,Limones,4,Chiriqui
+6,Baru,47,Progreso,4,Chiriqui
+6,Baru,48,Rodolfo Aguilar Delgado,4,Chiriqui
+69,Besiko,49,Soloy,13,Ngabe-Bugle
+69,Besiko,50,Boca De Balsa,13,Ngabe-Bugle
+69,Besiko,51,Cerro Banco,13,Ngabe-Bugle
+69,Besiko,52,Cerro Patena,13,Ngabe-Bugle
+69,Besiko,53,Camaron Arriba,13,Ngabe-Bugle
+69,Besiko,54,Emplanada De Chorcha,13,Ngabe-Bugle
+69,Besiko,55,Namnoni,13,Ngabe-Bugle
+69,Besiko,56,Niba,13,Ngabe-Bugle
+1,Bocas Del T.,57,Bocas Del Toro,1,Bocas Del Toro
+1,Bocas Del T.,58,Bastimentos,1,Bocas Del Toro
+1,Bocas Del T.,59,Cauchero,1,Bocas Del Toro
+1,Bocas Del T.,60,Punta Laurel,1,Bocas Del Toro
+1,Bocas Del T.,61,Tierra Oscura,1,Bocas Del Toro
+7,Boqueron,62,Boqueron,4,Chiriqui
+7,Boqueron,63,Bagala,4,Chiriqui
+7,Boqueron,64,Cordillera,4,Chiriqui
+7,Boqueron,65,Guabal,4,Chiriqui
+7,Boqueron,66,Guayabal,4,Chiriqui
+7,Boqueron,67,Paraiso,4,Chiriqui
+7,Boqueron,68,Pedregal,4,Chiriqui
+7,Boqueron,69,Tijeras,4,Chiriqui
+8,Boquete,70,Bajo Boquete,4,Chiriqui
+8,Boquete,71,Alto Boquete,4,Chiriqui
+8,Boquete,72,Caldera,4,Chiriqui
+8,Boquete,73,Jaramillo,4,Chiriqui
+8,Boquete,74,Los Naranjos,4,Chiriqui
+8,Boquete,75,Palmira,4,Chiriqui
+9,Bugaba,76,La Concepcion,4,Chiriqui
+9,Bugaba,77,Aserrio De Gariche,4,Chiriqui
+9,Bugaba,78,Bugaba,4,Chiriqui
+9,Bugaba,79,Cerro Punta,4,Chiriqui
+9,Bugaba,80,El Bongo,4,Chiriqui
+9,Bugaba,81,Gomez,4,Chiriqui
+9,Bugaba,82,La Estrella,4,Chiriqui
+9,Bugaba,83,San Andres,4,Chiriqui
+9,Bugaba,84,Santa Marta,4,Chiriqui
+9,Bugaba,85,Santa Rosa,4,Chiriqui
+9,Bugaba,86,Santo Domingo,4,Chiriqui
+9,Bugaba,87,Solano,4,Chiriqui
+9,Bugaba,88,Sortova,4,Chiriqui
+9,Bugaba,89,Volcan,4,Chiriqui
+57,Calobre,90,Calobre,9,Veraguas
+57,Calobre,91,Barnizal,9,Veraguas
+57,Calobre,92,Chitra,9,Veraguas
+57,Calobre,93,El Cocla,9,Veraguas
+57,Calobre,94,El Potrero,9,Veraguas
+57,Calobre,95,La Laguna,9,Veraguas
+57,Calobre,96,La Raya De Calobre,9,Veraguas
+57,Calobre,97,La Tetilla,9,Veraguas
+57,Calobre,98,La Yeguada,9,Veraguas
+57,Calobre,99,Las Guias,9,Veraguas
+57,Calobre,100,Monjaras,9,Veraguas
+57,Calobre,101,San Jose,9,Veraguas
+58,Cañazas,102,Canazas,9,Veraguas
+58,Cañazas,103,Cerro De Plata,9,Veraguas
+58,Cañazas,104,El Aromillo,9,Veraguas
+58,Cañazas,105,El Picador,9,Veraguas
+58,Cañazas,106,Las Cruces,9,Veraguas
+58,Cañazas,107,Los Valles,9,Veraguas
+58,Cañazas,108,San Jose,9,Veraguas
+58,Cañazas,109,San Marcelo,9,Veraguas
+51,Capira,110,Capira,10,Panama Oeste
+51,Capira,111,Caimito,10,Panama Oeste
+51,Capira,112,Campana,10,Panama Oeste
+51,Capira,113,Cermeno,10,Panama Oeste
+51,Capira,114,Ciri De Los Sotos,10,Panama Oeste
+51,Capira,115,Ciri Grande,10,Panama Oeste
+51,Capira,116,El Cacao,10,Panama Oeste
+51,Capira,117,La Trinidad,10,Panama Oeste
+51,Capira,118,Las Ollas Arriba,10,Panama Oeste
+51,Capira,119,Lidice,10,Panama Oeste
+51,Capira,120,Villa Carmen,10,Panama Oeste
+51,Capira,121,Villa Rosario,10,Panama Oeste
+51,Capira,122,Santa Rosa,10,Panama Oeste
+67,Cemaco,123,Cirilo Guaynora,11,Embera-Wounaan
+67,Cemaco,124,Lajas Blancas,11,Embera-Wounaan
+67,Cemaco,125,Manuel Ortega,11,Embera-Wounaan
+24,Chagres,126,Nuevo Chagres,3,Colon
+24,Chagres,127,Achiote,3,Colon
+24,Chagres,128,El Guabo,3,Colon
+24,Chagres,129,La Encantada,3,Colon
+24,Chagres,130,Palmas Bellas,3,Colon
+24,Chagres,131,Pina,3,Colon
+24,Chagres,132,Salud,3,Colon
+52,Chame,133,Chame,10,Panama Oeste
+52,Chame,134,Bejuco,10,Panama Oeste
+52,Chame,135,Buenos Aires,10,Panama Oeste
+52,Chame,136,Cabuya,10,Panama Oeste
+52,Chame,137,Chica,10,Panama Oeste
+52,Chame,138,El Libano,10,Panama Oeste
+52,Chame,139,Las Lajas,10,Panama Oeste
+52,Chame,140,Nueva Gorgona,10,Panama Oeste
+52,Chame,141,Punta Chame,10,Panama Oeste
+52,Chame,142,Sajalices,10,Panama Oeste
+52,Chame,143,Sora,10,Panama Oeste
+2,Changuinola,144,Changuinola,1,Bocas Del Toro
+2,Changuinola,145,Almirante,1,Bocas Del Toro
+2,Changuinola,146,Cochigro,1,Bocas Del Toro
+2,Changuinola,147,El Empalme,1,Bocas Del Toro
+2,Changuinola,148,Guabito,1,Bocas Del Toro
+2,Changuinola,149,La Gloria,1,Bocas Del Toro
+2,Changuinola,150,Las Delicias,1,Bocas Del Toro
+2,Changuinola,151,Las Tablas,1,Bocas Del Toro
+2,Changuinola,152,Nance Del Risco,1,Bocas Del Toro
+2,Changuinola,153,El Teribe,1,Bocas Del Toro
+2,Changuinola,154,Valle Del Risco,1,Bocas Del Toro
+2,Changuinola,155,Valle De Agua,1,Bocas Del Toro
+28,Chepigana,156,La Palma,5,Darien
+28,Chepigana,157,Agua Fria,5,Darien
+28,Chepigana,158,Camoganti,5,Darien
+28,Chepigana,159,Chepigana,5,Darien
+28,Chepigana,160,Cucunati,5,Darien
+28,Chepigana,161,Garachine,5,Darien
+28,Chepigana,162,Jaque,5,Darien
+28,Chepigana,163,Puerto Pina,5,Darien
+28,Chepigana,164,Rio Congo,5,Darien
+28,Chepigana,165,Rio Iglesias,5,Darien
+28,Chepigana,166,Sambu,5,Darien
+28,Chepigana,167,Seteganti,5,Darien
+28,Chepigana,168,Taimati,5,Darien
+28,Chepigana,169,Tucuti,5,Darien
+28,Chepigana,170,Rio Congo Arriba,5,Darien
+28,Chepigana,171,Santa Fe,5,Darien
+46,Chepo,172,Chepo,8,Panama
+46,Chepo,173,Canita,8,Panama
+46,Chepo,174,Chepillo,8,Panama
+46,Chepo,175,El Llano,8,Panama
+46,Chepo,176,Las Margaritas De Chepo,8,Panama
+46,Chepo,177,Santa Cruz De Chinina,8,Panama
+46,Chepo,178,Torti,8,Panama
+46,Chepo,179,Madugandi,8,Panama
+47,Chiman,180,Chiman,8,Panama
+47,Chiman,181,Brujas,8,Panama
+47,Chiman,182,Gonzalo Vasquez,8,Panama
+47,Chiman,183,Pasiga,8,Panama
+47,Chiman,184,Union Santena,8,Panama
+3,Chir. Grande,185,Chiriqui Grande,1,Bocas Del Toro
+3,Chir. Grande,186,Bajo Cedro,1,Bocas Del Toro
+3,Chir. Grande,187,Miramar,1,Bocas Del Toro
+3,Chir. Grande,188,Punta Pena,1,Bocas Del Toro
+3,Chir. Grande,189,Punta Robalo,1,Bocas Del Toro
+3,Chir. Grande,190,Rambala,1,Bocas Del Toro
+30,Chitre,191,Chitre,6,Herrera
+30,Chitre,192,La Arena,6,Herrera
+30,Chitre,193,Monagrillo,6,Herrera
+30,Chitre,194,Llano Bonito,6,Herrera
+30,Chitre,195,San Juan Bautista.,6,Herrera
+23,Colon,196,Barrio Norte,3,Colon
+23,Colon,197,Barrio Sur,3,Colon
+23,Colon,198,Buena Vista,3,Colon
+23,Colon,199,Cativa,3,Colon
+23,Colon,200,Ciricito,3,Colon
+23,Colon,201,Cristobal,3,Colon
+23,Colon,202,Escobal,3,Colon
+23,Colon,203,Limon,3,Colon
+23,Colon,204,Nueva Providencia,3,Colon
+23,Colon,205,Puerto Pilon,3,Colon
+23,Colon,206,Sabanitas,3,Colon
+23,Colon,207,Salamanca,3,Colon
+23,Colon,208,San Juan,3,Colon
+23,Colon,209,Santa Rosa,3,Colon
+4,David,210,David,4,Chiriqui
+4,David,211,Bijagual,4,Chiriqui
+4,David,212,Cochea,4,Chiriqui
+4,David,213,Chiriqui,4,Chiriqui
+4,David,214,Guaca,4,Chiriqui
+4,David,215,Las Lomas,4,Chiriqui
+4,David,216,Pedregal,4,Chiriqui
+4,David,217,San Carlos,4,Chiriqui
+4,David,218,San Pablo Nuevo,4,Chiriqui
+4,David,219,San Pablo Viejo,4,Chiriqui
+10,Dolega,220,Dolega,4,Chiriqui
+10,Dolega,221,Dos Rios,4,Chiriqui
+10,Dolega,222,Los Algarrobos,4,Chiriqui
+10,Dolega,223,Los Anastacios,4,Chiriqui
+10,Dolega,224,Potrerillos,4,Chiriqui
+10,Dolega,225,Potrerillos Abajo,4,Chiriqui
+10,Dolega,226,Rovira,4,Chiriqui
+10,Dolega,227,Tinajas,4,Chiriqui
+25,Donoso,228,Miguel De La Borda,3,Colon
+25,Donoso,229,Cocle Del Norte,3,Colon
+25,Donoso,230,El Guasimo,3,Colon
+25,Donoso,231,Gobea,3,Colon
+25,Donoso,232,Rio Indio,3,Colon
+25,Donoso,233,San Jose Del General,3,Colon
+11,Gualaca,234,Gualaca,4,Chiriqui
+11,Gualaca,235,Hornito,4,Chiriqui
+11,Gualaca,236,Los Angeles,4,Chiriqui
+11,Gualaca,237,Paja De Sombrero,4,Chiriqui
+11,Gualaca,238,Rincon,4,Chiriqui
+38,Guarare,239,Guarare,7,Los Santos
+38,Guarare,240,El Espinal,7,Los Santos
+38,Guarare,241,El Macano,7,Los Santos
+38,Guarare,242,Guarare Arriba,7,Los Santos
+38,Guarare,243,La Enea,7,Los Santos
+38,Guarare,244,La Pasera,7,Los Santos
+38,Guarare,245,Las Trancas,7,Los Santos
+38,Guarare,246,Llano Abajo,7,Los Santos
+38,Guarare,247,El Hato,7,Los Santos
+38,Guarare,248,Perales,7,Los Santos
+75,Nurum,249,Ailigandi,13,Ngabe-Bugle
+75,Nurum,250,Nargana,13,Ngabe-Bugle
+75,Nurum,251,Puerto Obaldia,13,Ngabe-Bugle
+75,Nurum,252,Tubuala,13,Ngabe-Bugle
+70,Kankintu,253,Bisira,13,Ngabe-Bugle
+70,Kankintu,254,Calante,13,Ngabe-Bugle
+70,Kankintu,255,Kankintu,13,Ngabe-Bugle
+70,Kankintu,256,Guoroni,13,Ngabe-Bugle
+70,Kankintu,257,Mununi,13,Ngabe-Bugle
+70,Kankintu,258,Piedra Roja,13,Ngabe-Bugle
+70,Kankintu,259,Tolote,13,Ngabe-Bugle
+71,Kusapin,260,Kusapin,13,Ngabe-Bugle
+71,Kusapin,261,Bahia Azul,13,Ngabe-Bugle
+71,Kusapin,262,Canaveral,13,Ngabe-Bugle
+71,Kusapin,263,Rio Chiriqui,13,Ngabe-Bugle
+71,Kusapin,264,Tobobe,13,Ngabe-Bugle
+53,La Chorrera,265,La Chorrera,10,Panama Oeste
+53,La Chorrera,266,Barrio Balboa,10,Panama Oeste
+53,La Chorrera,267,Barrio Colon,10,Panama Oeste
+53,La Chorrera,268,Amador,10,Panama Oeste
+53,La Chorrera,269,Arosemena,10,Panama Oeste
+53,La Chorrera,270,El Arado,10,Panama Oeste
+53,La Chorrera,271,El Coco,10,Panama Oeste
+53,La Chorrera,272,Feuillet,10,Panama Oeste
+53,La Chorrera,273,Guadalupe,10,Panama Oeste
+53,La Chorrera,274,Herrera,10,Panama Oeste
+53,La Chorrera,275,Hurtado,10,Panama Oeste
+53,La Chorrera,276,Iturralde,10,Panama Oeste
+53,La Chorrera,277,La Represa,10,Panama Oeste
+53,La Chorrera,278,Los Diaz,10,Panama Oeste
+53,La Chorrera,279,Mendoza,10,Panama Oeste
+53,La Chorrera,280,Obaldia,10,Panama Oeste
+53,La Chorrera,281,Playa Leona,10,Panama Oeste
+53,La Chorrera,282,Puerto Caimito,10,Panama Oeste
+53,La Chorrera,283,Santa Rita,10,Panama Oeste
+59,La Mesa,284,La Mesa,9,Veraguas
+59,La Mesa,285,Bisvalles,9,Veraguas
+59,La Mesa,286,Boro,9,Veraguas
+59,La Mesa,287,El Higo,9,Veraguas
+59,La Mesa,288,Los Milagros,9,Veraguas
+59,La Mesa,289,Llano Grande,9,Veraguas
+59,La Mesa,290,San Bartolo,9,Veraguas
+20,La Pintada,291,La Pintada,2,Cocle
+20,La Pintada,292,El Harino,2,Cocle
+20,La Pintada,293,El Potrero,2,Cocle
+20,La Pintada,294,Las Lomas,2,Cocle
+20,La Pintada,295,Llano Grande,2,Cocle
+20,La Pintada,296,Piedras Gordas,2,Cocle
+31,Las Minas,297,Las Minas,6,Herrera
+31,Las Minas,298,Chepo,6,Herrera
+31,Las Minas,299,Chumical,6,Herrera
+31,Las Minas,300,El Toro,6,Herrera
+31,Las Minas,301,Leones,6,Herrera
+31,Las Minas,302,Quebrada Del Rosario,6,Herrera
+31,Las Minas,303,Quebrada El Ciprian,6,Herrera
+60,Las Palmas,304,Las Palmas,9,Veraguas
+60,Las Palmas,305,Cerro De Casa,9,Veraguas
+60,Las Palmas,306,Corozal,9,Veraguas
+60,Las Palmas,307,El Maria,9,Veraguas
+60,Las Palmas,308,El Prado,9,Veraguas
+60,Las Palmas,309,El Rincon,9,Veraguas
+60,Las Palmas,310,Lola,9,Veraguas
+60,Las Palmas,311,Manuel Amador Guerrero,9,Veraguas
+60,Las Palmas,312,Pixvae,9,Veraguas
+60,Las Palmas,313,Puerto Vidal,9,Veraguas
+60,Las Palmas,314,San Martin De Porres,9,Veraguas
+60,Las Palmas,315,Vigui,9,Veraguas
+60,Las Palmas,316,Zapotillo,9,Veraguas
+37,Las Tablas,317,Las Tablas,7,Los Santos
+37,Las Tablas,318,Bajo Corral,7,Los Santos
+37,Las Tablas,319,Bayano,7,Los Santos
+37,Las Tablas,320,El Carate,7,Los Santos
+37,Las Tablas,321,El Cocal,7,Los Santos
+37,Las Tablas,322,El Manantial,7,Los Santos
+37,Las Tablas,323,El Munoz,7,Los Santos
+37,Las Tablas,324,El Pedregoso,7,Los Santos
+37,Las Tablas,325,La Laja,7,Los Santos
+37,Las Tablas,326,La Miel,7,Los Santos
+37,Las Tablas,327,La Palma,7,Los Santos
+37,Las Tablas,328,La Tiza,7,Los Santos
+37,Las Tablas,329,Las Palmitas,7,Los Santos
+37,Las Tablas,330,Las Tablas Abajo,7,Los Santos
+37,Las Tablas,331,Nuario,7,Los Santos
+37,Las Tablas,332,Palmira,7,Los Santos
+37,Las Tablas,333,Pena Blanca,7,Los Santos
+37,Las Tablas,334,Rio Hondo,7,Los Santos
+37,Las Tablas,335,San Jose,7,Los Santos
+37,Las Tablas,336,San Miguel,7,Los Santos
+37,Las Tablas,337,Santo Domingo,7,Los Santos
+37,Las Tablas,338,El Sesteadero,7,Los Santos
+37,Las Tablas,339,Valle Rico,7,Los Santos
+37,Las Tablas,340,Vallerriquito,7,Los Santos
+32,Los Pozos,341,Los Pozos,6,Herrera
+32,Los Pozos,342,El Capuri,6,Herrera
+32,Los Pozos,343,El Calabacito,6,Herrera
+32,Los Pozos,344,El Cedro,6,Herrera
+32,Los Pozos,345,La Arena,6,Herrera
+32,Los Pozos,346,La Pitaloza,6,Herrera
+32,Los Pozos,347,Los Cerritos,6,Herrera
+32,Los Pozos,348,Los Cerros De Paja,6,Herrera
+32,Los Pozos,349,Las Llanas,6,Herrera
+39,Los Santos,350,La Villa De Los Santos,7,Los Santos
+39,Los Santos,351,El Ejido,7,Los Santos
+39,Los Santos,352,El Guasimo,7,Los Santos
+39,Los Santos,353,La Colorada,7,Los Santos
+39,Los Santos,354,La Espigadilla,7,Los Santos
+39,Los Santos,355,Las Cruces,7,Los Santos
+39,Los Santos,356,Las Guabas,7,Los Santos
+39,Los Santos,357,Los Angeles,7,Los Santos
+39,Los Santos,358,Los Olivos,7,Los Santos
+39,Los Santos,359,Llano Largo,7,Los Santos
+39,Los Santos,360,Sabanagrande,7,Los Santos
+39,Los Santos,361,San Agustin,7,Los Santos
+39,Los Santos,362,Santa Ana,7,Los Santos
+39,Los Santos,363,Tres Quebradas,7,Los Santos
+39,Los Santos,364,Villa Lourdes,7,Los Santos
+39,Los Santos,365,Agua Buena,7,Los Santos
+40,Macaracas,366,Macaracas,7,Los Santos
+40,Macaracas,367,Bahia Honda,7,Los Santos
+40,Macaracas,368,Bajos De Güera,7,Los Santos
+40,Macaracas,369,Corozal,7,Los Santos
+40,Macaracas,370,Chupa,7,Los Santos
+40,Macaracas,371,El Cedro,7,Los Santos
+40,Macaracas,372,Espino Amarillo,7,Los Santos
+40,Macaracas,373,La Mesa,7,Los Santos
+40,Macaracas,374,Llano De Piedras,7,Los Santos
+40,Macaracas,375,Las Palmas,7,Los Santos
+40,Macaracas,376,Mogollon,7,Los Santos
+61,Mariato,377,Mariato,9,Veraguas
+61,Mariato,378,Arenas,9,Veraguas
+61,Mariato,379,El Cacao,9,Veraguas
+61,Mariato,380,Quebro,9,Veraguas
+61,Mariato,381,Tebario,9,Veraguas
+72,Mirono,382,Hato Pilon,13,Ngabe-Bugle
+72,Mirono,383,Cascabel,13,Ngabe-Bugle
+72,Mirono,384,Hato Corotu,13,Ngabe-Bugle
+72,Mirono,385,Hato Culantro,13,Ngabe-Bugle
+72,Mirono,386,Hato Jobo,13,Ngabe-Bugle
+72,Mirono,387,Hato Juli,13,Ngabe-Bugle
+72,Mirono,388,Quebrada De Loro,13,Ngabe-Bugle
+72,Mirono,389,Salto Dupi,13,Ngabe-Bugle
+62,Montijo,390,Montijo,9,Veraguas
+62,Montijo,391,Cebaco,9,Veraguas
+62,Montijo,392,Costa Hermosa,9,Veraguas
+62,Montijo,393,Gobernadora,9,Veraguas
+62,Montijo,394,La Garceana,9,Veraguas
+62,Montijo,395,Leones,9,Veraguas
+62,Montijo,396,Pilon,9,Veraguas
+62,Montijo,397,Union Del Norte,9,Veraguas
+73,Muna,398,Chichica,13,Ngabe-Bugle
+73,Muna,399,Alto Caballero,13,Ngabe-Bugle
+73,Muna,400,Bagama,13,Ngabe-Bugle
+73,Muna,401,Cerro Cana,13,Ngabe-Bugle
+73,Muna,402,Cerro Puerco,13,Ngabe-Bugle
+73,Muna,403,Krua,13,Ngabe-Bugle
+73,Muna,404,Maraca,13,Ngabe-Bugle
+73,Muna,405,Nibra,13,Ngabe-Bugle
+73,Muna,406,Pena Blanca,13,Ngabe-Bugle
+73,Muna,407,Roka,13,Ngabe-Bugle
+73,Muna,408,Sitio Prado,13,Ngabe-Bugle
+73,Muna,409,Umani,13,Ngabe-Bugle
+21,Nata,410,Nata,2,Cocle
+21,Nata,411,Capellania,2,Cocle
+21,Nata,412,El Cano,2,Cocle
+21,Nata,413,Guzman,2,Cocle
+21,Nata,414,Las Huacas,2,Cocle
+21,Nata,415,Toza,2,Cocle
+74,Nole Duima,416,Cerro Iglesias,13,Ngabe-Bugle
+74,Nole Duima,417,Lajero,13,Ngabe-Bugle
+74,Nole Duima,418,Hato Chami,13,Ngabe-Bugle
+74,Nole Duima,419,Susama,13,Ngabe-Bugle
+74,Nole Duima,420,Jadeberi,13,Ngabe-Bugle
+52,Chame,421,Buenos Aires,10,Panama Oeste
+75,Nurum,422,Agua De Salud,13,Ngabe-Bugle
+75,Nurum,423,Alto De Jesus,13,Ngabe-Bugle
+75,Nurum,424,Cerro Pelado,13,Ngabe-Bugle
+75,Nurum,425,El Bale,13,Ngabe-Bugle
+75,Nurum,426,El Paredon,13,Ngabe-Bugle
+75,Nurum,427,El Piro,13,Ngabe-Bugle
+75,Nurum,428,Guayabito,13,Ngabe-Bugle
+75,Nurum,429,Guibale,13,Ngabe-Bugle
+33,Ocu,430,Ocu,6,Herrera
+33,Ocu,431,Cerro Largo,6,Herrera
+33,Ocu,432,El Tijera,6,Herrera
+33,Ocu,433,Entradero Del Castillo,6,Herrera
+33,Ocu,434,Los Llanos,6,Herrera
+33,Ocu,435,Llano Grande,6,Herrera
+33,Ocu,436,Menchaca,6,Herrera
+33,Ocu,437,Penas Chatas,6,Herrera
+22,Ola,438,Ola,2,Cocle
+22,Ola,439,El Cope,2,Cocle
+22,Ola,440,El Palmar,2,Cocle
+22,Ola,441,El Picacho,2,Cocle
+22,Ola,442,La Pava,2,Cocle
+44,Panama,443,24 De Diciembre,8,Panama
+44,Panama,444,Alcalde Diaz,8,Panama
+44,Panama,445,Ancon,8,Panama
+44,Panama,446,Betania,8,Panama
+44,Panama,447,Bella Vista,8,Panama
+44,Panama,448,Calidonia,8,Panama
+44,Panama,449,Caimitillo,8,Panama
+44,Panama,450,Chilibre,8,Panama
+44,Panama,451,El Chorrillo,8,Panama
+44,Panama,452,Curundu,8,Panama
+44,Panama,453,Ernesto Cordoba Campos,8,Panama
+44,Panama,454,Juan Diaz,8,Panama
+44,Panama,455,Las Cumbres,8,Panama
+44,Panama,456,Las Mananitas,8,Panama
+44,Panama,457,Pacora,8,Panama
+44,Panama,458,Parque Lefevre,8,Panama
+44,Panama,459,Pedregal,8,Panama
+44,Panama,460,Pueblo Nuevo,8,Panama
+44,Panama,461,Rio Abajo,8,Panama
+44,Panama,462,San Felipe,8,Panama
+44,Panama,463,San Francisco,8,Panama
+44,Panama,464,San Martin,8,Panama
+44,Panama,465,Santa Ana,8,Panama
+44,Panama,466,Tocumen,8,Panama
+34,Parita,467,Parita,6,Herrera
+34,Parita,468,Cabuya,6,Herrera
+34,Parita,469,Los Castillos,6,Herrera
+34,Parita,470,Llano De La Cruz,6,Herrera
+34,Parita,471,Paris,6,Herrera
+34,Parita,472,Portobelillo,6,Herrera
+34,Parita,473,Potuga,6,Herrera
+41,Pedasi,474,Pedasi,7,Los Santos
+41,Pedasi,475,Los Asientos,7,Los Santos
+41,Pedasi,476,Mariabe,7,Los Santos
+41,Pedasi,477,Purio,7,Los Santos
+41,Pedasi,478,Oria Arriba,7,Los Santos
+17,Penonome,479,Penonome,2,Cocle
+17,Penonome,480,Canaveral,2,Cocle
+17,Penonome,481,Cocle,2,Cocle
+17,Penonome,482,Chiguiri Arriba,2,Cocle
+17,Penonome,483,El Coco,2,Cocle
+17,Penonome,484,El Valle De San Miguel,2,Cocle
+17,Penonome,485,Pajonal,2,Cocle
+17,Penonome,486,Rio Grande,2,Cocle
+17,Penonome,487,Rio Indio,2,Cocle
+17,Penonome,488,Toabre,2,Cocle
+17,Penonome,489,Tulu,2,Cocle
+35,Pese,490,Pese,6,Herrera
+35,Pese,491,Las Cabras,6,Herrera
+35,Pese,492,Los Pajaros,6,Herrera
+35,Pese,493,El Barrero,6,Herrera
+35,Pese,494,El Pedregoso,6,Herrera
+35,Pese,495,El Ciruelo,6,Herrera
+35,Pese,496,Sabanagrande,6,Herrera
+35,Pese,497,Rincon Hondo,6,Herrera
+29,Pinogana,498,El Real De Santa Maria,5,Darien
+29,Pinogana,499,Boca De Cupe,5,Darien
+29,Pinogana,500,Paya,5,Darien
+29,Pinogana,501,Pinogana,5,Darien
+29,Pinogana,502,Pucuro,5,Darien
+29,Pinogana,503,Yape,5,Darien
+29,Pinogana,504,Yaviza,5,Darien
+29,Pinogana,505,Meteti,5,Darien
+29,Pinogana,506,Wargandi,5,Darien
+42,Pocri,507,Pocri,7,Los Santos
+42,Pocri,508,El Canafistulo,7,Los Santos
+42,Pocri,509,Lajamina,7,Los Santos
+42,Pocri,510,Paraiso,7,Los Santos
+42,Pocri,511,Paritilla,7,Los Santos
+26,Portobelo,512,Portobelo,3,Colon
+26,Portobelo,513,Cacique,3,Colon
+26,Portobelo,514,Garrote,3,Colon
+26,Portobelo,515,Isla Grande,3,Colon
+26,Portobelo,516,Maria Chiquita,3,Colon
+12,Remedios,517,Remedios,4,Chiriqui
+12,Remedios,518,El Nancito,4,Chiriqui
+12,Remedios,519,El Porvenir,4,Chiriqui
+12,Remedios,520,El Puerto,4,Chiriqui
+12,Remedios,521,Santa Lucia,4,Chiriqui
+13,Renacimiento,522,Rio Sereno,4,Chiriqui
+13,Renacimiento,523,Brenon,4,Chiriqui
+13,Renacimiento,524,Canas Gordas,4,Chiriqui
+13,Renacimiento,525,Dominical,4,Chiriqui
+13,Renacimiento,526,Monte Lirio,4,Chiriqui
+13,Renacimiento,527,Plaza De Caisan,4,Chiriqui
+13,Renacimiento,528,Santa Cruz,4,Chiriqui
+13,Renacimiento,529,Santa Clara,4,Chiriqui
+63,Rio De Jesus,530,Rio De Jesus,9,Veraguas
+63,Rio De Jesus,531,Catorce De Noviembre,9,Veraguas
+63,Rio De Jesus,532,Las Huacas,9,Veraguas
+63,Rio De Jesus,533,Los Castillos,9,Veraguas
+63,Rio De Jesus,534,Utira,9,Veraguas
+68,Sambu,535,Jingurundo,11,Embera-Wounaan
+68,Sambu,536,Rio Sabalo,11,Embera-Wounaan
+54,San Carlos,537,San Carlos,10,Panama Oeste
+54,San Carlos,538,El Espino,10,Panama Oeste
+54,San Carlos,539,El Higo,10,Panama Oeste
+54,San Carlos,540,Guayabito,10,Panama Oeste
+54,San Carlos,541,La Ermita,10,Panama Oeste
+54,San Carlos,542,La Laguna,10,Panama Oeste
+54,San Carlos,543,Las Uvas,10,Panama Oeste
+54,San Carlos,544,Los Llanitos,10,Panama Oeste
+54,San Carlos,545,San Jose,10,Panama Oeste
+14,San Felix,546,Las Lajas,4,Chiriqui
+14,San Felix,547,Lajas Adentro,4,Chiriqui
+14,San Felix,548,Juay,4,Chiriqui
+14,San Felix,549,San Felix,4,Chiriqui
+14,San Felix,550,Santa Cruz,4,Chiriqui
+64,San Francisco,551,San Francisco,9,Veraguas
+64,San Francisco,552,Corral Falso,9,Veraguas
+64,San Francisco,553,Los Hatillos,9,Veraguas
+64,San Francisco,554,Remance,9,Veraguas
+64,San Francisco,555,San Juan,9,Veraguas
+64,San Francisco,556,San Jose,9,Veraguas
+15,San Lorenzo,557,Horconcitos,4,Chiriqui
+15,San Lorenzo,558,Boca Chica,4,Chiriqui
+15,San Lorenzo,559,Boca Del Monte,4,Chiriqui
+15,San Lorenzo,560,San Juan,4,Chiriqui
+15,San Lorenzo,561,San Lorenzo,4,Chiriqui
+48,San Miguelito,562,Amelia Denis De Icaza,8,Panama
+48,San Miguelito,563,Belisario Porras,8,Panama
+48,San Miguelito,564,Jose Domingo Espinar,8,Panama
+48,San Miguelito,565,Mateo Iturralde,8,Panama
+48,San Miguelito,566,Victoriano Lorenzo,8,Panama
+48,San Miguelito,567,Arnulfo Arias,8,Panama
+48,San Miguelito,568,Belisario Frias,8,Panama
+48,San Miguelito,569,Omar Torrijos,8,Panama
+48,San Miguelito,570,Rufina Alfaro,8,Panama
+65,Santa Fe,571,Santa Fe,9,Veraguas
+65,Santa Fe,572,Calovebora,9,Veraguas
+65,Santa Fe,573,El Alto,9,Veraguas
+65,Santa Fe,574,El Cuay,9,Veraguas
+65,Santa Fe,575,El Pantano,9,Veraguas
+65,Santa Fe,576,Gatuncito,9,Veraguas
+65,Santa Fe,577,Rio Luis,9,Veraguas
+65,Santa Fe,578,Ruben Cantu,9,Veraguas
+27,Santa Isabel,579,Palenque,3,Colon
+27,Santa Isabel,580,Cuango,3,Colon
+27,Santa Isabel,581,Miramar,3,Colon
+27,Santa Isabel,582,Nombre De Dios,3,Colon
+27,Santa Isabel,583,Palmira,3,Colon
+27,Santa Isabel,584,Playa Chiquita,3,Colon
+27,Santa Isabel,585,Santa Isabel,3,Colon
+27,Santa Isabel,586,Viento Frio,3,Colon
+36,Santa Maria,587,Santa Maria,6,Herrera
+36,Santa Maria,588,Chupampa,6,Herrera
+36,Santa Maria,589,El Rincon,6,Herrera
+36,Santa Maria,590,El Limon,6,Herrera
+36,Santa Maria,591,Los Canelos,6,Herrera
+55,Santiago,592,Santiago,9,Veraguas
+55,Santiago,593,Canto Del Llano,9,Veraguas
+55,Santiago,594,Carlos Santana Avila,9,Veraguas
+55,Santiago,595,Edwin Fabrega,9,Veraguas
+55,Santiago,596,El Llanito,9,Veraguas
+55,Santiago,597,La Colorada,9,Veraguas
+55,Santiago,598,La Pena,9,Veraguas
+55,Santiago,599,La Raya De Santa Maria,9,Veraguas
+55,Santiago,600,La Soledad,9,Veraguas
+55,Santiago,601,Los Algarrobos,9,Veraguas
+55,Santiago,602,Ponuga,9,Veraguas
+55,Santiago,603,San Martin De Porres,9,Veraguas
+55,Santiago,604,San Pedro Del Espino,9,Veraguas
+55,Santiago,605,Rincon Largo,9,Veraguas
+55,Santiago,606,Urraca,9,Veraguas
+66,Sona,607,Sona,9,Veraguas
+66,Sona,608,Bahia Honda,9,Veraguas
+66,Sona,609,Calidonia,9,Veraguas
+66,Sona,610,Cative,9,Veraguas
+66,Sona,611,El Maranon,9,Veraguas
+66,Sona,612,Guarumal,9,Veraguas
+66,Sona,613,Hicaco,9,Veraguas
+66,Sona,614,La Soledad,9,Veraguas
+66,Sona,615,Quebrada De Oro,9,Veraguas
+66,Sona,616,Rio Grande,9,Veraguas
+66,Sona,617,Rodeo Viejo,9,Veraguas
+49,Taboga,618,Taboga,8,Panama
+49,Taboga,619,Otoque Occidente,8,Panama
+49,Taboga,620,Otoque Oriente,8,Panama
+16,Tole,621,Tole,4,Chiriqui
+16,Tole,622,Bella Vista,4,Chiriqui
+16,Tole,623,Cerro Viejo,4,Chiriqui
+16,Tole,624,El Cristo,4,Chiriqui
+16,Tole,625,Justo Fidel Palacios,4,Chiriqui
+16,Tole,626,Lajas De Tole,4,Chiriqui
+16,Tole,627,Potrero De Cana,4,Chiriqui
+16,Tole,628,Quebrada De Piedra,4,Chiriqui
+16,Tole,629,Veladero,4,Chiriqui
+43,Tonosi,630,Tonosi,7,Los Santos
+43,Tonosi,631,Altos De Güera,7,Los Santos
+43,Tonosi,632,Canas,7,Los Santos
+43,Tonosi,633,El Bebedero,7,Los Santos
+43,Tonosi,634,El Cacao,7,Los Santos
+43,Tonosi,635,El Cortezo,7,Los Santos
+43,Tonosi,636,Flores,7,Los Santos
+43,Tonosi,637,Guanico,7,Los Santos
+43,Tonosi,638,La Tronosa,7,Los Santos
+43,Tonosi,639,Cambutal,7,Los Santos
+43,Tonosi,640,Isla De Canas,7,Los Santos

@@ -1,0 +1,35 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- here you can remove whatever link you feel unwanted -->
+        <referenceBlock name="register-link" remove="true" />           <!--for Create Account Link-->
+        <referenceBlock name="authorization-link" remove="true" />      <!--for Sign In Link  -->
+        <referenceBlock name="wish-list-link" remove="true" />          <!--for WishList Link-->
+        <referenceBlock name="my-account-link" remove="true" />         <!--for My Account Link-->
+        
+        <referenceBlock name="minicart" remove="true"/>
+        
+        <referenceContainer name="header.container"  htmlClass="pg-hdr" />
+        <referenceContainer name="header.panel.wrapper" htmlClass="pg-hdr" />
+        <referenceContainer name="header.panel" htmlClass="pg-hdr" />
+        <referenceContainer name="footer"  htmlClass="pg-footer" />
+        
+        <move element="navigation.sections" destination="header.container" />
+                
+        <referenceBlock name="advanced-search-link" remove="true"/>
+        <referenceBlock name="top.search" remove="true"/>
+        
+        <referenceBlock name="footer_links" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true" />
+        <referenceBlock name="page.main.title" remove="true" />
+        
+        
+        <referenceContainer name="footer">
+            <block class="Magento\Cms\Block\Block" name="footer_menu">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        
+    </body>
+</page>

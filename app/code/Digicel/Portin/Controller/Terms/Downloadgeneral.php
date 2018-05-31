@@ -29,7 +29,7 @@ class Downloadgeneral extends \Magento\Framework\App\Action\Action {
     
         $fileName =  $this->_scopeConfig->getValue('terms_and_condition/file_upload/general', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);	
 		if($fileName){
-			$file = $this->directory->getPath("media")."/terms_and_condition/".$fileName; 
+			$file = $this->directory->getPath("media")."/test/".$fileName; 
 			header('Pragma: public');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
