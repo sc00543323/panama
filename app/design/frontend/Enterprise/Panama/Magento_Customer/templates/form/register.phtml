@@ -278,7 +278,7 @@
 			<div class="fontRed GothamMedium11 col-md-offset-3">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl30 ">
 					<label class="mb0 chkboxcontainer">
-					<input type="checkbox" name="is_subscribed" title="<?php echo __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="pull-left checkbox" checked="checked"><?php echo __('Send Information from DigiCel') ?>
+					<input type="checkbox" name="is_subscribed1" title="<?php echo __('Sign Up for Newsletter') ?>" value="1" id="is_subscribed1"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="pull-left checkbox" checked="checked"><?php echo __('Send Information from DigiCel') ?>
 					<span class="checkmark"></span>
 					</label>
 				</div>	
@@ -325,7 +325,7 @@
             document.getElementById('state').value + ' ' + 
 			document.getElementById('city').value + ' ' + 
 			document.getElementById('street').value + ' ' + 
-			document.getElementById('zip').value + ' ' + 
+			document.getElementById('zip').value + ' ';
             //document.getElementById("number").value = generateFullName;
 			
     }
