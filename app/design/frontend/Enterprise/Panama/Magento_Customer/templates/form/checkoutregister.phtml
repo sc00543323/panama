@@ -16,22 +16,22 @@
         <input type="hidden" name="success_url" value="<?php echo $block->escapeUrl($block->getSuccessUrl()) ?>">
         <input type="hidden" name="error_url" value="<?php echo $block->escapeUrl($block->getErrorUrl()) ?>">
 		
-		<div class="clearfix"> 
+		<div class=""> 
 			<?php echo $block->getLayout()->createBlock(\Digicel\Login\Block\Customer\Checkoutname::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
         </div>
 		
 		<div>
 			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Date of Birth') ?>*</label>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
-				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+			<div class="">
+				<div class="">
 					<input type='text' id='dob' name='dob' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Date of Birth') ?>" data-validate="{required:true}" class=" form-control " autocomplete="off" />
 				</div>
 			</div>
 		</div>
 		<div>
 			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Mobile Number') ?>*</label>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
-				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+			<div class="">
+				<div class="">
 				<?php 	
 								$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 								$eavConfig = $objectManager->get('\Magento\Eav\Model\Config');
@@ -61,8 +61,8 @@
         <input type="email" name="email" autocomplete="email" placeholder="" id="email_address" value="" title="" class="form-control Login_box input-text required-entry" data-validate="{required:true, 'validate-email':true}">
     
 		<div class="field password required" data-mage-init='{"passwordStrengthIndicator": {}}'>
-				<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Password')) ?>*
-				<div class="control-">
+				<label class=""><?php echo $block->escapeHtml(__('Password')) ?>*
+				<div class="control">
 					<input type="password" autocomplete="u1"  maxlength="20" name="password" id="password" placeholder=""
 						   title=""
 						   class="form-control Login_box input-text required-entry"
@@ -113,9 +113,9 @@
 					<label>Seat</label>
 					<input type="text" id="cedulaSeat" name="cedulaSeat">
 				</div>
-					<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<div class="cedula-field" style="width: 20%;float: left;margin: 0px 15px;">
 						<label>Number</label>			
-						<input type="text"  id="cedulaNumber" name="cedulaNumber">
+						<input type="text"  id="cedulaNumber" name="cedulaNumber" disabled>
 					</div>
 				</div>
 					<br style="clear: both;" style="width: 10%;float: left;margin: 0px 15px;">
@@ -159,15 +159,15 @@
 	<?php echo $block->getChildHtml('form_additional_info'); ?>
 	<?php if ($block->isNewsletterEnabled()): ?>
             <div class="field choice newsletter">
-                <input checked type="checkbox" name="is_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send Information from DigiCel') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <input checked type="checkbox" data-validate="{required:true}" name="is_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send Information from DigiCel') ?>" value="1" id="is_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
                 <label for="is_subscribed" class="label"><span><?php /* @escapeNotVerified */ echo __('Send Information from DigiCel') ?></span></label>
             </div>
 			<div class="field choice newsletter">
-                <input checked type="checkbox" name="is_partner_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send Information from other partners') ?>" value="1" id="is_partner_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <input checked type="checkbox" data-validate="{required:true}" name="is_partner_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send Information from other partners') ?>" value="1" id="is_partner_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
                 <label for="is_partner_subscribed" class="label"><span><?php /* @escapeNotVerified */ echo __('Send Information from other partners') ?></span></label>
             </div>
 			<div class="field choice newsletter">
-                <input checked type="checkbox" name="is_contracts_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send me Contract and Invoices') ?>" value="1" id="is_contracts_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
+                <input checked type="checkbox" data-validate="{required:true}" name="is_contracts_subscribed" title="<?php /* @escapeNotVerified */ echo __('Send me Contract and Invoices') ?>" value="1" id="is_contracts_subscribed"<?php if ($block->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox">
                 <label for="is_contracts_subscribed" class="label"><span><?php /* @escapeNotVerified */ echo __('Send me Contract and Invoices') ?></span></label>
             </div>
             <?php /* Extensions placeholder */ ?>
@@ -201,16 +201,44 @@ require([
 		
 		$('#cedulaLetters,#cedulaProvince').change(function(){
 			var Province = $('#cedulaProvince').val();
-			var Letters = $('#cedulaLetters').val();			
-			$('#cedulaNumber').val(Province+Letters);	
+			var Letters = $('#cedulaLetters').val();
+			var Itake = $('#cedulaItake').val();
+			var Seat = $('#cedulaSeat').val();
+				var number  = ''; 
+				if(Province){
+					number = Province;
+				 }
+				 if(Letters){
+					number = Province+"-"+Letters;
+				 }
+				 if(Itake){
+					number = Province+"-"+Letters+'-'+Itake;
+				 }
+				 if(Seat){
+					number = Province+"-"+Letters+'-'+Itake+'-'+Seat;
+				 }
+			$('#cedulaNumber').val(number);	
 		
 		});	
 		$('#cedulaItake,#cedulaSeat').keyup(function(e){
 			var Province = $('#cedulaProvince').val();
 			var Letters = $('#cedulaLetters').val();
 			var Itake = $('#cedulaItake').val();
-			var Seat = $('#cedulaSeat').val();			
-			$('#cedulaNumber').val(Province+Letters+Itake+Seat);		
+			var Seat = $('#cedulaSeat').val();
+				var number  = ''; 
+				if(Province){
+					number = Province;
+				 }
+				 if(Letters){
+					number = Province+"-"+Letters;
+				 }
+				 if(Itake){
+					number = Province+"-"+Letters+'-'+Itake;
+				 }
+				 if(Seat){
+					number = Province+"-"+Letters+'-'+Itake+'-'+Seat;
+				 }
+			$('#cedulaNumber').val(number);	
 		});	
 		
 		
