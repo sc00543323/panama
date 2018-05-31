@@ -371,9 +371,9 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
 			
 				$cust['lastname'] = $cust['lastname'];
                 $cust['firstname'] = $cust['firstname'];
-				$cust['cedulla'] = $cust['cedulla'];
-				$cust['passport'] = $cust['passport'];
-				$cust['mobile_number'] = $cust['mobile_number'];
+				//$cust['cedulla'] = $cust['cedulla'];
+				//$cust['passport'] = $cust['passport'];
+				//$cust['mobile_number'] = $cust['mobile_number'];
 				
 				$this->session->setCustomerFormData($cust); 
 		
