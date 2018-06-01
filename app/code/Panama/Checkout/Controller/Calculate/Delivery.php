@@ -38,13 +38,14 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 			$deliveryDate = date('Y-m-d');
 			$schedule = '';
 			$saleChannel = '1';
-			$connection = $objectManager->get('Magento\Framework\App\ResourceConnection')->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION'); 
+			/*$connection = $objectManager->get('Magento\Framework\App\ResourceConnection')->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION'); 
 			$result = $connection->fetchAll("SELECT district_id FROM panama_address where district_name= '".$city."' limit 1");
 			if(isset($result[0]['district_id']) && $result[0]['district_id']) {
 				$cityId = $result[0]['district_id'];
 			} else {
 				$cityId = 14;
-			}
+			}*/
+			$cityId = 14;
 			$allItems = $this->_cart->getQuote()->getAllVisibleItems();
 			$i=0;
 			foreach($allItems as $item) {
