@@ -26,7 +26,7 @@ foreach ($urlArray as $url) {
     }
 }
 ?>
-<div class="mid-sec">
+<div class="mid-sec" id="top-menu-mid-sec">
     <a class="logo" href="<?php echo $this->getBaseUrl(); ?>"></a>
     <div class="menu-sec">
         <nav class="navigation" data-action="navigation">
@@ -93,11 +93,16 @@ foreach ($urlArray as $url) {
                 <button type="submit"
                         title="<?= $block->escapeHtml(__('Search')) ?>"
                         class="action search">
-                    <span><?= /* @escapeNotVerified */ __('Search') ?></span>
                 </button>
             </div>
         </form>
-        <?php //echo $this->getLayout()->createBlock('Magento\Framework\View\Element\Template')->setTemplate('Magento_Search::form.mini.phtml')->toHtml(); ?>
     </div>
+    <aside class="mob-menu-sec">
+       <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/stores.phtml")->toHtml(); ?>
+        <div class="mob-menu">
+            <a href="#!" class="fas fa-bars"></a>
+        </div>
+    </aside>
 </div>
+
 

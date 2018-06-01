@@ -12,6 +12,8 @@
         <css src="Magento_Theme::css/style.css"/>
 
         <css src="Magento_Theme::css/jquery.bxslider.css"/>
+        <css src="Magento_Theme::css/magento_css_override.css"/>
+        <css src="Magento_Theme::css/user_registration.css"/>
                  
 <!--         <remove src="css/styles-m.css" />
         <remove src="css/styles-l.css" />
