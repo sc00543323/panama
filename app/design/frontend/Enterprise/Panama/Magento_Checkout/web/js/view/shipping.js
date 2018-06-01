@@ -230,6 +230,7 @@ define([
 			var date = $(".date_div p").html();
 			$("#delivery_date_time").val(date+' '+time);			
 			$("[name='custom_attributes[delivery_date_time]']").val(date+' '+time);
+			return true;
         },
 		getDateTimeObservableArray: function () {
                 return dateTimeObservableArray;
