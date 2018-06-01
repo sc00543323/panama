@@ -31,29 +31,35 @@ class MsisdnStatus implements MsisdnStatusInterface
      * 
      * POST for Mylines api
      * @param int $orderId
-	 * @param string $msisdn
-	 * @param int $msisdn_status
+	 * @param int $msisdn
+	 * @param int $msisdn_status_id
+	 * @param string $msisdn_status
 	 * @return int $resultId
      */
 
-    public function msisdnStatus($orderId,$msisdn,$msisdn_status)
+    public function msisdnStatus($orderId,$msisdn,$msisdn_status_id,$msisdn_status)
     {
        
-		if($msisdn_status == 1) {
+		//if($order->getId()) {
 			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
-			if($order->getId()) {
+			if($msisdn_status_id == 1) {
 				$order->setOrderId($orderId);
 				$order->setMsisdn($msisdn);
+				$order->setMsisdnStatusId($msisdn_status_id);
 				$order->setMsisdnStatus($msisdn_status);
 				$order->setResultId('1');
 				$order->setResultMessage('MSISDN Status is Active.');
 				$order->save();
-			} else {
+			} else if($msisdn_status_id == 0){
+				$order->setMsisdn($msisdn);
+				$order->setMsisdnStatusId($msisdn_status_id);
+				$order->setMsisdnStatus($msisdn_status);
 				$order->setResultId('0');
-				$order->setResultMessage('MSISDN Status is not Active');
+				$order->setResultMessage('MSISDN Status is Inactive');
+				$order->save();
 			}
-		}
+		//}
 		
 		$resultId = $order->getResultId();
 		$resultMessage = $order->getResultMessage();

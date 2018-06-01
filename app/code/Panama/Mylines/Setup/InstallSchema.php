@@ -27,6 +27,19 @@ class InstallSchema implements InstallSchemaInterface
                 );
         }
 		
+		if ($connection->tableColumnExists('sales_order', 'msisdn_status_id') === false) {
+            $connection
+                ->addColumn(
+                    $setup->getTable('sales_order'),
+                    'msisdn_status_id',
+                    [
+                        'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                        'length' => 255,
+                        'comment' => 'MSISDN Status Id'
+                    ]
+                );
+        }
+		
 		if ($connection->tableColumnExists('sales_order', 'msisdn') === false) {
             $connection
                 ->addColumn(
