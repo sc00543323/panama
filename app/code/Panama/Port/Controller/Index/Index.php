@@ -55,7 +55,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 			$this->_catalogSession->setBuySmartphone($data['buy_smartphone']);
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
 			$now = new \DateTime();
-			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',['gteq' => $now->format('Y-m-d H:i:s')])->addFieldToFilter('phone_sku',$data['productsku'])->getFirstItem();
+			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',array(array('lteq' => $now->format('Y-m-d H:i:s')),array('valid_to', 'null'=>'')))->addFieldToFilter('phone_sku',$data['productsku'])->getFirstItem();
 			if($data['port'] == 'yes' && !$data['current_service'] && !$data['buy_smartphone'] && !$data['contract']) {
 				if($handsetData['prepaid_phone_price_with_port_in']) {
 		        	$price = $handsetData['prepaid_phone_price_with_port_in'];

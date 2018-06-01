@@ -70,7 +70,7 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		    $plan_price = $product->getFinalPrice();
 		    $total = $price+$plan_price;
 		    $now = new \DateTime();
-			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',['gteq' => $now->format('Y-m-d H:i:s')])->addFieldToFilter('phone_sku',$product->getSku())->getFirstItem();
+			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',array(array('lteq' => $now->format('Y-m-d H:i:s')),array('valid_to', 'null'=>'')))->addFieldToFilter('phone_sku',$product->getSku())->getFirstItem();
 	    	if($color == '#e6b366' && $handsetData['down_payment_amount']) {
 	        	$down_payment_amount = $handsetData['down_payment_amount'];
 	        }
