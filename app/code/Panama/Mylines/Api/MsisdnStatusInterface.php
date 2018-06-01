@@ -29,10 +29,11 @@ interface MsisdnStatusInterface
      * 
      * POST for Mylines api
      * @param int $orderId
-	 * @param string $msisdn
-	 * @param int $msisdn_status
+	 * @param int $msisdn
+	 * @param int $msisdn_status_id
+	 * @param string $msisdn_status
 	 * @return int $resultId
      */
 
-    public function msisdnStatus($orderId,$msisdn,$msisdn_status);
+    public function msisdnStatus($orderId,$msisdn,$msisdn_status_id,$msisdn_status);
 }
