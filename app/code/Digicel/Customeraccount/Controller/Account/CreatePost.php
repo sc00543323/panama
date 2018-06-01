@@ -253,7 +253,7 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
     {
 	
 	 $parameters = $this->getRequest()->getParams();
-	 print_r($parameters);exit:
+	 print_r($parameters);exit;
 	 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 	 $resultRedirect = $this->resultRedirectFactory->create();
 			 
