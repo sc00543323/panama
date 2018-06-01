@@ -210,7 +210,6 @@ ErrorDocument 403 /errors/404.php
         order allow,deny
         deny from all
     </Files>
-
 <IfModule mod_headers.c>
     ############################################
     ## Prevent clickjacking
