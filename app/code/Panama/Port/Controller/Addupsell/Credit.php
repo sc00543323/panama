@@ -79,18 +79,18 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		    }		    
 		    $total = $price+$plan_price;
 
-	    	if($color == '#e6b366' && $handsetData['down_payment_amount']) {
+	    	if(($color == '#e6b366') && ($handsetData['down_payment_amount'])) {
 	        	$down_payment_amount = $handsetData['down_payment_amount'];
 	        }
 	        else {
 	        	$down_payment_amount ='';
 	        }
 
-	        if($color == '#66cc80' && $handsetData['monthly_service_price']) {
+	        if(($color == '#66cc80') && ($handsetData['monthly_service_price'])) {
 	        	$monthly_service_price = $handsetData['monthly_service_price'];
 	        	$monthly_service_price_html = 'Monthly Service Price (Green):           $  '.$handsetData['monthly_service_price'].'<br>';
 	        }
-	        else if($color == '#e6b366' && $handsetData['monthly_service_price']){
+	        else if(($color == '#e6b366') && ($handsetData['monthly_service_price'])){
 	        	$monthly_service_price = $handsetData['monthly_service_price'];
 	        	$monthly_service_price_html = 'Monthly Service Price (Yellow):           $  '.$handsetData['monthly_service_price'].'<br>';
 	        }
@@ -99,11 +99,11 @@ class Credit extends \Magento\Framework\App\Action\Action {
 	        	$monthly_service_price_html = '';
 	        }
 
-	        if($color == '#66cc80' && $handsetData['monthly_handset_price']) {
+	        if(($color == '#66cc80') && ($handsetData['monthly_handset_price'])) {
 	        	$monthly_handset_price = $handsetData['monthly_handset_price'];
 	        	$monthly_handset_price_html = 'Monthly Hand set Price (Green):           $  '.$handsetData['monthly_handset_price'].'<br>';
 	        }
-	        else if($color == '#e6b366' && $handsetData['monthly_handset_price']){
+	        else if(($color == '#e6b366') && ($handsetData['monthly_handset_price'])){
 	        	$monthly_handset_price = $handsetData['monthly_handset_price'];
 	        	$monthly_handset_price_html = 'Monthly Hand set Price (Yellow):           $  '.$handsetData['monthly_handset_price'].'<br>';
 	        }
@@ -112,7 +112,7 @@ class Credit extends \Magento\Framework\App\Action\Action {
 	        	$monthly_handset_price_html = '';
 	        }
 
-	        if($color == '#e6b366' && $down_payment_amount != '') {
+	        if(($color == '#e6b366') && ($down_payment_amount != '')) {
 	        	$down_payment_html = 'Down Payment Amount:           $  '.$down_payment_amount.'<br>';
 	        }
 	        else {
