@@ -79,7 +79,7 @@ class Address extends \Magento\Framework\App\Action\Action
 			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
 			$connection = $resource->getConnection();
-			$tableName = $resource->getTableName('Panama_address'); 
+			$tableName = $resource->getTableName('panama_address'); 
 
 			$sql = $connection->select()->from(["tn" => $tableName])->group('district_id')->order('district_name ASC')->where('province_id = ?',$loginData['Province']);
 			$Datas = $connection->fetchAll($sql);
