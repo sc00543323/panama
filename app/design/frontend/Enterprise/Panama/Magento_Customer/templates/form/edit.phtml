@@ -206,7 +206,7 @@ if($block->getCustomer()->getCustomAttribute('dob')){
 					<div class="field required">
 						<label class="Login_form_Txt pull-left"><?php echo __('Passport') ?> </label>
 						<div class="control-">
-							<input type="text" maxlength="10" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, equalTo:'#passport'}" autocomplete="off">
+							<input type="text" maxlength="9" minlength="9" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, 'validate-passport':true}" autocomplete="off">
 						</div>
 					</div>
 		
@@ -574,5 +574,13 @@ return /^[a-zA-Z-ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéê�
 		}
 		return true;
 	}, '<?php echo __('Please specify a valid mobile number.');?>');
+	
+	$.validator.addMethod(
+		'validate-passport', function (value) {
+		if(!value.match(/^[a-zA-Z0-9]+$/)) {
+			return false;
+		}
+		return true;
+	}, '<?php echo __('Please enter valid passport number');?>');
 });
 </script>

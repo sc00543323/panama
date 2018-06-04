@@ -289,7 +289,7 @@
                             <div class="passport-content">
                                 <label class="Login_form_Txt pull-left lbl"><?php echo __('Passport Number') ?> </label>
 
-                                <input type="text" maxlength="10" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry port-elm" data-validate="{required:true, equalTo:'#passport'}" autocomplete="off">
+                                <input type="text" maxlength="9" minlength="9" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry port-elm" data-validate="{required:true, 'validate-passport':true}" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -430,5 +430,13 @@
 		}
 		return true;
 	}, '<?php echo __('Please specify a valid mobile number.');?>');
+	
+	$.validator.addMethod(
+		'validate-passport', function (value) {
+		if(!value.match(/^[a-zA-Z0-9]+$/)) {
+			return false;
+		}
+		return true;
+	}, '<?php echo __('Please enter valid passport number');?>');
 });
 </script>
