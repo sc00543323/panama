@@ -211,7 +211,7 @@ require([
 				type: 'post',
 				data: portable_data,
 				success: function (data) {
-					if(data == true) {
+					if(data.result == true) {
 						$("#port_div").css("display", "none");
 						$("#current_service_div").css("display", "block");
 						$("#buy_smartphone_div").css("display", "none");
