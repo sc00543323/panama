@@ -212,7 +212,7 @@
 
                     </div>
                     <div class="imnpun_country_mob_clear">
-                        <input type='text' id='mobile_number' placeholder="0699 6656" name='mobile_number' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true, 'validate-mobile-number':true, 'mobile-maxleng':true}" autocomplete="off" />
+                        <input type='text' id='mobile_number' placeholder="0699 6656" name='mobile_number' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true, 'validate-mobile-number':true, 'mobile-maxleng':true}" autocomplete="off" minlength= "8" maxlength="8"  />
                     </div>
                 </div>
             </div>	
@@ -279,7 +279,7 @@
                             </div>
                             <div class="cedula-content">
                                 <label class="lbl"><?php echo __('Number') ?></label>
-                                <input type="text" maxlength="6" autocomplete="u1" disabled name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" class="form-control Login_box input-text required-entry cedula-elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+                                <input type="text" maxlength="6" autocomplete="u1" readonly="readonly" name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" class="form-control Login_box input-text required-entry cedula-elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
 
                             </div>
 
@@ -289,7 +289,7 @@
                             <div class="passport-content">
                                 <label class="Login_form_Txt pull-left lbl"><?php echo __('Passport Number') ?> </label>
 
-                                <input type="text" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry port-elm" data-validate="{required:true, 'validate-passport':true, 'passport-maxleng':true}" autocomplete="off">
+                                <input type="text" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry port-elm" data-validate="{required:true, 'validate-passport':true, 'passport-maxleng':true}" autocomplete="off" maxlength="9" minlength="9">
                             </div>
                         </div>
                     </div>
