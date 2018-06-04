@@ -47,10 +47,17 @@ class MsisdnStatus implements MsisdnStatusInterface
 				$order->setOrderId($orderId);
 				$order->setMsisdn($msisdn);
 				$order->setMsisdnStatusId($msisdn_status_id);
+
 				$order->setMsisdnStatus($msisdn_status);
 				$order->setResultId('1');
 				$order->setResultMessage('MSISDN Status is Active.');
 				$order->save();
+
+			} else {
+				$order->setResultId('0');
+				$order->setResultMessage('MSISDN Status is not Active');
+			}
+		}
 			} else if($msisdn_status_id == 0){
 				$order->setMsisdn($msisdn);
 				$order->setMsisdnStatusId($msisdn_status_id);
@@ -60,6 +67,7 @@ class MsisdnStatus implements MsisdnStatusInterface
 				$order->save();
 			}
 		//}
+
 		
 		$resultId = $order->getResultId();
 		$resultMessage = $order->getResultMessage();

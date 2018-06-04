@@ -11,7 +11,6 @@ interface MsisdnStatusDataInterface
 	const order_id = 'order_id';
 	const msisdn = 'msisdn';
 	const msisdn_status = 'msisdn_status';
-	const msisdn_status_id = 'msisdn_status_id';
 	const result_id = 'result_id';
 	const result_message = 'result_message';
 	
@@ -49,6 +48,7 @@ interface MsisdnStatusDataInterface
      * Set msisdn_status
      *
      * @param string $msisdn_status
+
      * @return $this
      */
     public function setMsisdnStatus($msisdn_status);
@@ -56,14 +56,12 @@ interface MsisdnStatusDataInterface
 	/**
      * Returns $msisdn_status
      *
-     * @return string
      */
     public function getMsisdnStatus();
 	
 	/**
      * Set $msisdn
      *
-     * @param int $msisdn
      * @return $this
      */
     public function setMsisdn($msisdn);
@@ -72,7 +70,6 @@ interface MsisdnStatusDataInterface
 	/**
      * Returns  $msisdn
      *
-     * @return int
      */
     public function getMsisdn();
 	
