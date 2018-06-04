@@ -212,7 +212,7 @@
 
                     </div>
                     <div class="imnpun_country_mob_clear">
-                        <input type='text' id='mobile_number' placeholder="06 99 66 56 32" name='mobile_number' minlength= "10" maxlength="10" value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10', 'validate-mobile-number':true}" class=" frequired-entry validate-length maximum-length-10 minimum-length-10 validate-digits" autocomplete="off" />
+                        <input type='text' id='mobile_number' placeholder="0699 6656" name='mobile_number' minlength= "8" maxlength="8" value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-mobile-number':true}" autocomplete="off" />
                     </div>
                 </div>
             </div>	
@@ -416,3 +416,19 @@
         }
     </script>
 <?php endif; ?>
+<script>
+    require([
+    'jquery',
+    'mage/mage',
+	'jquery/validate',
+	'jquery/ui',
+], function($){
+	$.validator.addMethod(
+		'validate-mobile-number', function (value) {
+		if(!value.match(/^[0-9]+$/)) { 
+			return false;
+		}
+		return true;
+	}, '<?php echo __('Please specify a valid mobile number.');?>');
+});
+</script>
