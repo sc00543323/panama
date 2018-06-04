@@ -23,6 +23,32 @@ class Downpayment extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $this->handset = $handset;
     }
 
+    public function collect(
+        \Magento\Quote\Model\Quote $quote,
+        \Magento\Quote\Api\Data\ShippingAssignmentInterface $shippingAssignment,
+        \Magento\Quote\Model\Quote\Address\Total $total
+    ) {
+        $items = $shippingAssignment->getItems();
+        if (!count($items)) {
+            return $this;
+        }
+        parent::collect($quote, $shippingAssignment, $total);
+
+        $itemsVisible = $this->cart->getQuote()->getAllVisibleItems();
+
+        $downpayment_amt = 0;
+        foreach($itemsVisible as $item) {
+            $handsetData = $this->handset->load($item->getSku(),'phone_sku');
+            if($handsetData) {
+                $downpayment_amt = $downpayment_amt + $handsetData['down_payment_amount'];
+            }        
+        }
+
+        $total->addTotalAmount('downpayment', $downpayment_amt);
+        $total->addBaseTotalAmount('downpayment', $downpayment_amt);
+        return $this;
+    }
+
     public function fetch(\Magento\Quote\Model\Quote $quote, \Magento\Quote\Model\Quote\Address\Total $total)
     {
         $itemsVisible = $this->cart->getQuote()->getAllVisibleItems();
