@@ -24,11 +24,11 @@
 
             <input type="hidden" name="success_url" value="<?php /* @escapeNotVerified */ echo $block->getSuccessUrl() ?>">
             <input type="hidden" name="error_url" value="<?php /* @escapeNotVerified */ echo $block->getErrorUrl() ?>">
-            <?php //echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+            <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
 
-            <div class="form-element">
+           <?php /* <div class="form-element">
                 <label class="label lbl">
-                    <?php /* @escapeNotVerified */ echo __('firstname') ?>*
+                    <?php  echo __('firstname') ?>*
                 </label>
 
 
@@ -41,7 +41,7 @@
             </div>
             <div class="form-element">
                 <label class="lbl">
-                    <?php /* @escapeNotVerified */ echo __('lastname') ?>*
+                    <?php  echo __('lastname') ?>*
                 </label>
 
                 
@@ -52,6 +52,9 @@
                        class="elm input-text required-entry" data-validate="{required:true}">
 
             </div>
+            * 
+            */?>
+            
             <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
             <?php if ($_dob->isEnabled()): ?>
                 <?php echo $_dob->setDate($block->getFormData()->getDob())->toHtml() ?>
