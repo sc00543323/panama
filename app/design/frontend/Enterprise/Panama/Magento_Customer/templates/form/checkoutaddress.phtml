@@ -12,6 +12,7 @@
 ?>
 
 <?php 
+$addressData = array();
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
 $customerId = $customerSession->getCustomer()->getId();
@@ -26,7 +27,7 @@ $customerObj = $objectManager->create('Magento\Customer\Model\Customer')->load($
 $this->setShowAddressFields(true); ?>
 <?php if ($block->getShowAddressFields()){ ?>
         <fieldset class=" address">
-		<div class="clearfix"> 
+		<div class=""> 
 			<?php echo $block->getLayout()->createBlock(\Digicel\Login\Block\Customer\Checkoutname::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
         </div>
             <input type="hidden" name="create_address" value="1" />
@@ -35,23 +36,23 @@ $this->setShowAddressFields(true); ?>
             <?php echo $block->getLayout()->createBlock(\Digicel\Login\Block\Customer\Getaddress::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
         <div>
 			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Mobile Number') ?>*</label>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
-				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
-					<input type='text' id='mobile_number' name='mobile_number' value="<?php echo $addressData['telephone']; ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true}" class="form-control" autocomplete="off" />
+			<div class="">
+				<div class="">
+					<input type='text' id='mobile_number' name='mobile_number' value="<?php if(!empty($addressData)){ echo $addressData['telephone']; } ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true}" class="form-control" autocomplete="off" />
 				</div>
 			</div>
 		</div>
 		<div class="field alt_mobile">
 			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Alternate mobile number')) ?>*</label>
-            <input type="text" maxlength="20" value="<?php echo $addressData['alternate_mobile_number']; ?>"  name="alt_mobile" title="" id="alt_mobile" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
+            <input type="text" maxlength="20" value="<?php if(!empty($addressData)){ echo $addressData['alternate_mobile_number']; } ?>"  name="alt_mobile" title="" id="alt_mobile" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
 		</div>
 		<div class="field Address">
 			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Address')) ?>*</label>
-            <input type="text" maxlength="20"  value="<?php echo $addressData['street']; ?>" name="Address" title="" id="Address" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
+            <input type="text" maxlength="20"  value="<?php if(!empty($addressData)){ echo $addressData['street']; } ?>" name="Address" title="" id="Address" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
 		</div>
 		<div class="field Direction_indications">
 			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Direction indications')) ?>*</label>
-			<input type="text" maxlength="20" value="<?php echo $addressData['direction_indications']; ?>"  name="Direction_indications" title="" id="Direction_indications" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
+			<input type="text" maxlength="20" value="<?php if(!empty($addressData)){ echo $addressData['direction_indications']; } ?>"  name="Direction_indications" title="" id="Direction_indications" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
 		</div>
 			<input type="hidden" name="default_billing" value="1">
             <input type="hidden" name="default_shipping" value="1">
