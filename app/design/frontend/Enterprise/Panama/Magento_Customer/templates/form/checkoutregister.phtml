@@ -9,6 +9,7 @@
  *
  * @var \Magento\Customer\Block\Form\Register $block
  */
+ $specialCharacter = "A-Za-zA-ÿŒŸœĲ'._\s-";
 ?>
 
 <h5 class="pageTitle"><?php echo __('User Registration');?></h5>
@@ -33,28 +34,27 @@
 			<div class="">
 				<div class="">
 				<?php 	
-								$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-								$eavConfig = $objectManager->get('\Magento\Eav\Model\Config');
-								$attribute = $eavConfig->getAttribute('customer', 'mobile_prefix');
-								$options = $attribute->getSource()->getAllOptions();?>
-								<select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>" name="mobile_prefix" title="mobile_prefix" class="form-control appfontnew13 required-entry<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> >
-								<?php foreach ($options as $_option): ?>
-								<?php if($_option['value'] != ''){?>
-									<option <?php echo ($block->getFormData()->getMobilePrefix() == $_option['value'] ) ?"selected":''?> value="<?php /* @escapeNotVerified */ echo $_option['value'] ?>">
-										<?php /* @escapeNotVerified */ echo __($_option['label']) ?>
-									</option>
-								<?php } ?>
-								<?php endforeach; ?>
-								</select>
-								<i class="select_arrow glyphicon glyphicon-triangle-bottom"></i>
-								
-					<input type='text' id='mobile_number' name='mobile_number' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true}" class="form-control" autocomplete="off" />
+					$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+					$eavConfig = $objectManager->get('\Magento\Eav\Model\Config');
+					$attribute = $eavConfig->getAttribute('customer', 'mobile_prefix');
+					$options = $attribute->getSource()->getAllOptions();?>
+					<select id="<?php /* @escapeNotVerified */ echo $block->getFieldId('prefix') ?>" name="mobile_prefix" title="mobile_prefix" class="form-control appfontnew13 required-entry<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> >
+					<?php foreach ($options as $_option): ?>
+					<?php if($_option['value'] != ''){?>
+						<option <?php echo ($block->getFormData()->getMobilePrefix() == $_option['value'] ) ?"selected":''?> value="<?php /* @escapeNotVerified */ echo $_option['value'] ?>">
+							<?php /* @escapeNotVerified */ echo __($_option['label']) ?>
+						</option>
+					<?php } ?>
+					<?php endforeach; ?>
+					</select>
+					<i class="select_arrow glyphicon glyphicon-triangle-bottom"></i>								
+					<input type='text' id='mobile_number' name='mobile_number' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true, 'validate-mobile-number':true, 'mobile-maxleng':true}" class="form-control" autocomplete="off" minlength= "8" maxlength="8" />
 				</div>
 			</div>
 		</div>
 		<div class="field alt_mobile">
 			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Alternate mobile number')) ?>*</label>
-                <input type="text" maxlength="20"   name="alt_mobile" title="" id="alt_mobile" placeholder="" class="form-control " data-validate="{required:true}" autocomplete="off">
+                <input type="text" name="alt_mobile" title="" id="alt_mobile" placeholder="" class="form-control " data-validate="{required:true, 'validate-mobile-number':true, 'mobile-maxleng':true}" autocomplete="off" minlength= "8" maxlength="8">
     </div>
 	<div>
 	  	<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Email Address')) ?>*</label>
@@ -70,12 +70,13 @@
 						   data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
 						   data-validate="{required:true, 'validate-customer-password':true}"
 						   autocomplete="off">
+						   
 				</div>
 
 		</div>
 		<div class="field confirmation required">
 			<label class="Login_form_Txt pull-left"><?php echo $block->escapeHtml(__('Confirm Password')) ?>*</label>
-			<input type="password" maxlength="20" onpaste="return false;" autocomplete="u1"  name="password_confirmation" title="" id="password-confirmation" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true,equalTo:'#password'}" autocomplete="off">
+			<input type="password" maxlength="20" onpaste="return false;"  name="password_confirmation" title="" id="password-confirmation" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true,equalTo:'#password'}" autocomplete="off">
 		</div>
 	
 	</div>
@@ -107,11 +108,11 @@
 				</div>
 				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
 					<label>I take</label>
-					<input type="text" id="cedulaItake" name="cedulaItake">
+					<input maxlength="6" type="text" id="cedulaItake" name="cedulaItake">
 				</div>
 				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
 					<label>Seat</label>
-					<input type="text" id="cedulaSeat" name="cedulaSeat">
+					<input maxlength="6" type="text" id="cedulaSeat" name="cedulaSeat">
 				</div>
 					<div class="cedula-field" style="width: 20%;float: left;margin: 0px 15px;">
 						<label>Number</label>			
@@ -121,11 +122,11 @@
 					<br style="clear: both;" style="width: 10%;float: left;margin: 0px 15px;">
 					OR
 					<br>
-				<input class="btn btnOnAccordion btnBlue" style="margin: 19px 15px;padding: 5px;" type="button" id="isPassport" value="Passport" name="isPassport">
+				<input class="btn btnOnAccordion btnBlue" style="margin: 19px 15px;padding: 5px;" type="button" id="isPassport" value="Passport" name="isPassport" >
 				<div class="passport_field" style="display:none;">
 					<div class="cedula-field" style="width: 30%;float: left;margin: 0px 15px;">
 						<label>Number</label>
-						<input type="text" id="cedulaPassport" name="cedulaPassport">
+						<input type="text" id="cedulaPassport" name="cedulaPassport" data-validate="{required:true, 'validate-passport':true, 'passport-maxleng':true}">
 					</div>
 				</div> 
         </div>
@@ -134,7 +135,7 @@
 <?php $this->setShowAddressFields(true); ?>
 <?php if ($block->getShowAddressFields()): ?>
         <fieldset class="fieldset address">
-            <legend class="legend"><span><?php echo $block->escapeHtml(__('Shipping Address')) ?></span></legend><br>
+            <legend class="legend"><span><?php echo $block->escapeHtml(__('Delivery Address')) ?></span></legend><br>
             <input type="hidden" name="create_address" value="1" />
             
 
@@ -184,21 +185,28 @@ require([
 'mage/calendar', // Calender
 'mage/translate' // Magento text translate (Validation message translte as per language)
 ], function($){
-	$("#dob").calendar({
+	
+		//Date Picker With Custom Option
+		$("#dob").calendar({
 			changeYear: true,
 			changeMonth: true,
 			yearRange: "1970:2050",
 			buttonText: "Select Date",
 		});
+		//Show Hide passport and Cedula Option
 		$("#isCedula").click(function(){
 			$(".cedula_fields").show();
 			$(".passport_field").hide();
+			$('#cedulaPassport').val('');
 		});
 		$("#isPassport").click(function(){
 			$(".passport_field").show();
 			$(".cedula_fields").hide();
+			$('#cedulaNumber').val('');
+			$('#cedulaItake').val('');
+			$('#cedulaSeat').val('');			
 		});
-		
+		//Bind Cedula value with "-" charactor
 		$('#cedulaLetters,#cedulaProvince').change(function(){
 			var Province = $('#cedulaProvince').val();
 			var Letters = $('#cedulaLetters').val();
@@ -220,6 +228,7 @@ require([
 			$('#cedulaNumber').val(number);	
 		
 		});	
+		//Bind Cedula value with "-" charactor
 		$('#cedulaItake,#cedulaSeat').keyup(function(e){
 			var Province = $('#cedulaProvince').val();
 			var Letters = $('#cedulaLetters').val();
@@ -241,6 +250,50 @@ require([
 			$('#cedulaNumber').val(number);	
 		});	
 		
-		
-});
+		//Validation Start All fields		
+		$.validator.addMethod("isalpha", function(value) {
+			return /^[ <?php echo $specialCharacter; ?>]*$/.test(value);
+		}, $.mage.__('Please enter only alphabets'));
+
+		$.validator.addMethod("maxileng", function(value) {
+			if(value.length>32) { 
+				return false;
+			}
+		return true;
+		}, $.mage.__('Please enter only 32 character'));	
+
+		$.validator.addMethod("custom-required", function (value) {
+			return !$.mage.isEmpty(value);
+		}, $.mage.__('This is a required fields.'));
+			
+		$.validator.addMethod(
+			'validate-mobile-number', function (value) {
+			if(!value.match(/^[0-9]+$/)) { 
+				return false;
+			}
+			return true;
+		}, '<?php echo __('Please specify a valid mobile number.');?>');
+	
+		$.validator.addMethod("mobile-maxleng", function(value) {
+			if(value.length>8 && value.length<8) {
+				return false;
+			}
+			return true;
+		}, $.mage.__('mobile number should be 8 digit'));
+	
+		$.validator.addMethod(
+			'validate-passport', function (value) {
+			if(!value.match(/^[a-zA-Z0-9]+$/)) {
+				return false;
+			}
+			return true;
+		}, '<?php echo __('Please enter valid passport number');?>');
+	
+		$.validator.addMethod("passport-maxleng", function(value) {
+			if(value.length>9 && value.length<9) {
+				return false;
+			}
+			return true;
+		}, $.mage.__('Passport number should be 9 character'));	
+	});
 </script>
