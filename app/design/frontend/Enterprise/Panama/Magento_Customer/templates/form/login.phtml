@@ -1,0 +1,76 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Form\Login $block */
+?>
+<div class="user-form-container login-form-container">
+    <header><?= $block->escapeHtml(__('Login Your Account')) ?></header>
+    <!-- User Registration Form Section -->
+    <div class="user-form">
+        <form class="form form-login"
+              action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+              method="post"
+              id="login-form"
+              data-mage-init='{"validation":{}}'>
+            <?= $block->getBlockHtml('formkey') ?>
+            <!-- <fieldset class="fieldset login" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+                <div class="field note"><?= $block->escapeHtml(__('If you have an account, sign in with your email address.')) ?></div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                    <div class="control">
+                        <input name="login[username]" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" data-validate="{required:true, 'validate-email':true}">
+                    </div>
+                </div>
+                <div class="field password required">
+                    <label for="pass" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+                    <div class="control">
+                        <input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}">
+                    </div>
+                </div>
+                <?= $block->getChildHtml('form_additional_info') ?>
+                <div class="actions-toolbar">
+                    <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Sign In')) ?></span></button></div>
+                    <div class="secondary"><a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a></div>
+                </div>
+            </fieldset> -->
+            <div class="form-element required">
+                <label class="lbl"><?= $block->escapeHtml(__('Username / Email ID')) ?></label>
+                <input name="login[username]" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> id="email" type="text" class="input-text elm" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" data-validate="{required:true, 'validate-email':true}" />
+            </div>
+            <div class="form-element required">
+                <label class="lbl"><?= $block->escapeHtml(__('Password')) ?></label>
+                <input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?> class="input-text elm" id="pass" title="<?= $block->escapeHtmlAttr(__('Password')) ?>" data-validate="{required:true}">
+            </div>
+            <div class="forgot-section">
+                <a href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>" class="forgot-link"><?= $block->escapeHtml(__('Forgot Password')) ?></a>
+            </div>
+            <div class="account-btn">
+                <div>
+                    <button type="submit" class="login-btn"><?= $block->escapeHtml(__('login')) ?></button>
+                </div>
+            </div>
+        </form>
+        <ul class="social-login-btn">
+            <li>
+                <a href="#" class="facebook-btn" role="button">facebook login<i class="fab fa-facebook"></i></a>
+            </li>
+            <li>
+                <a href="#" class="google-btn" role="button">google login<i class="fab fa-google-plus-square"></i></a>
+            </li>
+        </ul>
+        <div class="newuser-section">
+            <h1><?= $block->escapeHtml(__('NEW USER?')) ?></h1>
+        </div>
+        
+        <div class="account-btn">
+            <div>
+                <button type="button" class="signup-btn"><a href="<?= $block->escapeUrl($block->getCreateAccountUrl()) ?>" class="action create primary"><?= $block->escapeHtml(__('sign up')) ?></a></button>
+            </div>
+        </div>
+    </div>
+</div>
