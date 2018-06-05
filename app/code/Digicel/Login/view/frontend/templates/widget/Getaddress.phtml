@@ -14,7 +14,7 @@ $addressData = array();
 $sel = '';
 $selDist = '';
 $selZone = '';
-
+$specialCharacter = "A-Za-zA-ÿŒŸœĲ'._\s-";
 ?>
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -161,7 +161,36 @@ require([
 		var optionText = $("#Zone_Barrio option:selected").text();
 		$('#Zone_Barrio_val').val(optionText);	
 	});
+	//Validation Start All fields		
+		$.validator.addMethod("isalpha", function(value) {
+			return /^[ <?php echo $specialCharacter; ?>]*$/.test(value);
+		}, $.mage.__('Please enter only alphabets'));
+
+		$.validator.addMethod("maxileng", function(value) {
+			if(value.length>32) { 
+				return false;
+			}
+		return true;
+		}, $.mage.__('Please enter only 32 character'));	
+
+		$.validator.addMethod("custom-required", function (value) {
+			return !$.mage.isEmpty(value);
+		}, $.mage.__('This is a required fields.'));
+			
+		$.validator.addMethod(
+			'validate-mobile-number', function (value) {
+			if(!value.match(/^[0-9]+$/)) { 
+				return false;
+			}
+			return true;
+		}, '<?php echo __('Please specify a valid mobile number.');?>');
 	
+		$.validator.addMethod("mobile-maxleng", function(value) {
+			if(value.length>8 && value.length<8) {
+				return false;
+			}
+			return true;
+		}, $.mage.__('mobile number should be 8 digit'));
 });
 </script>
 
