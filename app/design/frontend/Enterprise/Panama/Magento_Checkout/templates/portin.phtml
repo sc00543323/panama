@@ -93,7 +93,7 @@
 				<div class="passport_field" style="display:none;">
 					<div class="cedula-field" style="width: 30%;float: left;margin: 0px 15px;">
 						<label>Number</label>
-						<input type="text" value="<?php echo $customer->getCustomAttribute('passport')->getValue(); ?>" id="cedulaPassport" name="cedulaPassport">
+						<input type="text" value="<?php if($customer->getCustomAttribute('passport')){ echo $customer->getCustomAttribute('passport')->getValue(); }?>" id="cedulaPassport" name="cedulaPassport">
 					</div>
 				</div> 
         </div>

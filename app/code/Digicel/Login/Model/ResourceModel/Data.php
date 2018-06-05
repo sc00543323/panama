@@ -9,6 +9,6 @@ class Data extends AbstractDb
 {
     protected function _construct()
     {
-        $this->_init('Panama_address', 'address_id');
+        $this->_init('panama_address', 'address_id');
     }
 }

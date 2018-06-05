@@ -72,7 +72,7 @@ if($block->getCustomer()->getCustomAttribute('mobile_prefix')){
 					</div>
 					<div class="form-right">
 					<div class="control">
-					<input type='text' minlength="8"  maxlength="8" id='mobile_number' name='mobile_number' value="<?php echo $mobile;?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-mobile-number':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
+					<input type='text' id='mobile_number' name='mobile_number' value="<?php echo $mobile;?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-mobile-number':true, 'mobile-maxleng':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
 					</div>
 					</div>
 				</div>
@@ -293,5 +293,12 @@ return /^[a-zA-Z-ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéê�
 		}
 		return true;
 	}, '<?php echo __('Please specify a valid mobile number.');?>');
+	$.validator.addMethod("mobile-maxleng", function(value) {
+		if(value.length>8 && value.length<8) {
+			return false;
+		}
+		return true;
+	}, $.mage.__('mobile number should be 8 digit'));
+	
 });
 </script>

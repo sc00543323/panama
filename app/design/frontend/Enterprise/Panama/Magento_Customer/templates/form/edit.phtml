@@ -93,7 +93,7 @@ if($block->getCustomer()->getCustomAttribute('dob')){
 					</div>
 					<div class="form-right">
 					<div class="control">
-					<input type='text' minlength="8" maxlength="8" id='mobile_number' name='mobile_number' value="<?php echo $mobile;?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-mobile-number':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
+					<input type='text' id='mobile_number' name='mobile_number' value="<?php echo $mobile;?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true, 'validate-mobile-number':true, 'mobile-maxleng':true}"  class="Login_box form-control input-text required-entry validate-not-negative-number integer" autocomplete="off" />
 					</div>
 					</div>
 				</div>
@@ -206,7 +206,7 @@ if($block->getCustomer()->getCustomAttribute('dob')){
 					<div class="field required">
 						<label class="Login_form_Txt pull-left"><?php echo __('Passport') ?> </label>
 						<div class="control-">
-							<input type="text" maxlength="10" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, equalTo:'#passport'}" autocomplete="off">
+							<input type="text" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry" data-validate="{required:true, 'validate-passport':true, 'passport-maxleng':true}" autocomplete="off">
 						</div>
 					</div>
 		
@@ -574,5 +574,27 @@ return /^[a-zA-Z-ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéê�
 		}
 		return true;
 	}, '<?php echo __('Please specify a valid mobile number.');?>');
+	
+	$.validator.addMethod("mobile-maxleng", function(value) {
+		if(value.length>8 && value.length<8) {
+			return false;
+		}
+		return true;
+	}, $.mage.__('mobile number should be 8 digit'));
+	
+	$.validator.addMethod(
+		'validate-passport', function (value) {
+		if(!value.match(/^[a-zA-Z0-9]+$/)) {
+			return false;
+		}
+		return true;
+	}, '<?php echo __('Please enter valid passport number');?>');
+	
+	$.validator.addMethod("passport-maxleng", function(value) {
+		if(value.length>9 && value.length<9) {
+			return false;
+		}
+		return true;
+	}, $.mage.__('Passport number should be 9 character'));
 });
 </script>

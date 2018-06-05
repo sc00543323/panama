@@ -210,9 +210,8 @@
                         </select>
                         <span class="fas fa-caret-down"></span>
 
-                    </div>
-                  
-                        <input type='text' id='mobile_number' placeholder="06 99 66 56 32" name='mobile_number' minlength= "10" maxlength="10" value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10', 'validate-mobile-number':true}" class="required-entry validate-length maximum-length-10 minimum-length-10 validate-digits" autocomplete="off" />
+                    </div>                 
+                        <input type='text' id='mobile_number' placeholder="06 99 66 56 32" name='mobile_number' minlength= "8" maxlength="8" value="<?php echo $block->getFormData()->getMobileNumber(); ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10', 'validate-mobile-number':true,'mobile-maxleng':true}" class="required-entry validate-length validate-digits" autocomplete="off" />
                    
                 </div>
             </div>	
@@ -280,8 +279,7 @@
                             </div>
                             <div class="form-element">
                                 <label class="lbl"><?php echo __('Number') ?></label>
-                                <input type="text" maxlength="6" autocomplete="u1"  name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" class=" Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
-
+                                <input type="text" maxlength="6" autocomplete="u1"  readonly="readonly"  name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" class=" Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
                             </div>
 
                         </div>
@@ -290,8 +288,8 @@
                            
                                 <label class="Login_form_Txt pull-left lbl"><?php echo __('Passport Number') ?> </label>
 
-                                <input type="text" maxlength="10" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#passport'}" autocomplete="off">
-                           
+                                <input type="text" maxlength="9" minlength="9" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#passport','validate-passport':true, 'passport-maxleng':true}" autocomplete="off">
+                          
                         </div>
                     </div>
                 </div>
@@ -417,3 +415,43 @@
         }
     </script>
 <?php endif; ?>
+<script>
+    require([
+    'jquery',
+    'mage/mage',
+	'jquery/validate',
+	'jquery/ui',
+], function($){
+	$.validator.addMethod(
+		'validate-mobile-number', function (value) {
+		if(!value.match(/^[0-9]+$/)) { 
+			return false;
+		}
+		return true;
+	}, '<?php echo __('Please specify a valid mobile number.');?>');
+	
+	$.validator.addMethod("mobile-maxleng", function(value) {
+		if(value.length>8 && value.length<8) {
+			return false;
+		}
+		return true;
+	}, $.mage.__('mobile number should be 8 digit'));
+	
+	$.validator.addMethod(
+		'validate-passport', function (value) {
+		if(!value.match(/^[a-zA-Z0-9]+$/)) {
+			return false;
+		}
+		return true;
+	}, '<?php echo __('Please enter valid passport number');?>');
+	
+	$.validator.addMethod("passport-maxleng", function(value) {
+		if(value.length>9 && value.length<9) {
+			return false;
+		}
+		return true;
+	}, $.mage.__('Passport number should be 9 character'));
+	
+});
+</script>
+
