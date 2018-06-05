@@ -100,6 +100,9 @@ class Index {
 			# Setup request to send json via POST.
 			//$payload = '{"OrderHead":[{"OrderId":"20180521-001","ClientId":"431482","ClientName":"Nancy Lasso","ClientEmail":"nancy.lasso@logytechmobile.com","ClientPhone1":"62191294","ClientPhone2":"3929262","DateTimeCreation":"2018-05-21","DateTimeEstimatedDelivery":"2018-05-21","DeliveryType":"1","AuthorizedReceiverName":"Nancy Lasso","StoreToPickup":"VI000017","DeliveryCity":"14","DeliveryNeighborhood":"San Antonio","DeliveryAddress":"quinta las praderas, calle carrara casa b82 ","DeliveryAddressLongitude":"-79.442813","DeliveryAddressLatitude":"9.063453","DeliveryProvince":"Panama","DeliveryTownShip":"Rufina ALfaro","WarehouseId":"VI000017","schedule":"JOR5","SaleChannel":"1","OrderDetail":[{"Sku":"SIMAVATAR","Quantity":"1","UnitPrice":"235.00","Taxes":"0.07","TotalPrice":"235.07"}]}],"DataAccess":[{"user":"admin","password":"12345.LM"}]}';
 			$payload = json_encode($curl_post_data);
+			$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/orderfullfillment.log', "Payload:");
+			$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/orderfullfillment.log', $payload);
+			
 			//echo "<pre>";
 			//print_r($payload);echo "<br>";die;
 			
@@ -119,7 +122,10 @@ class Index {
 			
 			if(isset($response[0]->ResultId) && $response[0]->ResultId ==1) {
 				$order->setTrackingDeliveryUrl($response[0]->TrackingDeliveryUrl);
-				$order->setOrderfullfillmentStatus(1);
+				$order->setOrderfullfillmentStatus('1');
+				$order->save();
+			} else {
+				$order->setOrderfullfillmentStatus('0');
 				$order->save();
 			}
 		}

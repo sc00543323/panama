@@ -23,7 +23,7 @@ $customerId = $customerSession->getCustomer()->getId();
 
 $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
 $connection = $resource->getConnection();
-$tableName = $resource->getTableName('Panama_address'); 
+$tableName = $resource->getTableName('panama_address'); 
 $sql = $connection->select()->from(["tn" => $tableName])->group('province_id')->order('province_name ASC');
 $result = $connection->fetchAll($sql);
 
