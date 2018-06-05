@@ -199,7 +199,7 @@
                         $attribute = $eavConfig->getAttribute('customer', 'mobile_prefix');
                         $options = $attribute->getSource()->getAllOptions();
                         ?>
-                        <select name="mobile_prefix" title="mobile_prefix" class="cedula-select required-entry<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> >
+                        <select name="mobile_prefix"  class="cedula-select required-entry<?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('mobile_prefix') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> >
                             <?php foreach ($options as $_option): ?>
                                 <?php if ($_option['value'] != '') { ?>
                                     <option <?php echo ($block->getFormData()->getMobilePrefix() == $_option['value'] ) ? "selected" : '' ?> value="<?php /* @escapeNotVerified */ echo $_option['value'] ?>">
@@ -210,15 +210,14 @@
                         </select>
                         <span class="fas fa-caret-down"></span>
 
-                    </div>
-                    <div class="imnpun_country_mob_clear">
-                        <input type='text' id='mobile_number' placeholder="0699 6656" name='mobile_number' value="<?php echo $block->getFormData()->getMobileNumber(); ?>" title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" data-validate="{required:true, 'validate-mobile-number':true, 'mobile-maxleng':true}" autocomplete="off" minlength= "8" maxlength="8"  />
-                    </div>
+                    </div>                 
+                        <input type='text' id='mobile_number' placeholder="06 99 66 56 32" name='mobile_number' minlength= "8" maxlength="8" value="<?php echo $block->getFormData()->getMobileNumber(); ?>" data-validate="{required:true,'validate-digits':true,minlength:'10',maxlength:'10', 'validate-mobile-number':true,'mobile-maxleng':true}" class="required-entry validate-length validate-digits" autocomplete="off" />
+                   
                 </div>
             </div>	
             <section class="form-element">
-                <header>Personal ID*</header>
-                <div class="personal-id-container">
+                <header>Personal ID</header>
+                <div class="personalid-section">
 
                     <?php
                     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -226,18 +225,18 @@
                     $cedulla = $eavConfig->getAttribute('customer', 'cedulla');
                     ?>
 
-                    <div class="personal-id-btn">
+                    <div class="personalid-btns">
                         <button type="button" class="secondary-btn" onClick="myFunction()"><?php echo __('CEDULA') ?></button>
-                        <label class="red-text">or</label>
+                       <p>or</p>
                         <button type="button" class="secondary-btn" onClick="passportClick()"><?php echo __('PASSPORT') ?></button>
                     </div>
-                    <div class="personal-id-content">
-                        <div class="field required cedula-container" id="sidecontainer" style="display:none">
-                            <div class="cedula-content">
+                    <div class="personalid-content">
+                        <div class="field required cedula-content" id="cedula" style="display:none">
+                            <div class="form-element">
                                 <label class="lbl"><?php echo __('Province') ?> </label>
                                 <div class="select-box">
 
-                                    <select name="province" id="state" class="input-text cedula-select" data-validate="{required:true, 'validate-customer-province':true}">
+                                    <select name="province" id="state" class="input-text" data-validate="{required:true, 'validate-customer-province':true}">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -255,10 +254,10 @@
                                     <span class="fas fa-caret-down"></span>
                                 </div>
                             </div>
-                            <div class="cedula-content">
+                            <div class="form-element">
                                 <label class="lbl"><?php echo __('Letterss') ?></label>
                                 <div class="select-box">
-                                    <select name="letters" id="city" class="input-text cedula-select" data-validate="{required:true, 'validate-customer-letters':true}">
+                                    <select name="letters" id="city" class="input-text" data-validate="{required:true, 'validate-customer-letters':true}">
                                         <option value="PI">PI</option>
                                         <option value="AV">AV</option>
                                         <option value="E">E</option>
@@ -266,31 +265,31 @@
                                         <option value="PE">PE</option>
                                         <option value="P">P</option>
                                     </select>
+                                    <span class="fas fa-caret-down"></span>
                                 </div>
                             </div>
-                            <div class="cedula-content">
+                            <div class="form-element">
                                 <label class="lbl"><?php echo __('I take') ?> </label>
-                                <input type="text" maxlength="6" autocomplete="u1"  name="itake" title="<?php echo __('I Take') ?>" id="street" placeholder="" class="form-control Login_box input-text required-entry cedula-elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+                                <input type="text" maxlength="6" autocomplete="u1"  name="itake" title="<?php echo __('I Take') ?>" id="street" placeholder="" class="Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
                             </div>
-                            <div class="cedula-content">
+                            <div class="form-element">
                                 <label class="lbl"><?php echo __('Seat') ?></label>
-                                <input type="text" maxlength="6" autocomplete="u1"  name="seat" title="<?php echo __('Seat') ?>" id="zip" placeholder="" class="form-control Login_box input-text required-entry cedula-elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+                                <input type="text" maxlength="6" autocomplete="u1"  name="seat" title="<?php echo __('Seat') ?>" id="zip" placeholder="" class=" Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
 
                             </div>
-                            <div class="cedula-content">
+                            <div class="form-element">
                                 <label class="lbl"><?php echo __('Number') ?></label>
-                                <input type="text" maxlength="6" autocomplete="u1" readonly="readonly" name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" class="form-control Login_box input-text required-entry cedula-elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
-
+                                <input type="text" maxlength="6" autocomplete="u1"  readonly="readonly"  name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" class=" Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
                             </div>
 
                         </div>
 
-                        <div class="field required passport-container" id="pasport" style="display:none;"> 
-                            <div class="passport-content">
+                        <div class="field required passport-content" id="pasport" style="display:none;"> 
+                           
                                 <label class="Login_form_Txt pull-left lbl"><?php echo __('Passport Number') ?> </label>
 
-                                <input type="text" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry port-elm" data-validate="{required:true, 'validate-passport':true, 'passport-maxleng':true}" autocomplete="off" maxlength="9" minlength="9">
-                            </div>
+                                <input type="text" maxlength="9" minlength="9" autocomplete="u1"  name="passport" title="<?php echo __('Passport') ?>" id="passport" placeholder="" class="form-control Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#passport','validate-passport':true, 'passport-maxleng':true}" autocomplete="off">
+                          
                         </div>
                     </div>
                 </div>
@@ -330,7 +329,7 @@
 
 <script>
     function myFunction() {
-        var a = document.getElementById("sidecontainer");
+        var a = document.getElementById("cedula");
         if (a.style.display === "none") {
             a.style.display = "flex";
         } else {
@@ -455,3 +454,4 @@
 	
 });
 </script>
+
