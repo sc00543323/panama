@@ -148,7 +148,9 @@ use Magento\Newsletter\Model\SubscriberFactory;
                        
                         $message = array('valid' => 1,'message'=> 'Account created successfully');
                     }else{
-                        $message = array('valid' => 0,'message'=> 'Something went wrong');
+                        if($message == ''){
+							$message = array('valid' => 0,'message'=> 'Something went wrong'); 
+						}
                     }
                 } 
            
