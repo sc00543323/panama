@@ -1,0 +1,163 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+/**
+ * Create account form template
+ *
+ * @var \Magento\Customer\Block\Form\Register $block
+ */
+ 
+ $nipnum = $block->getNip();
+ $Nip = str_split($nipnum);
+ 
+ $customer = $block->getCustomer();
+
+?>
+<h5 class="pageTitle"><?php echo __('Pori In');?></h5>
+    <?php /* @noEscape */ echo $block->getBlockHtml('formkey'); ?>
+       
+		<!--div class="clearfix"> 
+			<?php //echo $block->getLayout()->createBlock(\Digicel\Login\Block\Customer\Checkoutname::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+        </div-->
+		<div>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('First Name') ?>*</label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+					<input type='text' value="<?php echo $customer->getFirstname();?>" id='Firstname' name='Firstname' title="<?php /* @escapeNotVerified */ echo __('First Name') ?>"  class=" form-control " autocomplete="off" />
+				</div>
+			</div>
+		</div>
+		<div>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Last Name') ?>*</label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+					<input type='text' value="<?php echo $customer->getLastname();?>" id='Lastname' name='Lastname' title="<?php /* @escapeNotVerified */ echo __('Last Name') ?>"  class=" form-control " autocomplete="off" />
+				</div>
+			</div>
+		</div>
+		<div>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Date of Birth') ?>*</label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+					<input type='text' value="<?php echo $block->convertDate($customer->getDob());?>" id='dob' name='dob' title="<?php /* @escapeNotVerified */ echo __('Date of Birth') ?>"  class=" form-control " autocomplete="off" />
+				</div>
+			</div>
+		</div>
+		
+	
+		
+    <fieldset class="fieldset Cedula">
+            <div class="field Cedula">            
+    		<input class="btn btnOnAccordion btnBlue" style="width: 10%;float: left;margin: 19px 15px;padding: 5px;" type="button" id="isCedula" value="Cedula" name="isCedula">
+			
+            <div class="cedula_fields" style="display:none;">
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>Province</label>
+					<select name="cedulaProvince" id="cedulaProvince">
+						<?php for($i=0;$i<15;$i++){?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php  } ?>
+					</select>
+				</div>
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>Letters</label>
+					<select name="cedulaLetters" id="cedulaLetters">
+						<option value="PI">PI</option>
+						<option value="AV">AV</option>
+						<option value="E">E</option>
+						<option value="N">N</option>
+						<option value="PE">PE</option>
+						<option value="P">P</option>
+					</select>
+				</div>
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>I take</label>
+					<input type="text" id="cedulaItake" name="cedulaItake">
+				</div>
+				<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+					<label>Seat</label>
+					<input type="text" id="cedulaSeat" name="cedulaSeat">
+				</div>
+					<div class="cedula-field" style="width: 10%;float: left;margin: 0px 15px;">
+						<label>Number</label>			
+						<input type="text" value="<?php  if($customer->getCustomAttribute('cedulla')){ echo $customer->getCustomAttribute('cedulla')->getValue();}?>" id="cedulaNumber" name="cedulaNumber">
+					</div>
+				</div>
+					<br style="clear: both;" style="width: 10%;float: left;margin: 0px 15px;">
+					OR
+					<br>
+				<input class="btn btnOnAccordion btnBlue" style="margin: 19px 15px;padding: 5px;" type="button" id="isPassport" value="Passport" name="isPassport">
+				<div class="passport_field" style="display:none;">
+					<div class="cedula-field" style="width: 30%;float: left;margin: 0px 15px;">
+						<label>Number</label>
+						<input type="text" value="<?php if($customer->getCustomAttribute('passport')){ echo $customer->getCustomAttribute('passport')->getValue(); }?>" id="cedulaPassport" name="cedulaPassport">
+					</div>
+				</div> 
+        </div>
+    </fieldset>
+	<fieldset class="fieldset Cedula">
+		<div>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Add NIP Number') ?>*</label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+					<input value="<?php echo $Nip[0]; ?>" type='text' style="width: 10%;float: left;margin: 0px 15px;" id='nipNumber1'  class=" form-control nip" autocomplete="off" />
+					<input value="<?php echo $Nip[1]; ?>" type='text' style="width: 10%;float: left;margin: 0px 15px;" id='nipNumber2'  class=" form-control nip" autocomplete="off" />
+					<input value="<?php echo $Nip[2]; ?>" type='text' style="width: 10%;float: left;margin: 0px 15px;" id='nipNumber3'  class=" form-control nip" autocomplete="off" />
+					<input value="<?php echo $Nip[3]; ?>" type='text' style="width: 10%;float: left;margin: 0px 15px;" id='nipNumber4'  class=" form-control nip" autocomplete="off" />
+				</div>
+				
+				<input type="hidden" name="nipNumber" value="<?php echo $nipnum;?>">
+			</div>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Actual Telecom') ?>*</label>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl0 pr0">
+				<div class="col-md-7 col-sm-7 col-xs-12 pl0 pr0">
+					<select style="width: 30%; margin: 0px 15px;" name="actualTelecom" id="actualTelecom" class="form-control">
+					  <option value="Claro">Claro</option>
+					  <option value="Digicel">Digicel</option>
+					  <option value="Movistar">Movistar</option>
+					  <option value="Mas movil">Mas movil</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+	</fieldset>
+
+<script type="text/javascript">
+require([
+'jquery', // jquery Library
+'jquery/ui', // Jquery UI Library
+'jquery/validate', // Jquery Validation Library
+'mage/calendar', // Calender
+'mage/translate' // Magento text translate (Validation message translte as per language)
+], function($){
+	$("#dob").calendar({
+			changeYear: true,
+			changeMonth: true,
+			yearRange: "1970:2050",
+			buttonText: "Select Date",
+		});
+		$("#isCedula").click(function(){
+			$(".cedula_fields").show();
+			$(".passport_field").hide();
+		});
+		$("#isPassport").click(function(){
+			$(".passport_field").show();
+			$(".cedula_fields").hide();
+		});
+		
+		$('#Lastname').prop("disabled", true);
+		$('#Firstname').prop("disabled", true);
+		$('#dob').prop("disabled", true);
+		$('#cedulaNumber').prop("disabled", true);
+		$('#cedulaPassport').prop("disabled", true);
+		
+		 
+		
+		
+		
+});
+</script>

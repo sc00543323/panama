@@ -19,6 +19,7 @@ class ExtendDelete extends \Magento\Checkout\Controller\Cart\Delete
 		$catalogSession->unsPort();
 		$catalogSession->unsCurrentService();
 		$catalogSession->unsBuySmartphone();
+		$catalogSession->unsContract();
 		//end unset all portable option session 
 		
         if (!$this->_formKeyValidator->validate($this->getRequest())) {

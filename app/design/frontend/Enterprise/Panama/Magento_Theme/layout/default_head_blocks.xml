@@ -7,6 +7,22 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-		 <css src="Magento_Theme::css/base_style.css"/>
+        <css src="Magento_Theme::css/base_style.css"/>
+        <css src="Magento_Theme::css/homepage.css"/>
+        <css src="Magento_Theme::css/style.css"/>
+
+        <css src="Magento_Theme::css/jquery.bxslider.css"/>
+        <css src="Magento_Theme::css/magento_css_override.css"/>
+
+
+        <css src="Magento_Theme::css/user_account.css"/>
+
+                 
+<!--         <remove src="css/styles-m.css" />
+        <remove src="css/styles-l.css" />
+       <remove src="css/styles.css" />
+        <remove src="css/print.css" />-->
+                
+
     </head>
 </page>

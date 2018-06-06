@@ -1,0 +1,57 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<li id="payment" role="presentation" class="checkout-payment-method" data-bind="fadeVisible: isVisible">
+    <div id="checkout-step-payment"
+         class="step-content"
+         data-role="content"
+         role="tabpanel"
+         aria-hidden="false">
+        <!-- ko if: (quoteIsVirtual) -->
+            <!-- ko foreach: getRegion('customer-email') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        <!--/ko-->
+        <form id="co-payment-form" class="form payments" novalidate="novalidate">
+            <input data-bind='attr: {value: getFormKey()}' type="hidden" name="form_key"/>
+            <fieldset class="fieldset">
+                <legend class="legend">
+                    <span data-bind="i18n: 'Payment Information'"></span>
+                </legend><br />
+                <!-- ko foreach: getRegion('beforeMethods') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+                <div id="checkout-payment-method-load" class="opc-payment" data-bind="visible: isPaymentMethodsAvailable">
+                    <!-- ko foreach: getRegion('payment-methods-list') -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!-- /ko -->
+                </div>
+                <div class="no-quotes-block" data-bind="visible: isPaymentMethodsAvailable() == false">
+                    <!-- ko i18n: 'No Payment method available.'--><!-- /ko -->
+                </div>
+                <!-- ko foreach: getRegion('afterMethods') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+            </fieldset>
+			<div id="checkout-step-title" class="step-content" data-role="content">
+			    <div>
+					<label for=""> <input checked="checked" name="terms-conditions-general" type="checkbox" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span> You have read and accepted the General Terms and Condition </label>
+					<a target="_blank" data-bind="attr: { href: generalFile() }" > 
+					<span style="text-decoration: underline;">View document</span>
+					</a> 
+					<span style="text-decoration: underline;" data-bind="click: function(){ downloadgeneral() }" >Download</span>
+				</div>
+				<div>
+					<label for=""> <input checked="checked" name="terms-conditions-billing" type="checkbox" value="yes" data-validate="{required:true}" /> <span class="checkmark"></span> You have read and accepted the Installation Billing Terms and Conditions </label>
+					<a target="_blank" data-bind="attr: { href: billingFile() }"> <span style="text-decoration: underline;">View document</span>
+					</a> 
+					<span style="text-decoration: underline;" data-bind="click: function(){ downloadbilling() }">Download</span>
+				</div>
+				  <h6 style="color: red;">You must agree to all terms and conditions before proceed to payment</h6>
+			</div>
+        </form>
+    </div>
+</li>

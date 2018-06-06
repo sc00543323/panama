@@ -17,7 +17,8 @@ class Index extends \Magento\Framework\App\Action\Action {
 		\Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
 		\Magento\Framework\UrlInterface $url,
 		\Magento\Catalog\Model\Session $catalogSession,
-		\Magento\Checkout\Model\Cart $cart
+		\Magento\Checkout\Model\Cart $cart,
+		\Panama\Handset\Model\HandsetFactory $handsetFactory
 	){
 		parent::__construct($context);
 		$this->_storeManager = $storeManager;
@@ -25,6 +26,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 		$this->_url = $url;
 		$this->_catalogSession = $catalogSession;
 		$this->_cart = $cart;
+		$this->handsetFactory = $handsetFactory;
 	}
 
     public function execute() {
@@ -35,20 +37,41 @@ class Index extends \Magento\Framework\App\Action\Action {
 			$data['current_service'] = $this->getRequest()->getParam('current_service');
 			$data['buy_smartphone'] = $this->getRequest()->getParam('buy_smartphone');
 			$data['port_remove'] = $this->getRequest()->getParam('port_remove');
+			$data['contract'] = $this->getRequest()->getParam('contract');
+			$data['contract_remove'] = $this->getRequest()->getParam('contract_remove');
+			$data['productsku'] = $this->getRequest()->getParam('productsku');
 			if($data['port_remove'] == 'no') {
 				$data['port'] = 'no';
+			}
+			if($data['contract_remove'] == 'no') {
+				$data['contract'] = 'no';
 			}
 			
 			//set portable data in session for prepaid/postpaid with smartphone journey
 			$this->_catalogSession->setPortProductId($data['product_id']);
 			$this->_catalogSession->setPort($data['port']);
+			$this->_catalogSession->setContract($data['contract']);
 			$this->_catalogSession->setCurrentService($data['current_service']);
 			$this->_catalogSession->setBuySmartphone($data['buy_smartphone']);
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-			if($data['port'] == 'yes' && !$data['current_service'] && !$data['buy_smartphone']) {
+			$now = new \DateTime();
+			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',array(array('lteq' => $now->format('Y-m-d H:i:s')),array('valid_to', 'null'=>'')))->addFieldToFilter('phone_sku',$data['productsku'])->getFirstItem();
+			if($data['port'] == 'yes' && !$data['current_service'] && !$data['buy_smartphone'] && !$data['contract']) {
+				if($handsetData['prepaid_phone_price_with_port_in']) {
+		        	$price = $handsetData['prepaid_phone_price_with_port_in'];
+		        }
+		        else {
+		        	$price = '';
+		        }	
 				$itemCount = $this->_cart->getQuote()->getItemsCount();
 				if ($itemCount == 0 ) {
-					$resultJson->setData(true);
+					$result=array
+		            (
+		                'result' => true,
+		                'price' => $price,
+		                'test' => 1
+		            );
+					$resultJson->setData($result);
 				} else if($itemCount > 0) {
 					$allItems = $this->_cart->getQuote()->getAllItems();
 					$portability = true;
@@ -58,7 +81,46 @@ class Index extends \Magento\Framework\App\Action\Action {
 							break;
 						}
 					}
-					$resultJson->setData($portability);
+					$result=array
+		            (
+		                'result' => $portability,
+		                'price' => $price,
+		                'test' => 2
+		            );
+					$resultJson->setData($result);
+				}
+			} else if($data['contract'] == 'yes') {
+				if($handsetData['postpaid_phone_price_with_port_in']) {
+		        	$price = $handsetData['postpaid_phone_price_with_port_in'];
+		        }
+		        else {
+		        	$price = '';
+		        }	
+				$itemCount = $this->_cart->getQuote()->getItemsCount();
+				if ($itemCount == 0 ) {
+					$result=array
+		            (
+		                'result' => true,
+		                'price' => $price,
+		                'test' => 3
+		            );
+					$resultJson->setData($result);
+				} else if($itemCount > 0) {
+					$allItems = $this->_cart->getQuote()->getAllItems();
+					$contract = true;
+					foreach($allItems as $item) {
+						if($item->getIsContract() == 'yes') {
+							$contract = false;
+							break;
+						}
+					}
+					$result=array
+		            (
+		                'result' => $contract,
+		                'price' => $price,
+		                'test' => 4
+		            );
+					$resultJson->setData($result);
 				}
 			} else if($data['buy_smartphone'] == 'no') {
 				$resultJson->setData($this->_url->getUrl('customcatalog/cart/add/', array('id' => $data['product_id'])));

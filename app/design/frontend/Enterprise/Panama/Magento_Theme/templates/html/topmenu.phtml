@@ -1,0 +1,108 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @var $block \Magento\Theme\Block\Html\Topmenu
+ */
+?>
+<?php $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
+<?php
+$_menu = $block->getHtml('level-top', 'submenu', $columnsLimit);
+$helper = $this->helper('Magento\Search\Helper\Data');
+
+$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+$urlArray = array('contact-us', 'faqs.html', 'locate');
+$isActive = false;
+foreach ($urlArray as $url) {
+    if (strpos($urlInterface->getCurrentUrl(), $url) !== false) {
+        $isActive = true;
+    }
+}
+?>
+<div class="mid-sec" id="top-menu-mid-sec">
+    <a class="logo" href="<?php echo $this->getBaseUrl(); ?>"></a>
+    <div class="menu-sec">
+        <nav class="navigation" data-action="navigation">
+            <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+                <?= /* @escapeNotVerified */ $_menu ?>
+                <?= /* @escapeNotVerified */ $block->getChildHtml() ?>
+                <li class="level0 level-top ui-menu-item nav-4 <?php if ($isActive): ?> has-active <?php endif; ?>" role="presentation">
+                    <a href="#" class="level-top ui-corner-all "  role="menuitem">
+                        <span><?php echo __("Support") ?></span>
+                    </a>
+                    <ul class="level0 submenu ui-menu ui-widget ui-widget-content ui-corner-all" role="menu">
+                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                            <a href="<?php echo $this->getBaseUrl(); ?>" class="level-top ui-corner-all"  role="menuitem">
+                                <span><?php echo __("Blog") ?></span>
+                            </a>
+                        </li>
+
+                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                            <a href="<?php echo $this->getBaseUrl() . "contact-us"; ?>" class="level-top ui-corner-all"  role="menuitem">
+                                <span><?php echo __("Contact Us") ?></span>
+                            </a>
+                        </li>
+
+                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                            <a href="<?php echo $this->getBaseUrl() . "faqs.html"; ?>" class="level-top ui-corner-all"  role="menuitem">
+                                <span><?php echo __("FAQ") ?></span>
+                            </a>
+                        </li>
+
+                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
+                            <a href="<?php echo $this->getBaseUrl() . "locate"; ?>" class="level-top ui-corner-all"  role="menuitem">
+                                <span><?php echo __("Locate Us") ?></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <form class="form minisearch" id="search_mini_form" action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>" method="get">
+
+
+
+            <input id="search"
+                   data-mage-init='{"quickSearch":{
+                   "formSelector":"#search_mini_form",
+                   "url":"<?= /* @escapeNotVerified */ $block->getUrl('search/ajax/suggest', ['_secure' => $block->getRequest()->isSecure()]) ?>",
+                   "destinationSelector":"#search_autocomplete"}
+                   }'
+                   type="text"
+                   name="<?= /* @escapeNotVerified */ $helper->getQueryParamName() ?>"
+                   value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText() ?>"
+                   placeholder="<?= /* @escapeNotVerified */ __('Search entire store here...') ?>"
+                   class="input-text search-box"
+                   maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength() ?>"
+                   role="combobox"
+                   aria-haspopup="false"
+                   aria-autocomplete="both"
+                   autocomplete="off"/>
+            <div id="search_autocomplete" class="search-autocomplete"></div>
+            <?= $block->getChildHtml() ?>
+
+
+            <div class="actions">
+                <button type="submit"
+                        title="<?= $block->escapeHtml(__('Search')) ?>"
+                        class="action search">
+                </button>
+            </div>
+        </form>
+    </div>
+    <aside class="mob-menu-sec">
+       <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/stores.phtml")->toHtml(); ?>
+        <div class="mob-menu">
+            <a href="#!" class="fas fa-bars"></a>
+        </div>
+    </aside>
+</div>
+
+

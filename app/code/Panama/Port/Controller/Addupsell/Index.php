@@ -9,7 +9,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 	protected $_storeManager;
 	protected $_categoryRepository;
 	protected $_url;
-	protected $_checkoutSession;
+	protected $_catalogSession;
 	protected $formKey;
 	protected $resultPageFactory;
 	protected $_cart;
@@ -20,7 +20,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 		\Magento\Store\Model\StoreManagerInterface $storeManager,
 		\Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
 		\Magento\Framework\UrlInterface $url,
-		\Magento\Catalog\Model\Session $checkoutSession,
+		\Magento\Catalog\Model\Session $catalogSession,
 		\Magento\Framework\Data\Form\FormKey $formKey,
 		PageFactory $resultPageFactory,
 		\Magento\Checkout\Model\Cart $cart,
@@ -30,7 +30,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 		$this->_storeManager = $storeManager;
         $this->_categoryRepository = $categoryRepository;
 		$this->_url = $url;
-		$this->_checkoutSession = $checkoutSession;
+		$this->_catalogSession = $catalogSession;
 		$this->formKey = $formKey;
 		$this->resultPageFactory = $resultPageFactory;
 		$this->_cart = $cart;
@@ -41,9 +41,9 @@ class Index extends \Magento\Framework\App\Action\Action {
 		$resultPage = $this->resultPageFactory->create();
 	    //check portabality in session data
 		
-		$portSessionVal           = $this->_checkoutSession->getPort();
-		$currentServiceSessionVal = $this->_checkoutSession->getCurrentService();
-		$buySmartphoneSessionVal  = $this->_checkoutSession->getBuySmartphone();
+		$portSessionVal           = $this->_catalogSession->getPort();
+		$currentServiceSessionVal = $this->_catalogSession->getCurrentService();
+		$buySmartphoneSessionVal  = $this->_catalogSession->getBuySmartphone();
 		
 		if(isset($portSessionVal) && $portSessionVal != ''){
 			$isPortable      = $portSessionVal;
@@ -51,13 +51,19 @@ class Index extends \Magento\Framework\App\Action\Action {
 			$isSmartphone    = $buySmartphoneSessionVal;
 			$isContract      = '';
 		}else{
-			$isPortable     = $this->_checkoutSession->setPort($this->getRequest()->getParam('portable'));
-			$currentService = $this->_checkoutSession->setCurrentService($this->getRequest()->getParam('service'));
-			$isContract     = $this->_checkoutSession->setBuySmartphone($this->getRequest()->getParam('agree_condition'));
-			$isSmartphone   = '';
+			$isPortable     = $this->_catalogSession->setPort($this->getRequest()->getParam('portable'));
+			$currentService = $this->_catalogSession->setCurrentService($this->getRequest()->getParam('service'));
+			if($this->getRequest()->getParam('agree_condition') == 'contract') {
+				$isContract     = $this->_catalogSession->setContract('yes');
+			} else {
+				$isContract     = $this->_catalogSession->setContract('no');
+			}			
 		}
 		if($this->getRequest()->getParam('port_remove') == 'no') {
-			$isPortable = $this->_checkoutSession->setPort('no');
+			$isPortable = $this->_catalogSession->setPort('no');
+		}
+		if($this->getRequest()->getParam('contract_remove') == 'no') {
+			$isContract = $this->_catalogSession->setContract('no');
 		}
 		//add Smartphone Device	  
 		$params = array(
@@ -70,19 +76,17 @@ class Index extends \Magento\Framework\App\Action\Action {
 		$this->_cart->addProduct($_product,$params);
 		$this->_cart->save();
 		
-		//add Upsell Product
+		//save Associate Sim for Smart phone
 		$bundleId = $this->getRequest()->getParam('upsell_id');
+		$allItems = $this->_cart->getQuote()->getAllItems();
+		foreach ($allItems as $item) {
+			if($this->getRequest()->getParam('product') ==  $item->getProductId()) {
+				$item->setAssociateProductId($bundleId);
+				$item->save();
+			}
+		}
+		//add Upsell Product
 		$this->_redirect('customcatalog/cart/add/', array('id' => $bundleId));
-      
-		/*$allItems = $this->_cart->getQuote()->getAllVisibleItems();
-			foreach ($allItems as $item) {
-				if($bundleId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
-					$item->setIsPortable($isPortable);
-					$item->setCurrentService($currentService);
-					$item->setIsSmartphone($isSmartphone);
-					$item->save();
-				}
-			}*/
         return $resultPage;
     }
 }

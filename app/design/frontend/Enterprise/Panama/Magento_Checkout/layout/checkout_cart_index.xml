@@ -151,6 +151,14 @@
                                                                 <item name="template" xsi:type="string">Magento_Checkout/cart/totals/subtotal</item>
                                                             </item>
                                                         </item>
+                                                        <item name="down_payment" xsi:type="array">
+                                                            <item name="component"  xsi:type="string">Panama_Handset/js/view/cart/totals/downpayment</item>
+                                                            <item name="sortOrder" xsi:type="string">20</item>
+                                                            <item name="config" xsi:type="array">
+                                                                 <item name="template" xsi:type="string">Panama_Handset/checkout/cart/totals/downpayment</item>
+                                                                <item name="title" xsi:type="string" translate="true">Downpayment</item>
+                                                            </item>
+                                                        </item>
                                                         <item name="shipping" xsi:type="array">
                                                             <item name="component"  xsi:type="string">Magento_Checkout/js/view/cart/totals/shipping</item>
                                                             <item name="config" xsi:type="array">

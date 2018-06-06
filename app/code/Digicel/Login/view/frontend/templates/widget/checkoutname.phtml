@@ -1,0 +1,79 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Customer\Block\Widget\Name */
+$x='data-validate="{required:true}"';
+
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$customerId = $customerSession->getCustomer()->getId();
+$customer = $objectManager->create('Magento\Customer\Model\Customer')->load($customerId);
+
+
+	if($customerSession->isLoggedIn())
+	{ ?>
+		<div class="form-left">
+			<div class="form-element required">
+				<label class="label" for="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname') ?>">
+					<span><?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?></span>
+				</label>
+				<input type="text" id="cust_firstname" 
+                       name="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname') ?>"
+                       value="<?php echo $block->escapeHtml($customer->getFirstname()) ?>"
+                       title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?>"
+                       class="input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('firstname') ?>" 
+					   <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> data-validate="{'custom-required':true,'isalpha':true,'maxileng':true}">
+          
+			</div>
+		</div>
+		<div class="form-right">
+		<div class="form-element required">
+            <label class="label"  for="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname') ?>">
+                <span><?php /* @escapeNotVerified */ echo $block->getStoreLabel('lastname') ?></span>
+            </label>
+			
+			<input type="text" id="cust_lastname" 
+                       name="<?php /* @escapeNotVerified */ echo $block->getFieldName('lastname') ?>"
+                       value="<?php echo $block->escapeHtml($customer->getLastname()) ?>"
+                       title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('lastname') ?>"
+                       class="input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('lastname') ?>" 
+					   <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> data-validate="{'custom-required':true,'isalpha':true,'maxileng':true}">
+          
+        </div>
+	</div>
+	<?php }
+	if(!$customerSession->isLoggedIn())
+	{ ?>
+		<div class="form-element required">
+			<label class="Login_form_Txt pull-left"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo $block->escapeHtml(__('First Name *')) ?></font></font></label>
+				<div class="">
+					<div class="">
+					  <input type="text" placeholder="" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname') ?>"
+						   name="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname') ?>"
+						   value="<?php echo $block->escapeHtml($block->getObject()->getFirstname()) ?>"
+						   title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('firstname') ?>"
+						   class="form-control width82 <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('firstname') ?>" 
+						   <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->getAttributeValidationClass('firstname') == 'required-entry') ?> data-validate="{'custom-required':true,'isalpha':true,'maxileng':true}">
+						
+					</div>
+				</div>
+		</div>	
+		<div class="form-element required">
+				<label for="lastName"><?php echo $block->escapeHtml(__('Last Name *')) ?></label>
+				<div class="control">
+					<input type="text" placeholder="" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname') ?>"
+						   name="<?php /* @escapeNotVerified */ echo $block->getFieldName('lastname') ?>"
+						   value="<?php echo $block->escapeHtml($block->getObject()->getLastname()) ?>"
+						   title="<?php /* @escapeNotVerified */ echo $block->getStoreLabel('lastname') ?>"
+						   class="form-control Login_box input-text <?php /* @escapeNotVerified */ echo $block->getAttributeValidationClass('lastname') ?>" <?php /* @escapeNotVerified */ echo $block->getFieldParams() ?> <?php if ($block->getAttributeValidationClass('lastname') == 'required-entry') ?> data-validate="{'custom-required':true,'isalpha':true,'maxileng':true}">
+					   <div class="clear"></div>
+				</div>
+			</div>
+		<?php } ?>

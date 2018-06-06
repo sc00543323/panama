@@ -26,7 +26,8 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		PageFactory $resultPageFactory,
 		\Magento\Checkout\Model\Cart $cart,
     	\Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-    	\Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+    	\Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+    	\Panama\Handset\Model\HandsetFactory $handsetFactory
 	){
 		parent::__construct($context);
 		$this->_storeManager = $storeManager;
@@ -38,6 +39,7 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		$this->_cart = $cart;
     	$this->productRepository = $productRepository;
     	$this->resultJsonFactory = $resultJsonFactory;
+    	$this->handsetFactory = $handsetFactory;
 	}
 
     public function execute() {
@@ -65,9 +67,60 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		 if(isset($product_id) && $product_id != ''){
 		 	$product = $this->productRepository->getById($product_id);
 		    $name = $product->getName();
-		    $plan_price = $product->getFinalPrice();
+
+		    $now = new \DateTime();
+			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',array(array('lteq' => $now->format('Y-m-d H:i:s')),array('valid_to', 'null'=>'')))->addFieldToFilter('phone_sku',$product->getSku())->getFirstItem();
+
+			if((isset($this->_catalogSession->getPort()) && ($this->_catalogSession->getPort() == 'yes')) {
+		    	$plan_price = $handsetData['postpaid_phone_price_with_port_in'];
+		    }
+		    else {
+		    	$plan_price = $handsetData['postpaid_phone_price'];
+		    }		    
 		    $total = $price+$plan_price;
 
+	    	if(($color == '#e6b366') && ($handsetData['down_payment_amount'])) {
+	        	$down_payment_amount = $handsetData['down_payment_amount'];
+	        }
+	        else {
+	        	$down_payment_amount ='';
+	        }
+
+	        if(($color == '#66cc80') && ($handsetData['monthly_service_price'])) {
+	        	$monthly_service_price = $handsetData['monthly_service_price'];
+	        	$monthly_service_price_html = 'Monthly Service Price (Green):           $  '.$handsetData['monthly_service_price'].'<br>';
+	        }
+	        else if(($color == '#e6b366') && ($handsetData['monthly_service_price'])){
+	        	$monthly_service_price = $handsetData['monthly_service_price'];
+	        	$monthly_service_price_html = 'Monthly Service Price (Yellow):           $  '.$handsetData['monthly_service_price'].'<br>';
+	        }
+	        else {
+	        	$monthly_service_price = '';
+	        	$monthly_service_price_html = '';
+	        }
+
+	        if(($color == '#66cc80') && ($handsetData['monthly_handset_price'])) {
+	        	$monthly_handset_price = $handsetData['monthly_handset_price'];
+	        	$monthly_handset_price_html = 'Monthly Hand set Price (Green):           $  '.$handsetData['monthly_handset_price'].'<br>';
+	        }
+	        else if(($color == '#e6b366') && ($handsetData['monthly_handset_price'])){
+	        	$monthly_handset_price = $handsetData['monthly_handset_price'];
+	        	$monthly_handset_price_html = 'Monthly Hand set Price (Yellow):           $  '.$handsetData['monthly_handset_price'].'<br>';
+	        }
+	        else {
+	        	$monthly_handset_price = '';
+	        	$monthly_handset_price_html = '';
+	        }
+
+	        if(($color == '#e6b366') && ($down_payment_amount != '')) {
+	        	$down_payment_html = 'Down Payment Amount:           $  '.$down_payment_amount.'<br>';
+	        }
+	        else {
+	        	$down_payment_html = '';
+	        }
+
+	        $custom_prices = $down_payment_amount + $monthly_handset_price + $monthly_service_price;
+	        $total = $total + $custom_prices;
 				$upsel = '<ol class="products list items product-items"><li style="width: 35%;border: 4px solid green;" id="plan_53" class="item product product-item plan_detail"><div class="product-item-info ">
 				                    <div class="product details product-item-details">
 				                        <strong class="product name product-item-name"><a class="product-item-link" title="'.$name.'" href="javascript:void(0)">'.$name.'</a>
@@ -82,8 +135,8 @@ class Credit extends \Magento\Framework\App\Action\Action {
 				        </div></div></li></ol><br>
 						'.$colorcode.'- Color Code <br>'.$color_val.'<br>
 				            <input type="hidden" value="'.$product_id.'" name="upsell_id" id="upsell_id">
-							Plan + SIM:        $   '.$plan_price.' <br>
-							Handset:           $  '.$price.'<br>
+							Plan + SIM:        $   '.$plan_price.' <br>'
+							.$monthly_service_price_html.$monthly_handset_price_html.$down_payment_html.'
 							<p style="color:'.$color.';font-size: 25px;font-weight: 600;">Final price:  $'.$total.'</p><br>';
 				        }
 

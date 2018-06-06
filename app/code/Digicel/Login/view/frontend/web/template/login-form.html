@@ -1,0 +1,83 @@
+<!--Use 'stepCode' as id attribute-->
+<li data-bind="fadeVisible: isVisible, attr: { id: stepCode }">
+    <div class="panel-body">
+	<!-- ko if: isCustomerLoggedIn() == true -->
+	
+		<div class="log-detail">
+			<p data-bind="text: getCustomerFirstname()"></p><p data-bind="text: getCustomerLastname()"></p>
+			<br>
+			<p data-bind="text: getCustomerEmail()"></p>
+		</div>
+		 <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button data-role="opc-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+	<!-- /ko -->
+
+	<!-- ko if: isCustomerLoggedIn() == false -->
+	<!--<div class="step-title" data-bind="i18n: stepTitle" data-role="title"></div>-->
+		
+		
+		<div id="checkout-step-title"  class="step-content"   data-role="content">	   
+	<div id="loginPage" class="login login-block">
+	    <div class="login-error message message-error error" style="display:none";><span data-bind="i18n: 'Invalid login or password.'"></span></div>
+	    <br />
+		<div class="">
+			<form data-bind="submit: onSubmit" data-mage-init='{"validation":{}}' autocomplete="off">
+				<div class="field field-email required">
+					<label for="ck_login-email"><span data-bind="i18n: 'Username / Email ID'"></span></label>
+					<input type="email" class="addEmail input-text form-control" id="ck_login-email" name="username" data-validate="{required:true, 'validate-email':true}" />
+				</div>
+				<div class="field field-password required">
+					<label for="ck_login-password"><span data-bind="i18n: 'Password'"></span></label>
+					<input type="password"  class="input-text form-control" id="ck_login-password" name="password" data-validate="{required:true}" />
+				</div>
+				
+				<p class="mt-15">
+					<a class="fontRed blueHover" data-bind="attr: { href: forgotPasswordUrl }">
+						<u data-bind="i18n: 'Forgot Your Password?'"></u>
+						<span class="glyphicon glyphicon-menu-right"></span>
+					</a>
+				</p>
+					<div class="actions-toolbar-information mt20 mb40">
+					<div class="primary">
+						<button data-role="opc-continue" type="submit" class="btn btnVibee width100 showHolder">
+							<span data-bind="i18n: 'Login'"></span>
+						</button>
+					</div>
+					<div class="primary">
+						<button id="showSignUp" class="btn btnOnAccordion btnBlue"  data-bind="click: function(){ createaccount() }">
+							<span data-bind="i18n: 'New User? Sign Up'"></span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>	
+	
+	<div class="checkout-register" style="display:none">
+      <section id="checkout-createAccount" class="clearfix  checkout-createAccount">	
+      <div class="">
+	  <div class="register-error message message-error error" style="display:none;clear:both;"></div>
+        <form class="form create account form-create-account" action="#" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+		<div id="signUp" class="register-block"></div>			
+		<div class="clearfix mt20 mb10">
+					<button type="submit" class="btn submit" title="" id="ct-account" data-bind="click: function(){ createpost() }">
+					<span data-bind="i18n: 'Create Account'"></span>
+					</button>
+				</div>
+       </form>
+     </div>
+   </section>
+ </div>
+
+<!-- /ko -->
+</div>
+<!-- /ko -->
+</div>
+</li>

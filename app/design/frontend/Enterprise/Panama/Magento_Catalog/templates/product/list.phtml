@@ -22,6 +22,13 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 <?php if (!$_productCollection->count()): ?>
     <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
 <?php else: ?>
+    <div>
+        
+       <?php  echo $this->getLayout()
+          ->createBlock('Digicel\DisplayLogo\Block\DisplayLogo')
+          ->setTemplate('Digicel_DisplayLogo::displaylogo.phtml')
+          ->toHtml(); ?>
+    </div>
     <?= $block->getToolbarHtml() ?>
     <?= $block->getAdditionalHtml() ?>
     <?php
@@ -204,7 +211,7 @@ require([
 				type: 'post',
 				data: portable_data,
 				success: function (data) {
-					if(data == true) {
+					if(data.result == true) {
 						$("#port_div").css("display", "none");
 						$("#current_service_div").css("display", "block");
 						$("#buy_smartphone_div").css("display", "none");

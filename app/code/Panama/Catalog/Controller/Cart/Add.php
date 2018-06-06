@@ -58,6 +58,26 @@ class Add extends \Magento\Framework\App\Action\Action
 			$portSessionVal = $this->_catalogSession->getPort();
 			$currentServiceSessionVal = $this->_catalogSession->getCurrentService();
 			$buySmartphoneSessionVal = $this->_catalogSession->getBuySmartphone();
+			$isContract = $this->_catalogSession->getContract();
+			
+			$maxQty = 3;
+			$itemQty = 0;
+			$count = $this->_cart->getItemsCount();
+			if($count > 0) {
+				$allItems = $this->_cart->getQuote()->getAllVisibleItems();
+				foreach($allItems as $item) {
+					if($item->getProductType() == 'bundle') {
+						$itemQty += $item->getQty()*1;
+					}
+				}
+				if($maxQty <= $itemQty) {
+					$message = __("You Can add Max three products to cart");
+					$this->messageManager->addErrorMessage($message);
+					$resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+					$resultRedirect->setUrl($this->_redirect->getRefererUrl());
+					return $resultRedirect;
+				}
+			}
 			
 			if($product->getTypeId() == 'bundle'){
 				$bundledOptions = $this->getBundleProductOptionsData($productId); // All option of the bundled product
@@ -76,17 +96,18 @@ class Add extends \Magento\Framework\App\Action\Action
 					'related_product' => null,
 					'qty'   =>1,//quantity of product
 				);
-			}				
+			}
 			$this->_cart->addProduct($product, $params);
 			$this->_cart->save();
 
 			//save portable option in quote item table
 			$allItems = $this->_cart->getQuote()->getAllItems();
 			foreach ($allItems as $item) {
-				if($productId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
+				if($productId ==  $item->getProductId() && !$item->getIsPortable() && !$item->getIsContract() && !$item->getCurrentService() && !$item->getIsSmartphone()) {
 					$item->setIsPortable($portSessionVal);
 					$item->setCurrentService($currentServiceSessionVal);
 					$item->setIsSmartphone($buySmartphoneSessionVal);
+					$item->setIsContract($isContract);
 					$item->save();
 				}
 			}
@@ -96,7 +117,8 @@ class Add extends \Magento\Framework\App\Action\Action
 			$this->_catalogSession->unsPort();
 			$this->_catalogSession->unsCurrentService();
 			$this->_catalogSession->unsBuySmartphone();
-
+			$this->_catalogSession->unsContract();
+			
 			if (!$this->_cart->getQuote()->getHasError()) {
                           $cart = $this->_cart->getQuote()->getAllVisibleItems();
                           $cartCount = count($cart);
