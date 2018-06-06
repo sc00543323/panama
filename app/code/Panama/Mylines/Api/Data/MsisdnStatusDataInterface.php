@@ -29,10 +29,26 @@ interface MsisdnStatusDataInterface
      */
     public function getOrderId();
 	
+	/**
+     * Set msisdn_status_id
+     *
+     * @param int $msisdn_status_id
+     * @return $this
+     */
+    public function setMsisdnStatusId($msisdn_status_id);
+	
+	/**
+     * Returns $msisdn_status_id
+     *
+     * @return int
+     */
+    public function getMsisdnStatusId();
+	
    /**
      * Set msisdn_status
      *
-     * @param int $msisdn_status
+     * @param string $msisdn_status
+
      * @return $this
      */
     public function setMsisdnStatus($msisdn_status);
@@ -40,14 +56,12 @@ interface MsisdnStatusDataInterface
 	/**
      * Returns $msisdn_status
      *
-     * @return int
      */
     public function getMsisdnStatus();
 	
 	/**
      * Set $msisdn
      *
-     * @param string $msisdn
      * @return $this
      */
     public function setMsisdn($msisdn);
@@ -56,7 +70,6 @@ interface MsisdnStatusDataInterface
 	/**
      * Returns  $msisdn
      *
-     * @return string
      */
     public function getMsisdn();
 	

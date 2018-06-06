@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header $block
+ */
+
+
+$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();    
+$storeManager = $objectManager->create("\Magento\Store\Model\StoreManagerInterface");
+$stores = $storeManager->getStores();
+$currentCode = $storeManager->getStore()->getCode();
+
+$englishStore = "";
+$spanishStore = "";
+foreach ($stores as $store){
+    if($store->getCode()=='en'){
+        $englishStore = $this->getBaseUrl().'?___store=en';
+    }if($store->getCode()=='es'){
+        $spanishStore = $this->getBaseUrl().'?___store=es';
+    }
+}
+
+?>
+
+ <div class="select-box">
+            <select onChange="window.document.location.href=this.options[this.selectedIndex].value;">
+               
+                <option value="<?php echo $englishStore; ?>" <?php if($currentCode == 'en'): ?>selected="selected" <?php endif; ?>>En</option>
+                <option value="<?php echo $spanishStore; ?>" <?php if($currentCode == 'es'): ?>selected="selected" <?php endif; ?>>Sp</option>
+                
+            </select>
+            <span class="fas fa-caret-down"></span>
+        </div>

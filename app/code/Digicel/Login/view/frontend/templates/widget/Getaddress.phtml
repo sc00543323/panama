@@ -8,6 +8,13 @@
 
 /* @var $block \Magento\Customer\Block\Widget\Name */
 $x='data-validate="{required:true}"';
+$resultTownShip = array();
+$resultDistrict = array();
+$addressData = array();
+$sel = '';
+$selDist = '';
+$selZone = '';
+$specialCharacter = "A-Za-zA-ÿŒŸœĲ'._\s-";
 ?>
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -16,7 +23,7 @@ $customerId = $customerSession->getCustomer()->getId();
 
 $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
 $connection = $resource->getConnection();
-$tableName = $resource->getTableName('Panama_address'); 
+$tableName = $resource->getTableName('panama_address'); 
 $sql = $connection->select()->from(["tn" => $tableName])->group('province_id')->order('province_name ASC');
 $result = $connection->fetchAll($sql);
 
@@ -27,13 +34,14 @@ $customerObj = $objectManager->create('Magento\Customer\Model\Customer')->load($
 		{
 			$addressData = $address->toArray();
 		}
+		if(!empty($addressData)){
+			$sql = $connection->select()->from(["tn" => $tableName])->where('province_name = ?',$addressData['region'])->group('district_id')->order('district_name ASC');
+			$resultDistrict = $connection->fetchAll($sql);
+
+			$sql = $connection->select()->from(["tn" => $tableName])->where('district_name = ?',$addressData['city'])->group('townShip_id')->order('townShip_name ASC');
+			$resultTownShip = $connection->fetchAll($sql);
 		
-		$sql = $connection->select()->from(["tn" => $tableName])->where('province_name = ?',$addressData['region'])->group('district_id')->order('district_name ASC');
-		$resultDistrict = $connection->fetchAll($sql);
-
-		$sql = $connection->select()->from(["tn" => $tableName])->where('district_name = ?',$addressData['city'])->group('townShip_id')->order('townShip_name ASC');
-		$resultTownShip = $connection->fetchAll($sql);
-
+		}
 }
 
 ?>  		
@@ -41,16 +49,16 @@ $customerObj = $objectManager->create('Magento\Customer\Model\Customer')->load($
 	if($customerSession->isLoggedIn())
 	{ ?>
 
-			 <input type="hidden" name="Province_val" value="<?php echo $addressData['region'];?>" id="Province_val">
-			<input type="hidden" name="District_val" value="<?php echo $addressData['city'];?>" id="District_val">
-			<input type="hidden" name="Zone_Barrio_val" value="<?php echo $addressData['postcode'];?>" id="Zone_Barrio_val">
+			<input type="hidden" name="Province_val" value="<?php if(!empty($addressData)){ echo $addressData['region']; }?>" id="Province_val">
+			<input type="hidden" name="District_val" value="<?php if(!empty($addressData)){ echo $addressData['city']; }?>" id="District_val">
+			<input type="hidden" name="Zone_Barrio_val" value="<?php if(!empty($addressData)){ echo $addressData['postcode']; }?>" id="Zone_Barrio_val">
 			
 		<div class="field Province required">
 			<label for="Province" class="label"><span><?php echo $block->escapeHtml(__('Province')) ?></span></label>
 			<div class="control">
 				<select id="Province" name="Province" <?php echo $x; ?>>
 					<?php foreach($result as  $option_val){
-						if($addressData['region'] == $option_val['province_name']){$sel = 'selected';}else{$sel = '';}
+						if(!empty($addressData)){ if($addressData['region'] == $option_val['province_name']){$sel = 'selected';}else{$sel = '';} }
 							echo "<option ".$sel." value='".$option_val['province_id']."'>".$option_val['province_name']."</option>";
                         } ?>
 				</select>
@@ -62,7 +70,7 @@ $customerObj = $objectManager->create('Magento\Customer\Model\Customer')->load($
                      <select id="District" name="District" <?php echo $x; ?>>
 						<option value="">Select District</option>
 						<?php foreach($resultDistrict as  $District_val){
-						if($addressData['city'] == $District_val['district_name']){$selDist = 'selected';}else{$selDist = '';}
+						if(!empty($addressData)){ if($addressData['city'] == $District_val['district_name']){$selDist = 'selected';}else{$selDist = '';} }
 							echo "<option ".$selDist." value='".$District_val['district_id']."'>".$District_val['district_name']."</option>";
                         } ?>
 					</select>
@@ -74,7 +82,7 @@ $customerObj = $objectManager->create('Magento\Customer\Model\Customer')->load($
 				<select id="Zone_Barrio" name="Zone_Barrio" <?php echo $x; ?>>
 					<option value="">Zone / Barrio</option>
 					<?php foreach($resultTownShip as  $TownShip_val){
-						if($addressData['postcode'] == $TownShip_val['townShip_name']){$selZone = 'selected';}else{$selZone = '';}
+						if(!empty($addressData)){ if($addressData['postcode'] == $TownShip_val['townShip_name']){$selZone = 'selected';}else{$selZone = '';} }
 							echo "<option ".$selZone." value='".$TownShip_val['townShip_id']."'>".$TownShip_val['townShip_name']."</option>";
                         } ?>
 				</select>
@@ -153,7 +161,36 @@ require([
 		var optionText = $("#Zone_Barrio option:selected").text();
 		$('#Zone_Barrio_val').val(optionText);	
 	});
+	//Validation Start All fields		
+		$.validator.addMethod("isalpha", function(value) {
+			return /^[ <?php echo $specialCharacter; ?>]*$/.test(value);
+		}, $.mage.__('Please enter only alphabets'));
+
+		$.validator.addMethod("maxileng", function(value) {
+			if(value.length>32) { 
+				return false;
+			}
+		return true;
+		}, $.mage.__('Please enter only 32 character'));	
+
+		$.validator.addMethod("custom-required", function (value) {
+			return !$.mage.isEmpty(value);
+		}, $.mage.__('This is a required fields.'));
+			
+		$.validator.addMethod(
+			'validate-mobile-number', function (value) {
+			if(!value.match(/^[0-9]+$/)) { 
+				return false;
+			}
+			return true;
+		}, '<?php echo __('Please specify a valid mobile number.');?>');
 	
+		$.validator.addMethod("mobile-maxleng", function(value) {
+			if(value.length>8 && value.length<8) {
+				return false;
+			}
+			return true;
+		}, $.mage.__('mobile number should be 8 digit'));
 });
 </script>
 

@@ -52,19 +52,23 @@ if ($block->getMapPin()) {
     <div class="store-list">
         <?php $i = 1; ?>
         <?php foreach ($data as $item): ?>
-
-            <img src="<?php echo $block->getMediaUrl() . 'limesharp_stockists/stockist/image/' . $item->getData('details_image') ?>" alt="">
-            <p>Store <?php echo $i; ?></p>
-            <div class="store-details">
-                <span class="store-phone"><?php echo $item->getData('phone'); ?></span><br>
-                <span class="store-address"><?php echo $item->getData('address'); ?></span><br>
-                <span class="store-city"><?php echo $item->getData('city') . ', ' . $item->getData('country'); ?></span>
+            <div <?php if ($i > 6): ?> class="store-info"  style="display:none;" <?php endif; ?>>
+                <img src="<?php echo $block->getMediaUrl() . 'limesharp_stockists/stockist/image/' . $item->getData('details_image') ?>" alt="">
+                <p>Store <?php echo $i; ?></p>
+                <div class="store-details">
+                    <span class="store-phone"><?php echo $item->getData('phone'); ?></span><br>
+                    <span class="store-address"><?php echo $item->getData('address'); ?></span><br>
+                    <span class="store-city"><?php echo $item->getData('city') . ', ' . $item->getData('country'); ?></span>
+                </div>
             </div>
-            <?php $i++;
+            <?php
+            $i++;
         endforeach;
         ?>
+        <button type="button" class="load-more" id="load-more-store" style="display:none;">Load More</button>
+        <button type="button" class="load-more" id="show-less-store" style="display:none;">Show Less</button>
     </div>
-<?php else: //if $templateSetting is page_width_top   ?>
+<?php else: //if $templateSetting is page_width_top    ?>
 
     <div class="parent-stockists <?php echo $templateSetting; ?>">
 
@@ -95,18 +99,18 @@ if ($block->getMapPin()) {
             <div class="results-store">
 
                 <?php foreach ($data as $item): ?>
-        <?php $data_marker = $item["latitude"] . $item["longitude"]; ?>
+                    <?php $data_marker = $item["latitude"] . $item["longitude"]; ?>
 
                     <div class="results-content loaded-results" data-marker="<?php echo $block->escapeHtml($data_marker); ?>">
 
-        <?php if ($item["image"]): ?>
+                        <?php if ($item["image"]): ?>
 
                             <div class="image">
                                 <img src="<?php echo $block->getBaseImageUrl() . $modulePath . $block->escapeHtml($item["image"]) ?>"
                                      alt="<?php echo $block->escapeHtml($item["name"]) ?>" />
                             </div>
 
-        <?php endif; ?>
+                        <?php endif; ?>
 
                         <div class="results-item-data">
 
@@ -116,7 +120,7 @@ if ($block->getMapPin()) {
                                 <p class="results-address"><?php echo $block->escapeHtml($item["address"]); ?></p>
                             <?php endif; ?>
 
-                                <?php if ($item["city"]): ?>
+                            <?php if ($item["city"]): ?>
                                 <p class="results-phone">
                                     <?php
                                     echo $block->escapeHtml($item["city"]);
@@ -127,13 +131,13 @@ if ($block->getMapPin()) {
 
                             <?php if ($item["country"] && $countryList[$item["country"]]): ?>
                                 <p class="results-miles"><?php echo $block->escapeHtml($countryList[$item["country"]]) ?></p>
-        <?php endif; ?>
+                            <?php endif; ?>
 
                         </div>
 
                     </div>
 
-    <?php endforeach; ?>
+                <?php endforeach; ?>
 
             </div>
 
@@ -166,9 +170,29 @@ if ($block->getMapPin()) {
     "strokeColor" : "<?php echo $block->getStrokeColorSettings() ?>",
     "strokeOpacity" : <?php echo json_encode($block->getStrokeOpacitySettings()) ?>,
     "strokeWeight" : <?php echo json_encode($block->getStrokeWeightSettings()) ?>,
-    "ajaxUrl" : <?php echo json_encode($this->getBaseUrl().'locate/ajax/stores/')?>
+    "ajaxUrl" : <?php echo json_encode($this->getBaseUrl() . 'locate/ajax/stores/') ?>
     }
 
     }
     }
+
+</script>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $(function () {
+            $("#load-more-store").show();
+            $("#load-more-store").click(function () {
+                $('.store-info').toggle("slow");
+                $('#show-less-store').toggle("slow");
+                $('#load-more-store').toggle("slow");
+            });
+            $("#show-less-store").click(function () {
+                $('.store-info').toggle("slow");
+                $('#load-more-store').toggle("slow");
+                $('#show-less-store').toggle("slow");
+            });
+        });
+    });
 </script>

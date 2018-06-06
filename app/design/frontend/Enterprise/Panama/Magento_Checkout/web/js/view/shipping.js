@@ -196,12 +196,13 @@ define([
 			},
 			
 		selectButton: function () {
+			dateTimeObservableArray([]);
             var city = $("[name='city']").val();
 			var address = $("[name='street[0]']").val();
 			var dateTime_data = {city: city, address: address};
-			var checkout = window.checkout;
+			var urlPost = urlBuilder.build('checkout/calculate/delivery');			
 			$.ajax({
-				url: checkout.baseUrl+'checkout/calculate/delivery',
+				url: urlPost,
 				dataType: 'json',
 				showLoader: true,
 				type: 'post',
@@ -212,6 +213,8 @@ define([
 					var delivery_array = data[0].DeliveryDateRangeList;
 					if(result_id == 1) {
 						for (var i=0;i<delivery_array.length;++i) {
+							var date = delivery_array[0]._horaFinEntrega.split(" ");
+							$(".time_date_div .date_div p").html(date[0]);
 							dateTimeObservableArray.push.apply(dateTimeObservableArray, [{ delivery_time: delivery_array[i]._jornada, start_time: delivery_array[i]._horaInicioEntrega }]);
 						}
 					} else {
@@ -227,6 +230,7 @@ define([
 			var date = $(".date_div p").html();
 			$("#delivery_date_time").val(date+' '+time);			
 			$("[name='custom_attributes[delivery_date_time]']").val(date+' '+time);
+			return true;
         },
 		getDateTimeObservableArray: function () {
                 return dateTimeObservableArray;

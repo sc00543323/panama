@@ -21,7 +21,7 @@ For checkout/onepage/shipping.phtml:
    ->setFieldNameFormat('shipping[%s]')
    ->toHtml() ?>
 */
-
+$specialCharacter = "A-Za-zA-ÿŒŸœĲ'._\s-";
 $prefix = $block->showPrefix();
 $middle = $block->showMiddlename();
 $suffix = $block->showSuffix();
@@ -152,12 +152,7 @@ require(['jquery',
 ], function ($) {
  
 $.validator.addMethod("isalpha", function(value) {
-    if(!value.match(/^[a-zA-Z\s]+$/))
-	{ 
-		return false;
-	}
-return true;
-    
+    return /^[ <?php echo $specialCharacter; ?>]*$/.test(value);
 }, $.mage.__('Please enter only alphabets'));
 
 $.validator.addMethod("maxileng", function(value) {

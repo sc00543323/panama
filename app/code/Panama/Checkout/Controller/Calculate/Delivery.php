@@ -27,6 +27,7 @@ class Delivery extends \Magento\Framework\App\Action\Action {
     public function execute() {
         //calculate deivery time and date
 		if($this->getRequest()->isAjax()) {
+			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$city = $this->getRequest()->getParam('city');
 			$address = $this->getRequest()->getParam('address');
 			$deliveryNeighborhood = 'Venue';
@@ -37,10 +38,19 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 			$deliveryDate = date('Y-m-d');
 			$schedule = '';
 			$saleChannel = '1';
+			/*$connection = $objectManager->get('Magento\Framework\App\ResourceConnection')->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION'); 
+			$result = $connection->fetchAll("SELECT district_id FROM panama_address where district_name= '".$city."' limit 1");
+			if(isset($result[0]['district_id']) && $result[0]['district_id']) {
+				$cityId = $result[0]['district_id'];
+			} else {
+				$cityId = 14;
+			}*/
+			$cityId = 14;
 			$allItems = $this->_cart->getQuote()->getAllVisibleItems();
 			$i=0;
 			foreach($allItems as $item) {
-				$orderDetail[$i]['sku'] = $item->getSku();
+				//$orderDetail[$i]['sku'] = $item->getSku();
+				$orderDetail[$i]['sku'] = 'SIMAVATAR';
 				$orderDetail[$i]['Quantity'] = $item->getQty();
 				$i++;
 			}
@@ -50,7 +60,7 @@ class Delivery extends \Magento\Framework\App\Action\Action {
                 array (
 					0 => 
 						array (
-						'DeliveryCity' => $city,
+						'DeliveryCity' => $cityId,
 						'DeliveryNeighborhood' => $deliveryNeighborhood,
 						'DeliveryAddress' => $address,
 						'DeliveryAddressInstructions' => $deliveryAddressInstructions,
@@ -64,7 +74,6 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 						),
 				),
 			);
-			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$scopeConfig = $objectManager->create('Magento\Framework\App\Config\ScopeConfigInterface');
 			$calculateDeliveryUrl = $scopeConfig->getValue('panama/calculatedelivery_api/calculatedelivery_url', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 			$ch = curl_init($calculateDeliveryUrl);
@@ -77,18 +86,19 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 			# Send request.
 			$result = curl_exec($ch);
 			curl_close($ch);
-			//$response = json_decode($result);
+			$response = json_decode($result);
 			//echo "<pre>";print_r($response);echo "</pre>";die;
 			//echo "dddd--".$result['ResultId'];
-			$array[0]['ResultId'] = 1;
-			$array[0]['ResultMessage'] = 'confirmeaaa';
-			$array[0]['DeliveryDateRangeList'][] = array("_disponibilidad"=>100, "_jornada"=>"13:00-13:59", "_horaInicioEntrega"=>"17:00", "_horaFinEntrega"=>"18:00");
-			$array[0]['DeliveryDateRangeList'][] = array("_disponibilidad"=>101, "_jornada"=>"13:11-13:59", "_horaInicioEntrega"=>"19:00", "_horaFinEntrega"=>"21:00");
+			//$array[0]['ResultId'] = 1;
+			//$array[0]['ResultMessage'] = 'confirmeaaa';
+			//$array[0]['DeliveryDateRangeList'][] = array("_disponibilidad"=>100, "_jornada"=>"13:00-13:59", "_horaInicioEntrega"=>"17:00", "_horaFinEntrega"=>"18:00");
+			//$array[0]['DeliveryDateRangeList'][] = array("_disponibilidad"=>101, "_jornada"=>"13:11-13:59", "_horaInicioEntrega"=>"19:00", "_horaFinEntrega"=>"21:00");
 
 
 			//echo "<pre>";print_r($array);echo "</pre>";
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-			$resultJson->setData($array);
+			//$resultJson->setData($array);
+			$resultJson->setData($response);
 			return $resultJson; die;
 		} else {
             $model = __('This is Not An Ajax Call');

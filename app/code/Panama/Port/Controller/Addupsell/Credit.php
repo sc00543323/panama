@@ -67,22 +67,30 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		 if(isset($product_id) && $product_id != ''){
 		 	$product = $this->productRepository->getById($product_id);
 		    $name = $product->getName();
-		    $plan_price = $product->getFinalPrice();
-		    $total = $price+$plan_price;
+
 		    $now = new \DateTime();
-			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',['gteq' => $now->format('Y-m-d H:i:s')])->addFieldToFilter('phone_sku',$product->getSku())->getFirstItem();
-	    	if($color == '#e6b366' && $handsetData['down_payment_amount']) {
+			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',array(array('lteq' => $now->format('Y-m-d H:i:s')),array('valid_to', 'null'=>'')))->addFieldToFilter('phone_sku',$product->getSku())->getFirstItem();
+
+			if((isset($this->_catalogSession->getPort()) && ($this->_catalogSession->getPort() == 'yes')) {
+		    	$plan_price = $handsetData['postpaid_phone_price_with_port_in'];
+		    }
+		    else {
+		    	$plan_price = $handsetData['postpaid_phone_price'];
+		    }		    
+		    $total = $price+$plan_price;
+
+	    	if(($color == '#e6b366') && ($handsetData['down_payment_amount'])) {
 	        	$down_payment_amount = $handsetData['down_payment_amount'];
 	        }
 	        else {
 	        	$down_payment_amount ='';
 	        }
 
-	        if($color == '#66cc80' && $handsetData['monthly_service_price']) {
+	        if(($color == '#66cc80') && ($handsetData['monthly_service_price'])) {
 	        	$monthly_service_price = $handsetData['monthly_service_price'];
 	        	$monthly_service_price_html = 'Monthly Service Price (Green):           $  '.$handsetData['monthly_service_price'].'<br>';
 	        }
-	        else if($color == '#e6b366' && $handsetData['monthly_service_price']){
+	        else if(($color == '#e6b366') && ($handsetData['monthly_service_price'])){
 	        	$monthly_service_price = $handsetData['monthly_service_price'];
 	        	$monthly_service_price_html = 'Monthly Service Price (Yellow):           $  '.$handsetData['monthly_service_price'].'<br>';
 	        }
@@ -91,11 +99,11 @@ class Credit extends \Magento\Framework\App\Action\Action {
 	        	$monthly_service_price_html = '';
 	        }
 
-	        if($color == '#66cc80' && $handsetData['monthly_handset_price']) {
+	        if(($color == '#66cc80') && ($handsetData['monthly_handset_price'])) {
 	        	$monthly_handset_price = $handsetData['monthly_handset_price'];
 	        	$monthly_handset_price_html = 'Monthly Hand set Price (Green):           $  '.$handsetData['monthly_handset_price'].'<br>';
 	        }
-	        else if($color == '#e6b366' && $handsetData['monthly_handset_price']){
+	        else if(($color == '#e6b366') && ($handsetData['monthly_handset_price'])){
 	        	$monthly_handset_price = $handsetData['monthly_handset_price'];
 	        	$monthly_handset_price_html = 'Monthly Hand set Price (Yellow):           $  '.$handsetData['monthly_handset_price'].'<br>';
 	        }
@@ -104,7 +112,7 @@ class Credit extends \Magento\Framework\App\Action\Action {
 	        	$monthly_handset_price_html = '';
 	        }
 
-	        if($color == '#e6b366' && $down_payment_amount != '') {
+	        if(($color == '#e6b366') && ($down_payment_amount != '')) {
 	        	$down_payment_html = 'Down Payment Amount:           $  '.$down_payment_amount.'<br>';
 	        }
 	        else {
@@ -127,8 +135,8 @@ class Credit extends \Magento\Framework\App\Action\Action {
 				        </div></div></li></ol><br>
 						'.$colorcode.'- Color Code <br>'.$color_val.'<br>
 				            <input type="hidden" value="'.$product_id.'" name="upsell_id" id="upsell_id">
-							Plan + SIM:        $   '.$plan_price.' <br>
-							Handset:           $  '.$price.'<br>'.$monthly_service_price_html.$monthly_handset_price_html.$down_payment_html.'
+							Plan + SIM:        $   '.$plan_price.' <br>'
+							.$monthly_service_price_html.$monthly_handset_price_html.$down_payment_html.'
 							<p style="color:'.$color.';font-size: 25px;font-weight: 600;">Final price:  $'.$total.'</p><br>';
 				        }
 

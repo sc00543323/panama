@@ -1,0 +1,72 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header $block
+ */
+$welcomeMessage = $block->getWelcome();
+?>
+<?php $_loggedin = $this->helper('Magento\Checkout\Helper\Cart')->getCart()->getCustomerSession()->isLoggedIn(); ?>
+<div class="top-sec">
+                <a href="#">Business</a>
+                <aside>
+                    <a href="https://api.whatsapp.com/send?l=es&phone=50760050000">Whatsapp</a>
+
+                    <a href="<?php echo $block->getUrl('checkout/cart', ['_secure' => true]);?>"><?php echo __('Cart') ?></a>
+                    <div class="select-box" >
+                        <select onChange="window.document.location.href=this.options[this.selectedIndex].value;">
+                            
+                            <option value="">My Digicel</option>
+                            
+                            <?php if(!$_loggedin): ?>
+                            <option value="<?php echo $this->getUrl('customer/account/login'); ?>"><?php echo __('Login') ?></option>
+                            <?php endif; ?>
+                            
+                            <option value="<?php echo $this->getUrl('customer/account/login'); ?>"><?php echo __('MyAccount') ?></option>
+                            
+                            <?php if( $_loggedin ) : ?>
+                            <option value="<?php echo $this->getUrl('customer/account/logout'); ?>"><?php echo __('logout') ?></option>
+                            <?php endif; ?>
+                        </select>
+                        <span class="fas fa-caret-down"></span>
+                    </div>
+                    <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/stores.phtml")->toHtml(); ?>
+                </aside>
+            </div>
+<?php /* switch ($block->getShowPart()):
+    case 'welcome': ?>
+        <li class="greet welcome" data-bind="scope: 'customer'">
+            <!-- ko if: customer().fullname  -->
+            <span data-bind="text: new String('<?= $block->escapeHtml(__('Welcome, %1!', '%1')) ?>').replace('%1', customer().firstname)">
+            </span>
+            <!-- /ko -->
+            <!-- ko ifnot: customer().fullname  -->
+            <span data-bind='html:"<?= $block->escapeHtmlAttr($welcomeMessage) ?>"'></span>
+            <?= $block->getBlockHtml('header.additional') ?>
+            <!-- /ko -->
+        </li>
+        <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer": {
+                            "component": "Magento_Customer/js/view/customer"
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+    <?php break; ?>
+
+    <?php case 'other': ?>
+        <?= $block->getChildHtml() ?>
+    <?php break; ?>
+
+<?php endswitch; */ ?>
