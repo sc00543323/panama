@@ -93,12 +93,39 @@ class Delivery extends \Magento\Framework\App\Action\Action {
 			//$array[0]['ResultMessage'] = 'confirmeaaa';
 			//$array[0]['DeliveryDateRangeList'][] = array("_disponibilidad"=>100, "_jornada"=>"13:00-13:59", "_horaInicioEntrega"=>"17:00", "_horaFinEntrega"=>"18:00");
 			//$array[0]['DeliveryDateRangeList'][] = array("_disponibilidad"=>101, "_jornada"=>"13:11-13:59", "_horaInicioEntrega"=>"19:00", "_horaFinEntrega"=>"21:00");
-
-
 			//echo "<pre>";print_r($array);echo "</pre>";
+
+			$deliveryDateRangeList = $response[0]->DeliveryDateRangeList;
+
+			$responseData = array();
+			$responseData['ResultId'] = $response[0]->ResultId;
+			$responseData['ResultMessage'] = $response[0]->ResultMessage;
+			$i=0;
+			$date ='';
+			foreach ($deliveryDateRangeList as $value) {
+				if($i>0) {
+					$newDate = explode(" ",$value->_horaFinEntrega);
+					$date ='';
+					if($_horaFinEntrega[0] != $newDate[0]) {
+						$date =$newDate[0];
+					}
+				}
+				$_horaFinEntrega = explode(" ",$value->_horaFinEntrega);
+				if($i == 0) {
+					$date =$_horaFinEntrega[0];
+				}
+				$id = strtotime($_horaFinEntrega[0]);
+				$responseData['DeliveryDateRangeList'][$i]['_disponibilidad'] = $value->_disponibilidad;
+				$responseData['DeliveryDateRangeList'][$i]['_jornada'] = $value->_jornada;
+				$responseData['DeliveryDateRangeList'][$i]['_scheduleId'] = $value->_scheduleId;
+				$responseData['DeliveryDateRangeList'][$i]['date'] = $date;
+				$responseData['DeliveryDateRangeList'][$i]['id'] = $id;
+				$i++;
+			}
+			
 			$resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
 			//$resultJson->setData($array);
-			$resultJson->setData($response);
+			$resultJson->setData($responseData);
 			return $resultJson; die;
 		} else {
             $model = __('This is Not An Ajax Call');

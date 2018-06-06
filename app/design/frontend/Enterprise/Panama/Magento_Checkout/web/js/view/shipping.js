@@ -208,14 +208,17 @@ define([
 				type: 'post',
 				data: dateTime_data,
 				success: function (data) {
-					var result_id = data[0].ResultId;
-					var result_message = data[0].ResultMessage;
-					var delivery_array = data[0].DeliveryDateRangeList;
+					var result_id = data['ResultId'];
+					var result_message = data['ResultMessage'];
+					var delivery_array = data['DeliveryDateRangeList'];
 					if(result_id == 1) {
 						for (var i=0;i<delivery_array.length;++i) {
-							var date = delivery_array[0]._horaFinEntrega.split(" ");
-							$(".time_date_div .date_div p").html(date[0]);
-							dateTimeObservableArray.push.apply(dateTimeObservableArray, [{ delivery_time: delivery_array[i]._jornada, start_time: delivery_array[i]._horaInicioEntrega }]);
+							var date = delivery_array[i]['date'];
+							var id = delivery_array[i]['id'];
+							var delivery_time = delivery_array[i]['_jornada'];
+							
+							//$(".time_date_div .date_div p").html(date[0]);
+							dateTimeObservableArray.push.apply(dateTimeObservableArray, [{ delivery_time:delivery_time, date:date, id:id }]);
 						}
 					} else {
 						$(".time_div").html("something went wrong!");
@@ -227,7 +230,11 @@ define([
 		
 		time: function () {
 			var time = $('input[name=time]:checked').val();			
-			var date = $(".date_div p").html();
+			//var date = $(".date_div p").html();
+			var idArray = $('input[name=time]:checked').attr('class');			
+			var ids = idArray.split("-");
+			var id = ids[1];
+			var date = $(".date_div_"+id+" p").html();
 			$("#delivery_date_time").val(date+' '+time);			
 			$("[name='custom_attributes[delivery_date_time]']").val(date+' '+time);
 			return true;
