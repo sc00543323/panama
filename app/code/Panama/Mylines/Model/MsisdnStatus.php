@@ -40,7 +40,6 @@ class MsisdnStatus implements MsisdnStatusInterface
     public function msisdnStatus($orderId,$msisdn,$msisdn_status_id,$msisdn_status)
     {
        
-		//if($order->getId()) {
 			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
 			if($msisdn_status_id == 1) {
@@ -59,7 +58,6 @@ class MsisdnStatus implements MsisdnStatusInterface
 				$order->setResultMessage('MSISDN Status is Inactive');
 				$order->save();
 			}
-		//}
 		
 		$resultId = $order->getResultId();
 		$resultMessage = $order->getResultMessage();
