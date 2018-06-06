@@ -71,7 +71,7 @@ class Credit extends \Magento\Framework\App\Action\Action {
 		    $now = new \DateTime();
 			$handsetData = $this->handsetFactory->create()->getCollection()->addFieldToFilter('valid_to',array(array('lteq' => $now->format('Y-m-d H:i:s')),array('valid_to', 'null'=>'')))->addFieldToFilter('phone_sku',$product->getSku())->getFirstItem();
 
-			if((isset($this->_catalogSession->getPort()) && ($this->_catalogSession->getPort() == 'yes')) {
+			if((isset($this->_catalogSession->getPort())) && ($this->_catalogSession->getPort() == 'yes')) {
 		    	$plan_price = $handsetData['postpaid_phone_price_with_port_in'];
 		    }
 		    else {
