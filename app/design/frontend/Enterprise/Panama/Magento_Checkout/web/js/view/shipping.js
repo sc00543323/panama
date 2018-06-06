@@ -221,7 +221,11 @@ define([
 							dateTimeObservableArray.push.apply(dateTimeObservableArray, [{ delivery_time:delivery_time, date:date, id:id }]);
 						}
 					} else {
-						$(".time_div").html("something went wrong!");
+						if(result_message) {
+							$(".time_div").html(result_message);
+						} else {
+							$(".time_div").html("something went wrong!");
+						}
 					}
 				}
 			});
