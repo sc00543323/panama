@@ -5,11 +5,11 @@
 	</button>
 
 	<div class="time_date_div" style="display:none;">
-		<div class="date_div">
-			<p></p>
-		</div>
 		<div class="time_div" data-bind="foreach: getDateTimeObservableArray()" >
-			<input type="radio" data-bind="click: $parent.time, value: delivery_time" name="time" /> <span data-bind="text: delivery_time"></span><br/>
+			<div data-bind="attr: { class: 'date_div_' + id }" >
+				<p data-bind="text: date"></p>
+			</div>
+			<input type="radio" data-bind="click: $parent.time, value: delivery_time, attr: { class: 'time-' + id }" name="time" /> <span data-bind="text: delivery_time"></span><br/>
 		</div>
 	</div>
 </div>
