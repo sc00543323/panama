@@ -21,7 +21,7 @@ For checkout/onepage/shipping.phtml:
    ->setFieldNameFormat('shipping[%s]')
    ->toHtml() ?>
 */
-
+$specialCharacter = "A-Za-zA-ÿŒŸœĲ'._\s-";
 $prefix = $block->showPrefix();
 $middle = $block->showMiddlename();
 $suffix = $block->showSuffix();
@@ -64,9 +64,9 @@ $suffix = $block->showSuffix();
             </div>
         </div>
     <?php endif; ?>
-        <div class="field field-name-firstname required">
-            <label class="label" for="<?= $block->escapeHtmlAttr($block->getFieldId('firstname')) ?>">
-                <span><?= $block->escapeHtml($block->getStoreLabel('firstname')) ?></span>
+        <div class="field field-name-firstname required form-element">
+            <label class="label lbl" for="<?= $block->escapeHtmlAttr($block->getFieldId('firstname')) ?>">
+                <span><?= $block->escapeHtml($block->getStoreLabel('firstname')) ?>*</span>
             </label>
 
             <div class="control">
@@ -75,7 +75,7 @@ $suffix = $block->showSuffix();
                        value="<?= $block->escapeHtmlAttr($block->getObject()->getFirstname()) ?>"
                        title="<?= $block->escapeHtmlAttr($block->getStoreLabel('firstname')) ?>"                       
 					   data-validate="{'custom-required':true,'isalpha':true,'maxileng':true}"
-					   class="input-text <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('firstname')) ?>" <?php if ($block->getAttributeValidationClass('firstname') == 'required-entry') ?>>
+					   class="elm input-text <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('firstname')) ?>" <?php if ($block->getAttributeValidationClass('firstname') == 'required-entry') ?>>
             </div>
         </div>
     <?php if ($middle): ?>
@@ -94,9 +94,9 @@ $suffix = $block->showSuffix();
             </div>
         </div>
     <?php endif; ?>
-        <div class="field field-name-lastname required">
+        <div class="field field-name-lastname required form-element">
             <label class="label" for="<?= $block->escapeHtmlAttr($block->getFieldId('lastname')) ?>">
-                <span><?= $block->escapeHtml($block->getStoreLabel('lastname')) ?></span>
+                <span><?= $block->escapeHtml($block->getStoreLabel('lastname')) ?>*</span>
             </label>
 
             <div class="control">
@@ -105,7 +105,7 @@ $suffix = $block->showSuffix();
                        value="<?= $block->escapeHtmlAttr($block->getObject()->getLastname()) ?>"
                        title="<?= $block->escapeHtmlAttr($block->getStoreLabel('lastname')) ?>"
 					   data-validate="{'custom-required':true,'isalpha':true,'maxileng':true}"
-                       class="input-text <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('lastname')) ?>" <?php if ($block->getAttributeValidationClass('lastname') == 'required-entry') ?>>
+                       class="elm input-text <?= $block->escapeHtmlAttr($block->getAttributeValidationClass('lastname')) ?>" <?php if ($block->getAttributeValidationClass('lastname') == 'required-entry') ?>>
             </div>
         </div>
     <?php if ($suffix): ?>
@@ -152,12 +152,7 @@ require(['jquery',
 ], function ($) {
  
 $.validator.addMethod("isalpha", function(value) {
-    if(!value.match(/^[a-zA-Z\s]+$/))
-	{ 
-		return false;
-	}
-return true;
-    
+    return /^[ <?php echo $specialCharacter; ?>]*$/.test(value);
 }, $.mage.__('Please enter only alphabets'));
 
 $.validator.addMethod("maxileng", function(value) {
