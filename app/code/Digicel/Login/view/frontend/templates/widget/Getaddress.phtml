@@ -186,7 +186,7 @@ require([
 		}, '<?php echo __('Please specify a valid mobile number.');?>');
 	
 		$.validator.addMethod("mobile-maxleng", function(value) {
-			if(value.length>8 && value.length<8) {
+			if(value.length>8 || value.length<8) {
 				return false;
 			}
 			return true;
