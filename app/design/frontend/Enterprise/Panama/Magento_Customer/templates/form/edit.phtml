@@ -576,7 +576,7 @@ return /^[a-zA-Z-ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéê�
 	}, '<?php echo __('Please specify a valid mobile number.');?>');
 	
 	$.validator.addMethod("mobile-maxleng", function(value) {
-		if(value.length>8 && value.length<8) {
+		if(value.length>8 || value.length<8) {
 			return false;
 		}
 		return true;
@@ -591,7 +591,7 @@ return /^[a-zA-Z-ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéê�
 	}, '<?php echo __('Please enter valid passport number');?>');
 	
 	$.validator.addMethod("passport-maxleng", function(value) {
-		if(value.length>9 && value.length<9) {
+		if(value.length>9 || value.length<9) {
 			return false;
 		}
 		return true;
