@@ -25,35 +25,6 @@
             <input type="hidden" name="success_url" value="<?php /* @escapeNotVerified */ echo $block->getSuccessUrl() ?>">
             <input type="hidden" name="error_url" value="<?php /* @escapeNotVerified */ echo $block->getErrorUrl() ?>">
             <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
-
-           <?php /* <div class="form-element">
-                <label class="label lbl">
-                    <?php  echo __('firstname') ?>*
-                </label>
-
-
-                <input type="text" id="firstname"
-                       name="firstname"
-                       value=""
-                       title="First Name"
-                       class="elm input-text required-entry" data-validate="{required:true}">
-
-            </div>
-            <div class="form-element">
-                <label class="lbl">
-                    <?php  echo __('lastname') ?>*
-                </label>
-
-                
-                <input type="text" id="lastname"
-                       name="lastname"
-                       value=""
-                       title="Last Name"
-                       class="elm input-text required-entry" data-validate="{required:true}">
-
-            </div>
-            * 
-            */?>
             
             <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
             <?php if ($_dob->isEnabled()): ?>
@@ -152,7 +123,12 @@
                 </fieldset>
 
             <?php endif; ?>
-
+			
+			<div class="field required form-element">
+                <label for="dob" class="label lbl"><span><?php /* @escapeNotVerified */ echo __('Date of Birth') ?></span></label>
+                <input type="text" name="dob" autocomplete="dob" id="dob" value="<?php echo $block->escapeHtml($block->getFormData()->getDob()) ?>" title="<?php /* @escapeNotVerified */ echo __('Date of Birth') ?>" class="input-text elm" data-validate="{required:true, 'custom-required':true}">
+            </div>
+			
             <div class="field required form-element">
                 <label for="email_address" class="label lbl"><span><?php /* @escapeNotVerified */ echo __('Email') ?>*</span></label>
 
@@ -169,14 +145,6 @@
                            data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
                            data-validate="{required:true, 'validate-customer-password':true}"
                            autocomplete="off">
-                    <?php /* <div id="password-strength-meter-container" data-role="password-strength-meter"  >
-                        <div id="password-strength-meter" class="password-strength-meter">
-                            <?php echo __('Password Strength'); ?>:
-                            <span id="password-strength-meter-label" data-role="password-strength-meter-label" >
-                                <?php  echo __('No Password'); ?>
-                            </span>
-                        </div>
-                    </div> */ ?>
                 </div>
 
             </div>
@@ -226,38 +194,28 @@
                     ?>
 
                     <div class="personalid-btns">
-                        <button type="button" class="secondary-btn" onClick="myFunction()"><?php echo __('CEDULA') ?></button>
+                        <button type="button" class="secondary-btn" id="isCedula" ><?php echo __('CEDULA') ?></button>
                         <p>or</p>
-                        <button type="button" class="secondary-btn" onClick="passportClick()"><?php echo __('PASSPORT') ?></button>
+                        <button type="button" class="secondary-btn" id="isPassport" ><?php echo __('PASSPORT') ?></button>
                     </div>
                     <div class="personalid-content">
-                        <div class="field required cedula-content" id="cedula" style="display:none">
+                        <div class="field required cedula-content" id="cedula_fields" style="display:none">
                             <div class="form-element">
                                 <label class="lbl"><?php echo __('Province') ?> </label>
                                 <div class="select-box">
 
-                                    <select name="province" id="state" class="input-text cedula-select" data-validate="{required:true, 'validate-customer-province':true}">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
+                                    <select name="province" id="cedulaProvince" class="input-text cedula-select" data-validate="{required:true, 'validate-customer-province':true}">
+                                        <?php for($i=1;$i<=13;$i++){?>
+										<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+										<?php  } ?>
                                     </select>
                                     <span class="fas fa-caret-down"></span>
                                 </div>
                             </div>
                             <div class="form-element">
-                                <label class="lbl"><?php echo __('Letterss') ?></label>
+                                <label class="lbl"><?php echo __('Letters') ?></label>
                                 <div class="select-box">
-                                    <select name="letters" id="city" class="input-text cedula-select" data-validate="{required:true, 'validate-customer-letters':true}">
+                                    <select name="letters" id="cedulaLetters" class="input-text cedula-select" data-validate="{required:true, 'validate-customer-letters':true}">
                                         <option value="PI">PI</option>
                                         <option value="AV">AV</option>
                                         <option value="E">E</option>
@@ -269,22 +227,22 @@
                             </div>
                             <div class="form-element">
                                 <label class="lbl"><?php echo __('I take') ?> </label>
-                                <input type="text" maxlength="6" autocomplete="u1"  name="itake" title="<?php echo __('I Take') ?>" id="street" placeholder="" class="form-control Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+                                <input type="text" maxlength="6" autocomplete="u1"  name="itake" title="<?php echo __('I Take') ?>" id="cedulaItake" placeholder="" class="form-control Login_box input-text required-entry elm" data-validate="{required:true}" autocomplete="off">
                             </div>
                             <div class="form-element">
                                 <label class="lbl"><?php echo __('Seat') ?></label>
-                                <input type="text" maxlength="6" autocomplete="u1"  name="seat" title="<?php echo __('Seat') ?>" id="zip" placeholder="" class="form-control Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+                                <input type="text" maxlength="6" autocomplete="u1"  name="seat" title="<?php echo __('Seat') ?>" id="cedulaSeat" placeholder="" class="form-control Login_box input-text required-entry elm" data-validate="{required:true}" autocomplete="off">
 
                             </div>
                             <div class="form-element">
                                 <label class="lbl"><?php echo __('Number') ?></label>
-                                <input type="text" maxlength="6" autocomplete="u1" readonly="readonly" name="cedulla" title="<?php echo __('Number') ?>" id="latlongaddress" class="form-control Login_box input-text required-entry elm" data-validate="{required:true, equalTo:'#cedulla'}" autocomplete="off">
+                                <input type="text" autocomplete="u1" readonly="readonly" name="cedulla" title="<?php echo __('Number') ?>" id="cedulaNumber" class="form-control Login_box input-text required-entry elm" data-validate="{required:true}" autocomplete="off">
 
                             </div>
 
                         </div>
 
-                        <div class="field required passport-content" id="pasport" style="display:none;"> 
+                        <div class="field required passport-content" id="passport_field" style="display:none;"> 
                             
                                 <label class="Login_form_Txt pull-left lbl"><?php echo __('Passport Number') ?> </label>
 
@@ -326,47 +284,6 @@
             </div>
 </form>
 </div>
-
-<script>
-    function myFunction() {
-        var a = document.getElementById("cedula");
-        if (a.style.display === "none") {
-            a.style.display = "flex";
-        } else {
-            a.style.display = "none";
-        }
-    }
-    function passportClick() {
-        var x = document.getElementById("pasport");
-        if (x.style.display === "none") {
-            x.style.display = "flex";
-        } else {
-            x.style.display = "none";
-        }
-    }
-</script>
-
-<script type="text/javascript">
-    function generateFullName()
-    {
-    document.getElementById('cedulla').innerText = generateFullName;
-//            document.getElementById('state').value + ' ' +
-//            document.getElementById('city').value + ' ' +
-//            document.getElementById('street').value + ' ' +
-//            document.getElementById('zip').value + ' ' +
-//            document.getElementById("number").value = generateFullName;
-
-    }
-</script>
-<script>
-    require([ 'jquery', 'jquery/ui'], function($){
-    $('#state,#city,#street,#zip').bind('keypress blur', function() {
-    $('#latlongaddress').val($('#state').val() + '' +
-            $('#city').val() + '' +
-            $('#street').val() + '' +
-            $('#zip').val());
-    });
-    });</script>
 
 <script>
             require([
@@ -420,16 +337,39 @@
     'jquery',
     'mage/mage',
 	'jquery/validate',
+	'mage/calendar', // Calender
 	'jquery/ui',
 ], function($){
 	
-
+		//Date Picker With Custom Option
+		$("#dob").calendar({
+			changeYear: true,
+			changeMonth: true,
+			yearRange: "1970:2050",
+			buttonText: "Select Date",
+		});
+		
+		//Show Hide passport and Cedula Option
+		$("#isCedula").click(function(){
+			$("#cedula_fields").css('display', 'flex');
+			$("#passport_field").hide();
+			$('#passport').val('');
+		});
+		$("#isPassport").click(function(){
+			$("#passport_field").css('display', 'flex');
+			$("#cedula_fields").hide();
+			$('#cedulaProvince').val(1);
+			$('#cedulaLetters').val('PI');
+			$('#cedulaItake').val('');
+			$('#cedulaSeat').val('');			
+		});
+		
 		//Bind Cedula value with "-" charactor
-		$('#state,#city').change(function(){
-			var Province = $('#state').val();
-			var Letters = $('#city').val();
-			var Itake = $('#street').val();
-			var Seat = $('#zip').val();
+		$('#cedulaLetters,#cedulaProvince').change(function(){
+			var Province = $('#cedulaProvince').val();
+			var Letters = $('#cedulaLetters').val();
+			var Itake = $('#cedulaItake').val();
+			var Seat = $('#cedulaSeat').val();
 				var number  = ''; 
 				if(Province){
 					number = Province;
@@ -443,15 +383,15 @@
 				 if(Seat){
 					number = Province+"-"+Letters+'-'+Itake+'-'+Seat;
 				 }
-			$('#latlongaddress').val(number);	
+			$('#cedulaNumber').val(number);	
 		
 		});	
 		//Bind Cedula value with "-" charactor
-		$('#street,#zip').keyup(function(e){
-			var Province = $('#state').val();
-			var Letters = $('#city').val();
-			var Itake = $('#street').val();
-			var Seat = $('#zip').val();
+		$('#cedulaItake,#cedulaSeat').keyup(function(e){
+			var Province = $('#cedulaProvince').val();
+			var Letters = $('#cedulaLetters').val();
+			var Itake = $('#cedulaItake').val();
+			var Seat = $('#cedulaSeat').val();
 				var number  = ''; 
 				if(Province){
 					number = Province;
@@ -465,9 +405,17 @@
 				 if(Seat){
 					number = Province+"-"+Letters+'-'+Itake+'-'+Seat;
 				 }
-			$('#latlongaddress').val(number);	
-		});	
+			$('#cedulaNumber').val(number);	
+		});
 		
+	$.validator.addMethod(
+		'custom-required', function (value) {
+		if(!value) { 
+			return false;
+		}
+		return true;
+	}, '<?php echo __('This is a required field.');?>');
+	
 	$.validator.addMethod(
 		'validate-mobile-number', function (value) {
 		if(!value.match(/^[0-9]+$/)) { 
@@ -497,6 +445,14 @@
 		}
 		return true;
 	}, $.mage.__('Passport number should be 9 character'));
+	
+	$.validator.addMethod("validate-customer-province", function(value) {
+		return true;
+	}, $.mage.__('Please select province'));
+	
+	$.validator.addMethod("validate-customer-letters", function(value) {
+		return true;
+	}, $.mage.__('Please select letters'));
 	
 });
 </script>

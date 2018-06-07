@@ -520,14 +520,14 @@ select:active, select:focus{
         margin-top: 0px;
     }
     
-    #cedula > div{
+    #cedula_fields > div{
         flex: 1 0 25%;
         -webkit-flex: 1 0 25%;
         
         margin-top: 15px;
     }
     
-    #cedula > div:last-child{
+    #cedula_fields > div:last-child{
         flex: 2 2 auto;
         -webkit-flex: 2 2 auto;
     }

@@ -232,7 +232,7 @@ select:active, select:focus{
     -webkit-flex-direction: column;   
 }
 
-#cedula .form-element{
+#cedula_fields .form-element{
     margin-top: 0;
     
     flex: 1;
@@ -241,7 +241,7 @@ select:active, select:focus{
     margin-right: 5px;
 }
 
-#cedula .form-element:last-child{
+#cedula_fields .form-element:last-child{
     flex: 2;
 }
 
@@ -737,12 +737,12 @@ select:active, select:focus{
         margin-top: 55px;
     }
     
-    #cedula .form-element{
+    #cedula_fields .form-element{
         margin-top: 18px;
         flex-basis: 30%;
     }
     
-    #cedula .form-element:last-child{
+    #cedula_fields .form-element:last-child{
         flex-basis: 63%;
     }
     
