@@ -43,9 +43,10 @@ class Downpayment extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
                 $downpayment_amt = $downpayment_amt + $handsetData['down_payment_amount'];
             }        
         }
-
-        $total->addTotalAmount('downpayment', $downpayment_amt);
-        $total->addBaseTotalAmount('downpayment', $downpayment_amt);
+        if($downpayment_amt != 0) {
+            $total->addTotalAmount('downpayment', $downpayment_amt);
+            $total->addBaseTotalAmount('downpayment', $downpayment_amt);
+        }
         return $this;
     }
 

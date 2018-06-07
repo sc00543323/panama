@@ -4,8 +4,8 @@
  * See COPYING.txt for license details.
  */
 -->
-<!-- ko -->
-<tr class="totals downpayment excl">
+<!-- ko if: isDisplayed() -->
+<tr class="totals1 downpayment excl">
     <th class="mark" colspan="1" scope="row" data-bind="text: title"></th>
     <td class="amount">
         <span class="price" data-bind="text: getValue()"></span>
