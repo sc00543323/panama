@@ -74,20 +74,19 @@ class saveNip extends \Magento\Framework\App\Action\Action
     {
 		
 		$loginData = $this->getRequest()->getPostValue();
-		
+		$nipNumber = implode('', $loginData['nipNumber']);
 		$customerId = $this->customerSession->getId();
 		if($customerId) {
 		
-		$customer = $this->_customerRepositoryInterface->getById($customerId);
-					$customer->setCustomAttribute('nip_number',$loginData['nipNumber']);
+			$customer = $this->_customerRepositoryInterface->getById($customerId);
+			$customer->setCustomAttribute('nip_number',$nipNumber);
 					
 		try{
 			$this->_customerRepositoryInterface->save($customer);
 		}catch (\Exception $e) {
 			$message = array('valid' => 0,'message'=> $e->getMessage());
 		}
-		
-		$message = array('valid' => 1,'message'=> 'Account created successfully');
+			$message = array('valid' => 1,'message'=> 'Account Updated successfully');
 		} else {
 			$message = array('valid' => 0,'message'=> 'Something went wrong');
 		}

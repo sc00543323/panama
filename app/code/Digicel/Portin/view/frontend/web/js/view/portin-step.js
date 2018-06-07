@@ -86,6 +86,17 @@ define(
                 return this;
             },
 			
+			/**
+			 * Load data from server for Porting step
+			 */
+			navigate: function () {
+				//load data from server for Porting step
+				var self = this;
+				if (isCustomerLoggedIn == false){
+					self.visible(false);
+				}
+			},
+			
 			service: function(){
 				return current_service;
 			},
@@ -123,9 +134,14 @@ define(
 				fullScreenLoader.startLoader();
 				var nipData = {},
                 formDataArray = $('#form-portin').serializeArray();
-                formDataArray.forEach(function (entry) {
-                    nipData[entry.name] = entry.value;
-                });
+                // formDataArray.forEach(function (entry) {
+                    // if(nipData[entry.name] == 'nipNumber'){
+						// nipData[entry.name] = entry.value;
+					// }else{
+						// nipData[entry.name] = entry.value;
+					// }
+                    
+                // });
 				
 				var urlPost = urlBuilder.build('portin/Index/saveNip');
 				$.ajax({
@@ -133,7 +149,7 @@ define(
                             url: urlPost,
 							async: false,
                             type: 'post',
-							data:nipData,
+							data:formDataArray,
                             success: function(result)
                             {	
 							   if(result.valid == 1){
