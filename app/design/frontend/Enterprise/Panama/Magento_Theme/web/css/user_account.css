@@ -70,7 +70,7 @@
     margin-top: 30px;
 }
 
-input[type="text"],input[type="password"]{
+input[type="text"], input[type="password"], input[type="number"],input[type="email"], input[type="search"]{
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -87,23 +87,23 @@ input[type="text"],input[type="password"]{
     background-color: #FFFFFF;
 }
 
-input[type="text"]:active, input[type="text"]:focus,input[type="password"]:active, input[type="password"]:focus{
+input[type="text"]:active, input[type="text"]:focus, input[type="password"]:active, input[type="password"]:focus, input[type="number"]:active, input[type="number"]:focus, input[type="email"]:active, input[type="email"]:focus, input[type="email"]:active, input[type="email"]:focus{
     color: #4A4A4A;
     border: 1px solid #4A4A4A;
     outline-color: transparent;
 }
 
-input[type="text"].success{
+input[type="text"].success, input[type="password"].success, input[type="number"].success, input[type="email"].success, input[type="search"].success{
     color: #4A90E2;
     border: 1px solid #4A90E2;
 }
 
-input[type="text"].error{
+input[type="text"].error, input[type="password"].error, input[type="number"].error, input[type="email"].error, input[type="search"].error{
     color: #FC0826;
     border: 1px solid #ED001E;
 }
 
-input[type="text"]:disabled{
+input[type="text"]:disabled, input[type="password"]:disabled, input[type="number"]:disabled, input[type="email"]:disabled, input[type="search"]:disabled{
     color: #999999;
     border: 1px solid #AAA9AA;
     background-color: #F5F5F5;
@@ -144,7 +144,7 @@ input[type="text"]:disabled{
     right: 10px;
 }
 
-.mobile-content input{
+.mobile-content input[type="text"], .mobile-content input[type="password"], .mobile-content input[type="number"], .mobile-content input[type="email"], .mobile-content input[type="search"]{
     flex-grow: 3;
 }
 
@@ -331,7 +331,7 @@ select:active, select:focus{
     color: #4A90E2;
 }
 
-.check-content input{
+.check-content input[type="checkbox"]{
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -356,21 +356,17 @@ select:active, select:focus{
     border: 1px solid #BCBCBC;
 }
 
-.check-content:hover input ~ .checkmark {
+.check-content:hover input[type="checkbox"] ~ .checkmark {
     background-color: #bcbcbc;
 }
 
-.check-content input:checked ~ .checkmark {
+.check-content input[type="checkbox"]:checked ~ .checkmark {
     background-color: #4A90E2;
     border-radius: 2px;
     border: 1px solid #4A90E2;
 }
 
-.checkmark:after {
-    
-}
-
-.check-content input:checked ~ .checkmark:after {
+.check-content input[type="checkbox"]:checked ~ .checkmark:after {
     display: block;
 }
 
@@ -402,7 +398,7 @@ select:active, select:focus{
     line-height: 21px;
 }
 
-.check-content input:checked ~ em{
+.check-content input[type="checkbox"]:checked ~ em{
     color: #4A90E2;
 }
 
@@ -420,6 +416,10 @@ select:active, select:focus{
 }
 
 /* login page start */
+
+/* .forgot-pwd-container{
+    background-position: left 18px, 115% 46px;
+} */
 
 .forgot-section{
     margin-top: 20px;
@@ -623,12 +623,38 @@ select:active, select:focus{
 
 /* forgot pwd page end */
 
-/** button changes start **/
-.signup-btn a {
-    color:#E4002B;
-    text-decoration: none;
+/* topup start */
+
+.topup-form{
+    padding: 60px 122px;
+    margin-bottom: 0;
 }
-/** button changes end **/
+
+.topup-form h1{
+    font-family: poppins-light;
+    margin-bottom: 45px;
+}
+
+.topup-form .topup-select{
+    font-family: poppins-light;
+    height: 40px;
+    padding: 10px;
+}
+
+.topup-form .select-box span{
+    font-size: 20px;
+    top: 7px;
+    right: 10px;
+}
+
+.topup-form .account-btn{
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+/* topup end */
+
+
 @media (min-width : 768px) and (max-width: 1024px){
     .user-form-container{
         background-size: 220px, 230px;
@@ -675,7 +701,7 @@ select:active, select:focus{
         color: #4A4A4A;
     }
     
-    input[type="text"],input[type="password"]{
+    input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="search"]{
         height: 60px;
     }
     
@@ -755,7 +781,7 @@ select:active, select:focus{
         right: 20px;
     }
     
-    .mobile-content input{
+    .mobile-content input[type="text"], .mobile-content input[type="password"], .mobile-content input[type="number"], .mobile-content input[type="email"], .mobile-content input[type="search"]{
         flex-grow: 0;
     }
     
@@ -890,7 +916,219 @@ select:active, select:focus{
     
     /* forgot password page end */
     
+    /* topup start */
+    
+    .topup-form .topup-select{
+        height: 60px;
+    }
+    
+    .topup-form .select-box span{
+        top: 18px;
+    }
+    
+    .topup-form .account-btn{
+        margin-top: 65px;
+        margin-bottom: 100px;
+    }
+
+    /* topup end */
+    
 }
+
+
+/* modal popup start */
+
+.modal-popup{
+    position: fixed;
+    
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    
+    background-color: #4A4A4A;
+    
+    /* opacity: 0.78;
+    filter: alpha(opacity=80); */
+    
+    z-index: 998;
+}
+
+.modal-content-wrapper{
+    display: flex;
+    display: -webkit-flex;
+    
+    flex: 1;
+    -webkit-flex: 1;
+    
+    justify-content: center;
+    -webkit-justify-content: center;
+    
+    align-items: center;
+    -webkit-align-items: center;
+    
+    height: 100%;
+}
+
+.modal-content{
+    background-color: #fff;
+    width: 652px;
+    text-transform: uppercase;
+    /* margin:0 auto; */
+}
+
+.modal-header{
+    color: #FFFFFF;
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 25px;
+    background-color: #E4002B;
+    padding: 15px;
+}
+
+.modal-header span{
+    float: right;
+}
+
+.modal-body{
+    padding: 40px;
+}
+
+.modal-content .modal-context{
+    width: 559px;    
+    color: #E4002B;
+    font-family: poppins-light;
+    font-size: 25px;
+    font-weight: 300;
+    letter-spacing: 0.42px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 45px;
+}
+
+.modal-action{
+    display: flex;
+    display: -webkit-flex;
+    
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    
+   /*  margin-top: 60px; */
+    padding: 0 55px;
+}
+
+.modal-action button{
+   height: 46.55px;
+   width: 177px;
+   font-family: Poppins-Medium;
+   font-size: 12px;
+   line-height: 19px;
+   text-align: center;
+   border: 1px solid #E4002B;
+   border-radius: 32.5px;
+   background-color: #FFFFFF;
+   box-shadow: 0 0 3px 0 rgba(0,0,0,0.15);        
+}
+
+.modal-action button:first-child{
+    color: #E4002B;
+}
+
+.modal-action button:last-child{
+    color: #FFFFFF;
+    background-color: #E4002B;
+}
+
+.modal-body .terms-checkbox{
+    margin-top: 45px;
+}
+
+.modal-content .modal-link{
+    margin-bottom: 30px;
+}
+
+.modal-content a{
+    color: #4A90E2;
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    line-height: 19px;
+    text-transform: lowercase;
+}
+
+.modal-content a:first-child{
+    margin-right: 25px;
+}
+
+.modal-body .personalid-section{
+    margin-top: 20px;
+}
+
+.modal-body ul{
+    padding: 0px 10px 20px 15px;
+}
+
+.modal-body ul li{
+    color: #E4002B;
+    font-family: poppins-light;
+    font-size: 12px;
+    letter-spacing: 1.09px;
+    line-height: 40px;
+    list-style-type:disc;
+}
+
+.modal-reference .terms-checkbox{
+    margin-top: 0;
+}
+
+
+
+@media (min-width : 480px) and (max-width: 767px){
+    
+    .modal-body{
+        padding: 30px;
+    }
+    
+    .modal-content{
+        width: 440px;
+    }
+    
+    .modal-content .modal-context{
+        width: 380px;
+        font-size: 20px;
+        margin-top: 60px;
+        margin-bottom: 90px;
+    }
+    
+    .modal-action{
+        padding: 0;
+    }
+    
+    .modal-action button{
+        width: 160px;
+        height: 55px;
+    }
+    
+    .modal-body .check-content .checkmark ~ em{
+        padding-left:0;
+    }
+    
+    .modal-body ul{
+        padding: 40px 25px 90px 37px;
+    }
+    
+    .modal-body ul li{
+        line-height: 22px;
+        padding-bottom: 20px;
+    }
+    
+    .modal-content .modal-link{
+        padding-left: 32px;
+    }
+}
+
+/* modal popup end */
 
 
 

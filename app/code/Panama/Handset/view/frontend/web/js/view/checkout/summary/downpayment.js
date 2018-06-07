@@ -17,7 +17,12 @@ define(
             totals: quote.getTotals(),
             isTaxDisplayedInGrandTotal: window.checkoutConfig.includeTaxInGrandTotal || false,
             isDisplayed: function() {
-                return this.isFullMode();
+                if(price == 0) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
             },
             getValue: function() {
                 var price = 0;
