@@ -1,0 +1,81 @@
+.myaccount{
+	
+}
+.color_welcome{
+	color: #E4002B;
+}
+.myaccount .user-form-container header {
+		color: #E4002B;
+}
+ .myaccount .user-form-container {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    align-items: center;
+    -webkit-align-items: center;
+    background: url("../imgs/girl.png") left bottom no-repeat, url("../imgs/boy.png") right bottom no-repeat;
+    background-position-x: left, right;
+    background-position-y: bottom, bottom;
+    background-size: auto auto, auto auto;
+    background-size: 330px, 400px;
+} 
+/* .myaccount .user-form {
+    width: 600px;
+}.myaccount .user-form {
+    width: 600px;
+} */
+
+.flex-container .firstbox {
+  background-color: #f1f1f1;
+  width: 70%;
+  text-align: center;
+  margin-right:20px;
+}
+.flex-container .redbox {
+  background-color: #E4002B;
+  text-align: center;
+}
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+.myaccount .user-form {
+    padding: 80px 50px;
+}
+.mrg-top{
+	margin-top:26px;
+}
+.go-bordr{
+	border-bottom: 1px solid #fff;
+}
+.my-information { color: #E4002B;	font-family: poppins-light;	font-size: 25px;	font-weight: 300;	letter-spacing: 0.42px; line-height: 100px; text-align: left; padding-left: 25px}
+.rectangle1 {	height: 99px;	width: 354px;	background-color: #F5F5F5;}
+.rectangle_red { 	height: 8.39%;	width: 12.08%; 	 background-color: #E4002B;}
+.go-now { line-height: 100px !important; height: 98px;	width: 132px;	color: #FFFFFF;	font-family: Poppins;	font-size: 13.6px;	line-height: 22px;	text-align: center;}
+
+
+@media (min-width : 480px) and (max-width: 767px){
+.flex-container .firstbox {
+	background-color: #f1f1f1;
+    width: 270px;
+    text-align: center;
+    margin-right: 20px;
+}
+.my-information {
+    padding-left: 15px;
+
+}
+.myaccount .user-form-container {
+    background: transparent;
+}
+.myaccount .user-form {
+    padding: 20px 50px 5px 50px;
+}
+}
+@media (min-width : 768px) and (max-width: 1024px){
+ .myaccount .user-form-container {
+    background-size: 220px, 230px;
+    background-position: -60px bottom, 594px bottom;
+} 
+}
