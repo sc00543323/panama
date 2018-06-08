@@ -1,0 +1,82 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product additional attributes template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Attributes
+ */
+?>
+<?php
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+    $_product = $block->getProduct();
+    $attributeSetId = $_product->getAttributeSetId();
+    $obj = \Magento\Framework\App\ObjectManager::getInstance();
+    $config= $obj->get('Magento\Catalog\Model\Config');
+    $attributeGroupId = $config->getAttributeGroupId($attributeSetId, 'Specifications');
+?>
+<?php if ($_additional = $block->getAdditionalData()): ?>
+    <?php foreach ($_additional as $_data): ?>
+        <?php if($_helper->productAttribute($_product, $_data['value'], $_data['code']) != 'N/A'): ?>
+            <div class="smart-phone-spec-detail">
+                <h5><?= $block->escapeHtml(__($_data['label'])) ?></h5>
+                <?php if($_data['code'] != 'description'): ?>
+                    <?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']); ?>                    
+                <?php endif; ?>
+                <?php if($_data['code'] == 'description'): ?>
+                    <?php
+                    $string = strip_tags($_helper->productAttribute($_product, $_data['value'], $_data['code'])); ?>
+                    <span class="show_part"><?php echo substr($string, 0, 200); ?></span>
+                    <span class="hide_part"><?php echo substr($string, 200); ?></span>
+                    <div class="btn-content show_<?php echo $_data['code'] ?>">
+                        <button type="button" class="smart-phone-sec-button"><?= __('View All Features') ?></button>
+                    </div>                    
+                <?php endif;?>        
+            </div>
+        <?php endif;?>
+    <?php endforeach; ?>    
+<?php endif;?>
+<?php $attributes=$_product->getAttributes(); ?>
+<div class="smart-phone-spec-detail">
+    <h5><?= __('Specifications') ?></h5>
+    <div class="specification-sub-header"><?= __('General') ?></div>
+    <?php foreach($attributes as $attribute) { 
+        if ($attribute->isInGroup($attributeSetId, $attributeGroupId)) {?>
+            <?php if($_product->getResource()->getAttribute($attribute)->getFrontend()->getValue($_product) != 'No'): ?>
+                <div class="specification-cont">
+                    <div class="specification-sub-text"><?= $_product->getResource()->getAttribute($attribute)->getFrontend()->getLabel($_product) ?></div>
+                    <div class="specification-text"><?= $_product->getResource()->getAttribute($attribute)->getFrontend()->getValue($_product) ?></div>
+                </div>
+            <?php endif; ?>
+        <?php } ?>
+    <?php } ?>
+    <div class="btn-content specifications">
+        <button type="button" class="smart-phone-sec-button"><?= __('View All Specifications') ?></button>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+    'jquery',
+    'jquery/ui',
+    'jquery/validate',
+    'mage/calendar',
+    'mage/translate'
+    ], function($){
+        $('.specification-cont:gt(3)').hide();
+        $(".btn-content.show_description").toggle(function(){
+            $(this).siblings(".hide_part").show();    
+        }, function(){
+            $(this).siblings(".hide_part").hide();    
+        });
+        $(".btn-content.specifications").toggle(function(){
+            $('.specification-cont:gt(3)').show();   
+        }, function(){
+            $('.specification-cont:gt(3)').hide();  
+        });
+    });
+</script>

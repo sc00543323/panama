@@ -3,28 +3,54 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 // @codingStandardsIgnoreFile
 
 /** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
 ?>
 
-<div>
-<h2>Welcome</h2>
+<div class="myaccount">
+    <div class="user-form-container">
 
-<table style="height: 370px; width: 900px;">
-	<tbody>
-		<tr style="height: 80px;">
-			<td style="width: 185px; height: 235px;" rowspan="3"><a href=""><img src="<?php echo $this->getViewFileUrl('images/myaccount/leftimage.png'); ?>"></a></td>
-			<td style="width: 385px; height: 80px;"><a href=""><img src="<?php echo $this->getViewFileUrl('images/myaccount/myinfo.png'); ?>"></a> </td>
-			<td style="width: 185px; height: 235px;" rowspan="3"><a href=""><img src="<?php echo $this->getViewFileUrl('images/myaccount/right.png'); ?>"></a></td>
-		</tr>
-			<tr style="height: 80px;">
-			<td style="width: 385px; height: 80px;"><a href=""><img src="<?php echo $this->getViewFileUrl('images/myaccount/my_lines.png'); ?>"></a></td>
-		</tr>
-			<tr style="height: 80px;">
-			<td style="width: 385px; height: 80px;"><a href=""><img src="<?php echo $this->getViewFileUrl('images/myaccount/my_orders.png'); ?>"></a></td>
-		</tr>
-	</tbody>
-</table>
+        <header class="color_welcome"><?php echo __('Welcome') ?></header>
+
+        <!-- User Registration Form Section -->
+        <div class="user-form">
+            <div class="flex-container">
+                <div class="rectangle1 firstbox">
+                    <div class="my-information">
+                        <?php echo __('MY INFORMATION') ?>
+                    </div>
+                </div>
+                <div class="rectangle_red">
+                    <div class="redbox go-now ">
+                        <span class="go-bordr" onclick="window.location.href = '<?php echo $block->getUrl('customer/account/edit/', ['_secure' => true]); ?>'"><?php echo __('GO NOW !') ?></span>
+                    </div>
+                </div>	
+            </div>
+            <div class="flex-container mrg-top">
+                <div class="rectangle1 firstbox">
+                    <div class="my-information">
+                        <?php echo __('MY LINE') ?> 
+                    </div>
+                </div>
+                <div class="rectangle_red">
+                    <div class="redbox go-now ">
+                        <span class="go-bordr" onclick="window.location.href = '<?php echo $block->getUrl('mylines/customer/index/', ['_secure' => true]); ?>'"><?php echo __('GO NOW !') ?></span>
+                    </div>
+                </div>	
+            </div>
+            <div class="flex-container mrg-top">
+                <div class="rectangle1 firstbox">
+                    <div class="my-information">
+                        <?php echo __('MY ORDERS') ?>
+                    </div>
+                </div>
+                <div class="rectangle_red">
+                    <div class="redbox go-now ">
+                        <span class="go-bordr" onclick="window.location.href = '<?php echo $block->getUrl('sales/order/history', ['_secure' => true]); ?>'"><?php echo __('GO NOW !') ?></span>
+                    </div>
+                </div>	
+            </div>
+        </div>
+    </div>  
 </div>

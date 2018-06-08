@@ -9,9 +9,10 @@
         <referenceBlock name="minicart" remove="true"/>
         
         <referenceContainer name="header.container"  htmlClass="pg-hdr" />
-        <referenceContainer name="header.panel.wrapper" htmlClass="pg-hdr" />
+<!--        <referenceContainer name="header.panel.wrapper" htmlClass="pg-hdr" />
         <referenceContainer name="header.panel" htmlClass="pg-hdr" />
-        <referenceContainer name="footer"  htmlClass="pg-footer" />
+        <referenceContainer name="header.panel" htmlClass="pg-hdr" />-->
+        <referenceContainer name="main"  htmlClass="pg-body" />
         
         <move element="navigation.sections" destination="header.container" />
                 
@@ -22,6 +23,7 @@
         <referenceBlock name="form.subscribe" remove="true" />
         <referenceBlock name="page.main.title" remove="true" />
         <referenceBlock name="store_language" remove="true"/>
+        <referenceBlock name="store.settings" remove="true"/>
         <referenceBlock name="report.bugs" remove="true" />
         
         

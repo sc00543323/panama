@@ -1,6 +1,10 @@
+.pg-hdr .top-sec .select-box select{
+    padding-right: 35px !important;
+}
+
 .homepg-banner-sec{
     padding: 105px 20px 23px 20px;
-    background-image: linear-gradient(180deg, #ED001E 50%, #000 200%);
+    background-image: linear-gradient(180deg, #e4002b 50%, #000 200%);
     
     overflow: hidden;
 }
@@ -424,8 +428,9 @@
     font-family: poppins-bold;
 }
 
-.see-more-sec aside img{
-    margin-top: 50px;
+.see-more-sec aside img{    
+    width: 480px;
+    margin-top: 60px;
     max-width: 100%;
 }
 
@@ -458,9 +463,11 @@
     margin-left: -50px;
 }
 
+/*
 .see-more-sec aside:first-child img{
     margin-top: 67px;
 }
+*/
 
 .see-more-sec aside:last-child{
     background-color: #E4002B;
@@ -471,7 +478,7 @@
 }
 
 /*  For Tablet  */
-@media screen and (min-width: 768px) and (max-width: 1023px){
+@media screen and (min-width: 768px) and (max-width: 1199px){
     .homepg-banner-sec .top-sec{
         flex-direction: column;
         -webkit-flex-direction: column;
@@ -729,8 +736,8 @@
         order: 2;
     }
     
-    .see-more-sec aside:last-child button{
+    /*.see-more-sec aside:last-child button{
         margin-bottom: 45px;
-    }
+    }*/
     
 }
