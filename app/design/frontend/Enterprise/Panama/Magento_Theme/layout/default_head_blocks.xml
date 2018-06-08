@@ -16,6 +16,8 @@
 
 
         <css src="Magento_Theme::css/user_account.css"/>
+        
+        <css src="Magento_Theme::css/myaccount.css"/>
 
                  
 <!--         <remove src="css/styles-m.css" />

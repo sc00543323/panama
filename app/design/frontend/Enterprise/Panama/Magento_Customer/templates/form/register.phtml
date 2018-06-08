@@ -199,7 +199,7 @@
                         <button type="button" class="secondary-btn" id="isPassport" ><?php echo __('PASSPORT') ?></button>
                     </div>
                     <div class="personalid-content">
-                        <div class="field required cedula-content" id="cedula_fields" style="display:none">
+                        <div class="field required cedula-content" id="cedula" style="display:none">
                             <div class="form-element">
                                 <label class="lbl"><?php echo __('Province') ?> </label>
                                 <div class="select-box">
@@ -351,13 +351,13 @@
 		
 		//Show Hide passport and Cedula Option
 		$("#isCedula").click(function(){
-			$("#cedula_fields").css('display', 'flex');
+			$("#cedula").css('display', 'flex');
 			$("#passport_field").hide();
 			$('#passport').val('');
 		});
 		$("#isPassport").click(function(){
 			$("#passport_field").css('display', 'flex');
-			$("#cedula_fields").hide();
+			$("#cedula").hide();
 			$('#cedulaProvince').val(1);
 			$('#cedulaLetters').val('PI');
 			$('#cedulaItake').val('');
