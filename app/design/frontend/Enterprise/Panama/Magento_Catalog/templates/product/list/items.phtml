@@ -339,7 +339,7 @@ switch ($type = $block->getType()) {
 					success: function (data) {
 						if (data.result == true) {
                             if(data.price != '') {
-                                $('.product-info-price .price').text(currency+data.price);
+                                $('.product-info-price .price h2').text(currency+data.price);
                             }
 							$("#port_div").hide();
 							$("#service_div").show();
@@ -405,7 +405,7 @@ switch ($type = $block->getType()) {
 				success: function (data) {
 					if(data.result == true) {
                         if(data.price != '') {
-                            $('.product-info-price .price').text(currency+data.price);
+                            $('.product-info-price .price h2').text(currency+data.price);
                         }
 						$("#contract_div_session").hide();
 						$("#contract_div").hide();

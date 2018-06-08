@@ -1,8 +1,11 @@
 <?php
     $_helper = $this->helper('Magento\Catalog\Helper\Output');
     $_product = $block->getProduct();
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$categoryIds = $_product->getCategoryIds();
+	$category_name = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryIds[0])->getName();
 ?>
 <div class="mob-header">
-    <h3> SAMSUNG </h3>
+    <h3><?php echo $category_name ?></h3>
     <h2><?php echo $_product->getName() ?></h2>
 </div>

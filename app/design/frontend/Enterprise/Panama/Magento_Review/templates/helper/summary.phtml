@@ -14,7 +14,7 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
 <?php if ($block->getReviewsCount()): ?>
 <?php $rating = $block->getRatingSummary(); ?>
 <div class="product-reviews-summary<?= !$rating ? ' no-rating' : '' ?>" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-    <?php if ($rating):?>
+    <?php /* if ($rating):?>
     <div class="rating-summary">
          <span class="label"><span><?= $block->escapeHtml(__('Rating')) ?>:</span></span>
          <div class="rating-result" title="<?= $block->escapeHtmlAttr($rating); ?>%">
@@ -25,10 +25,15 @@ $urlForm = $block->getReviewsUrl() . '#review-form';
              </span>
          </div>
     </div>
-    <?php endif;?>
+    <?php endif; */?>
     <div class="reviews-actions rating-summary">
+        <label>REVIEWS:</label>
+        <?php if($rating): ?>
+            <?php $star_count = (($rating * 5)/100); ?>        
+            <span class="blue-text"><?php echo $star_count ?></span> <i class="fas fa-star blue-text"></i> <span>|</span>
+        <?php endif; ?> 
         <a class="action view"
-           href="<?= $block->escapeUrl($url) ?>">
+           href="<?= $block->escapeUrl($url) ?>">            
             <span itemprop="reviewCount"><?= $block->escapeHtml($block->getReviewsCount()) ?></span>&nbsp;
             <span><?= ($block->getReviewsCount() == 1) ? $block->escapeHtml(__('Review')) : $block->escapeHtml(__('Reviews')) ?></span>
         </a>
