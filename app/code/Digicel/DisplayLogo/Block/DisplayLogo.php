@@ -27,13 +27,14 @@ class DisplayLogo extends Template {
      */
     public function getCatCollection() {
 
-        $id = $this->getCurrentCategory()->getId();
+        if ($this->getCurrentCategory()) {
+            $id = $this->getCurrentCategory()->getId();
+            if ($id == 4) {
+                $childIds = $this->getCurrentCategory()->getChildren();
+                $collection = $this->_categoryCollection->create()->addAttributeToSelect('*')->addAttributeToFilter('entity_id', array('in' => explode(',', $childIds)));
 
-        if ($id == 4) {
-            $childIds = $this->getCurrentCategory()->getChildren();
-            $collection = $this->_categoryCollection->create()->addAttributeToSelect('*')->addAttributeToFilter('entity_id',array('in'=>explode(',',$childIds)));
-                      
-            return $collection;
+                return $collection;
+            }
         }
     }
 
@@ -47,10 +48,11 @@ class DisplayLogo extends Template {
         return $this->_registry->registry('current_category');
     }
 
-     public function getMediaUrl() {
+    public function getMediaUrl() {
         $mediaUrl = $this->_storeManager
                 ->getStore()
                 ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
         return $mediaUrl;
     }
+
 }

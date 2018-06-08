@@ -17,52 +17,53 @@
 $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit);
 $helper = $this->helper('Magento\Search\Helper\Data');
 
-$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
-$urlArray = array('contact-us', 'faqs.html', 'locate');
-$isActive = false;
-foreach ($urlArray as $url) {
-    if (strpos($urlInterface->getCurrentUrl(), $url) !== false) {
-        $isActive = true;
-    }
-}
+//$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+//$urlArray = array('contact-us', 'faqs.html', 'locate');
+//$isActive = false;
+//foreach ($urlArray as $url) {
+//    if (strpos($urlInterface->getCurrentUrl(), $url) !== false) {
+//        $isActive = true;
+//    }
+//}
 ?>
-<div class="mid-sec" id="top-menu-mid-sec">
-    <a class="logo" href="<?php echo $this->getBaseUrl(); ?>"></a>
+
+<div class="bottom-sec">
     <div class="menu-sec">
-        <nav class="navigation" data-action="navigation">
+        <nav data-action="navigation" id="pgnav">
             <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
                 <?= /* @escapeNotVerified */ $_menu ?>
                 <?= /* @escapeNotVerified */ $block->getChildHtml() ?>
-                <li class="level0 level-top ui-menu-item nav-4 <?php if ($isActive): ?> has-active <?php endif; ?>" role="presentation">
-                    <a href="#" class="level-top ui-corner-all "  role="menuitem">
-                        <span><?php echo __("Support") ?></span>
+                <li>
+                    <a href="javascript:void(0)" >
+                        <?php echo __("Support") ?>
                     </a>
-                    <ul class="level0 submenu ui-menu ui-widget ui-widget-content ui-corner-all" role="menu">
-                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
-                            <a href="<?php echo $this->getBaseUrl(); ?>" class="level-top ui-corner-all"  role="menuitem">
-                                <span><?php echo __("Blog") ?></span>
+                    <ul >
+                        <li>
+                            <a href="<?php echo $this->getBaseUrl(); ?>" >
+                                <?php echo __("Blog") ?>
                             </a>
                         </li>
 
-                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
-                            <a href="<?php echo $this->getBaseUrl() . "contact-us"; ?>" class="level-top ui-corner-all"  role="menuitem">
-                                <span><?php echo __("Contact Us") ?></span>
+                        <li >
+                            <a href="<?php echo $this->getBaseUrl() . "contact-us"; ?>" >
+                                <?php echo __("Contact Us") ?>
                             </a>
                         </li>
 
-                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
-                            <a href="<?php echo $this->getBaseUrl() . "faqs.html"; ?>" class="level-top ui-corner-all"  role="menuitem">
-                                <span><?php echo __("FAQ") ?></span>
+                        <li >
+                            <a href="<?php echo $this->getBaseUrl() . "faqs.html"; ?>" >
+                                <?php echo __("FAQ") ?>
                             </a>
                         </li>
 
-                        <li class="level1 nav-3-1 first ui-menu-item nav-4-1">
-                            <a href="<?php echo $this->getBaseUrl() . "locate"; ?>" class="level-top ui-corner-all"  role="menuitem">
-                                <span><?php echo __("Locate Us") ?></span>
+                        <li >
+                            <a href="<?php echo $this->getBaseUrl() . "locate"; ?>" >
+                                <?php echo __("Locate Store") ?>
                             </a>
                         </li>
                     </ul>
                 </li>
+                <li><a href="javascript:void(0)" onclick="toggleMenu('pgnav')"><?php echo __("Close X") ?></a></li>
             </ul>
         </nav>
         <form class="form minisearch" id="search_mini_form" action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>" method="get">
@@ -87,22 +88,51 @@ foreach ($urlArray as $url) {
                    autocomplete="off"/>
             <div id="search_autocomplete" class="search-autocomplete"></div>
             <?= $block->getChildHtml() ?>
-
-
-            <div class="actions">
                 <button type="submit"
                         title="<?= $block->escapeHtml(__('Search')) ?>"
                         class="action search">
                 </button>
-            </div>
         </form>
     </div>
-    <aside class="mob-menu-sec">
-       <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/stores.phtml")->toHtml(); ?>
-        <div class="mob-menu">
-            <a href="#!" class="fas fa-bars"></a>
-        </div>
-    </aside>
 </div>
+
+<script>
+localStorage.setItem('mobmenuClicked', 'FALSE');
+
+var pageNav = document.getElementById('pgnav');
+
+/*  Setting mobile menu display based on window resize  */
+document.getElementsByTagName("BODY")[0].onresize = function(){
+
+    var browserSize = {
+      width: window.innerWidth || document.body.clientWidth,
+      height: window.innerHeight || document.body.clientHeight
+    }
+    
+    if(browserSize.width >= 1200){
+        document.getElementById('pgnav').style.display = 'block';
+        localStorage.setItem('mobmenuClicked', 'FALSE');
+    }else{
+        
+        if(localStorage.getItem('mobmenuClicked') == 'FALSE'){
+            document.getElementById('pgnav').style.display = 'none';
+        }
+        else{
+            if(pageNav.style.display == 'none' || pageNav.style.display == '')
+                pageNav.style.display = 'none';
+        }
+    }
+}
+
+/*  Toggle of mobile menu   */
+function toggleMenu(navId){
+    var navObj = document.getElementById(navId);
+
+    navObj.style.display = (navObj.style.display == 'none' || navObj.style.display == '') ? 'block' : 'none';
+    
+    localStorage.setItem('mobmenuClicked', 'TRUE');
+}
+</script>
+
 
 
