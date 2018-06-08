@@ -12,14 +12,14 @@ define(
         return Component.extend({
             defaults: {
                 isFullTaxSummaryDisplayed: window.checkoutConfig.isFullTaxSummaryDisplayed || false,
-                template: 'Panama_Handset/checkout/summary/downpayment'
+                template: 'Panama_Handset/checkout/summary/porttax'
             },
             totals: quote.getTotals(),
             isTaxDisplayedInGrandTotal: window.checkoutConfig.includeTaxInGrandTotal || false,
             isDisplayed: function() {
                 var price = 0;
                 if (this.totals()) {
-                    price = totals.getSegment('downpayment').value;
+                    price = totals.getSegment('porttax').value;
                 }
                 if(price == 0) {
                     return false;
@@ -31,7 +31,7 @@ define(
             getValue: function() {
                 var price = 0;
                 if (this.totals()) {
-                    price = totals.getSegment('downpayment').value;
+                    price = totals.getSegment('porttax').value;
                 }
                 return this.getFormattedPrice(price);
             },
