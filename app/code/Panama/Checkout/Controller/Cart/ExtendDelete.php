@@ -29,16 +29,17 @@ class ExtendDelete extends \Magento\Checkout\Controller\Cart\Delete
 				$catalogSession->unsContract();
 				//end unset all portable option session 
 			
-				/*$currentItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($id);
+				$currentItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($id);
 				$currentItemIdAssociate = $currentItem->getAssociateProductId();
 				$cart = $this->_objectManager->get('\Magento\Checkout\Model\Cart'); 
 				$allItems = $cart->getQuote()->getAllVisibleItems();
 				foreach ($allItems as $item) {
 					if(($currentItemIdAssociate == $item->getProductId()) && $item->getAssociateProductId()) {
-						$this->cart->removeItem($item->getId())->save();
+						$quoteItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($item->getId());
+						$quoteItem->delete();//deletes the item
 						break;
 					}
-				}*/
+				}
                 $this->cart->removeItem($id)->save();
             } catch (\Exception $e) {
                 $this->messageManager->addError(__('We can\'t remove the item.'));
@@ -48,4 +49,5 @@ class ExtendDelete extends \Magento\Checkout\Controller\Cart\Delete
         $defaultUrl = $this->_objectManager->create(\Magento\Framework\UrlInterface::class)->getUrl('*/*');
         return $this->resultRedirectFactory->create()->setUrl($this->_redirect->getRedirectUrl($defaultUrl));
     }
+	
 }
