@@ -1,0 +1,11 @@
+<?php 
+$product = $block->getProduct();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$categoryIds = $product->getCategoryIds();
+$parent_id = $objectManager->create('Magento\Catalog\Model\Category')->getCollection()->addAttributeToFilter('entity_id',$categoryIds[0])->getFirstItem()->getParentId();
+// $parent_id = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryIds[0])->getParentId();
+$parentCategoryName = $objectManager->create('Magento\Catalog\Model\Category')->load($parent_id)->getName();
+?>
+<div class="smartphone-container">
+    <h1><?php echo $parentCategoryName ?></h1>
+</div>
