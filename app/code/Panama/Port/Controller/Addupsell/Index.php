@@ -80,13 +80,13 @@ class Index extends \Magento\Framework\App\Action\Action {
 		$bundleId = $this->getRequest()->getParam('upsell_id');
 		$allItems = $this->_cart->getQuote()->getAllItems();
 		foreach ($allItems as $item) {
-			if($this->getRequest()->getParam('product') ==  $item->getProductId()) {
+			if($this->getRequest()->getParam('product') ==  $item->getProductId() && $item->getAssociateProductId() == '') {
 				$item->setAssociateProductId($bundleId);
 				$item->save();
 			}
 		}
 		//add Upsell Product
-		$this->_redirect('customcatalog/cart/add/', array('id' => $bundleId));
+		$this->_redirect('customcatalog/cart/add/', array('id' => $bundleId, 'configId' => $this->getRequest()->getParam('product')));
         return $resultPage;
     }
 }

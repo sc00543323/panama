@@ -12,16 +12,6 @@ class ExtendDelete extends \Magento\Checkout\Controller\Cart\Delete
     public function execute()
     {
 	
-		//start unset all portable option session 
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-		$catalogSession = $objectManager->create('Magento\Catalog\Model\Session');
-		$catalogSession->unsPortProductId();
-		$catalogSession->unsPort();
-		$catalogSession->unsCurrentService();
-		$catalogSession->unsBuySmartphone();
-		$catalogSession->unsContract();
-		//end unset all portable option session 
-		
         if (!$this->_formKeyValidator->validate($this->getRequest())) {
             return $this->resultRedirectFactory->create()->setPath('*/*/');
         }
@@ -29,6 +19,26 @@ class ExtendDelete extends \Magento\Checkout\Controller\Cart\Delete
         $id = (int)$this->getRequest()->getParam('id');
         if ($id) {
             try {
+			
+				//start unset all portable option session 
+				$catalogSession = $this->_objectManager->create('Magento\Catalog\Model\Session');
+				$catalogSession->unsPortProductId();
+				$catalogSession->unsPort();
+				$catalogSession->unsCurrentService();
+				$catalogSession->unsBuySmartphone();
+				$catalogSession->unsContract();
+				//end unset all portable option session 
+			
+				/*$currentItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($id);
+				$currentItemIdAssociate = $currentItem->getAssociateProductId();
+				$cart = $this->_objectManager->get('\Magento\Checkout\Model\Cart'); 
+				$allItems = $cart->getQuote()->getAllVisibleItems();
+				foreach ($allItems as $item) {
+					if(($currentItemIdAssociate == $item->getProductId()) && $item->getAssociateProductId()) {
+						$this->cart->removeItem($item->getId())->save();
+						break;
+					}
+				}*/
                 $this->cart->removeItem($id)->save();
             } catch (\Exception $e) {
                 $this->messageManager->addError(__('We can\'t remove the item.'));
