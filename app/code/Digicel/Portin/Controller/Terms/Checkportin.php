@@ -30,14 +30,13 @@ public function __construct(
     }
    
  public function execute() { 
-
  
-  $portin = 0;
+			$portin = 0;
 			$items = $this->cart->getQuote()->getAllVisibleItems();
 			 foreach($items as $item){
-			  $portin = $item->getIsPortable();
-			  $currentService = $item->getCurrentService();
+			  $portin = $item->getIsPortable();			  
 			  if($portin == 'yes'){
+				  $currentService = $item->getCurrentService();
 				  $portin = 1;
 				  break;
 			  }
