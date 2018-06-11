@@ -103,6 +103,13 @@
 .smart-phone-bdy .media .fotorama__stage {
     left: 110px !important;
 }
+.smart-phone-reviews {
+    margin-bottom: 30px;
+}
+.smart-phone-spec-detail .loader {
+    text-align: center;
+}
+
 @media (max-width: 767px) {
     .product.info.detailed {
         margin-top: 100%;
