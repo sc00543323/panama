@@ -12,26 +12,33 @@ class UpdateInvoices implements UpdateInvoicesInterface
 		$invoiceUri = $invoicesData->getInvoiceUri();
 		
 		if(!$orderId) {
-			$invoicesData->setresultId('0');
+			$invoicesData->setResultId('0');
 			$invoicesData->setResultMessage('Order id is mandatory');
 		} else if(!$invoiceUri) {
-			$invoicesData->setresultId('0');
+			$invoicesData->setResultId('0');
 			$invoicesData->setResultMessage('invoice Uri is mandatory');
 		} else {
-			$invoicesData->setresultId('1');
+			$invoicesData->setResultId('1');
 			$invoicesData->setResultMessage('Invoice of an order has been updated.');
 		}
 		
-		if($invoicesData->getresultId() == 1) {
+		if($invoicesData->getResultId() == 1) {
 			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
 			if($order->getId()) {
 				$order->setInvoiceUrl($invoiceUri);
 				$order->save();
 			} else {
-				$invoicesData->setresultId('0');
+				$invoicesData->setResultId('0');
 				$invoicesData->setResultMessage('Invalid order id or invalid DeliveryStatusId');
 			}
 		}
+		
+		$logRequest[] = $invoicesData->getOrderId();
+		$logRequest[] = $invoicesData->getInvoiceUri();
+		$logResponse[] = $invoicesData->getResultId();
+		$logResponse[] = $invoicesData->getResultMessage();
+		$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/invoiceupdate_request_response.log', "<==Request==>\n".json_encode($logRequest));
+		$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/invoiceupdate_request_response.log', "<==Response==>\n".json_encode($logResponse)."\n\n");
 		return $invoicesData; die;
     }
 }

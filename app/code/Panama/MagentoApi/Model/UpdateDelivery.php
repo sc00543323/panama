@@ -22,28 +22,39 @@ class UpdateDelivery implements UpdateDeliveryInterface
 		$trackingDeliveryUrl = $deliveryData->getTrackingDeliveryUrl();
 		
 		if(!$orderId) {
-			$deliveryData->setresultId('0');
+			$deliveryData->setResultId('0');
 			$deliveryData->setResultMessage('Order id is mandatory');
 		} else if(!$deliveryStatusId) {
-			$deliveryData->setresultId('0');
+			$deliveryData->setResultId('0');
 			$deliveryData->setResultMessage('Delivery status id is mandatory');
 		} else {
-			$deliveryData->setresultId('1');
+			$deliveryData->setResultId('1');
 			$deliveryData->setResultMessage('Order status has been changed');
 		}
 		
-		if($deliveryData->getresultId() == 1) {
-			$orderStatus = $deliveryStatusArray[$deliveryStatusId];
+		if($deliveryData->getResultId() == 1) {
+			if(isset($deliveryStatusArray[$deliveryStatusId])) {
+				$orderStatus = $deliveryStatusArray[$deliveryStatusId];
+			} else {
+				$orderStatus = '';
+			}
 			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
 			if($order->getId() && $orderStatus) {
 				$order->setStatus($orderStatus);
 				$order->setTrackingDeliveryUrl($trackingDeliveryUrl);
 				$order->save();
 			} else {
-				$deliveryData->setresultId('0');
+				$deliveryData->setResultId('0');
 				$deliveryData->setResultMessage('Invalid order id or invalid DeliveryStatusId');
 			}
 		}
+		$logRequest[] = $orderId;
+		$logRequest[] = $deliveryStatusId;
+		$logRequest[] = $trackingDeliveryUrl;
+		$logResponse[] = $deliveryData->getResultId();
+		$logResponse[] = $deliveryData->getResultMessage();
+		$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/deliveryupdate_request_response.log', "<==Request==>\n".json_encode($logRequest));
+		$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/deliveryupdate_request_response.log', "<==Response==>\n".json_encode($logResponse)."\n\n");
 		return $deliveryData; die;
     }
 }

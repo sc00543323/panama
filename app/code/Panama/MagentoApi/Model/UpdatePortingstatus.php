@@ -22,28 +22,33 @@ class UpdatePortingstatus implements UpdatePortingstatusInterface
 		$portingStatusId = $portingstatusData->getPortingStatusId();
 		
 		if(!$orderId) {
-			$portingstatusData->setresultId('0');
+			$portingstatusData->setResultId('0');
 			$portingstatusData->setResultMessage('Order id is mandatory');
 		} else if(!$portingStatusId) {
-			$portingstatusData->setresultId('0');
+			$portingstatusData->setResultId('0');
 			$portingstatusData->setResultMessage('Porting status id is mandatory');
 		} else {
-			$portingstatusData->setresultId('1');
+			$portingstatusData->setResultId('1');
 			$portingstatusData->setResultMessage('Porting status has been updated.');
 		}
 		
-		if($portingstatusData->getresultId() == 1) {
+		if($portingstatusData->getResultId() == 1) {
 			$portingStatus = $portingStatusArray[$portingStatusId];
 			$order = $objectManager->create('\Magento\Sales\Model\Order')->loadByIncrementId($orderId);
 			if($order->getId() && $portingStatus) {
 				$order->setPortingStatus($portingStatus);
 				$order->save();
 			} else {
-				$portingstatusData->setresultId('0');
+				$portingstatusData->setResultId('0');
 				$portingstatusData->setResultMessage('Invalid order id or invalid porting status id');
 			}
 		}
-		//$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/portingstatusupdate_response.log', json_encode($portingstatusData));
+		$logRequest[] = $portingstatusData->getOrderId();
+		$logRequest[] = $portingstatusData->getPortingStatusId();
+		$logResponse[] = $portingstatusData->getResultId();
+		$logResponse[] = $portingstatusData->getResultMessage();
+		$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/portingstatusupdate_request_response.log', "<==Request==>\n".json_encode($logRequest));
+		$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/portingstatusupdate_request_response.log', "<==Response==>\n".json_encode($logResponse)."\n\n");
 		return $portingstatusData; die;
     }
 }
