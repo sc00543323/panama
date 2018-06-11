@@ -33,6 +33,8 @@ class Portin extends \Magento\Checkout\Block\Cart\AbstractCart
 	protected $_customerRepositoryInterface;
 	
 	protected $_timezoneInterface;
+	
+	protected $cart;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -53,6 +55,7 @@ class Portin extends \Magento\Checkout\Block\Cart\AbstractCart
 		\Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
 		\Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezoneInterface,
         \Magento\Framework\App\Http\Context $httpContext,
+		\Magento\Checkout\Model\Cart $cart,
 		
         array $data = []
     ) {
@@ -64,6 +67,7 @@ class Portin extends \Magento\Checkout\Block\Cart\AbstractCart
 		$this->_customerRepositoryInterface = $customerRepositoryInterface;
 		$this->_timezoneInterface = $timezoneInterface;
         $this->httpContext = $httpContext;
+		$this->cart = $cart;
     }
 	
 	public function getNip(){		
@@ -74,6 +78,21 @@ class Portin extends \Magento\Checkout\Block\Cart\AbstractCart
 		$customerId = $this->customerSession->getId();
 		$customer = $this->_customerRepositoryInterface->getById($customerId);
 		return $customer;
+	}
+	
+	public function getCurrentService(){
+		$currentService = '';
+		
+		$items = $this->cart->getQuote()->getAllVisibleItems();
+			 foreach($items as $item){
+			  $portin = $item->getIsPortable();			  
+			  if($portin == 'yes'){
+				  $currentService = $item->getCurrentService();
+				  $portin = 1;
+				  break;
+			  }
+			}
+			return $currentService;
 	}
 	
 	public function convertDate($date){

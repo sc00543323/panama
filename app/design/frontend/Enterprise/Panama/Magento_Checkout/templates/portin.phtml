@@ -97,6 +97,7 @@
 			<?php } ?>
         </div>
     </fieldset>
+	<?php  if($block->getCurrentService() == 'prepaid'){ ?>
 	<fieldset class="fieldset Cedula">
 		<div>
 			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Add NIP Number') ?>*</label>
@@ -110,21 +111,20 @@
 			</div>
 		</div>
 		<div>
-			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Actual Telecom') ?>*</label>
+			<label class="Login_form_Txt pull-left-"><?php /* @escapeNotVerified */ echo __('Donor Operator') ?>*</label>
 			<div class="">
 				<div class="">
-					<select style="width: 30%; margin: 0px 15px;" name="actualTelecom" id="actualTelecom" class="form-control">
-					  <option value="Claro">Claro</option>
-					  <option value="Digicel">Digicel</option>
-					  <option value="Movistar">Movistar</option>
-					  <option value="Mas movil">Mas movil</option>
+					<select style="width: 30%; margin: 0px 15px;" name="actualTelecom" id="actualTelecom" class="form-control" disabled>
+					  <option <?php  if($customer->getCustomAttribute('current_operater')->getValue() == 'Claro'){ echo 'selected'; }?> value="Claro">Claro</option>
+					  <option <?php  if($customer->getCustomAttribute('current_operater')->getValue() == 'Movistar'){ echo 'selected'; }?> value="Movistar">Movistar</option>
+					  <option <?php  if($customer->getCustomAttribute('current_operater')->getValue() == 'Mas movil'){ echo 'selected'; }?> value="Mas movil">Mas movil</option>
 					</select>
 				</div>
 			</div>
 		</div>
 		
 	</fieldset>
-
+ <?php } ?>
 <script type="text/javascript">
 require([
 'jquery', // jquery Library

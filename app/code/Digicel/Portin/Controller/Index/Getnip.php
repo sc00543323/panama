@@ -84,7 +84,6 @@ class Getnip extends \Magento\Framework\App\Action\Action
 			$this->_customerRepositoryInterface->save($customer);
 		}catch (\Exception $e) {
 			$message = array('valid' => 0,'message'=> $e->getMessage());
-			echo 'Not Done';
 		}
 		
 		$layout = $this->_view->getLayout();		

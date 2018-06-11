@@ -444,11 +444,6 @@ switch ($type = $block->getType()) {
 			}
 		});
 	
-        //Credit Check Details show hide popup
-        $("#credit_yes").on('click',function () {
-            $('#bundle_port').hide();
-            $('.Cedula').show();
-		});
 
         $("#Cedula_btn").on('click',function () {
             $('.passport_div').hide();
@@ -460,40 +455,10 @@ switch ($type = $block->getType()) {
             $('.cedula_div').hide();
 			$('#credit_check_btn').show();
         });
-        //Credit Check Function Get Data
-        $("#credit_check_btn").on('click',function () {
-           
-            var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
-            var pid = $(".plan_detail").attr('id');
-            var sid = pid.split("_");
-            var product_id = sid[1];
-            var credit_data = {price: device_price,product_id: product_id};
-            $.ajax({
-                url: "<?php echo $block->getBaseUrl() . 'port/Addupsell/Credit' ?>",
-                dataType: 'json',
-                showLoader: true,
-                type: 'post',
-                data: credit_data,
-                success: function (data) {
-                    if(data.upsel_data){
-						$('#credit_check').hide();
-						$('#credit_check').modal("closeModal");
-						$("#port_div").html(data.upsel_data);
-                        $('#port_div').show();
-                        $('.upsell').hide();
-                    } 
-                }
-            });
-		});
+        
         //Choose Plan - Upsell Product Selection Dynamic Price Change option
         $(".plan_detail").on('click',function () {
-			//Credit Check Popup Open
-            if ($("#contract_yes").prop("checked") && $('input[name=contract_remove]:checked').val() != 'no') {
-                var popupData = modal(optionsVal, $('#credit_check'));
-                $("#credit_check").css("display", "block");
-                $('#credit_check').modal('openModal');
-				$(".modal-footer").hide();
-            }
+			
 			//Select Upsell Product
             $(".plan_detail").css("border", "2px solid");
 			var pid = $(this).attr('id');
