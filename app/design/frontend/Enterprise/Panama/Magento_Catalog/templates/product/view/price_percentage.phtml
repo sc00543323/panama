@@ -8,8 +8,6 @@ $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
 $regularPrice = $_product->getPriceInfo()->getPrice('regular_price')->getAmount()->getValue();
 $formattedPrice = $priceHelper->currency($regularPrice, true, false);
 if ($finalPrice < $regularPrice) { ?>
-	<div class="smart-phone-rating">
-		<?php $price_percentage = number_format((($regularPrice - $finalPrice) * 100 / $regularPrice),2); ?>
-		<h4>Normal <?php echo $formattedPrice; ?><?php echo "/ -" ?><?php echo $price_percentage.'%'; ?></h4>
-	</div>
+	<?php $price_percentage = number_format((($regularPrice - $finalPrice) * 100 / $regularPrice),2); ?>
+	<h4>Normal <?php echo $formattedPrice; ?><?php echo "/ -" ?><?php echo $price_percentage.'%'; ?></h4>
 <?php } ?>

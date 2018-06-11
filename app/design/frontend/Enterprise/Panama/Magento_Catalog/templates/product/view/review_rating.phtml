@@ -1,30 +1,96 @@
+<?php
+//$url = $this->getLayout()->createBlock('\Magento\Review\Block\Product\ReviewRenderer')->getReviewsUrl() . '#reviews';
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $this->getProduct();
+$rating = $objectManager->get("Magento\Review\Model\ResourceModel\Review\CollectionFactory");
+$review_collection = $rating->create()
+        ->addStatusFilter(
+            \Magento\Review\Model\Review::STATUS_APPROVED
+        )->addEntityFilter(
+            'product',
+            $product->getId()
+        )->setDateOrder();
+$rating = $product->getRatingSummary()->getRatingSummary();
+$star_count = 0;
+?>
+<?php if($rating): ?>
+    <?php $star_count = (($rating * 5)/100); ?>
+<?php endif; ?>
+<?php switch ($star_count) {
+    case $star_count >= 5:
+        $rating_text = 'Excellent';
+        break;
+    case $star_count >= 4:
+        $rating_text = 'Very Good';
+        break;
+    case $star_count >= 3:
+        $rating_text = 'Good';
+        break;
+    case $star_count >= 2:
+        $rating_text = 'Fair';
+        break;
+    case $star_count >= 1:
+        $rating_text = 'Poor';
+        break;
+    default:
+        $rating_text = '';
+        break;
+} ?>
 <div class="smart-phone-spec-detail">
     <h5>Ratings and Reviews</h5>
-    <div class="rating-summary">
-        <label>REVIEWS:</label>
-        <span>4</span> <i class="fas fa-star"></i> <span>|</span> <a href="#">250 REVIEWS</a> </div>
-    <div class="rating-sub-header">Excellent</div>
-    <div class="smart-phone-reviews">
-        <div class="smart-phone-reviews-content">
-            <p> The World's Best &amp; Stylish Smartphone From SAMSUNG. </p>
-            <p> Hats Off To The Entire SAMSUNG Design Team For Making This Beautiful Smartphone. The Design Of Galaxy S8 Is Stylish &amp; Cool. The Rear Camera Quality Is Outstanding, In fact It's Best Ever Smartphone Camera Till Now! Front Camera Of Galaxy S8 Is Lovely, It's A Wonderful Selfie Camera For All The Selfie Lovers. Display Quality Is Fantastic </p>
-            <a href="#">John Doe</a> </div>
-        <div class="smart-phone-reviews-content">
-            <p> The World's Best &amp; Stylish Smartphone From SAMSUNG. </p>
-            <p> Hats Off To The Entire SAMSUNG Design Team For Making This Beautiful Smartphone. The Design Of Galaxy S8 Is Stylish &amp; Cool. The Rear Camera Quality Is Outstanding, In fact It's Best Ever Smartphone Camera Till Now! Front Camera Of Galaxy S8 Is Lovely, It's A Wonderful Selfie Camera For All The Selfie Lovers. Display Quality Is Fantastic </p>
-            <a href="#">John Doe</a> </div>
-        <div class="smart-phone-reviews-content">
-            <p> The World's Best &amp; Stylish Smartphone From SAMSUNG. </p>
-            <p> Hats Off To The Entire SAMSUNG Design Team For Making This Beautiful Smartphone. The Design Of Galaxy S8 Is Stylish &amp; Cool. The Rear Camera Quality Is Outstanding, In fact It's Best Ever Smartphone Camera Till Now! Front Camera Of Galaxy S8 Is Lovely, It's A Wonderful Selfie Camera For All The Selfie Lovers. Display Quality Is Fantastic </p>
-            <a href="#">John Doe</a> </div>
-        <div class="smart-phone-reviews-content">
-            <p> The World's Best &amp; Stylish Smartphone From SAMSUNG. </p>
-            <p> Hats Off To The Entire SAMSUNG Design Team For Making This Beautiful Smartphone. The Design Of Galaxy S8 Is Stylish &amp; Cool. The Rear Camera Quality Is Outstanding, In fact It's Best Ever Smartphone Camera Till Now! Front Camera Of Galaxy S8 Is Lovely, It's A Wonderful Selfie Camera For All The Selfie Lovers. Display Quality Is Fantastic </p>
-            <a href="#">John Doe</a> 
-        </div>
-        
-    </div>
-    <div class="btn-content">
-        <button type="button" class="smart-phone-sec-button">Load More Reviews</button>
-    </div>
+    <?php echo $this->getLayout()->createBlock('Magento\Review\Block\Product\ReviewRenderer')->getReviewsSummaryHtml($product,true,false); ?>
+	<?php if($rating_text != ''): ?>
+	    <div class="rating-sub-header"><?php echo $rating_text ?></div>
+	<?php endif; ?>
+	<?php $i = 1; $total = 4; ?>
+	<?php foreach($review_collection as $review) { ?>
+		<?php if($i == 1 || $i % $total == 1): ?><div class="smart-phone-reviews" id="<?php echo "reviews_".$i ?>" <?php if($i >= $total): ?>style="display: none;"<?php endif; ?>><?php endif; ?>
+	        <div class="smart-phone-reviews-content">
+	            <p><?php echo $review->getDetail() ?></p>
+	            <a href="#"><?php echo $review->getNickname() ?></a>	            
+	        </div>
+        <?php if($i % $total == 0): ?></div><?php endif; ?><?php if($i == $total): ?><div class="btn-content"><button type="button" class="smart-phone-sec-button">Load More Reviews</button></div><?php endif; ?>
+        <?php $i++; ?>
+    <?php } ?>    
+    <div class="loader" style="display: none;">
+		<img src="<?php echo $this->getViewFileUrl('Magento_Theme::images/loader.gif') ?>" />
+	</div>
 </div>
+<script>
+	require([
+		'jquery',
+		'Magento_Ui/js/modal/modal'
+	], function ($, modal) {
+		var optionsVal = {
+			type: 'popup',
+			responsive: true,
+			innerScroll: false,
+		};
+		var review = 1;
+		var row_count = 4;
+		$('.smart-phone-sec-button').click(function() {
+			$('.loader').show();
+			var total = row_count +1;
+			setTimeout(function(){
+			  	$('#reviews_'+total).show();
+			  	$('.smart-phone-sec-button').hide();
+			  	$('.loader').hide();
+			}, 2000);			
+		    
+		});
+		$(window).scroll(function() {
+			var _total = row_count +1;
+		    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		    	review = review + (2*row_count);
+		    	if(!$('#reviews_'+_total).is(":visible") || ($('#reviews_'+review).length)) {
+		    		$('.loader').show();			      	
+			      	setTimeout(function(){
+				      	$('#reviews_'+review).show();
+				      	$('.smart-phone-sec-button').hide();
+				      	$('.loader').hide();
+					}, 2000);
+			    }
+		    }
+		});
+	});
+</script>

@@ -46,6 +46,10 @@ class Add extends \Magento\Framework\App\Action\Action
     {
 		try {
 			$productId = $this->getRequest()->getParam('id');//Bundle product id
+			$configId ='';
+			if($this->getRequest()->getParam('configId')){
+				$configId = $this->getRequest()->getParam('configId');//config product id
+			}
 			if(!$productId) {
 				$productId = $this->_productFactory->create()->getIdBySku($this->getRequest()->getParam('sku'));
 				if(!$productId) {
@@ -108,6 +112,10 @@ class Add extends \Magento\Framework\App\Action\Action
 					$item->setCurrentService($currentServiceSessionVal);
 					$item->setIsSmartphone($buySmartphoneSessionVal);
 					$item->setIsContract($isContract);
+					$item->save();
+				}
+				if($productId ==  $item->getProductId() && $item->getAssociateProductId() == '') {
+					$item->setAssociateProductId($configId);
 					$item->save();
 				}
 			}

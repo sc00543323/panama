@@ -58,7 +58,7 @@ class UpdateInventory implements UpdateInventoryInterface
 			} else {
 				//return $inventoryData; die;
 				$product=$this->_product->loadByAttribute('sku', $sku); //load product which you want to update stock
-				if($product){
+				if($product && ($product->getTypeId()=='simple' || $product->getTypeId() == 'virtual')){
 				
 				$stockItem=$this->_stockRegistry->getStockItem($product->getId()); // load stock of that product
 			
