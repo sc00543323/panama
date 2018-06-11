@@ -6,7 +6,7 @@
                 <payment_action>capture</payment_action><!-- You can use another method like capture  -->
                 <model>Digicel\Swipe\Model\PaymentMethod</model>
                 <active>1</active>
-                <title>Credit Card/Debit Card/ Clave Swipe on Delivery</title>
+                <title>Credit Card / Debit Card / Clave Swipe on Delivery</title>
                 <order_status>pending_payment</order_status><!-- set default order status-->
             </custompayment>
         </payment>

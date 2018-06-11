@@ -41,13 +41,7 @@
             <!-- </div> -->
         </div>
         <?php if($_product->getAttributeSetId() == 10){ ?>
-                <style>
-                    .cedula-field{
-                    	width:15%;
-                    	float:left;
-                    	padding:5px;
-                    }
-                </style>
+               
                 <div class="row smart-phone-pr-radio" id ="port_div">
                     <input type="hidden" name="upsell_id" id="upsell_id">
                     <div class="col-xs-12 margin-xs-b-m smart-phone-portability">   
@@ -132,81 +126,10 @@
                     <option value="18">18 month</option>
                     </select>
                 </div>
+				
+				<?php echo $block->getLayout()->createBlock(\Digicel\Portin\Block\Index\Popup::class)->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
 
-                <div class="credit_check smart-phone-pr-radio" id="credit_check" style="display:none">
-                    <div class="modal-body" id="bundle_port">
-                        <label>When you select “With contract”</label><br>
-                        <label>your Credit References will be checked,</label><br>
-                        <label>Do you agree?</label><br>
-                        <button id="credit_yes">Yes</button>
-                        <button id="credit_no">No</button>
-                    </div>
-
-                    <div class="Cedula" style="display:none">
-                       
-            		    <label>Please provide Detail</label>
-            			<br>
-                		<button id="Cedula_btn">Cedula</button>
-                        <div class="cedula_div" style="display:none">
-            			<div class="cedula-field">
-            				<label>Province</label>
-            				<select name="province" id="state" >
-            					<?php for($i=1;$i<15;$i++){?>
-            					<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-            					<?php  } ?>
-            				</select>
-            			</div>
-            			<div class="cedula-field">
-            			    <label>Letters</label>
-            				<select name="letters" id="city">
-            					<option value="PI">PI</option>
-            					<option value="AV">AV</option>
-            					<option value="E">E</option>
-            					<option value="N">N</option>
-            					<option value="PE">PE</option>
-            					<option value="P">P</option>
-            				</select>
-            			</div>
-            			<div class="cedula-field">
-            			    <label>I take</label>
-            			    <input type="text" maxlength="6" autocomplete="u1" id="street" >
-            			</div>
-            			<div class="cedula-field">
-            			    <label>Seat</label>
-            			    <input type="text" maxlength="6" autocomplete="u1" id="zip"> 
-            			</div>
-            				<div class="cedula-field">
-            					<label>Number</label>			
-                                                    <input type="text" maxlength="6" autocomplete="u1" id="finalnumber" disabled value="0">
-            				</div>
-                        </div>
-            			    <br style="clear: both;">
-            				OR
-            				<br>
-                        <button id="Passport_btn">Passport</button>
-                        <div class="passport_div" style="display:none">
-            			    <div class="cedula-field">
-                                <label>Number</label>
-                                <input type="text" id="passport" maxlength="10" autocomplete="u1" value="0" >
-            			    </div>
-                        </div> 
-                        <div class="terms_div" >
-                            <div class="terms-checkobox">
-                                <input type="checkbox" value="" name="terms-checkbox" id="terms-checkbox" ><label>You have read and accepted the Credit References Terms and Conditions</label>
-                            </div>
-                            <div class="download-documents">
-                                <?php $url =  $this->helper('Digicel\Portin\Helper\Data')->getPdfUrl('terms_and_condition/file_upload/contract_condition'); ?>
-                                <a href="<?php echo $url; ?>" class="view-document" target="_blank" >View document </a>
-                                <a href="<?php echo $url; ?>"  class="download-document" download>Download</a>
-                            </div>
-                        </div> 
-            			<br style="clear: both;">
-            			<div style="width: 20%;margin: auto;">
-            				<button id="credit_check_btn" style="display:none">Proceed</button>
-            			</div>
-                       
-                    </div>
-                </div>
+                
         <?php } ?>        
     </div>
 <?php endif; ?>
