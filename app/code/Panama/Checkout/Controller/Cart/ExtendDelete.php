@@ -28,21 +28,37 @@ class ExtendDelete extends \Magento\Checkout\Controller\Cart\Delete
 				$catalogSession->unsBuySmartphone();
 				$catalogSession->unsContract();
 				//end unset all portable option session 
-			
-				/*$currentItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($id);
+				$removedIds = array();
+				$currentItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($id);
 				$currentItemIdAssociate = $currentItem->getAssociateProductId();
-				$cart = $this->_objectManager->get('\Magento\Checkout\Model\Cart'); 
-				$allItems = $cart->getQuote()->getAllVisibleItems();
+				$allItems = $this->cart->getQuote()->getAllVisibleItems();
+				$i=0;				
+				$quoteId = '';
 				foreach ($allItems as $item) {
-					if(($currentItemIdAssociate == $item->getProductId()) && $item->getAssociateProductId()) {
-						//$quoteItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($item->getId());
-						//$quoteItem->delete();//deletes the item
+					$quoteId = $item->getQuoteId();
+					if(($currentItemIdAssociate == $item->getProductId()) && $item->getAssociateProductId() && $i == 0) {
 						$removedId = $item->getItemId();
-						$this->cart->removeItem($removedId)->save();
-						break;
+						$removedIds[] = $removedId;
+						$i = 1;
 					}
-				}*/
-                $this->cart->removeItem($id)->save();
+				}
+				$removedIds[] = $id;
+				foreach ($removedIds as $id) {
+					$quoteItem = $this->_objectManager->create('Magento\Quote\Model\Quote\Item')->load($id);
+					$quoteItem->delete()->save();
+					//$this->cart->removeItem($id)->save();
+				}
+				$quote = $this->_objectManager->create('Magento\Quote\Model\Quote')->load($quoteId);
+				$allVisItem = $quote->getAllVisibleItems();
+				$j=0;
+				foreach($allVisItem as $item) {
+					$j++;
+				}
+				if($j == 0) {
+					$quote = $this->_objectManager->create('Magento\Quote\Model\Quote')->load($quoteId);
+					$quote->delete()->save();
+				}
+				
             } catch (\Exception $e) {
                 $this->messageManager->addError(__('We can\'t remove the item.'));
                 $this->_objectManager->get(\Psr\Log\LoggerInterface::class)->critical($e);
