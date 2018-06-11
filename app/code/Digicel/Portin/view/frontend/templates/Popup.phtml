@@ -1,0 +1,222 @@
+	<!-- Model Popup First -->
+	<div class="credit_check" id="credit_check" style="display:none">
+       <p class="modal-context">When you select &#34;With contract&#34; your Credit References will be checked, Do you agree?</p>
+		<div class="modal-action">
+			<button id="credit_yes">yes</button>
+			<button id="credit_no">no</button>
+			<?php echo 'Customer : '.$block->getcustomer(); ?>
+		</div>
+	</div>	
+	<!-- Model Popup Second -->
+	<div id="CedulaField" class="Cedula" style="display:none">
+	   <div class="form-element">
+			<div class="personalid-section">            
+				<div class="personalid-btns">
+					<button id="isCedula" type="button"  class="secondary-btn">cedula</button>
+					<p>or</p>
+					<button id="isPassport" type="button"  class="secondary-btn">passport</button>
+				</div>
+				
+				<div class="personalid-content">
+					<div id="cedula" class="cedula-content" style="display:none;">
+						<div class="form-element">
+							<label class="lbl">Province</label>
+							<div class="select-box">
+								<select name="province" id="cedulaProvince" class="select-box">
+									<?php for($i=1;$i<14;$i++){?>
+									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+									<?php  } ?>
+								</select>
+								<span class="fas fa-caret-down"></span>
+							</div>
+						</div>
+						
+						<div class="form-element">
+							<label class="lbl">Letters</label>
+							<div class="select-box">
+								<select name="letters" id="cedulaLetters" class="select-box">
+									<option value="PI">PI</option>
+									<option value="AV">AV</option>
+									<option value="E">E</option>
+									<option value="N">N</option>
+									<option value="PE">PE</option>
+									<option value="P">P</option>
+								</select>
+								<span class="fas fa-caret-down"></span>
+							</div>
+						</div>
+						
+						<div class="form-element">
+							<label class="lbl">I take</label>
+							<input type="text" class="elm" maxlength="6" autocomplete="off" id="cedulaItake" />
+						</div>
+						<div class="form-element">
+							<label class="lbl">Seat</label>
+							<input type="text" class="elm" maxlength="6" autocomplete="off" id="cedulaSeat" /> 
+						</div>
+						<div class="form-element">
+							<label class="lbl">Number</label>
+							<input type="text" class="elm" maxlength="6" autocomplete="off" id="cedulaNumber" disabled value="1-PI" />
+						</div>
+					</div>
+					<div id="pasport" class="passport-content" style="display:none;">
+						<label class="lbl">Passport Number</label>
+						<input type="text" class="elm" id="cedulaPassport" maxlength="10" autocomplete="off"  />
+					</div>   
+				</div>
+				
+			</div>
+		</div>
+		<div class="terms-checkbox">
+			<label class="check-content">
+			  <input type="checkbox" checked="checked">
+			  <span class="checkmark"></span>
+			  <em>you have read and accepted the port in terms and conditions</em>
+			</label>                        
+		</div>
+				
+		<div class="modal-link">
+			<?php $url =  $this->helper('Digicel\Portin\Helper\Data')->getPdfUrl('terms_and_condition/file_upload/contract_condition'); ?>
+			<a href="<?php echo $url; ?>" class="view-document" target="_blank" >View document </a>
+			<a href="<?php echo $url; ?>"  class="download-document" download>Download</a>
+		</div>
+			
+		<div class="modal-action">
+			<button id="credit_check_btn">Proceed</button>
+		</div>
+	</div>
+	<script>
+		require([
+			'jquery',
+			'Magento_Ui/js/modal/modal'
+		], function ($, modal) {
+			//Set popup potion values for first popup
+			var optionsVal = {
+				type: 'popup',
+				responsive: true,
+				innerScroll: false,
+				title: 'Purchasing process'
+			};
+			//Set popup potion values for second popup
+			var CedulaFieldOptions = {
+				type: 'popup',
+				responsive: true,
+				innerScroll: false,
+				title: 'credit check'
+			};
+			//Credit Check Popup Open
+			$(".plan_detail").on('click',function () {
+				if ($("#contract_yes").prop("checked") && $('input[name=contract_remove]:checked').val() != 'no') {
+					var popupData = modal(optionsVal, $('#credit_check'));
+					$("#credit_check").css("display", "block");
+					$('#credit_check').modal('openModal');
+					$(".modal-footer").hide();
+				}
+			});	
+			 //Credit Check Details show hide popup
+			$("#credit_yes").on('click',function () {
+			   $('#credit_check').modal('closeModal');
+			   
+			   var popupData = modal(CedulaFieldOptions, $('#CedulaField'));
+					$("#CedulaField").css("display", "block");
+					$('#CedulaField').modal('openModal');
+					$(".modal-footer").hide();
+			});
+			//Show Hide passport and Cedula Option
+			$("#isCedula").click(function(){
+				var a = document.getElementById("cedula");
+				if(a.style.display === "none"){
+					a.style.display = "flex";
+				}
+				else{
+					a.style.display = "none";
+				} 
+				//$('#cedulaPassport').val('');
+			});
+			//Hode first popup
+			$("#credit_no").click(function(){
+				$('#credit_check').modal('closeModal');
+			});
+			
+			$("#isPassport").click(function(){
+				var x = document.getElementById("pasport");
+				if(x.style.display === "none"){
+					x.style.display = "flex";
+				}
+				else{
+					x.style.display = "none";
+				}
+				//$('#cedulaNumber').val('');
+				//$('#cedulaItake').val('');
+				//$('#cedulaSeat').val('');			
+			});
+			//Bind Cedula value with "-" charactor
+			$('#cedulaLetters,#cedulaProvince').change(function(){
+				var Province = $('#cedulaProvince').val();
+				var Letters = $('#cedulaLetters').val();
+				var Itake = $('#cedulaItake').val();
+				var Seat = $('#cedulaSeat').val();
+					var number  = ''; 
+					if(Province){
+						number = Province;
+					 }
+					 if(Letters){
+						number = Province+"-"+Letters;
+					 }
+					 if(Itake){
+						number = Province+"-"+Letters+'-'+Itake;
+					 }
+					 if(Seat){
+						number = Province+"-"+Letters+'-'+Itake+'-'+Seat;
+					 }
+				$('#cedulaNumber').val(number);	
+			
+			});	
+			//Bind Cedula value with "-" charactor
+			$('#cedulaItake,#cedulaSeat').keyup(function(e){
+				var Province = $('#cedulaProvince').val();
+				var Letters = $('#cedulaLetters').val();
+				var Itake = $('#cedulaItake').val();
+				var Seat = $('#cedulaSeat').val();
+					var number  = ''; 
+					if(Province){
+						number = Province;
+					 }
+					 if(Letters){
+						number = Province+"-"+Letters;
+					 }
+					 if(Itake){
+						number = Province+"-"+Letters+'-'+Itake;
+					 }
+					 if(Seat){
+						number = Province+"-"+Letters+'-'+Itake+'-'+Seat;
+					 }
+				$('#cedulaNumber').val(number);	
+			});	
+			 
+			//Credit Check Function Get Data
+			$("#credit_check_btn").on('click',function () {
+			   
+				var device_price = $('.product-info-price .price-wrapper').attr('data-price-amount');
+				var pid = $(".plan_detail").attr('id');
+				var sid = pid.split("_");
+				var product_id = sid[1];
+				var credit_data = {price: device_price,product_id: product_id};
+				$.ajax({
+					url: "<?php echo $block->getBaseUrl() . 'port/Addupsell/Credit' ?>",
+					dataType: 'json',
+					showLoader: true,
+					type: 'post',
+					data: credit_data,
+					success: function (data) {
+						if(data.upsel_data){
+							$("#port_div").html(data.upsel_data);
+							$('#port_div').show();
+							$('#CedulaField').modal("closeModal");
+						} 
+					}
+				});
+			});
+		});
+		
+	</script>
