@@ -27,6 +27,13 @@
                     <comment/>
                 </field>
             </group>
+			<group id="digicel_operator_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Operator List Api Details</label>
+                <field id="operator_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Operator List API Url</label>
+                    <comment/>
+                </field>
+            </group>
             <group id="log_api" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
                 <label>Log API</label>
                 <field id="save_response" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
