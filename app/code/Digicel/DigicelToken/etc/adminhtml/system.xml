@@ -34,6 +34,13 @@
                     <comment/>
                 </field>
             </group>
+			<group id="digicel_nip_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>NIP Request Api Details</label>
+                <field id="nip_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>NIP Request API Url</label>
+                    <comment/>
+                </field>
+            </group>
             <group id="log_api" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
                 <label>Log API</label>
                 <field id="save_response" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
