@@ -12,4 +12,7 @@
         <remove src="css/styles.css" />
         <remove src="css/print.css" />
     </head>
+    <body>
+        <referenceBlock name="customer_account_dashboard_top" remove="true" />
+    </body>
 </page>
