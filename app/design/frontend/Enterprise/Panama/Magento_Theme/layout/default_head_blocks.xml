@@ -17,6 +17,7 @@
         <css src="Magento_Theme::css/user_account.css"/>        
         <css src="Magento_Theme::css/myaccount.css"/>
         <css src="Magento_Theme::css/smartphone.css"/>
+        <css src="Magento_Theme::css/cartpage.css"/>
                  
 <!--         <remove src="css/styles-m.css" />
         <remove src="css/styles-l.css" />

@@ -10,7 +10,9 @@
  *
  * @var $block \Magento\Checkout\Block\Cart
  */
-
+?>
+<h4 class="page-header">Cart</h4>
+<?php
 if ($block->getItemsCount()) {
     echo $block->getChildHtml('with-items');
 } else {
