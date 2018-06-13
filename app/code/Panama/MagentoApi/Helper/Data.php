@@ -19,15 +19,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     }
 
     public function logCreate($fileName, $data) {
-        //$log_mode = $this->_scopeConfig->getValue('custom_modulelog/modulelog__configuration/setting_mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        //if(isset($log_mode) && $log_mode==1){
-            $writer = new \Zend\Log\Writer\Stream(BP . "$fileName");
-            $logger = new \Zend\Log\Logger();
-            $logger->addWriter($writer);
-            //$log_mode = $this->_scopeConfig->getValue('custom_modulelog/modulelog__configuration/setting_mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-            //if(isset($log_mode) && $log_mode==1){
-                $logger->info($data);
-            //}
-        //}
+		$isEnable = $this->_scopeConfig->getValue('panama/log_api/save_response', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+		if($isEnable) {
+			$writer = new \Zend\Log\Writer\Stream(BP . "$fileName");
+			$logger = new \Zend\Log\Logger();
+			$logger->addWriter($writer);
+			$logger->info($data);
+		}
     }
 }

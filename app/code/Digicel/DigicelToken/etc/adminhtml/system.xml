@@ -27,6 +27,41 @@
                     <comment/>
                 </field>
             </group>
+			<group id="digicel_operator_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Operator List Api Details</label>
+                <field id="operator_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Operator List API Url</label>
+                    <comment/>
+                </field>
+            </group>
+			<group id="digicel_nip_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>NIP Request Api Details</label>
+                <field id="nip_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>NIP Request API Url</label>
+                    <comment/>
+                </field>
+            </group>
+			<group id="digicel_nipagain_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>NIP Again Request Api Details</label>
+                <field id="nipagain_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>NIP Again Request API Url</label>
+                    <comment/>
+                </field>
+            </group>
+			<group id="digicel_billingsystem_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Billing System Api Details</label>
+                <field id="billing_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Billing System API Url</label>
+                    <comment/>
+                </field>
+            </group>
+			<group id="digicel_statusmsisdn_api_details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>Status Msisdn Api Details</label>
+                <field id="statusmsisdn_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+                    <label>Status Msisdn API Url</label>
+                    <comment/>
+                </field>
+            </group>
             <group id="log_api" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
                 <label>Log API</label>
                 <field id="save_response" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">

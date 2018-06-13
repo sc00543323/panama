@@ -57,6 +57,15 @@ class OfflinepaymentManagement implements OfflinepaymentManagementInterface
 				$order->setResultId('0');
 				$order->setResultMessage('Invalid order id or invalid ConfirmationId');
 			}
+			$logRequest[] = $orderId;
+			$logRequest[] = $orderPaymentConfirm;
+			$logRequest[] = $ConfirmationNumber;
+			$logRequest[] = $PaymentType;
+			$logRequest[] = $paidOn;
+			$logResponse[] = $order->getResultId();
+			$logResponse[] = $order->getResultMessage();
+			$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/offlinepaymentupdate_request_response.log', "<==Request==>\n".json_encode($logRequest));
+			$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/offlinepaymentupdate_request_response.log', "<==Response==>\n".json_encode($logResponse)."\n\n");
 		}
 		
 		return $resultId = $order->getResultId();

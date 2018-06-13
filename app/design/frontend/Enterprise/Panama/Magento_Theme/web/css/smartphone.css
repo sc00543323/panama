@@ -40,7 +40,7 @@
 	margin: 20px 0px;
 	background-color: #FAFAFA;
 	text-align: center;
-	padding: 10% 0px;
+	padding: 18% 0px;
 	display: flex;
 	display: -webkit-flex;
 }
@@ -321,7 +321,7 @@
 	align-items: center;
 	border-bottom: 1px solid #E3E3E3;
 	padding-bottom: 40px;
-	margin: 10px 20px 40px 20px;
+	margin: 20px 20px 40px 20px;
 }
 .smart-phone-button-cont {
 	-webkit-flex: 1;
@@ -386,7 +386,7 @@
 	padding: 30px 10px;
 }
 .sim-plan-header div {
-	font-size: 45px;
+	font-size: 34.85px;
 	font-weight: bold;
 	font-family: poppins;
 	display: inline-block;
@@ -400,7 +400,7 @@
 	vertical-align: top;
 }
 .sim-plan-header label {
-	font-size:15px;
+	font-size: 12.67px;
 	font-weight:normal;
 	display:block;
 	text-transform:uppercase;
@@ -439,13 +439,15 @@
 	border-bottom: 1px solid #E3E3E3;
 	text-transform: uppercase;
 	font-size: 12px;
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 	padding-bottom: 5px;
+	text-align: center;
 }
 .sim-panel-body .fas {
 	color:#E4002B;
 	font-size: 24px;
-	flex: 1;
+	/*flex: 1;
+	-webkit-flex: 1;*/
 	padding-left: 10px;
 	padding-top: 10px;
 }
@@ -458,7 +460,7 @@
 	font-weight: 300;
 	line-height: 30px;
 }
-.plan-spec {
+.plan-spec, .smartphone-price-cont {
 	display:block;
 	text-align:center;
 	line-height: 23px;
@@ -467,7 +469,10 @@
 	text-transform:uppercase;
 	line-height: 25px;
 }
-.plan-spec span {
+.smartphone-price-cont {
+	margin-bottom: 20px;
+}
+.smartphone-price-cont span {
 	color:#E4002B;
 }
 .payment-mode {
@@ -477,51 +482,98 @@
 	text-transform:uppercase;
 }
 .feature-cont {
-	display: flex;
+	/*display: flex;
 	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;*/
+	align-items: center;
+	-webkit-align-items: center;
+	text-align:center;
 }
 .feature-cont ul {
 	font-family: poppins;
-	flex: 5;
-	-webkit-flex: 5;
+	/*flex: 5;
+	-webkit-flex: 5;*/
 	margin-bottom: 30px;
 	font-weight: 300;
+	text-align: center;
+	margin-top: 10px;
 }
 .feature-cont li {
-	list-style:disc;
+	/*list-style:disc;*/
 	color:#808080;
-	font-size:11px;
-	letter-spacing: 0.1px;
-	line-height: 21px;
+	font-size: 13px;
+	letter-spacing: 0.23px;
+	line-height: 16px;
 }
 .terms-cont {
-	color: #E4002B;
+	color: #BCBCBC;
 	font-size: 11px;
 	text-align: center;
 	text-transform:uppercase;
 	line-height: 18px;
 	margin-top: 20px;
 }
+.smart-phone-spec-spcg {
+	border-bottom: 1px solid #E3E3E3;
+	margin-bottom: 40px;
+	padding-bottom: 60px;
+}
+.smart-phone-spec-spcg .smart-phone-bdy-spec {
+	flex:1 !important;
+}
+.prepaid-offers {
+	flex:1;
+	margin-right: 20px;
+	margin-top: 20px;
+}
+.smart-phone-spec-spcg .smartphone-sim-plans {
+	width: 30vw;
+}
+.smart-phone-spec-spcg .smartphone-sim-plans label {
+	display:none;
+}
+.prepaid-offers .specification-sub-header {
+	text-transform:uppercase;
+	margin: 0px 20px 25px 10px;
+}
 @media (max-width: 767px){
+	.smartphone-btn-pos {
+		top: 2135px !important;
+	}
+	.smartphone-sim-plans-spcg {
+		width: 91vw !important;
+	}
+	.prepaid-offers {
+		margin-left:20px;
+	}
+	.smartphone-sim-plans label {
+		font-size: 12px;
+	}
+	.radio-button-cont .radio-button:first-child {
+		margin-bottom: 20px;
+	}
 	.radio-button-cont {
 		margin-left:-20px;
+		flex-direction: column;
 	}
 	.smartphone-sim-plans {
 		width: auto;
 		margin-left: 20px;
 		margin-right: 20px;
 		margin-bottom: 60px;
+		order: 3;
 	}
 	.smartphone-sim-plan-panel {
-		margin: 0px 10px 60px 10px;
+		margin: 0px 0px 90px 0px;
 	}
-	.smartphone-sim-plan-panel:last-child {
+	/*.smartphone-sim-plan-panel:last-child {
 		margin: 0px 10px;
-	}
+	}*/
 	.smartphone-sim-plan-container {
 		flex-direction: column;
 		-webkit-flex-direction: column;
-		margin-top: 50px;
+		margin-top: 190px;
 	}
 	.btn-content {
 		text-align:center;
@@ -537,9 +589,9 @@
 		flex-flow:row;
 		flex:1;
 	}
-	.search-box {
+	/*.search-box {
 		display:none;
-	}
+	}*/
 	.smart-phone-bdy, .smart-phone-side, .smart-phone-bdy-spec {
 		-webkit-flex-direction: column;
 		flex-direction: column;
@@ -606,7 +658,12 @@
 		-webkit-flex-direction: column;		
 		
 		align-items: stretch;
-		-webkit-align-items: stretch;		
+		-webkit-align-items: stretch;
+		position: absolute;
+		top: 3665px;
+		border-bottom: 0;
+		width: 100%;
+		margin: 20px 20px 40px 0px;
 	}
 	.smart-phone-button-cont {
 		text-align: center;
@@ -619,13 +676,15 @@
 	}
 	
 	.smart-phone-portability{
-		text-align:	center;
+		/*text-align:	center;*/
 		flex-direction: column;
 	}
 	.smart-phone-portability span {
 		display:block;
 		margin: 40px 0px;
 		flex: 1;
+		line-height: 35px;
+		text-align: center;
 	}
 	
 	.smart-phone-portability .radio-button{
@@ -634,8 +693,8 @@
 	
 	
 	.smart-phone-rating {
-		order:4;
-		margin:0px 20px;
+		order:3;
+		margin: 50px 20px 30px 20px;
 	}
 	.smart-phone-button {
 		padding: 15px 25px;
@@ -645,7 +704,10 @@
 	}
 	.smart-phone-pr-radio {
 		order:5;
-		margin-bottom: 15px;
+		/*margin-bottom: 15px;*/
+		position: absolute;
+		top: 1680px;
+		margin: 0px 30px;
 	}
 	.smart-phone-reviews {
 		flex-direction: column;
@@ -689,6 +751,29 @@
 	}
 }
 @media (min-width: 768px) and (max-width: 1024px){
+	.pre-paid-offers .prepaid-offers {
+		padding-bottom: 150px;
+		border-bottom: 1px solid #E3E3E3;
+	}
+	.pre-paid-offers .smart-phone-spec {
+		border-bottom: 0;
+		padding-bottom: 0px;
+	}
+	.pre-paid-offers .smart-phone-btm-bdy {
+		top: 1875px;
+		border-bottom: 0;
+		width: 93vw;
+	}
+	.prepaid-offers {
+		margin-left: 20px;
+	}
+	.sim-panel-body .fas {
+		padding-left:0px;
+	}
+	.smartphone-sim-plans {
+		margin: 20px;
+		width: auto !important;
+	}
 	.smart-phone-spec {
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -745,6 +830,7 @@
 	}
 	.smart-phone-pr-radio {
 		margin-top: 30px;
+		margin-bottom: 30px;
 	}
 	.smart-phone-button {
 		padding: 15px 25px;
@@ -752,6 +838,10 @@
 	.smart-phone-btm-bdy {
 		flex-direction: column;
 		-webkit-flex-direction: column;
+		position: absolute;
+		top: 3234px;
+		width: 100%;
+		padding-bottom: 60px;
 	}
 	.smart-phone-reviews {
 		flex-direction: row;
@@ -759,6 +849,21 @@
 		
 		flex-wrap: wrap;
 		-webkit-flex-wrap: wrap;
+		border-bottom: 0;
+	}
+	.smartphone-sim-plan-container {
+		flex-direction: column;
+		-webkit-flex-direction: column;
+		border-bottom: 0;
+		margin: 0px 20px 165px 20px;
+	}
+	.smartphone-sim-plan-panel {
+		margin-bottom:60px;
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+	.smartphone-sim-plan-panel:last-child {
+		margin-bottom:00px;
 	}
 	
 	.smart-phone-reviews > div{
@@ -786,6 +891,9 @@
 	.smart-phone-spec-detail {
 		line-height: 21px;
 	}
+	/*.smart-phone-cont .smart-phone-spec-detail:first-child {
+		margin-top: 115px;
+	}*/
 	.smart-phone-cont .smart-phone-spec-detail:last-child {
 		border-bottom: 0px;
 	}

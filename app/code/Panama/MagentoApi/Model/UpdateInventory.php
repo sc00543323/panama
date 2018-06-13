@@ -40,13 +40,16 @@ class UpdateInventory implements UpdateInventoryInterface
     public function updateInventory(\Panama\MagentoApi\Api\Data\InventoryInterface $inventoryData) {
 	
 		
-		
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 		$skuDetailsArray = $inventoryData->getSkuDetails();		
 		$inventoryDataResponse = array();
+		$logRequest = array();
 		$i = 0;
 		foreach($skuDetailsArray as $skuDetails) {
 			$sku = $skuDetails->getSku();
 			$qty = $skuDetails->getQty();
+			$logRequest[$i]["SkuId"] = $sku;
+			$logRequest[$i]["qty"] = $qty;
 			if(!$sku) {
 				$inventoryDataResponse[$i]["ResultCode"]=0;
 				$inventoryDataResponse[$i]["SkuId"]=$sku;
@@ -60,18 +63,18 @@ class UpdateInventory implements UpdateInventoryInterface
 				$product=$this->_product->loadByAttribute('sku', $sku); //load product which you want to update stock
 				if($product && ($product->getTypeId()=='simple' || $product->getTypeId() == 'virtual')){
 				
-				$stockItem=$this->_stockRegistry->getStockItem($product->getId()); // load stock of that product
-			
-				//$stockItem->setData('qty',$qty); //set updated quantity
-				$product->setStockData(['qty' => $qty, 'is_in_stock' => $qty > 0]);
+					$stockItem=$this->_stockRegistry->getStockItem($product->getId()); // load stock of that product
 				
-				$stockItem->setData('use_config_notify_stock_qty',1);
-				$stockItem->save(); //save stock of item
-				$product->save(); //  also save product
-						
-				$inventoryDataResponse[$i]["ResultCode"]=1;
-				$inventoryDataResponse[$i]["SkuId"]=$sku;
-				$inventoryDataResponse[$i]["ResultMessage"]="inventory updated";
+					//$stockItem->setData('qty',$qty); //set updated quantity
+					$product->setStockData(['qty' => $qty, 'is_in_stock' => $qty > 0]);
+					
+					$stockItem->setData('use_config_notify_stock_qty',1);
+					$stockItem->save(); //save stock of item
+					$product->save(); //  also save product
+							
+					$inventoryDataResponse[$i]["ResultCode"]=1;
+					$inventoryDataResponse[$i]["SkuId"]=$sku;
+					$inventoryDataResponse[$i]["ResultMessage"]="inventory updated";
 				} else {
 					$inventoryDataResponse[$i]["ResultCode"]=0;
 					$inventoryDataResponse[$i]["SkuId"]=$sku;
@@ -80,6 +83,8 @@ class UpdateInventory implements UpdateInventoryInterface
 			}
 			$i++;
 		}
+			$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/inventoryupdate_request_response.log', "<==Request==>\n".json_encode($logRequest));
+			$objectManager->get('Panama\MagentoApi\Helper\Data')->logCreate('/var/log/inventoryupdate_request_response.log', "<==Response==>\n".json_encode($inventoryDataResponse)."\n\n");
 		return json_encode($inventoryDataResponse);
 	
    
